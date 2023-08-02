@@ -1,4 +1,12 @@
 # E-Commerce SPA with Commercetools API Integration
+## :raised_hand: Team
+- Eugene Solomonyk [GitHub](https://github.com/solosoft2000)
+- Olga Buksman [GitHub](https://github.com/fault1err)
+- Yana Zahoruiko [GitHub](https://github.com/Yasya23)
+- :mortar_board: Mentor <b>LilithPrimary</b> [GitHub](https://github.com/lilithprimary)
+- :mortar_board: Mentor <b>Denis Shiryaev</b> [GitHub](https://github.com/tambovchanin)
+- :mortar_board: Mentor <b>Ivan Zakharanka</b> [GitHub](https://github.com/Vanya1000)
+
 ## :mega: Project Overview
 This project aims to create a Single Page Application (SPA) for an e-commerce platform. The application will allow users to browse and purchase products from various categories. It will incorporate essential e-commerce functionalities like user authentication, product listing, product details, shopping cart management, and user profiles. The project will use the Commercetools API for product data retrieval and management.
 
