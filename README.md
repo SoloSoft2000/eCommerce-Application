@@ -3,7 +3,7 @@
 - Eugene Solomonyk [GitHub](https://github.com/solosoft2000)
 - Olga Buksman [GitHub](https://github.com/fault1err)
 - Yana Zahoruiko [GitHub](https://github.com/Yasya23)
-- :mortar_board: Mentor <b>LilithPrimary</b> [GitHub](https://github.com/lilithprimary)
+- :mortar_board: Mentor <b>Galia Iakusheva</b> [GitHub](https://github.com/lilithprimary)
 - :mortar_board: Mentor <b>Denis Shiryaev</b> [GitHub](https://github.com/tambovchanin)
 - :mortar_board: Mentor <b>Ivan Zakharanka</b> [GitHub](https://github.com/Vanya1000)
 
