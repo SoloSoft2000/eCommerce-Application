@@ -1,0 +1,41 @@
+{
+  "name": "ecommerce-application",
+  "version": "1.0.0",
+  "description": "final task JSFE2023Q1",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve --mode development --open",
+    "build": "webpack --mode production",
+    "develop": "webpack --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoloSoft2000/eCommerce-Application.git"
+  },
+  "keywords": [
+    "Typescript",
+    "Eslint",
+    "Webpack",
+    "Jest",
+    "Husky",
+    "Prettier",
+    "CommerceTools"
+  ],
+  "author": "solosoft2000, yasya23, fault1err",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SoloSoft2000/eCommerce-Application/issues"
+  },
+  "homepage": "https://github.com/SoloSoft2000/eCommerce-Application#readme",
+  "devDependencies": {
+    "css-loader": "^6.8.1",
+    "html-webpack-plugin": "^5.5.3",
+    "mini-css-extract-plugin": "^2.7.6",
+    "sass": "^1.64.2",
+    "sass-loader": "^13.3.2",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
