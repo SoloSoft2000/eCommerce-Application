@@ -10,6 +10,8 @@ module.exports = (env, argv) => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: isDevelopment ? 'bundle.dev.js' : 'bundle.prod.js',
+      assetModuleFilename: 'assets/[name].[ext]',
+      clean: true,
     },
     devtool: isDevelopment ? 'inline-source-map' : false,
     devServer: {
@@ -28,11 +30,21 @@ module.exports = (env, argv) => {
               options: { sourceMap: true }
             }
           ],
-        },  
+        },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: 'asset/resource',
+        },
+        {
+          test: /\.(woff|woff2|eot|ttf|otf)$/i,
+          type: 'asset/resource',
+        },
       ],
     },
     plugins: [
-      new HtmlWebpackPlugin(),
+      new HtmlWebpackPlugin({
+        title: 'eCommerce Application'
+      }),
       new MiniCssExtractPlugin({
         filename: '[name].css',
       }),
