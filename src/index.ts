@@ -1,4 +1,4 @@
-import './styles/style.scss'
+import './styles/style.scss';
 
 console.log('Start application');
 const h1 = document.createElement('h1');
