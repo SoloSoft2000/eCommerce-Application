@@ -1,0 +1,28 @@
+{
+  "name": "ecommerce-application",
+  "version": "1.0.0",
+  "description": "final task JSFE2023Q1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoloSoft2000/eCommerce-Application.git"
+  },
+  "keywords": [
+    "Typescript",
+    "Eslint",
+    "Webpack",
+    "Jest",
+    "Husky",
+    "Prettier",
+    "CommerceTools"
+  ],
+  "author": "solosoft2000, yasya23, fault1err",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SoloSoft2000/eCommerce-Application/issues"
+  },
+  "homepage": "https://github.com/SoloSoft2000/eCommerce-Application#readme"
+}
