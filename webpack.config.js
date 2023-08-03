@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env, argv) => {
   const isDevelopment = argv.mode === 'development';
@@ -19,6 +20,7 @@ module.exports = (env, argv) => {
       ],
     },
     plugins: [
+      new HtmlWebpackPlugin(),
     ],
   }
 };
