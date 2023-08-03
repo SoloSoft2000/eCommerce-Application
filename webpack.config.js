@@ -6,7 +6,7 @@ module.exports = (env, argv) => {
   const isDevelopment = argv.mode === 'development';
 
   return {
-    entry: './src/index.js',
+    entry: './src/index.ts',
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: isDevelopment ? 'bundle.dev.js' : 'bundle.prod.js',
@@ -18,8 +18,16 @@ module.exports = (env, argv) => {
       watchFiles: path.join(__dirname, 'src'),
       port: 9000,
     },
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js'],
+    },
     module: {
       rules: [
+        {
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
         {
           test: /\.(scss|css)$/,
           use: [
