@@ -8,6 +8,7 @@
     "build": "webpack --mode production",
     "develop": "webpack --mode development",
     "lint": "eslint .",
+    "format": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -36,9 +37,11 @@
     "eslint": "^8.46.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-config-prettier": "^8.10.0",
     "eslint-plugin-import": "^2.28.0",
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
+    "prettier": "3.0.1",
     "sass": "^1.64.2",
     "sass-loader": "^13.3.2",
     "ts-loader": "^9.4.4",
