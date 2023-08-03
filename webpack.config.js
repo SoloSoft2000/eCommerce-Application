@@ -35,8 +35,8 @@ module.exports = (env, argv) => {
             'css-loader',
             {
               loader: 'sass-loader',
-              options: { sourceMap: true }
-            }
+              options: { sourceMap: true },
+            },
           ],
         },
         {
@@ -51,11 +51,11 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        title: 'eCommerce Application'
+        title: 'eCommerce Application',
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css',
       }),
     ],
-  }
+  };
 };
