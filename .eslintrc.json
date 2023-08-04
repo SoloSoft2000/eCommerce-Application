@@ -12,7 +12,7 @@
     "project": "./tsconfig.json"
   },
   "ignorePatterns": ["webpack.**.*"],
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "eol-last": ["error", "always"],
     "@typescript-eslint/no-explicit-any": "error",

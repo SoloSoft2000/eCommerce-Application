@@ -6,7 +6,7 @@ module.exports = (env, argv) => {
   const isDevelopment = argv.mode === 'development';
 
   return {
-    entry: './src/index.ts',
+    entry: './src/index.tsx',
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: isDevelopment ? 'bundle.dev.js' : 'bundle.prod.js',
@@ -19,12 +19,12 @@ module.exports = (env, argv) => {
       port: 9000,
     },
     resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
+      extensions: ['.tsx', '.ts', '.js', '.jsx'],
     },
     module: {
       rules: [
         {
-          test: /\.tsx?$/,
+          test: /\.(tsx|ts)?$/,
           use: 'ts-loader',
           exclude: /node_modules/,
         },
