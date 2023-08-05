@@ -17,6 +17,7 @@ module.exports = (env, argv) => {
     devServer: {
       watchFiles: path.join(__dirname, 'src'),
       port: 9000,
+      historyApiFallback: true,
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx'],

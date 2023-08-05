@@ -1,11 +1,17 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import userReducer from './reducers/userReducer';
+import './styles/style.scss';
+
+const root = document.getElementById('root');
+
+if (!root) {
+  throw new Error('No root element found');
+}
 
 const store = configureStore({
   reducer: {
@@ -13,29 +19,10 @@ const store = configureStore({
   },
 });
 
-const root = document.getElementById('root');
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <Provider store={store}>
-//       <Router>
-//         <App />
-//       </Router>
-//     </Provider>
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
-
-if (!root) {
-  throw new Error('No root element found');
-}
-
 createRoot(root).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
