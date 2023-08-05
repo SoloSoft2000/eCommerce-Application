@@ -51,7 +51,8 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        title: 'eCommerce Application',
+        template: "./src/index.html",
+        filename: "./index.html"
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css',

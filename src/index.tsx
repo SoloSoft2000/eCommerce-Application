@@ -1,11 +1,41 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './styles/style.scss';
+// import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import App from './App';
+import userReducer from './reducers/userReducer';
 
-console.log('Start application');
+const store = configureStore({
+  reducer: {
+    user: userReducer,
+  },
+});
 
-const App: React.FC = () => <h1>eCommerce-Application</h1>;
+const root = document.getElementById('root');
 
-ReactDOM.render(<App />, document.body);
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <Provider store={store}>
+//       <Router>
+//         <App />
+//       </Router>
+//     </Provider>
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
 
-export default App;
+if (!root) {
+  throw new Error('No root element found');
+}
+
+createRoot(root).render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </React.StrictMode>
+);
