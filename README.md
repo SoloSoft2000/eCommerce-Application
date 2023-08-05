@@ -63,7 +63,7 @@ This project aims to create a Single Page Application (SPA) for an e-commerce pl
 
 - #### Usage:
 ```
-npm run
+npm run lint
 ```
 - #### Description:
 The ESLint script is used to run code linting on all the TypeScript files in the project. ESLint helps enforce coding standards and identifies potential issues or errors in the code.
@@ -75,7 +75,7 @@ The ESLint script is used to run code linting on all the TypeScript files in the
 ### 2. Prettier 
 - #### Usage:
 ```
-npm run
+npm run prett
 ```
 - #### Description:
 The Prettier script is used to automatically format the code based on the project's Prettier configuration. Prettier helps maintain a consistent code style throughout the project.
