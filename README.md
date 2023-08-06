@@ -52,8 +52,8 @@ This project aims to create a Single Page Application (SPA) for an e-commerce pl
 
 ## :fire: Technology Stack:
 
-- HTML
-- CSS
+- React
+- Tailwind CSS
 - TypeScript
 - API Integration: Commercetools API
 
