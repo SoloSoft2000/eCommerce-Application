@@ -12,9 +12,11 @@
     "project": "./tsconfig.json"
   },
   "ignorePatterns": ["webpack.**.*"],
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "eol-last": ["error", "always"],
+    "import/extensions": "off",
+    "import/no-extraneous-dependencies": "off",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/no-non-null-assertion": "error"

@@ -2,11 +2,11 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = (env, argv) => {
+module.exports = (argv) => {
   const isDevelopment = argv.mode === 'development';
 
   return {
-    entry: './src/index.ts',
+    entry: './src/index.tsx',
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: isDevelopment ? 'bundle.dev.js' : 'bundle.prod.js',
@@ -17,14 +17,15 @@ module.exports = (env, argv) => {
     devServer: {
       watchFiles: path.join(__dirname, 'src'),
       port: 9000,
+      historyApiFallback: true,
     },
     resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
+      extensions: ['.tsx', '.ts', '.js', '.jsx'],
     },
     module: {
       rules: [
         {
-          test: /\.tsx?$/,
+          test: /\.(tsx|ts)?$/,
           use: 'ts-loader',
           exclude: /node_modules/,
         },
@@ -33,10 +34,7 @@ module.exports = (env, argv) => {
           use: [
             MiniCssExtractPlugin.loader,
             'css-loader',
-            {
-              loader: 'sass-loader',
-              options: { sourceMap: true },
-            },
+            'postcss-loader'
           ],
         },
         {
@@ -51,7 +49,8 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        title: 'eCommerce Application',
+        template: "./src/index.html",
+        filename: "./index.html"
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css',
