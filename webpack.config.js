@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = (env, argv) => {
+module.exports = (argv) => {
   const isDevelopment = argv.mode === 'development';
 
   return {
@@ -17,6 +17,7 @@ module.exports = (env, argv) => {
     devServer: {
       watchFiles: path.join(__dirname, 'src'),
       port: 9000,
+      historyApiFallback: true,
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx'],
@@ -33,10 +34,7 @@ module.exports = (env, argv) => {
           use: [
             MiniCssExtractPlugin.loader,
             'css-loader',
-            {
-              loader: 'sass-loader',
-              options: { sourceMap: true },
-            },
+            'postcss-loader'
           ],
         },
         {
@@ -51,7 +49,8 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        title: 'eCommerce Application',
+        template: "./src/index.html",
+        filename: "./index.html"
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css',
