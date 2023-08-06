@@ -3,9 +3,9 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import './styles/index.css';
 import App from './App';
 import userReducer from './reducers/userReducer';
-import './styles/style.scss';
 
 const root = document.getElementById('root');
 
