@@ -17,7 +17,7 @@ function Password(): React.JSX.Element {
     <>
       <input
         className="w-full border-b-2 border-zinc-200 py-3 px-1"
-        placeholder="Password"
+        placeholder="Password*"
         type={passwordIsShown ? 'text' : 'password'}
         name="Password"
         value={passwordValue}

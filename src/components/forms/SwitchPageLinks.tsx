@@ -1,11 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import FormProps from '../../interfaces/forms/form-props';
 
-interface LinkProps {
-  [key: string]: string;
-}
-
-function SwitchPageLinks({ pageName }: LinkProps): React.JSX.Element {
+function SwitchPageLinks({ pageName }: FormProps): React.JSX.Element {
   const containerClasses =
     'w-full bg-zinc-200 flex justify-between p-1 rounded mb-20';
   const activeLinkClasses = 'w-6/12 rounded text-center p-2 hover:bg-zinc-300';
