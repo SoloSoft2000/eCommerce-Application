@@ -5,12 +5,12 @@ import Footer from './components/Footer';
 import Main from './components/Main';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
-import Navigation from './components/Navigation';
+// import Navigation from './components/Navigation';
 
 function App(): React.JSX.Element {
   return (
     <>
-      <Navigation />
+      {/* <Navigation /> */}
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
