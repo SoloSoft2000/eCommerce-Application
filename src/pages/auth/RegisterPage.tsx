@@ -14,7 +14,7 @@ function RegisterPage(): React.JSX.Element {
       <div className="text-black w-[32rem] max-w-full	text-left">
         <Title />
         <SwitchPageLinks pageName="register" />
-        <form>
+        <form className="px-2 sm:px-0">
           <Email />
           <Password />
           <div className="flex justify-between flex-wrap">

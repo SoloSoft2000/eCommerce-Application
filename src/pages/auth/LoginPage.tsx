@@ -11,7 +11,7 @@ function LoginPage(): React.JSX.Element {
       <div className="text-black w-[32rem] max-w-full text-left">
         <Title />
         <SwitchPageLinks pageName="login" />
-        <form action="">
+        <form className="px-2 sm:px-0">
           <div className="mb-12">
             <Email />
             <Password />
