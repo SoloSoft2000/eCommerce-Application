@@ -6,7 +6,7 @@ interface LinkProps {
 }
 
 function SwitchPageLinks({pageName}: LinkProps): React.JSX.Element {
-  const containerClasses = "w-full bg-zinc-200 flex justify-between p-1 rounded";
+  const containerClasses = "w-full bg-zinc-200 flex justify-between p-1 rounded mb-20";
   const activeLinkClasses = "w-6/12 rounded text-center p-2 hover:bg-zinc-300";
   const disabledLinkClasses = "bg-white rounded w-6/12 text-center p-2 cursor-default drop-shadow-sm"
 
