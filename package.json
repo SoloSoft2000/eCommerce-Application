@@ -4,7 +4,7 @@
   "description": "final task JSFE2023Q1",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --mode development --open",
+    "start": "webpack serve --mode development --open --env mode=development",
     "build": "webpack --mode production",
     "develop": "webpack --mode development",
     "lint": "eslint ./src",
