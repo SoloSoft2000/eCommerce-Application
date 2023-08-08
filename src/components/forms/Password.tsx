@@ -1,12 +1,17 @@
 import React, { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { togglePassword, setPasswordValue } from '../../reducers/passwordReduce';
+import {
+  togglePassword,
+  setPasswordValue,
+} from '../../reducers/passwordReduce';
 import { RootState } from '../../reducers/store';
 
 function Password(): React.JSX.Element {
   const dispatch = useDispatch();
 
-  const passwordIsShown = useSelector((state: RootState) => state.password.isShown);
+  const passwordIsShown = useSelector(
+    (state: RootState) => state.password.isShown
+  );
   const passwordValue = useSelector((state: RootState) => state.password.value);
 
   function handlePassword(e: ChangeEvent<HTMLInputElement>): void {
