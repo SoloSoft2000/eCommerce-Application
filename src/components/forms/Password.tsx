@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   togglePassword,
@@ -14,11 +14,6 @@ function Password(): React.JSX.Element {
   );
   const passwordValue = useSelector((state: RootState) => state.password.value);
 
-  function handlePassword(e: ChangeEvent<HTMLInputElement>): void {
-    const { value } = e.target;
-    dispatch(setPasswordValue(value));
-  }
-
   return (
     <>
       <input
@@ -27,7 +22,8 @@ function Password(): React.JSX.Element {
         type={passwordIsShown ? 'text' : 'password'}
         name="Password"
         value={passwordValue}
-        onChange={handlePassword}
+        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+        onChange={(e) => dispatch(setPasswordValue(e.target.value))}
       />
       <input
         type="checkbox"
