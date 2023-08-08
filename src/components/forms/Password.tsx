@@ -33,6 +33,7 @@ function Password(): React.JSX.Element {
       <label htmlFor="passwordIsShown">
         {passwordIsShown ? 'Hide Password' : 'Show Password'}
       </label>
+      <span className="text-xs text-red-500 h-3 px-2"></span>
     </>
   );
 }
