@@ -1,16 +1,17 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { togglePassword, setPasswordValue } from '../../reducers/passwordReduce';
+import { RootState } from '../../reducers/store';
 
 function Password(): React.JSX.Element {
-  const [passwordIsShown, setPasswordIsShown] = useState(false);
-  const [passwordValue, setPasswordValue] = useState('');
+  const dispatch = useDispatch();
 
-  function togglePassword(): void {
-    setPasswordIsShown((prevValue) => !prevValue);
-  }
+  const passwordIsShown = useSelector((state: RootState) => state.password.isShown);
+  const passwordValue = useSelector((state: RootState) => state.password.value);
 
   function handlePassword(e: ChangeEvent<HTMLInputElement>): void {
     const { value } = e.target;
-    setPasswordValue(() => value);
+    dispatch(setPasswordValue(value));
   }
 
   return (
@@ -27,7 +28,8 @@ function Password(): React.JSX.Element {
         type="checkbox"
         name="passwordIsShown"
         checked={passwordIsShown}
-        onChange={togglePassword}
+        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+        onChange={() => dispatch(togglePassword())}
         className="mr-2 inline-block my-3"
       />
       <label htmlFor="passwordIsShown">
