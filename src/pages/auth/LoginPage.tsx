@@ -3,6 +3,7 @@ import Title from '../../components/forms/Title';
 import SwitchPageLinks from '../../components/forms/SwitchPageLinks';
 import Email from '../../components/forms/Email';
 import Password from '../../components/forms/Password';
+import SubmitFormButton from '../../components/forms/SubmitFormBtn';
 
 function LoginPage(): React.JSX.Element {
   return (
@@ -10,9 +11,12 @@ function LoginPage(): React.JSX.Element {
       <div className="text-black w-[32rem] max-w-full text-left">
         <Title />
         <SwitchPageLinks pageName="login" />
-        <form action="">
-          <Email />
-          <Password />
+        <form className="px-2 sm:px-0">
+          <div className="mb-12">
+            <Email />
+            <Password />
+          </div>
+          <SubmitFormButton value="Sign in" />
         </form>
       </div>
     </main>
