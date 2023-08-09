@@ -42,6 +42,7 @@
   "homepage": "https://github.com/SoloSoft2000/eCommerce-Application#readme",
   "devDependencies": {
     "@types/jest": "^29.5.3",
+    "@types/node-fetch": "^2.6.4",
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",
     "autoprefixer": "^10.4.14",

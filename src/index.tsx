@@ -6,6 +6,16 @@ import { BrowserRouter } from 'react-router-dom';
 import './styles/index.css';
 import App from './App';
 import userReducer from './reducers/userReducer';
+import apiRoot from './sdk/client';
+
+// apiRoot.get().execute()
+//   .then(console.log)
+//   .catch(console.error);
+apiRoot.productProjections()
+  .get()
+  .execute()
+  .then(console.log)
+  .catch(console.error);
 
 const root = document.getElementById('root');
 
