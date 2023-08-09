@@ -63,14 +63,20 @@ function RegisterPage(): React.JSX.Element {
                 Set as default billing and shipping address
               </label>
 
-              <fieldset disabled={defaultAdress}>
+              <fieldset className={defaultAdress ? 'hidden' : 'block'}>
                 <legend className="py-2 px-1 font-bold">
                   Billing address:
                 </legend>
-                <TextField name="address" placeholder="Street Address*" />
+                <TextField
+                  name="billingAddress"
+                  placeholder="Street Address*"
+                />
                 <div className="flex justify-between flex-wrap">
-                  <TextField name="city" placeholder="City / Town*" />
-                  <TextField name="postcode" placeholder="Postcode / ZIP *" />
+                  <TextField name="billingCity" placeholder="City / Town*" />
+                  <TextField
+                    name="billingPostcode"
+                    placeholder="Postcode / ZIP *"
+                  />
                 </div>
               </fieldset>
             </div>
