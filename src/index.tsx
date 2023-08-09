@@ -11,7 +11,8 @@ import apiRoot from './sdk/client';
 // apiRoot.get().execute()
 //   .then(console.log)
 //   .catch(console.error);
-apiRoot.productProjections()
+apiRoot
+  .productProjections()
   .get()
   .execute()
   .then(console.log)
