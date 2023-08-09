@@ -9,10 +9,12 @@ import CatalogPage from './pages/CatalogPage';
 import UserProfilePage from './pages/UserProfilePage';
 import BasketPage from './pages/BasketPage';
 import AboutUsPage from './pages/AboutUsPage';
+import Layout from './components/Layout';
 
 function App(): React.JSX.Element {
   return (
     <>
+    <Layout>
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
@@ -24,6 +26,7 @@ function App(): React.JSX.Element {
         <Route path="/about" element={<AboutUsPage />} />
       </Routes>
       <Footer />
+    </Layout>
     </>
   );
 }
