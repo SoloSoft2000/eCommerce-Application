@@ -8,15 +8,12 @@ import App from './App';
 import userReducer from './reducers/userReducer';
 import apiRoot from './sdk/client';
 
-// apiRoot.get().execute()
-//   .then(console.log)
-//   .catch(console.error);
 apiRoot
   .productProjections()
   .get()
   .execute()
-  .then(console.log)
-  .catch(console.error);
+  .then(console.log) //eslint-disable-line
+  .catch(console.error); //eslint-disable-line
 
 const root = document.getElementById('root');
 
