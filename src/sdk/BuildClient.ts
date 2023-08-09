@@ -1,10 +1,8 @@
 import fetch from 'node-fetch';
 import {
   ClientBuilder,
-
-  // Import middlewares
-  type AuthMiddlewareOptions, // Required for auth
-  type HttpMiddlewareOptions, // Required for sending HTTP requests
+  type PasswordAuthMiddlewareOptions,
+  type HttpMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
 
 const projectKey = 'ecommerce-jsfe2023q1';
@@ -17,30 +15,29 @@ const scopes = [
   'manage_my_shopping_lists:ecommerce-jsfe2023q1',
 ];
 
-// Configure authMiddlewareOptions
-const authMiddlewareOptions: AuthMiddlewareOptions = {
+const authMiddlewareOptions: PasswordAuthMiddlewareOptions = {
   host: 'https://auth.europe-west1.gcp.commercetools.com',
   projectKey,
   credentials: {
     clientId: 'Jq4_O4966hagz9nm_ubJM63z',
     clientSecret: 'QJ8zfquBO88097yRJQbuWkFVLdV95QVT',
+    user: {
+      username: 'sowa4il@gmail.com',
+      password: 'JS&dontStop2023q1',
+    },
   },
   scopes,
   fetch,
 };
 
-// Configure httpMiddlewareOptions
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: 'https://api.europe-west1.gcp.commercetools.com',
   fetch,
 };
 
-// Export the ClientBuilder
 const ctpClient = new ClientBuilder()
-  .withProjectKey(projectKey) // .withProjectKey() is not required if the projectKey is included in authMiddlewareOptions
-  .withClientCredentialsFlow(authMiddlewareOptions)
+  .withPasswordFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
-  .withLoggerMiddleware() // Include middleware for logging
   .build();
 
 export default ctpClient;

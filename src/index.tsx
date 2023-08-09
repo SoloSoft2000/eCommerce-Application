@@ -9,7 +9,7 @@ import userReducer from './reducers/userReducer';
 import apiRoot from './sdk/client';
 
 apiRoot
-  .productProjections()
+  .me()
   .get()
   .execute()
   .then(console.log) //eslint-disable-line
