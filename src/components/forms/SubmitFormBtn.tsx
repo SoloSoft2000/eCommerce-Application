@@ -1,7 +1,7 @@
 import React from 'react';
-import FormProps from '../../interfaces/forms/form-props';
+import { ButtonSubmit } from '../../interfaces/forms/form-props';
 
-function SubmitFormButton({ value }: FormProps): React.JSX.Element {
+function SubmitFormButton({ value }: ButtonSubmit): React.JSX.Element {
   return (
     <input
       type="submit"

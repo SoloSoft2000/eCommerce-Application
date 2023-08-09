@@ -1,20 +1,18 @@
 const passwordValidation = {
-  validation: {
-    required: {
-      value: true,
-      message: 'This field is requied',
-    },
-    minLength: {
-      value: 6,
-      message: 'min 6 characters',
-    },
+  required: {
+    value: true,
+    message: 'This field is requied',
+  },
+  minLength: {
+    value: 6,
+    message: 'min 6 characters',
   },
 };
 
 const emaildValidation = {
   required: {
     value: true,
-    message: '🔺 The email field is required',
+    message: 'The email field is required',
   },
   pattern: {
     value:

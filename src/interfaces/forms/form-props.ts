@@ -2,4 +2,9 @@ interface FormProps {
   [key: string]: string;
 }
 
-export default FormProps;
+interface ButtonSubmit {
+  value: string;
+  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
+}
+
+export { FormProps, ButtonSubmit };

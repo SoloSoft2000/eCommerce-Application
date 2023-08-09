@@ -1,5 +1,5 @@
 import React from 'react';
-import FormProps from '../../interfaces/forms/form-props';
+import { FormProps } from '../../interfaces/forms/form-props';
 
 function TextField({ placeholder, name }: FormProps): React.JSX.Element {
   const names = ['firstName', 'lastName', 'city', 'postcode'];

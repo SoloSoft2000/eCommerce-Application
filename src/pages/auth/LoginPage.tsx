@@ -9,7 +9,7 @@ import SubmitFormButton from '../../components/forms/SubmitFormBtn';
 function LoginPage(): React.JSX.Element {
   const methods = useForm();
 
-  const onSubmit = methods.handleSubmit(async (data) => {
+  const onSubmit = methods.handleSubmit((data) => {
     console.log(data);
   });
 
