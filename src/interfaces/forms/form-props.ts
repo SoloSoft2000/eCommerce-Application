@@ -7,4 +7,13 @@ interface ButtonSubmit {
   onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
 }
 
-export { FormProps, ButtonSubmit };
+interface EmailProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+interface PasswordProps {
+  onPasswordChange: (value: string) => void;
+}
+
+export { FormProps, ButtonSubmit, EmailProps, PasswordProps };
