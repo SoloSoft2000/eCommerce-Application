@@ -1,8 +1,29 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { emaildValidation } from '../../utils/forms/validation';
+
+// interface ValidationRule<T> {
+//   value: T;
+//   message: string;
+// }
+
+// type Validation<T> = {
+//   required?: ValidationRule<T>;
+//   minLength?: ValidationRule<number>;
+// };
+
+// interface EmailProps<T> {
+//   validation: Validation<boolean>;
+// }
 
 function Email(): React.JSX.Element {
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
+  const message = errors.Email?.message?.toString();
+  const error = errors.Email && message ? message : '';
 
   return (
     <div className="w-full">
@@ -11,14 +32,9 @@ function Email(): React.JSX.Element {
         placeholder="Email*"
         type="email"
         // name="Email"
-      {...register('Email', {
-        required: {
-          value: true,
-          message: 'required',
-        },
-      })}
+        {...register('Email', emaildValidation)}
       />
-      <p className="text-xs text-red-500 h-3"></p>
+      <p className="text-red-500 text-[12px] h-5">{error}</p>
     </div>
   );
 }
