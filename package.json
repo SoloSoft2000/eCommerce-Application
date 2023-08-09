@@ -42,6 +42,7 @@
   "homepage": "https://github.com/SoloSoft2000/eCommerce-Application#readme",
   "devDependencies": {
     "@types/jest": "^29.5.3",
+    "@types/node-fetch": "^2.6.4",
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",
     "autoprefixer": "^10.4.14",
@@ -74,6 +75,8 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
+    "@commercetools/platform-sdk": "^4.11.0",
+    "@commercetools/sdk-client-v2": "^2.2.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",

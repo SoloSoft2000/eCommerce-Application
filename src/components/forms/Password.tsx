@@ -1,17 +1,17 @@
 import React, { useState, ChangeEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { passwordValidation } from '../../utils/forms/validation';
+import { PasswordProps } from '../../interfaces/forms/form-props';
 
-function Password(): React.JSX.Element {
+function Password({ onPasswordChange }: PasswordProps): React.JSX.Element {
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
-  const errorMessage = errors.Password?.message;
-
   const [passwordIsShown, setPasswordIsShown] = useState(false);
   const [passwordValue, setPasswordValue] = useState('');
+  const errorMessage = errors.Password?.message;
 
   function togglePassword(): void {
     setPasswordIsShown((prevValue) => !prevValue);
@@ -20,6 +20,7 @@ function Password(): React.JSX.Element {
   function handlePassword(e: ChangeEvent<HTMLInputElement>): void {
     const { value } = e.target;
     setPasswordValue(() => value);
+    onPasswordChange(value);
   }
 
   return (
