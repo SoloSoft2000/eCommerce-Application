@@ -1,6 +1,10 @@
 import React, { useState, ChangeEvent } from 'react';
 
-function Password(): React.JSX.Element {
+interface PasswordProps {
+  onPasswordChange: (value: string) => void; // новый пропс для функции обратного вызова
+}
+
+function Password({ onPasswordChange }: PasswordProps): React.JSX.Element {
   const [passwordIsShown, setPasswordIsShown] = useState(false);
   const [passwordValue, setPasswordValue] = useState('');
 
@@ -11,6 +15,7 @@ function Password(): React.JSX.Element {
   function handlePassword(e: ChangeEvent<HTMLInputElement>): void {
     const { value } = e.target;
     setPasswordValue(() => value);
+    onPasswordChange(value);
   }
 
   return (
