@@ -5,7 +5,7 @@ import SwitchPageLinks from '../../components/forms/SwitchPageLinks';
 import Email from '../../components/forms/Email';
 import Password from '../../components/forms/Password';
 import SubmitFormButton from '../../components/forms/SubmitFormBtn';
-// import getCustomers from '../../sdk/getCustomers';
+import getCustomers from '../../sdk/getCustomers';
 
 function LoginPage(): React.JSX.Element {
   const methods = useForm();
@@ -15,16 +15,25 @@ function LoginPage(): React.JSX.Element {
 
   const onSubmit = methods.handleSubmit((data) => {
     console.log(data, password);
+    getCustomers(email, password)
+    .then((data) => console.log('customers=', data)) //eslint-disable-line
+    .catch((err) => console.error(err)); //eslint-disable-line
   });
 
   // const handleSubmit = async (
   //   event: React.FormEvent<HTMLFormElement>
   // ): Promise<void> => {
   //   event.preventDefault();
+  //   onSubmit()
+  //   .then(() => {
 
-  //   getCustomers(email, password)
-  //     .then((data) => console.log('customers=', data)) //eslint-disable-line
-  //     .catch((err) => console.error(err)); //eslint-disable-line
+
+     
+  //   })
+  //   .catch((e) => {
+  //     console.log(e);
+  //   })
+
   // };
 
   const handlePasswordChange = (value: string): void => {
