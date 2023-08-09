@@ -1,42 +1,40 @@
 import fetch from 'node-fetch';
 import {
   ClientBuilder,
-  type PasswordAuthMiddlewareOptions,
+  type AuthMiddlewareOptions,
   type HttpMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
 
+const region = 'europe-west1.gcp';
 const projectKey = 'ecommerce-jsfe2023q1';
+
 const scopes = [
-  'manage_my_orders:ecommerce-jsfe2023q1',
-  'view_published_products:ecommerce-jsfe2023q1',
-  'create_anonymous_token:ecommerce-jsfe2023q1',
-  'manage_my_profile:ecommerce-jsfe2023q1',
-  'view_categories:ecommerce-jsfe2023q1',
-  'manage_my_shopping_lists:ecommerce-jsfe2023q1',
+  `manage_my_orders:${projectKey}`,
+  `view_published_products:${projectKey}`,
+  `create_anonymous_token:${projectKey}`,
+  `manage_my_profile:${projectKey}`,
+  `view_categories:${projectKey}`,
+  `manage_my_shopping_lists:${projectKey}`,
 ];
 
-const authMiddlewareOptions: PasswordAuthMiddlewareOptions = {
-  host: 'https://auth.europe-west1.gcp.commercetools.com',
+const authMiddlewareOptions: AuthMiddlewareOptions = {
+  host: `https://auth.${region}.commercetools.com`,
   projectKey,
   credentials: {
     clientId: 'Jq4_O4966hagz9nm_ubJM63z',
     clientSecret: 'QJ8zfquBO88097yRJQbuWkFVLdV95QVT',
-    user: {
-      username: 'sowa4il@gmail.com',
-      password: 'JS&dontStop2023q1',
-    },
   },
   scopes,
   fetch,
 };
 
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
-  host: 'https://api.europe-west1.gcp.commercetools.com',
+  host: `https://api.${region}.commercetools.com`,
   fetch,
 };
 
 const ctpClient = new ClientBuilder()
-  .withPasswordFlow(authMiddlewareOptions)
+  .withClientCredentialsFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
   .build();
 

@@ -7,13 +7,23 @@ import './styles/index.css';
 import App from './App';
 import userReducer from './reducers/userReducer';
 import apiRoot from './sdk/client';
+import getCustomers from './sdk/getCustomers';
+
+
 
 apiRoot
-  .me()
+  .productProjections()
   .get()
   .execute()
-  .then(console.log) //eslint-disable-line
+  .then((data) => console.log('products=', data)) //eslint-disable-line
   .catch(console.error); //eslint-disable-line
+
+
+ getCustomers('sowa4il@gmail.com', 'JS&dontStop2023q1')
+  .then((data) => console.log('customers=', data)) //eslint-disable-line
+  .catch((err)  => console.error(err)); //eslint-disable-line
+
+
 
 const root = document.getElementById('root');
 
