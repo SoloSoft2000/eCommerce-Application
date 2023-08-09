@@ -62,23 +62,24 @@ function RegisterPage(): React.JSX.Element {
               <label htmlFor="defaultAdress">
                 Set as default billing and shipping address
               </label>
-
-              <fieldset className={defaultAdress ? 'hidden' : 'block'}>
-                <legend className="py-2 px-1 font-bold">
-                  Billing address:
-                </legend>
-                <TextField
-                  name="billingAddress"
-                  placeholder="Street Address*"
-                />
-                <div className="flex justify-between flex-wrap">
-                  <TextField name="billingCity" placeholder="City / Town*" />
+              {!defaultAdress && (
+                <fieldset>
+                  <legend className="py-2 px-1 font-bold">
+                    Billing address:
+                  </legend>
                   <TextField
-                    name="billingPostcode"
-                    placeholder="Postcode / ZIP *"
+                    name="billingAddress"
+                    placeholder="Street Address*"
                   />
-                </div>
-              </fieldset>
+                  <div className="flex justify-between flex-wrap">
+                    <TextField name="billingCity" placeholder="City / Town*" />
+                    <TextField
+                      name="billingPostcode"
+                      placeholder="Postcode / ZIP *"
+                    />
+                  </div>
+                </fieldset>
+              )}
             </div>
 
             <SubmitFormButton value="Create an account" />
