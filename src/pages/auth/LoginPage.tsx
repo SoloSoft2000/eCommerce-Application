@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Title from '../../components/forms/Title';
 import SwitchPageLinks from '../../components/forms/SwitchPageLinks';
 import Email from '../../components/forms/Email';
 import Password from '../../components/forms/Password';
 import SubmitFormButton from '../../components/forms/SubmitFormBtn';
 import getCustomers from '../../sdk/getCustomers';
+import { setCustomer } from '../../reducers/customerReducer';
 
 function LoginPage(): React.JSX.Element {
   const methods = useForm();
@@ -13,25 +16,17 @@ function LoginPage(): React.JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const onSubmit = methods.handleSubmit(() => {
-    getCustomers(email, password)
-      .then((data) => console.log('customers=', data))
+    getCustomers(email, password) // 'sowa4il@gmail.com', 'JS&dontStop2023q1'
+      .then((data) => {
+        dispatch(setCustomer(data));
+        navigate('/');
+      })
       .catch((err) => console.error(err)); //eslint-disable-line
   });
-
-  // const handleSubmit = async (
-  //   event: React.FormEvent<HTMLFormElement>
-  // ): Promise<void> => {
-  //   event.preventDefault();
-  //   onSubmit()
-  //   .then(() => {
-
-  //   })
-  //   .catch((e) => {
-  //     console.log(e);
-  //   })
-
-  // };
 
   const handlePasswordChange = (value: string): void => {
     setPassword(value);
