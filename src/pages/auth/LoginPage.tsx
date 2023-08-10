@@ -13,7 +13,7 @@ import { setCustomer } from '../../reducers/customerReducer';
 function LoginPage(): React.JSX.Element {
   const methods = useForm();
 
-  const [error, setError] = useState<string|null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,10 +27,10 @@ function LoginPage(): React.JSX.Element {
         navigate('/');
       })
       .catch((err) => {
-        setError(`Произошла ошибка при попытке входа:\n${err}\nПожалуйста, попробуйте еще раз.`);
+        console.log(err);
+        setError(`Invalid Email or Password`);
       });
   });
-
 
   return (
     <main className="flex justify-center py-16">

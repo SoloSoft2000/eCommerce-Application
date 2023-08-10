@@ -19,10 +19,6 @@ const passwordValidation = {
     value: true,
     message: 'This field is requied',
   },
-  minLength: {
-    value: 8,
-    message: errorMassage,
-  },
   validate: (value: string): string | boolean =>
     isStrongPassword(value) || errorMassage,
 };

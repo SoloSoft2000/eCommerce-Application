@@ -1,12 +1,12 @@
-const textFieldsValidation = {
+const letterCharacter = {
   required: {
     value: true,
     message: 'This field is requied',
   },
   pattern: {
     value: /[A-Za-z]/,
-    message: 'Min 1 letter',
+    message: 'Min one letter',
   },
 };
 
-export default textFieldsValidation;
+export default letterCharacter;
