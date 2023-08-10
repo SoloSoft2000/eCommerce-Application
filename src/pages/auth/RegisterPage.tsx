@@ -63,7 +63,7 @@ function RegisterPage(): React.JSX.Element {
                 onChange={handleChange}
               />
               <label htmlFor="defaultAdress">
-                Set as default billing and shipping address
+                Set as address for billing and shipping
               </label>
               {!defaultAdress && (
                 <fieldset>
