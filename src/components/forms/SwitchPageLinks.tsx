@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import FormProps from '../../interfaces/forms/form-props';
+import { FormProps } from '../../interfaces/forms/form-props';
 
 function SwitchPageLinks({ pageName }: FormProps): React.JSX.Element {
   const containerClasses =
