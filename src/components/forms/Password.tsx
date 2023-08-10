@@ -11,7 +11,7 @@ function Password({ onPasswordChange }: PasswordProps): React.JSX.Element {
 
   const [passwordIsShown, setPasswordIsShown] = useState(false);
   const [passwordValue, setPasswordValue] = useState('');
-  const errorMessage = errors.Password?.message;
+  const errorMessage = errors.password?.message;
 
   function togglePassword(): void {
     setPasswordIsShown((prevValue) => !prevValue);
@@ -30,8 +30,8 @@ function Password({ onPasswordChange }: PasswordProps): React.JSX.Element {
         placeholder="Password*"
         type={passwordIsShown ? 'text' : 'password'}
         value={passwordValue}
-        autoComplete="false"
-        {...register('Password', passwordValidation)}
+        autoComplete="on"
+        {...register('password', passwordValidation)}
         onChange={handlePassword}
       />
       <input

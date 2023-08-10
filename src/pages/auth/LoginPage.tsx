@@ -10,31 +10,19 @@ import getCustomers from '../../sdk/getCustomers';
 function LoginPage(): React.JSX.Element {
   const methods = useForm();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [emailType, setEmailType] = useState('');
+  const [passwordType, setPasswordType] = useState('');
 
-  const onSubmit = methods.handleSubmit(() => {
+  const onSubmit = methods.handleSubmit((data) => {
+    const { email, password } = data;
+    console.log(data);
     getCustomers(email, password)
-      .then((data) => console.log('customers=', data))
-      .catch((err) => console.error(err)); //eslint-disable-line
+      .then((customerData) => console.log('customers=', customerData))
+      .catch((err) => console.error(err));
   });
 
-  // const handleSubmit = async (
-  //   event: React.FormEvent<HTMLFormElement>
-  // ): Promise<void> => {
-  //   event.preventDefault();
-  //   onSubmit()
-  //   .then(() => {
-
-  //   })
-  //   .catch((e) => {
-  //     console.log(e);
-  //   })
-
-  // };
-
   const handlePasswordChange = (value: string): void => {
-    setPassword(value);
+    setPasswordType(value);
   };
 
   return (
@@ -47,8 +35,8 @@ function LoginPage(): React.JSX.Element {
           <form onSubmit={onSubmit} noValidate className="px-2 sm:px-0">
             <div className="mb-12">
               <Email
-                onChange={(e): void => setEmail(e.target.value)}
-                value={email}
+                onChange={(e): void => setEmailType(e.target.value)}
+                value={emailType}
               />
               <Password onPasswordChange={handlePasswordChange} />
             </div>
