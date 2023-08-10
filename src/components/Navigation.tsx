@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AiOutlineUser } from 'react-icons/ai';
+import { SlBasket } from 'react-icons/sl';
 
 function Navigation(): React.JSX.Element {
   return (
-    <nav className="flex justify-between">
+    <nav className="flex justify-between m-8">
       <Link className="pr-4" to="/">
         Main
       </Link>
@@ -14,13 +16,16 @@ function Navigation(): React.JSX.Element {
         Register
       </Link>
       <Link className="pr-4" to="/catalog">
-        Catalog
+      Catalog Product
+      </Link>
+      <Link className="pr-4" to="/product">
+        Detailed Product
       </Link>
       <Link className="pr-4" to="/profile">
-        User Profile
+      <div className='flex'><AiOutlineUser className='mr-1' /> User Profile</div>
       </Link>
       <Link className="pr-4" to="/basket">
-        Basket
+      <div className='flex'><SlBasket className='mr-1'/> Basket</div>
       </Link>
       <Link className="pr-4" to="/about">
         About Us
