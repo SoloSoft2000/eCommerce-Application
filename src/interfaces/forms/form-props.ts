@@ -7,13 +7,14 @@ interface ButtonSubmit {
   onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
 }
 
-interface EmailProps {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+interface ValidationFunction {
+  required: { value: boolean; message: string };
+  pattern?: { value: RegExp; message: string };
+  validate?: (value: string) => string | boolean;
 }
 
-interface PasswordProps {
-  onPasswordChange: (value: string) => void;
+interface TextFields {
+  [key: string]: ValidationFunction;
 }
 
-export { FormProps, ButtonSubmit, EmailProps, PasswordProps };
+export { FormProps, ButtonSubmit, TextFields };
