@@ -16,13 +16,6 @@ function RegisterPage(): React.JSX.Element {
     console.log(data);
   });
 
-  const [email, setEmail] = useState('');
-  const [, setPassword] = useState('');
-
-  const handlePasswordChange = (value: string): void => {
-    setPassword(value);
-  };
-
   const [defaultAdress, setDefaultAdress] = useState(true);
 
   function handleChange(): void {
@@ -35,11 +28,8 @@ function RegisterPage(): React.JSX.Element {
         <SwitchPageLinks pageName="register" />
         <FormProvider {...methods}>
           <form onSubmit={onSubmit} noValidate className="px-2 sm:px-0">
-            <Email
-              onChange={(e): void => setEmail(e.target.value)}
-              value={email}
-            />
-            <Password onPasswordChange={handlePasswordChange} />
+            <Email />
+            <Password />
 
             <div className="flex justify-between flex-wrap">
               <TextField name="firstName" placeholder="First Name*" />

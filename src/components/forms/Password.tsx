@@ -1,9 +1,8 @@
 import React, { useState, ChangeEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { passwordValidation } from '../../utils/forms/validation';
-import { PasswordProps } from '../../interfaces/forms/form-props';
 
-function Password({ onPasswordChange }: PasswordProps): React.JSX.Element {
+function Password(): React.JSX.Element {
   const {
     register,
     formState: { errors },
@@ -20,7 +19,6 @@ function Password({ onPasswordChange }: PasswordProps): React.JSX.Element {
   function handlePassword(e: ChangeEvent<HTMLInputElement>): void {
     const { value } = e.target;
     setPasswordValue(() => value);
-    onPasswordChange(value);
   }
 
   return (
