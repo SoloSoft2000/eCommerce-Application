@@ -1,9 +1,9 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { emaildValidation } from '../../utils/forms/validation';
-import { EmailProps } from '../../interfaces/forms/form-props';
 
-function Email({ value, onChange }: EmailProps): React.JSX.Element {
+function Email(): React.JSX.Element {
+  const generalClasses = 'w-full py-3 px-1';
   const {
     register,
     formState: { errors },
@@ -14,12 +14,14 @@ function Email({ value, onChange }: EmailProps): React.JSX.Element {
   return (
     <div className="w-full">
       <input
-        className="w-full border-b-2 border-zinc-200 py-3 px-1"
+        className={
+          errorMessage
+            ? `${generalClasses} outline-2 outline-red-300`
+            : `${generalClasses} border-b-2 border-zinc-200`
+        }
         placeholder="Email*"
         type="email"
-        value={value}
         {...register('email', emaildValidation)}
-        onChange={onChange}
         autoComplete="on"
       />
       {errorMessage && (
