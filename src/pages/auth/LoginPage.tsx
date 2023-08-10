@@ -23,7 +23,7 @@ function LoginPage(): React.JSX.Element {
     getCustomers(email, password) // 'sowa4il@gmail.com', 'JS&dontStop2023q1'
       .then((data) => {
         dispatch(setCustomer(data));
-        navigate('/main');
+        navigate('/');
       })
       .catch((err) => console.error(err)); //eslint-disable-line
   });
