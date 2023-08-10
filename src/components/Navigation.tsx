@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Navigation(): React.JSX.Element {
   return (
-    <nav className="flex justify-between">
+    <nav className="flex justify-between m-8">
       <Link className="pr-4" to="/">
         Main
       </Link>
@@ -14,7 +14,10 @@ function Navigation(): React.JSX.Element {
         Register
       </Link>
       <Link className="pr-4" to="/catalog">
-        Catalog
+      Catalog Product
+      </Link>
+      <Link className="pr-4" to="/product">
+        Detailed Product
       </Link>
       <Link className="pr-4" to="/profile">
         User Profile
