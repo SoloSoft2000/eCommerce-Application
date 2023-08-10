@@ -1,7 +1,8 @@
 import React from 'react';
+import Main from '../components/Main';
 
 function HomePage(): React.JSX.Element {
-  return <div>{<h3>HOME</h3>}</div>;
+  return <Main />;
 }
 
 export default HomePage;
