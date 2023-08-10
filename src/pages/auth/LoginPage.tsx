@@ -13,23 +13,24 @@ import { setCustomer } from '../../reducers/customerReducer';
 function LoginPage(): React.JSX.Element {
   const methods = useForm();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [emailType, setEmailType] = useState('');
+  const [passwordType, setPasswordType] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const onSubmit = methods.handleSubmit(() => {
-    getCustomers(email, password) // 'sowa4il@gmail.com', 'JS&dontStop2023q1'
-      .then((data) => {
+  const onSubmit = methods.handleSubmit((data) => {
+    const { email, password } = data;
+    console.log(data);
+    getCustomers(email, password) 'sowa4il@gmail.com', 'JS&dontStop2023q1'
+          .then((data) => {
         dispatch(setCustomer(data));
         navigate('/');
       })
       .catch((err) => console.error(err)); //eslint-disable-line
-  });
+
 
   const handlePasswordChange = (value: string): void => {
-    setPassword(value);
+    setPasswordType(value);
   };
 
   return (
@@ -42,8 +43,8 @@ function LoginPage(): React.JSX.Element {
           <form onSubmit={onSubmit} noValidate className="px-2 sm:px-0">
             <div className="mb-12">
               <Email
-                onChange={(e): void => setEmail(e.target.value)}
-                value={email}
+                onChange={(e): void => setEmailType(e.target.value)}
+                value={emailType}
               />
               <Password onPasswordChange={handlePasswordChange} />
             </div>
