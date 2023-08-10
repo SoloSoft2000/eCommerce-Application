@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { passwordValidation } from '../../utils/forms/validation';
+import passwordValidation from '../../utils/forms/passwordValidation';
 
 function Password(): React.JSX.Element {
   const {
