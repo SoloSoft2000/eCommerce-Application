@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormProps } from '../../interfaces/forms/form-props';
-import { textFieldsValidation } from '../../utils/forms/validation';
+import textFieldsValidation from '../../utils/forms/validation';
 
 function TextField({ placeholder, name }: FormProps): React.JSX.Element {
   const {
