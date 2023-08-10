@@ -24,6 +24,9 @@ function RegisterPage(): React.JSX.Element {
   return (
     <main className="flex justify-center py-16">
       <div className="text-black w-[32rem] max-w-full	text-left">
+        <div className="m-auto bg-black w-10 h-10 rounded-full flex justify-center items-center mb-2">
+          <p className="text-white">13+</p>
+        </div>
         <Title />
         <SwitchPageLinks pageName="register" />
         <FormProvider {...methods}>

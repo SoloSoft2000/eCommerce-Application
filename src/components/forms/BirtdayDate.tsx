@@ -7,7 +7,7 @@ function BirtdayDate(): React.JSX.Element {
         <label htmlFor="birthday" className="text-gray-400 mr-1">
           Date of birth*
         </label>
-        <input type="date" name="birthday" defaultValue="2000-05-27" />
+        <input type="date" name="birthday" />
       </div>
       <p className="text-sm text-red-500 h-5"></p>
     </div>

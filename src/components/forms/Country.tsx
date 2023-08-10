@@ -1,11 +1,20 @@
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
+import { cityValidation } from '../../utils/forms/validation';
 
 function Country(): React.JSX.Element {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
+  const errorMessage = errors.Country?.message;
+
   return (
     <div className="w-full sm:w-[47%]">
       <select
-        name="country"
         className="w-full border-b-2 border-zinc-200 py-[0.95rem] px-1"
+        {...register('Country', cityValidation)}
       >
         <option value="" className="text-gray-400">
           Country*
@@ -13,7 +22,11 @@ function Country(): React.JSX.Element {
         <option value="USA">USA</option>
         <option value="Canada">Canada</option>
       </select>
-      <p className="text-xs text-red-500 text-sm h-5"></p>
+      {errorMessage && (
+        <p className="text-xs text-red-500 text-sm h-5">
+          {errorMessage.toString()}
+        </p>
+      )}
     </div>
   );
 }

@@ -27,7 +27,7 @@ const emaildValidation = {
   },
 };
 
-const textFields = {
+const textFieldsValidation = {
   required: {
     value: true,
     message: 'This field is requied',
@@ -38,4 +38,20 @@ const textFields = {
   },
 };
 
-export { emaildValidation, passwordValidation, textFields };
+const cityValidation = {
+  required: {
+    value: true,
+    message: 'This field is requied',
+  },
+  // pattern: {
+  //   value: /[A-Za-z]/,
+  //   message: 'Min 1 letter',
+  // },
+};
+
+export {
+  emaildValidation,
+  passwordValidation,
+  textFieldsValidation,
+  cityValidation,
+};
