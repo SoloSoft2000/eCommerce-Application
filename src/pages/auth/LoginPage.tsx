@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +13,8 @@ import { setCustomer } from '../../reducers/customerReducer';
 function LoginPage(): React.JSX.Element {
   const methods = useForm();
 
+  const [error, setError] = useState<string|null>(null);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onSubmit = methods.handleSubmit((data) => {
@@ -21,10 +23,14 @@ function LoginPage(): React.JSX.Element {
     getCustomers(email, password) // 'sowa4il@gmail.com', 'JS&dontStop2023q1'
       .then((customerData) => {
         dispatch(setCustomer(customerData));
+        setError(null);
         navigate('/');
       })
-      .catch((err) => console.error(err)); //eslint-disable-line
+      .catch((err) => {
+        setError(`Произошла ошибка при попытке входа:\n${err}\nПожалуйста, попробуйте еще раз.`);
+      });
   });
+
 
   return (
     <main className="flex justify-center py-16">
@@ -38,6 +44,7 @@ function LoginPage(): React.JSX.Element {
               <Email />
               <Password />
             </div>
+            {error && <div className="error-message">{error}</div>}
             <SubmitFormButton value="Sign in" />
           </form>
         </FormProvider>
