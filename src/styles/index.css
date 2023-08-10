@@ -20,3 +20,9 @@ body {
 main {
   flex: 1 1 auto;
 }
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
+}
