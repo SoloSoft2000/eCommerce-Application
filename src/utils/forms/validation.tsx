@@ -3,9 +3,11 @@ const passwordValidation = {
     value: true,
     message: 'This field is requied',
   },
-  minLength: {
-    value: 6,
-    message: 'min 6 characters',
+  pattern: {
+    value:
+      /^ (?=.* [A - Z])(?=.* [a - z])(?=.*\d)(?=.* [!@#$ %^&*])(?!.*\s)(.{ 8, })$/,
+    message:
+      'Password requires 8+ characters, an uppercase letter, a lowercase letter, a digit, and optionally a special character, with no leading/trailing spaces.',
   },
 };
 
@@ -17,7 +19,8 @@ const emaildValidation = {
   pattern: {
     value:
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    message: 'Not valid email formate',
+    message:
+      'Enter a valid email address (e.g., user@example.com) with no leading or trailing spaces, containing a domain name and "@" symbol.',
   },
 };
 
