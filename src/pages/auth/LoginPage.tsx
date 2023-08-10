@@ -13,11 +13,10 @@ function LoginPage(): React.JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const onSubmit = methods.handleSubmit((data) => {
-    console.log(data, password);
+  const onSubmit = methods.handleSubmit(() => {
     getCustomers(email, password)
-    .then((data) => console.log('customers=', data)) //eslint-disable-line
-    .catch((err) => console.error(err)); //eslint-disable-line
+      .then((data) => console.log('customers=', data))
+      .catch((err) => console.error(err)); //eslint-disable-line
   });
 
   // const handleSubmit = async (
@@ -27,8 +26,6 @@ function LoginPage(): React.JSX.Element {
   //   onSubmit()
   //   .then(() => {
 
-
-     
   //   })
   //   .catch((e) => {
   //     console.log(e);
