@@ -13,6 +13,7 @@ function Navigation(): React.JSX.Element {
       <Link className="pr-4" to="/register">
         Register
       </Link>
+<<<<<<< HEAD
       <Link className="pr-4" to="/catalog">
         Catalog
       </Link>
@@ -23,6 +24,18 @@ function Navigation(): React.JSX.Element {
         Basket
       </Link>
       <Link className="pr-4" to="/about">
+=======
+      <Link className="pr-4" to="/register">
+        Catalog Product
+      </Link>
+      <Link className="pr-4" to="/register">
+        User Profile
+      </Link>
+      <Link className="pr-4" to="/register">
+        Basket
+      </Link>
+      <Link className="pr-4" to="/register">
+>>>>>>> sdk_validation
         About Us
       </Link>
     </nav>

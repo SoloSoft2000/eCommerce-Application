@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useForm, FormProvider } from 'react-hook-form';
 import Title from '../../components/forms/Title';
 import SwitchPageLinks from '../../components/forms/SwitchPageLinks';
 import Email from '../../components/forms/Email';
@@ -9,6 +10,19 @@ import BirtdayDate from '../../components/forms/BirtdayDate';
 import Country from '../../components/forms/Country';
 
 function RegisterPage(): React.JSX.Element {
+  const methods = useForm();
+
+  const onSubmit = methods.handleSubmit(async (data) => {
+    console.log(data);
+  });
+
+  const [email, setEmail] = useState('');
+  const [, setPassword] = useState('');
+
+  const handlePasswordChange = (value: string): void => {
+    setPassword(value);
+  };
+
   const [defaultAdress, setDefaultAdress] = useState(true);
 
   function handleChange(): void {
@@ -19,53 +33,68 @@ function RegisterPage(): React.JSX.Element {
       <div className="text-black w-[32rem] max-w-full	text-left">
         <Title />
         <SwitchPageLinks pageName="register" />
-
-        <form className="px-2 sm:px-0">
-          <Email />
-          <Password />
-
-          <div className="flex justify-between flex-wrap">
-            <TextField name="firstName" placeholder="First Name*" />
-            <TextField name="lastName" placeholder="Last Name*" />
-          </div>
-
-          <div className="flex justify-between flex-wrap">
-            <BirtdayDate />
-            <Country />
-          </div>
-          <fieldset>
-            <legend className="py-2 px-1 font-bold">Shipping address*:</legend>
-            <TextField name="address" placeholder="Street Address*" />
-            <div className="flex justify-between flex-wrap">
-              <TextField name="city" placeholder="City / Town*" />
-              <TextField name="postcode" placeholder="Postcode / ZIP *" />
-            </div>
-          </fieldset>
-
-          <div className="mb-12">
-            <input
-              type="checkbox"
-              name="defaultAdress"
-              className="mr-2 inline-block my-3"
-              checked={defaultAdress}
-              onChange={handleChange}
+        <FormProvider {...methods}>
+          <form onSubmit={onSubmit} noValidate className="px-2 sm:px-0">
+            <Email
+              onChange={(e): void => setEmail(e.target.value)}
+              value={email}
             />
-            <label htmlFor="defaultAdress">
-              Set as default billing and shipping address
-            </label>
+            <Password onPasswordChange={handlePasswordChange} />
 
-            <fieldset disabled={defaultAdress}>
-              <legend className="py-2 px-1 font-bold">Billing address:</legend>
+            <div className="flex justify-between flex-wrap">
+              <TextField name="firstName" placeholder="First Name*" />
+              <TextField name="lastName" placeholder="Last Name*" />
+            </div>
+
+            <div className="flex justify-between flex-wrap">
+              <BirtdayDate />
+              <Country />
+            </div>
+            <fieldset>
+              <legend className="py-2 px-1 font-bold">
+                Shipping address*:
+              </legend>
               <TextField name="address" placeholder="Street Address*" />
               <div className="flex justify-between flex-wrap">
                 <TextField name="city" placeholder="City / Town*" />
                 <TextField name="postcode" placeholder="Postcode / ZIP *" />
               </div>
             </fieldset>
-          </div>
 
-          <SubmitFormButton value="Create an account" />
-        </form>
+            <div className="mb-12">
+              <input
+                type="checkbox"
+                name="defaultAdress"
+                className="mr-2 inline-block my-3"
+                checked={defaultAdress}
+                onChange={handleChange}
+              />
+              <label htmlFor="defaultAdress">
+                Set as default billing and shipping address
+              </label>
+              {!defaultAdress && (
+                <fieldset>
+                  <legend className="py-2 px-1 font-bold">
+                    Billing address:
+                  </legend>
+                  <TextField
+                    name="billingAddress"
+                    placeholder="Street Address*"
+                  />
+                  <div className="flex justify-between flex-wrap">
+                    <TextField name="billingCity" placeholder="City / Town*" />
+                    <TextField
+                      name="billingPostcode"
+                      placeholder="Postcode / ZIP *"
+                    />
+                  </div>
+                </fieldset>
+              )}
+            </div>
+
+            <SubmitFormButton value="Create an account" />
+          </form>
+        </FormProvider>
       </div>
     </main>
   );
