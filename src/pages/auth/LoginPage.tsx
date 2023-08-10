@@ -21,13 +21,13 @@ function LoginPage(): React.JSX.Element {
   const onSubmit = methods.handleSubmit((data) => {
     const { email, password } = data;
     console.log(data);
-    getCustomers(email, password) 'sowa4il@gmail.com', 'JS&dontStop2023q1'
-          .then((data) => {
-        dispatch(setCustomer(data));
+    getCustomers(email, password) // 'sowa4il@gmail.com', 'JS&dontStop2023q1'
+      .then((customerData) => {
+        dispatch(setCustomer(customerData));
         navigate('/');
       })
       .catch((err) => console.error(err)); //eslint-disable-line
-
+  });
 
   const handlePasswordChange = (value: string): void => {
     setPasswordType(value);
