@@ -31,7 +31,7 @@ function TextField({ placeholder, name }: FormProps): React.JSX.Element {
         {...register(elementName, textFields)}
       />
       {errorMessage && (
-        <p className="text-xs text-red-500 h-3">{errorMessage.toString()}</p>
+        <p className="text-sm text-red-500 h-5">{errorMessage.toString()}</p>
       )}
     </div>
   );

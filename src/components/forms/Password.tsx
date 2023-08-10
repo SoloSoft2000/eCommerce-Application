@@ -45,7 +45,7 @@ function Password({ onPasswordChange }: PasswordProps): React.JSX.Element {
         {passwordIsShown ? 'Hide Password' : 'Show Password'}
       </label>
       {errorMessage && (
-        <span className="text-xs text-red-500 h-3 px-2">
+        <span className="inline-block	text-sm text-red-500 px-2">
           {' '}
           {errorMessage.toString()}
         </span>

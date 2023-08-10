@@ -9,7 +9,7 @@ function BirtdayDate(): React.JSX.Element {
         </label>
         <input type="date" name="birthday" defaultValue="2000-05-27" />
       </div>
-      <p className="text-xs text-red-500 h-3"></p>
+      <p className="text-sm text-red-500 h-5"></p>
     </div>
   );
 }

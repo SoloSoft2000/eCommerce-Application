@@ -23,9 +23,7 @@ function Email({ value, onChange }: EmailProps): React.JSX.Element {
         autoComplete="on"
       />
       {errorMessage && (
-        <p className="text-red-500 text-[12px] h-5">
-          {errorMessage.toString()}
-        </p>
+        <p className="text-red-500 text-sm">{errorMessage.toString()}</p>
       )}
     </div>
   );

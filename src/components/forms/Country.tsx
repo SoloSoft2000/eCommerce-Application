@@ -13,7 +13,7 @@ function Country(): React.JSX.Element {
         <option value="USA">USA</option>
         <option value="Canada">Canada</option>
       </select>
-      <p className="text-xs text-red-500 h-3"></p>
+      <p className="text-xs text-red-500 text-sm h-5"></p>
     </div>
   );
 }
