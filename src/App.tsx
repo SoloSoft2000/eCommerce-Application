@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Main from './components/Main';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
+import HomePage from './pages/HomePage';
 // import Navigation from './components/Navigation';
 
 function App(): React.JSX.Element {
@@ -14,6 +15,7 @@ function App(): React.JSX.Element {
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/main" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
       </Routes>
