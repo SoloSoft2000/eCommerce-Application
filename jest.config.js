@@ -1,8 +1,8 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  moduleFileExtensions: ['ts', 'js'],
-  testMatch: ['**/tests/**/*.test.ts'],
+  moduleFileExtensions: ['ts', 'js', 'tsx'],
+  testMatch: ['**/tests/**/*.test.(ts|tsx)'],
   moduleNameMapper: {
     '\\.(scss)$': 'identity-obj-proxy',
     '\\.(jpg|png|svg)$': 'identity-obj-proxy',
