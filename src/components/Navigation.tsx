@@ -20,36 +20,12 @@ function Navigation(): React.JSX.Element {
       <Link className="hover:text-neutral-500" to="/">
         Main
       </Link>
-      {!customer.id && (
-        <>
-          <Link className="hover:text-neutral-500" to="/login">
-            Login
-          </Link>
-          <Link className="hover:text-neutral-500" to="/register">
-            Register
-          </Link>
-        </>
-      )}
       <>
         <Link className="hover:text-neutral-500" to="/catalog">
           Catalog Product
         </Link>
         <Link className="hover:text-neutral-500" to="/product">
           Detailed Product
-        </Link>
-        {customer.id && (
-          <Link
-            className="hover:text-neutral-500"
-            to="/"
-            onClick={handleLogout}
-          >
-            Log out
-          </Link>
-        )}
-        <Link className="hover:text-neutral-500" to="/profile">
-          <div className="flex items-center">
-            <AiOutlineUser className="mr-1" /> User Profile
-          </div>
         </Link>
         <Link className="hover:text-neutral-500" to="/basket">
           <div className="flex items-center">
@@ -60,6 +36,33 @@ function Navigation(): React.JSX.Element {
       <Link className="hover:text-neutral-500" to="/about">
         About Us
       </Link>
+
+      {customer.id && (
+        <>
+          <Link className="hover:text-neutral-500" to="/profile">
+            <div className="flex items-center">
+              <AiOutlineUser className="mr-1" /> User Profile
+            </div>
+          </Link>
+          <Link
+            className="text-sky-600	hover:text-neutral-500"
+            to="/"
+            onClick={handleLogout}
+          >
+            Log out
+          </Link>
+        </>
+      )}
+      {!customer.id && (
+        <>
+          <Link className="text-sky-600 hover:text-sky-400" to="/login">
+            Login
+          </Link>
+          <Link className="text-sky-600 hover:text-sky-400" to="/register">
+            Register
+          </Link>
+        </>
+      )}
     </nav>
   );
 }
