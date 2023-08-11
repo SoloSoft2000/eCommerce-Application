@@ -14,7 +14,6 @@ function Password(): React.JSX.Element {
     setPasswordIsShown(!passwordIsShown);
   }, [passwordIsShown]);
 
-
   return (
     <>
       <input
