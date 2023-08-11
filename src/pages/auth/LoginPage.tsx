@@ -11,7 +11,7 @@ import Password from '../../components/forms/Password';
 import SubmitFormButton from '../../components/forms/SubmitFormBtn';
 import getCustomers from '../../sdk/getCustomers';
 import { setCustomer } from '../../reducers/customerReducer';
-import loginSchema from '../../utils/loginSchema';
+import loginSchema from '../../validationSchemas/loginSchema';
 
 function LoginPage(): React.JSX.Element {
   const methods = useForm({

@@ -10,7 +10,7 @@ import SubmitFormButton from '../../components/forms/SubmitFormBtn';
 import TextField from '../../components/forms/TextFiled';
 import BirtdayDate from '../../components/forms/BirtdayDate';
 import Country from '../../components/forms/Country';
-import registerSchema from '../../utils/registerSchema';
+import registerSchema from '../../validationSchemas/registerSchema';
 
 function RegisterPage(): React.JSX.Element {
   const methods = useForm({

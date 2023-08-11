@@ -1,10 +1,11 @@
 import * as yup from 'yup';
 import { subYears } from 'date-fns';
 import { emailRules, passwordRules } from './mailPasswordRules';
+import { countryRules, postalRules } from './countryPostalSchema';
 
 const currentDate = new Date();
 
-const nameValidation = yup
+const namesRules = yup
   .string()
   .required('This field is required')
   .min(1, 'Must contain at least one character')
@@ -13,13 +14,15 @@ const nameValidation = yup
 const registerSchema = yup.object({
   email: emailRules,
   password: passwordRules,
-  firstName: nameValidation,
-  lastName: nameValidation,
-  city: nameValidation,
+  firstName: namesRules,
+  lastName: namesRules,
+  city: namesRules,
   address: yup
     .string()
     .required('The address is required')
     .min(1, 'Must contain at least one character'),
+  postcode: postalRules,
+  country: countryRules,
   Birthday: yup
     .date()
     .required('Date of birth is required')
