@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import passwordValidation from '../../utils/forms/passwordValidation';
 
@@ -12,14 +12,14 @@ function Password(): React.JSX.Element {
   const [passwordValue, setPasswordValue] = useState('');
   const errorMessage = errors.password?.message;
 
-  function togglePassword(): void {
+  const togglePassword = useCallback(() => {
     setPasswordIsShown((prevValue) => !prevValue);
-  }
+  }, []);
 
-  function handlePassword(e: ChangeEvent<HTMLInputElement>): void {
+  const handlePassword = useMemo(() => (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setPasswordValue(() => value);
-  }
+    setPasswordValue(value);
+  }, []);
 
   return (
     <>
