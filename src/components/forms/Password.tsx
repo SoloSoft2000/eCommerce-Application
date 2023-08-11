@@ -1,6 +1,5 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useFormContext } from 'react-hook-form';
-import passwordValidation from '../../utils/forms/passwordValidation';
 
 function Password(): React.JSX.Element {
   const {
@@ -9,17 +8,11 @@ function Password(): React.JSX.Element {
   } = useFormContext();
 
   const [passwordIsShown, setPasswordIsShown] = useState(false);
-  const [passwordValue, setPasswordValue] = useState('');
   const errorMessage = errors.password?.message;
 
-  function togglePassword(): void {
-    setPasswordIsShown((prevValue) => !prevValue);
-  }
-
-  function handlePassword(e: ChangeEvent<HTMLInputElement>): void {
-    const { value } = e.target;
-    setPasswordValue(() => value);
-  }
+  const togglePassword = useCallback(() => {
+    setPasswordIsShown(!passwordIsShown);
+  }, [passwordIsShown]);
 
   return (
     <>
@@ -27,10 +20,8 @@ function Password(): React.JSX.Element {
         className="w-full border-b-2 border-zinc-200 py-3 px-1"
         placeholder="Password*"
         type={passwordIsShown ? 'text' : 'password'}
-        value={passwordValue}
         autoComplete="on"
-        {...register('password', passwordValidation)}
-        onChange={handlePassword}
+        {...register('password')}
       />
       <input
         type="checkbox"

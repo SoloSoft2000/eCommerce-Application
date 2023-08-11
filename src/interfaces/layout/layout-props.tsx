@@ -1,4 +1,4 @@
 interface LayoutProps {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 export default LayoutProps;

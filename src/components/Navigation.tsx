@@ -16,16 +16,20 @@ function Navigation(): React.JSX.Element {
         Register
       </Link>
       <Link className="pr-4" to="/catalog">
-      Catalog Product
+        Catalog Product
       </Link>
       <Link className="pr-4" to="/product">
         Detailed Product
       </Link>
       <Link className="pr-4" to="/profile">
-      <div className='flex'><AiOutlineUser className='mr-1' /> User Profile</div>
+        <div className="flex">
+          <AiOutlineUser className="mr-1" /> User Profile
+        </div>
       </Link>
       <Link className="pr-4" to="/basket">
-      <div className='flex'><SlBasket className='mr-1'/> Basket</div>
+        <div className="flex">
+          <SlBasket className="mr-1" /> Basket
+        </div>
       </Link>
       <Link className="pr-4" to="/about">
         About Us

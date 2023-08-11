@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 import Title from '../../components/forms/Title';
 import SwitchPageLinks from '../../components/forms/SwitchPageLinks';
 import Email from '../../components/forms/Email';
@@ -9,9 +11,13 @@ import Password from '../../components/forms/Password';
 import SubmitFormButton from '../../components/forms/SubmitFormBtn';
 import getCustomers from '../../sdk/getCustomers';
 import { setCustomer } from '../../reducers/customerReducer';
+import loginSchema from '../../validationSchemas/loginSchema';
 
 function LoginPage(): React.JSX.Element {
-  const methods = useForm();
+  const methods = useForm({
+    resolver: yupResolver(loginSchema),
+    mode: 'onBlur',
+  });
 
   const [error, setError] = useState<string | null>(null);
 
