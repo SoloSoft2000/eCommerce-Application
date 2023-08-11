@@ -45,7 +45,7 @@ function Navigation(): React.JSX.Element {
             </div>
           </Link>
           <Link
-            className="text-sky-600	hover:text-neutral-500"
+            className="text-amber-600 hover:text-amber-500"
             to="/"
             onClick={handleLogout}
           >
@@ -55,10 +55,10 @@ function Navigation(): React.JSX.Element {
       )}
       {!customer.id && (
         <>
-          <Link className="text-sky-600 hover:text-sky-400" to="/login">
+          <Link className="text-amber-600 hover:text-amber-500" to="/login">
             Login
           </Link>
-          <Link className="text-sky-600 hover:text-sky-400" to="/register">
+          <Link className="text-amber-600 hover:text-amber-500" to="/register">
             Register
           </Link>
         </>
