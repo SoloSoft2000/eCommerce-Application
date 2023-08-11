@@ -15,20 +15,20 @@ import Layout from './components/Layout';
 function App(): React.JSX.Element {
   return (
     <>
-    <Layout>
-      <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/catalog" element={<CatalogPage />} />
-        <Route path="/product" element={<ProductPage />} />
-        <Route path="/profile" element={<UserProfilePage />} />
-        <Route path="/basket" element={<BasketPage />} />
-        <Route path="/about" element={<AboutUsPage />} />
-      </Routes>
-      <Footer />
-    </Layout>
+      <Layout>
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/catalog" element={<CatalogPage />} />
+          <Route path="/product" element={<ProductPage />} />
+          <Route path="/profile" element={<UserProfilePage />} />
+          <Route path="/basket" element={<BasketPage />} />
+          <Route path="/about" element={<AboutUsPage />} />
+        </Routes>
+        <Footer />
+      </Layout>
     </>
   );
 }

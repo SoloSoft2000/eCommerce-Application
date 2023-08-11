@@ -16,10 +16,13 @@ function Password(): React.JSX.Element {
     setPasswordIsShown((prevValue) => !prevValue);
   }, []);
 
-  const handlePassword = useMemo(() => (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setPasswordValue(value);
-  }, []);
+  const handlePassword = useMemo(
+    () => (e: ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+      setPasswordValue(value);
+    },
+    []
+  );
 
   return (
     <>

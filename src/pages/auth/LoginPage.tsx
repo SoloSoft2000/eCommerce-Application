@@ -16,8 +16,8 @@ import loginSchema from '../../utils/validationSchema';
 function LoginPage(): React.JSX.Element {
   const methods = useForm({
     resolver: yupResolver(loginSchema),
-    mode: 'onBlur'
-});
+    mode: 'onBlur',
+  });
 
   const [error, setError] = useState<string | null>(null);
 
