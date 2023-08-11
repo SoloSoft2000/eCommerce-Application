@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 import Title from '../../components/forms/Title';
 import SwitchPageLinks from '../../components/forms/SwitchPageLinks';
 import Email from '../../components/forms/Email';
@@ -8,9 +10,13 @@ import SubmitFormButton from '../../components/forms/SubmitFormBtn';
 import TextField from '../../components/forms/TextFiled';
 import BirtdayDate from '../../components/forms/BirtdayDate';
 import Country from '../../components/forms/Country';
+import registerSchema from '../../utils/registerSchema';
 
 function RegisterPage(): React.JSX.Element {
-  const methods = useForm();
+  const methods = useForm({
+    resolver: yupResolver(registerSchema),
+    mode: 'onBlur',
+  });
 
   const onSubmit = methods.handleSubmit(async (data) => {
     console.log(data);
