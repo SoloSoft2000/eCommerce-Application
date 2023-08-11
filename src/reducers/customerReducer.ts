@@ -17,9 +17,12 @@ const customerSlice = createSlice({
   initialState,
   reducers: {
     setCustomer: (state, action) => action.payload,
+    clearCustomer: () => initialState,
   },
 });
 
-export const { setCustomer } = customerSlice.actions;
+console.log(customerSlice);
+
+export const { setCustomer, clearCustomer } = customerSlice.actions;
 
 export default customerSlice.reducer;
