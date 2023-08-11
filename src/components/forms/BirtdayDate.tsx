@@ -1,6 +1,5 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-// import birthdayValidation from '../../utils/forms/ageValidation';
 
 function BirtdayDate(): React.JSX.Element {
   const {

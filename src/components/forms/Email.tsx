@@ -1,6 +1,5 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-// import emaildValidation from '../../utils/forms/emailValidation';
 
 function Email(): React.JSX.Element {
   const generalClasses = 'w-full py-3 px-1';
