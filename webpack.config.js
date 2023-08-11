@@ -31,11 +31,7 @@ module.exports = (argv) => {
         },
         {
           test: /\.(scss|css)$/,
-          use: [
-            MiniCssExtractPlugin.loader,
-            'css-loader',
-            'postcss-loader'
-          ],
+          use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -49,8 +45,8 @@ module.exports = (argv) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: "./src/index.html",
-        filename: "./index.html"
+        template: './src/index.html',
+        filename: './index.html',
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css',
