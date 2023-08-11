@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import birthdayValidation from '../../utils/forms/ageValidation';
+// import birthdayValidation from '../../utils/forms/ageValidation';
 
 function BirtdayDate(): React.JSX.Element {
   const {
@@ -16,7 +16,7 @@ function BirtdayDate(): React.JSX.Element {
         <label htmlFor="birthday" className="text-gray-400 mr-1">
           Date of birth*
         </label>
-        <input type="date" {...register('Birthday', birthdayValidation)} />
+        <input type="date" {...register('Birthday')} />
       </div>
       {errorMessage && (
         <p className="text-red-500 text-sm h-5">{errorMessage.toString()}</p>
