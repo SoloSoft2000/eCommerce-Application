@@ -15,6 +15,11 @@ const registerSchema = yup.object({
   password: passwordRules,
   firstName: nameValidation,
   lastName: nameValidation,
+  city: nameValidation,
+  address: yup
+    .string()
+    .required('The address is required')
+    .min(1, 'Must contain at least one character'),
   Birthday: yup
     .date()
     .required('Date of birth is required')
