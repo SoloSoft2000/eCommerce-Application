@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  moduleFileExtensions: ['ts', 'js'],
+  moduleFileExtensions: ['ts', 'js', 'tsx'],
   testMatch: ['**/tests/**/*.test.ts'],
   moduleNameMapper: {
     '\\.(scss)$': 'identity-obj-proxy',
