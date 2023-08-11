@@ -8,4 +8,6 @@ module.exports = {
     '\\.(jpg|png|svg)$': 'identity-obj-proxy',
     '\\.(woff|woff2|eot|ttf)$': 'identity-obj-proxy',
   },
+  collectCoverage: true,
+  collectCoverageFrom: ["src/**/*.tsx"],
 };
