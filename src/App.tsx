@@ -15,7 +15,7 @@ import Layout from './components/Layout';
 
 function App(): React.JSX.Element {
   return (
-    <>
+  <>
     <Layout>
       <Header />
       <Routes>
@@ -31,7 +31,7 @@ function App(): React.JSX.Element {
       </Routes>
       <Footer />
     </Layout>
-    </>
+  </>
   );
 }
 

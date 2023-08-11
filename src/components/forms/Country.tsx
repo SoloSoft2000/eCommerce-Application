@@ -1,6 +1,5 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import countryValidation from '../../utils/forms/countryValidation';
 
 function Country(): React.JSX.Element {
   const {
@@ -14,7 +13,7 @@ function Country(): React.JSX.Element {
     <div className="w-full sm:w-[47%]">
       <select
         className="w-full border-b-2 border-zinc-200 py-[0.95rem] px-1"
-        {...register('Country', countryValidation)}
+        {...register('Country')}
       >
         <option value="" className="text-gray-400">
           Country*
