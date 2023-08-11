@@ -16,46 +16,36 @@ function Navigation(): React.JSX.Element {
   }, [dispatch]);
 
   return (
-    <nav className="flex justify-between m-8">
+    <nav className="flex justify-between gap-4 m-8">
       <Link className="pr-4" to="/">
         Main
       </Link>
       {!customer.id && (
         <>
-          <Link className="pr-4" to="/login">
-            Login
-          </Link>
-          <Link className="pr-4" to="/register">
-            Register
-          </Link>
+          <Link to="/login">Login</Link>
+          <Link to="/register">Register</Link>
         </>
       )}
       <>
-        <Link className="pr-4" to="/catalog">
-          Catalog Product
-        </Link>
-        <Link className="pr-4" to="/product">
-          Detailed Product
-        </Link>
+        <Link to="/catalog">Catalog Product</Link>
+        <Link to="/product">Detailed Product</Link>
         {customer.id && (
-          <Link to="/" className="pr-4" onClick={handleLogout}>
+          <Link to="/" onClick={handleLogout}>
             Log out
           </Link>
         )}
-        <Link className="pr-4" to="/profile">
+        <Link to="/profile">
           <div className="flex">
             <AiOutlineUser className="mr-1" /> User Profile
           </div>
         </Link>
-        <Link className="pr-4" to="/basket">
+        <Link to="/basket">
           <div className="flex">
             <SlBasket className="mr-1" /> Basket
           </div>
         </Link>
       </>
-      <Link className="pr-4" to="/about">
-        About Us
-      </Link>
+      <Link to="/about">About Us</Link>
     </nav>
   );
 }
