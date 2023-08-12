@@ -16,13 +16,14 @@ import loginSchema from '../../validationSchemas/loginSchema';
 function LoginPage(): React.JSX.Element {
   const methods = useForm({
     resolver: yupResolver(loginSchema),
-    mode: 'onBlur',
+    mode: 'all',
   });
 
   const [error, setError] = useState<string | null>(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const onSubmit = methods.handleSubmit((data) => {
     const { email, password } = data;
 
@@ -32,8 +33,7 @@ function LoginPage(): React.JSX.Element {
         setError(null);
         navigate('/');
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         setError(`Invalid Email or Password`);
       });
   });

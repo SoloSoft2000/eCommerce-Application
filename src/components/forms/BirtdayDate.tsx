@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 function BirtdayDate(): React.JSX.Element {
@@ -7,7 +7,10 @@ function BirtdayDate(): React.JSX.Element {
     formState: { errors },
   } = useFormContext();
 
-  const errorMessage = errors.Birthday?.message;
+  const errorMessage = useMemo(
+    () => errors.Birthday?.message,
+    [errors.Birthday?.message]
+  );
 
   return (
     <div className="w-full sm:w-[48%]">

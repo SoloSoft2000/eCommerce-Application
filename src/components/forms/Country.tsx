@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 function Country(): React.JSX.Element {
@@ -7,7 +7,10 @@ function Country(): React.JSX.Element {
     formState: { errors },
   } = useFormContext();
 
-  const errorMessage = errors.Country?.message;
+  const errorMessage = useMemo(
+    () => errors.Country?.message,
+    [errors.Country?.message]
+  );
 
   return (
     <div className="w-full sm:w-[47%]">
