@@ -21,8 +21,6 @@ const customerSlice = createSlice({
   },
 });
 
-console.log(customerSlice);
-
 export const { setCustomer, clearCustomer } = customerSlice.actions;
 
 export default customerSlice.reducer;

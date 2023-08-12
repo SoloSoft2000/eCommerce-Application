@@ -54,6 +54,8 @@ function LoginPage(): React.JSX.Element {
             <SubmitFormButton value="Sign in" />
           </form>
         </FormProvider>
+        <p className="p-3">sowa4il@gmail.com </p>
+        <p className="p-3">JS&dontStop2023q1</p>
       </div>
     </main>
   );
