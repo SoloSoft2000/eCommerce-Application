@@ -9,7 +9,7 @@ import Password from '../../components/forms/Password';
 import SubmitFormButton from '../../components/forms/SubmitFormBtn';
 import TextField from '../../components/forms/TextFiled';
 import BirtdayDate from '../../components/forms/BirtdayDate';
-import Country from '../../components/forms/Country';
+import Address from '../../components/forms/Address';
 import registerSchema from '../../validationSchemas/registerSchema';
 
 function RegisterPage(): React.JSX.Element {
@@ -47,19 +47,8 @@ function RegisterPage(): React.JSX.Element {
 
             <div className="flex justify-between flex-wrap">
               <BirtdayDate />
-              <Country />
             </div>
-            <fieldset>
-              <legend className="py-2 px-1 font-bold">
-                Shipping address*:
-              </legend>
-              <TextField name="address" placeholder="Street Address*" />
-              <div className="flex justify-between flex-wrap">
-                <TextField name="city" placeholder="City / Town*" />
-                <TextField name="postcode" placeholder="Postcode / ZIP *" />
-              </div>
-            </fieldset>
-
+            <Address name="Shipping address*:" />
             <div className="mb-12">
               <input
                 type="checkbox"
@@ -71,24 +60,7 @@ function RegisterPage(): React.JSX.Element {
               <label htmlFor="defaultAdress">
                 Set as address for billing and shipping
               </label>
-              {!defaultAdress && (
-                <fieldset>
-                  <legend className="py-2 px-1 font-bold">
-                    Billing address:
-                  </legend>
-                  <TextField
-                    name="billingAddress"
-                    placeholder="Street Address*"
-                  />
-                  <div className="flex justify-between flex-wrap">
-                    <TextField name="billingCity" placeholder="City / Town*" />
-                    <TextField
-                      name="billingPostcode"
-                      placeholder="Postcode / ZIP *"
-                    />
-                  </div>
-                </fieldset>
-              )}
+              {!defaultAdress && <Address name="Billing address*:" />}
             </div>
 
             <SubmitFormButton value="Create an account" />

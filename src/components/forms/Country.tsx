@@ -13,9 +13,9 @@ function Country(): React.JSX.Element {
   );
 
   return (
-    <div className="w-full sm:w-[47%]">
+    <div className="w-full">
       <select
-        className="w-full border-b-2 border-zinc-200 py-[0.95rem] px-1"
+        className="w-full border-b-2 border-zinc-200 py-3 px-1"
         {...register('Country')}
       >
         <option value="" className="text-gray-400">

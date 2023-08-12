@@ -13,9 +13,9 @@ function BirtdayDate(): React.JSX.Element {
   );
 
   return (
-    <div className="w-full sm:w-[48%]">
+    <div className="w-full">
       <div className="w-full border-b-2 border-zinc-200 py-3">
-        <label htmlFor="birthday" className="text-gray-400 mr-1">
+        <label htmlFor="birthday" className="text-gray-400 mr-5">
           Date of birth*
         </label>
         <input type="date" {...register('Birthday')} />
