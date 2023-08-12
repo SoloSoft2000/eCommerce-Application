@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 function Password(): React.JSX.Element {
@@ -8,7 +8,7 @@ function Password(): React.JSX.Element {
   } = useFormContext();
 
   const [passwordIsShown, setPasswordIsShown] = useState(false);
-  const errorMessage = errors.password?.message;
+  const errorMessage = useMemo(() => errors.password?.message, [errors]);
 
   const togglePassword = useCallback(() => {
     setPasswordIsShown(!passwordIsShown);

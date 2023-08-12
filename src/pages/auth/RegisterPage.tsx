@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -17,16 +17,16 @@ function RegisterPage(): React.JSX.Element {
     resolver: yupResolver(registerSchema),
     mode: 'onBlur',
   });
+  const [defaultAdress, setDefaultAdress] = useState(true);
 
-  const onSubmit = methods.handleSubmit(async (data) => {
+  const onSubmit = methods.handleSubmit((data) => {
     console.log(data);
   });
 
-  const [defaultAdress, setDefaultAdress] = useState(true);
-
-  function handleChange(): void {
+  const handleChange = useCallback((): void => {
     setDefaultAdress((prev) => !prev);
-  }
+  }, [setDefaultAdress]);
+
   return (
     <main className="flex justify-center pt-6 pb-16">
       <div className="text-black w-[32rem] max-w-full	text-left">

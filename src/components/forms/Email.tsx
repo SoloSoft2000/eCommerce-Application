@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+const generalClasses = 'w-full py-3 px-1';
+
 function Email(): React.JSX.Element {
-  const generalClasses = 'w-full py-3 px-1';
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
-  const errorMessage = errors.email?.message;
+  const errorMessage = useMemo(() => errors.email?.message, [errors]);
 
   return (
     <div className="w-full">
