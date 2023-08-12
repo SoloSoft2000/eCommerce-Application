@@ -7,7 +7,10 @@ function BirtdayDate(): React.JSX.Element {
     formState: { errors },
   } = useFormContext();
 
-  const errorMessage = useMemo(() => errors.Birthday?.message, [errors]);
+  const errorMessage = useMemo(
+    () => errors.Birthday?.message,
+    [errors.Birthday?.message]
+  );
 
   return (
     <div className="w-full sm:w-[48%]">
