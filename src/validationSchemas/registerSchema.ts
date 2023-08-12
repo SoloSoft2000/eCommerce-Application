@@ -16,7 +16,8 @@ const registerSchema = yup.object({
   password: passwordRules,
   firstName: namesRules,
   lastName: namesRules,
-  city: namesRules,
+  billCity: namesRules,
+  shipCity: namesRules,
   address: yup
     .string()
     .required('The address is required')

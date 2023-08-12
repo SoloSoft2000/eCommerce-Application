@@ -48,7 +48,8 @@ function RegisterPage(): React.JSX.Element {
             <div className="flex justify-between flex-wrap">
               <BirtdayDate />
             </div>
-            <Address name="Shipping address*:" />
+            <Address name="Shipping" value="ship" />
+
             <div className="mb-12">
               <input
                 type="checkbox"
@@ -60,7 +61,7 @@ function RegisterPage(): React.JSX.Element {
               <label htmlFor="defaultAdress">
                 Set as address for billing and shipping
               </label>
-              {!defaultAdress && <Address name="Billing address*:" />}
+              {!defaultAdress && <Address name="Billing" value="bill" />}
             </div>
 
             <SubmitFormButton value="Create an account" />
