@@ -25,12 +25,6 @@ function NoPage(): React.JSX.Element {
         </Link>
         <Link
           className="text-center hover:text-slate-400 cursor-pointer"
-          to="/profile"
-        >
-          User Profile
-        </Link>
-        <Link
-          className="text-center hover:text-slate-400 cursor-pointer"
           to="/basket"
         >
           Basket
