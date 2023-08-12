@@ -8,7 +8,10 @@ function Password(): React.JSX.Element {
   } = useFormContext();
 
   const [passwordIsShown, setPasswordIsShown] = useState(false);
-  const errorMessage = useMemo(() => errors.password?.message, [errors.password?.message]);
+  const errorMessage = useMemo(
+    () => errors.password?.message,
+    [errors.password?.message]
+  );
 
   const togglePassword = useCallback(() => {
     setPasswordIsShown(!passwordIsShown);

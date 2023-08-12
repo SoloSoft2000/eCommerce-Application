@@ -9,7 +9,10 @@ function Email(): React.JSX.Element {
     formState: { errors },
   } = useFormContext();
 
-  const errorMessage = useMemo(() => errors.email?.message, [errors.email?.message]);
+  const errorMessage = useMemo(
+    () => errors.email?.message,
+    [errors.email?.message]
+  );
 
   return (
     <div className="w-full">
