@@ -15,7 +15,7 @@ import registerSchema from '../../validationSchemas/registerSchema';
 function RegisterPage(): React.JSX.Element {
   const methods = useForm({
     resolver: yupResolver(registerSchema),
-    mode: 'onBlur',
+    mode: 'all',
   });
   const [defaultAdress, setDefaultAdress] = useState(true);
 
