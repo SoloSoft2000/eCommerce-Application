@@ -1,13 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useFormContext } from 'react-hook-form';
-import Email from '../src/components/forms/Input';
+import Input from '../src/components/forms/Input';
 
-jest.mock('react-hook-form', () => ({
-  useFormContext: jest.fn(),
-}));
+jest.mock('react-hook-form');
 
-describe('Email', () => {
+describe('Input', () => {
   it('does not render the component when null', () => {
     const mockFormContext = {
       register: jest.fn(),
@@ -16,7 +14,9 @@ describe('Email', () => {
 
     (useFormContext as jest.Mock).mockReturnValue(mockFormContext);
 
-    render(<Email />);
+    render(
+      <Input name="email" placeholder="Email*" type="email" width="w-1/2" />
+    );
 
     const inputElement = screen.queryByPlaceholderText('Email*');
     expect(inputElement).not.toBeNull();

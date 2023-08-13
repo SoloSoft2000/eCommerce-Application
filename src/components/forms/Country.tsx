@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import FormClasses from '../../enum/form/classes';
-import { FormProps } from '../../interfaces/forms/form-props';
+import FormProps from '../../interfaces/forms/form-props';
 
 function Country({ name }: FormProps): React.JSX.Element {
   const {

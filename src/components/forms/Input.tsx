@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormProps } from '../../interfaces/forms/form-props';
+import FormProps from '../../interfaces/forms/form-props';
 import FormClasses from '../../enum/form/classes';
 
 function Input({
