@@ -3,13 +3,15 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import Title from '../src/components/forms/Title';
 
-describe('Title Component', () => {
-  it('renders title with correct text and styling', () => {
-    const { getByText } = render(<Title />);
-    const element = getByText('My account');
+describe('Title component', () => {
+  it('renders correctly with given value and classes', () => {
+    const value = 'Create an account';
+    const classes = 'p-2 text-white';
 
-    expect(element).toBeInTheDocument();
+    const { getByText } = render(<Title value={value} classes={classes} />);
 
-    expect(element).toHaveClass('text-xl', 'font-bold', 'mb-8', 'text-center');
+    const titleElement = getByText(value);
+    expect(titleElement).toBeInTheDocument();
+    expect(titleElement).toHaveClass(classes);
   });
 });

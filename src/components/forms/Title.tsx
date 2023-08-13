@@ -1,7 +1,8 @@
 import React from 'react';
+import FormProps from '../../interfaces/forms/form-props';
 
-function Title(): React.JSX.Element {
-  return <h2 className="text-xl font-bold mb-8 text-center">My account</h2>;
+function Title({ value, classes }: FormProps): React.JSX.Element {
+  return <h2 className={classes}>{value}</h2>;
 }
 
 export default Title;

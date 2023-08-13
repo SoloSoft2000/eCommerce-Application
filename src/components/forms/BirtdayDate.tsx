@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
+import FormClasses from '../../enum/form/classes';
 
 function BirtdayDate(): React.JSX.Element {
   const {
@@ -13,15 +14,15 @@ function BirtdayDate(): React.JSX.Element {
   );
 
   return (
-    <div className="w-full sm:w-[48%]">
-      <div className="w-full border-b-2 border-zinc-200 py-3">
-        <label htmlFor="birthday" className="text-gray-400 mr-1">
+    <div className={FormClasses.FULL_FIELD}>
+      <div className={FormClasses.GENERAL_FIELD}>
+        <label htmlFor="Birthday" className={FormClasses.BIRTDAY_LABEL}>
           Date of birth*
         </label>
         <input type="date" {...register('Birthday')} />
       </div>
       {errorMessage && (
-        <p className="text-red-500 text-sm h-5">{errorMessage.toString()}</p>
+        <p className={FormClasses.MISTAKE_TEXT}>{errorMessage.toString()}</p>
       )}
     </div>
   );
