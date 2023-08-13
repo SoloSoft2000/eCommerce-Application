@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
+import FormClasses from '../../enum/form/classes';
+import { FormProps } from '../../interfaces/forms/form-props';
 
-function Country(): React.JSX.Element {
+function Country({ name }: FormProps): React.JSX.Element {
   const {
     register,
     formState: { errors },
@@ -13,21 +15,16 @@ function Country(): React.JSX.Element {
   );
 
   return (
-    <div className="w-full">
-      <select
-        className="w-full border-b-2 border-zinc-200 py-3 px-1"
-        {...register('Country')}
-      >
-        <option value="" className="text-gray-400">
+    <div className={FormClasses.FULL_FIELD}>
+      <select className={FormClasses.GENERAL_FIELD} {...register(name)}>
+        <option value="" className={FormClasses.COUNTRY_OPTION_TEXT}>
           Country*
         </option>
         <option value="USA">USA</option>
         <option value="Canada">Canada</option>
       </select>
       {errorMessage && (
-        <p className="text-xs text-red-500 text-sm h-5">
-          {errorMessage.toString()}
-        </p>
+        <p className={FormClasses.MISTAKE_TEXT}>{errorMessage.toString()}</p>
       )}
     </div>
   );
