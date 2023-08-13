@@ -20,7 +20,7 @@ async function getCustomers(
     .post({
       body: {
         email: username,
-        password: password,
+        password,
       },
     });
 
