@@ -5,7 +5,7 @@ const enum FormClasses {
   DISABLE_LINK = 'bg-white rounded w-6/12 text-center p-2 cursor-default drop-shadow-sm',
   FORM = 'px-2 sm:px-0',
   FORM_CONTAINER = 'flex justify-between flex-wrap',
-  GENERAL_FIELD = 'w-full border-b-2 border-zinc-200 py-3 px-1',
+  GENERAL_FIELD = 'w-full border-b-2 border-zinc-200 py-3 px-1 mb-1',
   FULL_FIELD = 'w-full',
   HALF_FIELD = 'w-full sm:w-[47%]',
   MISTAKE_TEXT = 'text-sm text-red-500 h-5',
