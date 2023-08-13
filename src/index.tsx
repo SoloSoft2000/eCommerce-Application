@@ -3,17 +3,24 @@ import { Provider } from 'react-redux';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './styles/index.css';
+import {
+  createApiBuilderFromCtpClient,
+} from '@commercetools/platform-sdk';
 import App from './App';
 import store from './reducers/store';
 
-// import apiRoot from './sdk/client';
+import { projectKey } from './sdk/config';
+import createClient from './sdk/createClient';
 
-// apiRoot
-//   .productProjections()
-//   .get()
-//   .execute()
-//   .then((data) => console.log('products=', data)) //eslint-disable-line
-//   .catch(console.error); //eslint-disable-line
+
+const ctpClient = createClient();
+const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
+  projectKey,
+});
+
+apiRoot.productProjections().get().execute()
+  .then(() => console.log)
+  .catch(() => console.error)
 
 const root = document.getElementById('root');
 
