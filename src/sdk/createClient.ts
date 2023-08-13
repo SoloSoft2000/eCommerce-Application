@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import {
   ClientBuilder,
-  AuthMiddlewareOptions,
+  AnonymousAuthMiddlewareOptions,
   PasswordAuthMiddlewareOptions,
   HttpMiddlewareOptions,
   Client,
@@ -16,7 +16,7 @@ const httpMiddlewareOptions: HttpMiddlewareOptions = {
 const createMiddlewareOptions = (user?: {
   username: string;
   password: string;
-}): AuthMiddlewareOptions | PasswordAuthMiddlewareOptions => ({
+}): AnonymousAuthMiddlewareOptions | PasswordAuthMiddlewareOptions => ({
   host: `https://auth.${region}.commercetools.com`,
   projectKey,
   credentials: {
@@ -40,7 +40,7 @@ const createClient = (user?: {
       .build();
   }
   return new ClientBuilder()
-    .withClientCredentialsFlow(middlewareOptions)
+    .withAnonymousSessionFlow(middlewareOptions)
     .withHttpMiddleware(httpMiddlewareOptions)
     .build();
 };
