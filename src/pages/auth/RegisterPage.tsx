@@ -4,13 +4,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import Title from '../../components/forms/Title';
 import SwitchPageLinks from '../../components/forms/SwitchPageLinks';
-import Email from '../../components/forms/Email';
+import Input from '../../components/forms/Input';
 import Password from '../../components/forms/Password';
 import SubmitFormButton from '../../components/forms/SubmitFormBtn';
 import TextField from '../../components/forms/TextFiled';
 import BirtdayDate from '../../components/forms/BirtdayDate';
-import Address from '../../components/forms/Address';
 import registerSchema from '../../validationSchemas/registerSchema';
+import Country from '../../components/forms/Country';
 
 function RegisterPage(): React.JSX.Element {
   const methods = useForm({
@@ -37,18 +37,35 @@ function RegisterPage(): React.JSX.Element {
         <SwitchPageLinks pageName="register" />
         <FormProvider {...methods}>
           <form onSubmit={onSubmit} noValidate className="px-2 sm:px-0">
-            <Email />
+            <Input type={'email'} placeholder={'Email*:'} name={'email'} />
             <Password />
-
             <div className="flex justify-between flex-wrap">
-              <TextField name="firstName" placeholder="First Name*" />
-              <TextField name="lastName" placeholder="Last Name*" />
+              <Input name="firstName" placeholder="First Name*" type="text" />
+              <Input name="lastName" placeholder="Last Name*" type="text" />
             </div>
 
             <div className="flex justify-between flex-wrap">
               <BirtdayDate />
             </div>
-            <Address name="Shipping" value="ship" />
+
+            <fieldset>
+              <legend className="py-2 px-1 font-bold">
+                Shipping address*:
+              </legend>
+              <Country />
+              <div className="flex justify-between flex-wrap">
+                <Input
+                  name={'shipCity'}
+                  placeholder="City / Town*"
+                  type="text"
+                />
+                <TextField
+                  name={`shipPostcode`}
+                  placeholder="Postcode / ZIP *"
+                />
+              </div>
+              <TextField name={`shipStreet`} placeholder="Street Address*" />
+            </fieldset>
 
             <div className="mb-12">
               <input
@@ -61,7 +78,31 @@ function RegisterPage(): React.JSX.Element {
               <label htmlFor="defaultAdress">
                 Set as address for billing and shipping
               </label>
-              {!defaultAdress && <Address name="Billing" value="bill" />}
+              {!defaultAdress && (
+                <fieldset>
+                  <legend className="py-2 px-1 font-bold">
+                    Billing address*:
+                  </legend>
+                  <Country />
+                  <div className="flex justify-between flex-wrap">
+                    <Input
+                      name={'billCity'}
+                      placeholder="City / Town*"
+                      type="text"
+                    />
+                    <Input
+                      name={`billPostcode`}
+                      placeholder="Postcode / ZIP *"
+                      type="text"
+                    />
+                  </div>
+                  <Input
+                    name={`billStreet`}
+                    placeholder="Street Address*"
+                    type="text"
+                  />
+                </fieldset>
+              )}
             </div>
 
             <SubmitFormButton value="Create an account" />

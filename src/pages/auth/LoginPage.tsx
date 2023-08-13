@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import Title from '../../components/forms/Title';
 import SwitchPageLinks from '../../components/forms/SwitchPageLinks';
-import Email from '../../components/forms/Email';
+import Input from '../../components/forms/Input';
 import Password from '../../components/forms/Password';
 import SubmitFormButton from '../../components/forms/SubmitFormBtn';
 import getCustomers from '../../sdk/getCustomers';
@@ -47,7 +47,7 @@ function LoginPage(): React.JSX.Element {
         <FormProvider {...methods}>
           <form onSubmit={onSubmit} noValidate className="px-2 sm:px-0">
             <div className="mb-12">
-              <Email />
+              <Input type={'email'} placeholder={'Email*:'} name={'email'} />
               <Password />
             </div>
             {error && <div className="error-message">{error}</div>}
