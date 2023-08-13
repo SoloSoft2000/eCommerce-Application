@@ -10,14 +10,21 @@ async function getCustomers(
   password: string
 ): Promise<Customer> {
   const ctpClient = createClient({ username, password });
-  console.log(ctpClient);
 
   const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
     projectKey,
   });
-  const customer = await apiRoot.me().get().execute();
+  const customer = await apiRoot
+    .me()
+    .login()
+    .post({
+      body: {
+        email: username,
+        password: password,
+      },
+    });
 
-  return customer.body;
+  return (await customer.execute()).body.customer;
 }
 
 export default getCustomers;
