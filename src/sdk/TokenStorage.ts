@@ -6,9 +6,6 @@ class TokenStorage implements TokenCache {
   private current: TokenStore | {} = {};
 
   get(): TokenStore {
-    if (this.current) {
-      return <TokenStore>this.current;
-    }
     const storedToken = localStorage.getItem(this.storageKey);
     if (storedToken) {
       const parsed = JSON.parse(storedToken) as TokenStore;
