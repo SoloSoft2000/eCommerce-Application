@@ -1,8 +1,8 @@
 import React from 'react';
 import Input from './Input';
 import Country from './Country';
-import FormClasses from '../../enum/form/classes';
-import FormProps from '../../interfaces/forms/form-props';
+import FormClasses from '../../helpers/enum/form/classes';
+import FormProps from '../../helpers/interfaces/forms/form-props';
 
 function Address({ name, type }: FormProps): React.JSX.Element {
   return (

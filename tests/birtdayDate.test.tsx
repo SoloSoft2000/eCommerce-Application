@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useFormContext } from 'react-hook-form';
-import BirtdayDate from '../src/components/forms/BirtdayDate';
+import BirtdayDate from '../src/_components/forms/BirtdayDate';
 
 jest.mock('react-hook-form', () => ({
     useFormContext: jest.fn(),

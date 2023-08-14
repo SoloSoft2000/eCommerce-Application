@@ -1,4 +1,4 @@
-import Main from '../src/components/Main';
+import Main from '../src/_components/Main';
 
 test('Main component is defined and it is a function', () => {
     expect(Main).toBeDefined(); 

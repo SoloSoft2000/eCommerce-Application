@@ -1,4 +1,4 @@
-import Header from '../src/components/Header';
+import Header from '../src/_components/Header';
 
 test('Header component is defined and it is a function', () => {
   expect(Header).toBeDefined(); 

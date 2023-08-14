@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'; 
-import Layout from '../src/components/Layout';
+import Layout from '../src/_components/Layout';
 
 test('Layout renders content inside wrapper', () => {
   const content = <div>Child Content</div>;

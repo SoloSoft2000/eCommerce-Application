@@ -2,20 +2,20 @@ import React, { useState, useCallback } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { CustomerDraft } from '@commercetools/platform-sdk';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Title from '../../components/forms/Title';
-import SwitchPageLinks from '../../components/forms/SwitchPageLinks';
-import Input from '../../components/forms/Input';
-import Password from '../../components/forms/Password';
-import SubmitFormButton from '../../components/forms/SubmitFormBtn';
-import BirtdayDate from '../../components/forms/BirtdayDate';
+import Title from '../../_components/forms/Title';
+import SwitchPageLinks from '../../_components/forms/SwitchPageLinks';
+import Input from '../../_components/forms/Input';
+import Password from '../../_components/forms/Password';
+import SubmitFormButton from '../../_components/forms/SubmitFormBtn';
+import BirtdayDate from '../../_components/forms/BirtdayDate';
 import {
   registerSchemaOne,
   registerSchemaTwo,
-} from '../../services/validationSchemas/registerSchema';
-import FormClasses from '../../enum/form/classes';
-import RegisterPageClasses from '../../enum/pages/regitester';
-import handleUserData from '../../services/sdk/utils/handleUserRegistrationData';
-import Address from '../../components/forms/Adress';
+} from '../../utils/validationSchemas/registerSchema';
+import FormClasses from '../../helpers/enum/form/classes';
+import RegisterPageClasses from '../../helpers/enum/pages/regitester';
+import handleUserData from '../../utils/sdk/utils/handleUserRegistrationData';
+import Address from '../../_components/forms/Adress';
 
 function RegisterPage(): React.JSX.Element {
   const [defaultAdress, setDefaultAdress] = useState(true);

@@ -1,5 +1,5 @@
 import { CustomerDraft } from '@commercetools/platform-sdk';
-import UserRegistrate from '../../../interfaces/forms/user-registration';
+import UserRegistrate from '../../../helpers/interfaces/forms/user-registration';
 
 function formatBirthdayDate(date: Date | null | undefined): string | undefined {
   if (date) {

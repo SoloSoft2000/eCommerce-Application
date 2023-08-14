@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useFormContext } from 'react-hook-form';
-import Input from '../src/components/forms/Input';
+import Input from '../src/_components/forms/Input';
 
 jest.mock('react-hook-form');
 
