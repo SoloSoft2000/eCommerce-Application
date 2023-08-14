@@ -7,17 +7,22 @@ import Input from '../../components/forms/Input';
 import Password from '../../components/forms/Password';
 import SubmitFormButton from '../../components/forms/SubmitFormBtn';
 import BirtdayDate from '../../components/forms/BirtdayDate';
-import registerSchema from '../../validationSchemas/registerSchema';
+import {
+  registerSchemaOne,
+  registerSchemaTwo,
+} from '../../validationSchemas/registerSchema';
 import Country from '../../components/forms/Country';
 import FormClasses from '../../enum/form/classes';
 import RegisterPageClasses from '../../enum/pages/regitester';
 
 function RegisterPage(): React.JSX.Element {
+  const [defaultAdress, setDefaultAdress] = useState(true);
   const methods = useForm({
-    resolver: yupResolver(registerSchema),
+    resolver: yupResolver(
+      defaultAdress ? registerSchemaOne : registerSchemaTwo
+    ),
     mode: 'all',
   });
-  const [defaultAdress, setDefaultAdress] = useState(true);
 
   const onSubmit = methods.handleSubmit((data) => {
     console.log(data);
