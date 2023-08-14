@@ -1,5 +1,5 @@
 import React from 'react';
-import Img from '../images/img-04.png';
+import Img from '../assets/images/img-04.png';
 
 function BasketPage(): React.JSX.Element {
   return (

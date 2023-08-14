@@ -1,5 +1,5 @@
 import React from 'react';
-import Img from '../images/img-01.png';
+import Img from '../assets/images/img-01.png';
 
 function Main(): React.JSX.Element {
   return (

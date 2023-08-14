@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Img from '../images/404-error.png';
+import Img from '../assets/images/404-error.png';
 import ButtonLink from '../components/ButtonLink';
 
 function NoPage(): React.JSX.Element {

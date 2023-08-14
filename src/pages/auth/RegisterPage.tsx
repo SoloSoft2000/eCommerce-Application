@@ -11,10 +11,10 @@ import BirtdayDate from '../../components/forms/BirtdayDate';
 import {
   registerSchemaOne,
   registerSchemaTwo,
-} from '../../validationSchemas/registerSchema';
+} from '../../services/validationSchemas/registerSchema';
 import FormClasses from '../../enum/form/classes';
 import RegisterPageClasses from '../../enum/pages/regitester';
-import handleUserData from '../../sdk/utils/handleUserRegistrationData';
+import handleUserData from '../../services/sdk/utils/handleUserRegistrationData';
 import Address from '../../components/forms/Adress';
 
 function RegisterPage(): React.JSX.Element {

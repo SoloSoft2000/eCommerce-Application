@@ -8,9 +8,9 @@ import SwitchPageLinks from '../../components/forms/SwitchPageLinks';
 import Input from '../../components/forms/Input';
 import Password from '../../components/forms/Password';
 import SubmitFormButton from '../../components/forms/SubmitFormBtn';
-import getCustomers from '../../sdk/getCustomers';
-import { setCustomer } from '../../reducers/customerReducer';
-import loginSchema from '../../validationSchemas/loginSchema';
+import getCustomers from '../../services/sdk/getCustomers';
+import { setCustomer } from '../../services/reducers/customerReducer';
+import loginSchema from '../../services/validationSchemas/loginSchema';
 import LoginPageClasses from '../../enum/pages/login';
 import FormClasses from '../../enum/form/classes';
 

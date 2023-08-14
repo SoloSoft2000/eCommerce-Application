@@ -1,8 +1,8 @@
 import React from 'react';
-import Img1 from '../images/img-01.png';
-import Img2 from '../images/img-02.png';
-import Img3 from '../images/img-03.png';
-import Img4 from '../images/img-04.png';
+import Img1 from '../assets/images/img-01.png';
+import Img2 from '../assets/images/img-02.png';
+import Img3 from '../assets/images/img-03.png';
+import Img4 from '../assets/images/img-04.png';
 
 function CatalogPage(): React.JSX.Element {
   return (

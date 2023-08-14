@@ -14,7 +14,7 @@ import BasketPage from './pages/BasketPage';
 import AboutUsPage from './pages/AboutUsPage';
 import NoPage from './pages/NoPage';
 import Layout from './components/Layout';
-import { RootState } from './reducers/store';
+import { RootState } from './services/reducers/store';
 
 function App(): React.JSX.Element {
   const customer = useSelector((state: RootState) => state.customer);
