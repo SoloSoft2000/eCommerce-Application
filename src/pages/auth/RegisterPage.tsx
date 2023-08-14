@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
+import { CustomerDraft } from '@commercetools/platform-sdk';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Title from '../../components/forms/Title';
 import SwitchPageLinks from '../../components/forms/SwitchPageLinks';
@@ -7,24 +8,38 @@ import Input from '../../components/forms/Input';
 import Password from '../../components/forms/Password';
 import SubmitFormButton from '../../components/forms/SubmitFormBtn';
 import BirtdayDate from '../../components/forms/BirtdayDate';
-import registerSchema from '../../validationSchemas/registerSchema';
-import Country from '../../components/forms/Country';
+import {
+  registerSchemaOne,
+  registerSchemaTwo,
+} from '../../validationSchemas/registerSchema';
 import FormClasses from '../../enum/form/classes';
 import RegisterPageClasses from '../../enum/pages/regitester';
+import handleUserData from '../../sdk/utils/handleUserRegistrationData';
+import Address from '../../components/forms/Adress';
 
 function RegisterPage(): React.JSX.Element {
+  const [defaultAdress, setDefaultAdress] = useState(true);
   const methods = useForm({
-    resolver: yupResolver(registerSchema),
+    resolver: yupResolver(
+      defaultAdress ? registerSchemaOne : registerSchemaTwo
+    ),
     mode: 'all',
   });
-  const [defaultAdress, setDefaultAdress] = useState(true);
 
   const onSubmit = methods.handleSubmit((data) => {
     console.log(data);
+    const userRegistrationData: CustomerDraft = handleUserData(data);
+    console.log(userRegistrationData);
   });
 
   const handleChange = useCallback((): void => {
     setDefaultAdress((prev) => !prev);
+    methods.reset({
+      [defaultAdress ? 'billCountry' : 'shipCountry']: '',
+      [defaultAdress ? 'billCity' : 'shipCity']: '',
+      [defaultAdress ? 'billPostcode' : 'shipPostcode']: '',
+      [defaultAdress ? 'billStreet' : 'shipStreet']: '',
+    });
   }, [setDefaultAdress]);
 
   return (
@@ -62,32 +77,7 @@ function RegisterPage(): React.JSX.Element {
             <div className={FormClasses.FORM_CONTAINER}>
               <BirtdayDate />
             </div>
-
-            <fieldset>
-              <legend className={FormClasses.ADDRESS_TITLE}>
-                Shipping address*:
-              </legend>
-              <Country name="shipCountry" />
-              <div className={FormClasses.FORM_CONTAINER}>
-                <Input
-                  name="shipCity"
-                  placeholder="City / Town*"
-                  type="text"
-                  width={FormClasses.HALF_FIELD}
-                />
-                <Input
-                  name="shipPostcode"
-                  placeholder="Postcode / ZIP *"
-                  width={FormClasses.HALF_FIELD}
-                />
-              </div>
-              <Input
-                name="shipStreet"
-                placeholder="Street Address*"
-                width={FormClasses.FULL_FIELD}
-              />
-            </fieldset>
-
+            <Address name={'Shipping'} type={'ship'} />
             <div className="mb-12">
               <input
                 type="checkbox"
@@ -100,34 +90,7 @@ function RegisterPage(): React.JSX.Element {
                 Set as address for billing and shipping
               </label>
 
-              {!defaultAdress && (
-                <fieldset>
-                  <legend className={FormClasses.ADDRESS_TITLE}>
-                    Billing address*:
-                  </legend>
-                  <Country name="billCountry" />
-                  <div className={FormClasses.FORM_CONTAINER}>
-                    <Input
-                      name="billCity"
-                      placeholder="City / Town*"
-                      type="text"
-                      width={FormClasses.HALF_FIELD}
-                    />
-                    <Input
-                      name="billPostcode"
-                      placeholder="Postcode / ZIP *"
-                      type="text"
-                      width={FormClasses.HALF_FIELD}
-                    />
-                  </div>
-                  <Input
-                    name="billStreet"
-                    placeholder="Street Address*"
-                    type="text"
-                    width={FormClasses.FULL_FIELD}
-                  />
-                </fieldset>
-              )}
+              {!defaultAdress && <Address name={'Billing'} type={'bill'} />}
             </div>
 
             <SubmitFormButton

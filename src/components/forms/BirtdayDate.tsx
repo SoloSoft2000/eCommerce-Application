@@ -9,8 +9,8 @@ function BirtdayDate(): React.JSX.Element {
   } = useFormContext();
 
   const errorMessage = useMemo(
-    () => errors.Birthday?.message,
-    [errors.Birthday?.message]
+    () => errors.birthday?.message,
+    [errors.birthday?.message]
   );
 
   return (
@@ -19,7 +19,7 @@ function BirtdayDate(): React.JSX.Element {
         <label htmlFor="Birthday" className={FormClasses.BIRTDAY_LABEL}>
           Date of birth*
         </label>
-        <input type="date" {...register('Birthday')} />
+        <input type="date" {...register('birthday')} />
       </div>
       {errorMessage && (
         <p className={FormClasses.MISTAKE_TEXT}>{errorMessage.toString()}</p>

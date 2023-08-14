@@ -10,8 +10,8 @@ function Country({ name }: FormProps): React.JSX.Element {
   } = useFormContext();
 
   const errorMessage = useMemo(
-    () => errors.Country?.message,
-    [errors.Country?.message]
+    () => errors[name]?.message,
+    [errors[name]?.message]
   );
 
   return (
