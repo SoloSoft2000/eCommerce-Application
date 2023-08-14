@@ -12,10 +12,10 @@ import {
   registerSchemaOne,
   registerSchemaTwo,
 } from '../../validationSchemas/registerSchema';
-import Country from '../../components/forms/Country';
 import FormClasses from '../../enum/form/classes';
 import RegisterPageClasses from '../../enum/pages/regitester';
 import handleUserData from '../../sdk/utils/handleUserRegistrationData';
+import Address from '../../components/forms/Adress';
 
 function RegisterPage(): React.JSX.Element {
   const [defaultAdress, setDefaultAdress] = useState(true);
@@ -34,6 +34,12 @@ function RegisterPage(): React.JSX.Element {
 
   const handleChange = useCallback((): void => {
     setDefaultAdress((prev) => !prev);
+    methods.reset({
+      [defaultAdress ? 'billCountry' : 'shipCountry']: '',
+      [defaultAdress ? 'billCity' : 'shipCity']: '',
+      [defaultAdress ? 'billPostcode' : 'shipPostcode']: '',
+      [defaultAdress ? 'billStreet' : 'shipStreet']: '',
+    });
   }, [setDefaultAdress]);
 
   return (
@@ -71,32 +77,7 @@ function RegisterPage(): React.JSX.Element {
             <div className={FormClasses.FORM_CONTAINER}>
               <BirtdayDate />
             </div>
-
-            <fieldset>
-              <legend className={FormClasses.ADDRESS_TITLE}>
-                Shipping address*:
-              </legend>
-              <Country name="shipCountry" />
-              <div className={FormClasses.FORM_CONTAINER}>
-                <Input
-                  name="shipCity"
-                  placeholder="City / Town*"
-                  type="text"
-                  width={FormClasses.HALF_FIELD}
-                />
-                <Input
-                  name="shipPostcode"
-                  placeholder="Postcode / ZIP *"
-                  width={FormClasses.HALF_FIELD}
-                />
-              </div>
-              <Input
-                name="shipStreet"
-                placeholder="Street Address*"
-                width={FormClasses.FULL_FIELD}
-              />
-            </fieldset>
-
+            <Address name={'Shipping'} type={'ship'} />
             <div className="mb-12">
               <input
                 type="checkbox"
@@ -109,34 +90,7 @@ function RegisterPage(): React.JSX.Element {
                 Set as address for billing and shipping
               </label>
 
-              {!defaultAdress && (
-                <fieldset>
-                  <legend className={FormClasses.ADDRESS_TITLE}>
-                    Billing address*:
-                  </legend>
-                  <Country name="billCountry" />
-                  <div className={FormClasses.FORM_CONTAINER}>
-                    <Input
-                      name="billCity"
-                      placeholder="City / Town*"
-                      type="text"
-                      width={FormClasses.HALF_FIELD}
-                    />
-                    <Input
-                      name="billPostcode"
-                      placeholder="Postcode / ZIP *"
-                      type="text"
-                      width={FormClasses.HALF_FIELD}
-                    />
-                  </div>
-                  <Input
-                    name="billStreet"
-                    placeholder="Street Address*"
-                    type="text"
-                    width={FormClasses.FULL_FIELD}
-                  />
-                </fieldset>
-              )}
+              {!defaultAdress && <Address name={'Billing'} type={'bill'} />}
             </div>
 
             <SubmitFormButton
