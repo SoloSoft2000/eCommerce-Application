@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
+import { CustomerDraft } from '@commercetools/platform-sdk';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Title from '../../components/forms/Title';
 import SwitchPageLinks from '../../components/forms/SwitchPageLinks';
@@ -14,6 +15,7 @@ import {
 import Country from '../../components/forms/Country';
 import FormClasses from '../../enum/form/classes';
 import RegisterPageClasses from '../../enum/pages/regitester';
+import handleUserData from '../../sdk/utils/handleUserRegistrationData';
 
 function RegisterPage(): React.JSX.Element {
   const [defaultAdress, setDefaultAdress] = useState(true);
@@ -26,6 +28,8 @@ function RegisterPage(): React.JSX.Element {
 
   const onSubmit = methods.handleSubmit((data) => {
     console.log(data);
+    const userRegistrationData: CustomerDraft = handleUserData(data);
+    console.log(userRegistrationData);
   });
 
   const handleChange = useCallback((): void => {

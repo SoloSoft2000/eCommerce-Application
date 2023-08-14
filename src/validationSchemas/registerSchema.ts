@@ -20,7 +20,7 @@ const addressRules = yup
   .required('The address is required')
   .min(1, 'Must contain at least one character');
 
-const birthday = yup
+const birthdayRules = yup
   .date()
   .required('Date of birth is required')
   .max(subYears(currentDate, 13), 'You must be at least 13 years old')
@@ -36,7 +36,7 @@ const registerSchemaOne = yup.object({
   shipCountry: countryRules,
   shipPostcode: shipPostalRules,
   shipStreet: addressRules,
-  Birthday: birthday,
+  birthday: birthdayRules,
 });
 
 const registerSchemaTwo = registerSchemaOne.shape({
