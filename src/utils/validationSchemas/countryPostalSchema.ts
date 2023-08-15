@@ -1,10 +1,10 @@
 import * as yup from 'yup';
 
 const validatePostalCode = (country: string, value: string): boolean => {
-  if (country === 'USA') {
+  if (country === 'US') {
     return /^\d{5}$/.test(value || '');
   }
-  if (country === 'Canada') {
+  if (country === 'CA') {
     return /^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]$/.test(value || '');
   }
   return false;
@@ -37,4 +37,4 @@ export const billPostalRules = yup
 export const countryRules = yup
   .string()
   .required('Country is required')
-  .oneOf(['USA', 'Canada'], 'Must be a valid country');
+  .oneOf(['US', 'CA'], 'Must be a valid country');

@@ -20,8 +20,8 @@ function Country({ name }: FormProps): React.JSX.Element {
         <option value="" className={FormClasses.COUNTRY_OPTION_TEXT}>
           Country*
         </option>
-        <option value="USA">USA</option>
-        <option value="Canada">Canada</option>
+        <option value="US">USA</option>
+        <option value="CA">Canada</option>
       </select>
       {errorMessage && (
         <p className={FormClasses.MISTAKE_TEXT}>{errorMessage.toString()}</p>

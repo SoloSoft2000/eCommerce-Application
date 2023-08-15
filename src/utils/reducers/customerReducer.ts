@@ -16,8 +16,16 @@ const customerSlice = createSlice({
   name: 'customer',
   initialState,
   reducers: {
-    setCustomer: (state, action) => action.payload,
-    clearCustomer: () => initialState,
+    setCustomer: (state, action) => {
+      const newState = action.payload;
+      localStorage.setItem('CT-Customer-SignIn', JSON.stringify(newState));
+      return newState;
+    },
+    clearCustomer: () => {
+      localStorage.removeItem('CT-Customer-SignIn');
+      localStorage.removeItem('commercetools_token');
+      return initialState;
+    },
   },
 });
 

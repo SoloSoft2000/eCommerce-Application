@@ -7,6 +7,8 @@ export const scopes = [
   `manage_my_profile:${projectKey}`,
   `view_categories:${projectKey}`,
   `manage_my_shopping_lists:${projectKey}`,
+  `introspect_oauth_tokens:${projectKey}`,
+  `manage_customers:${projectKey}`,
 ];
-export const clientId = 'Jq4_O4966hagz9nm_ubJM63z';
-export const clientSecret = 'QJ8zfquBO88097yRJQbuWkFVLdV95QVT';
+export const clientId = 'KOWGHiCr2wZ_6E9wGt_GPMm4';
+export const clientSecret = 'B3GUvmd6R2mnYzUhGAjZLEKsObXkl8HI';

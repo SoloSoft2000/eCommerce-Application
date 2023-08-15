@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { CustomerDraft } from '@commercetools/platform-sdk';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Title from '../../_components/forms/Title';
@@ -16,6 +18,8 @@ import FormClasses from '../../helpers/enum/form/classes';
 import RegisterPageClasses from '../../helpers/enum/pages/regitester';
 import handleUserData from '../../utils/sdk/utils/handleUserRegistrationData';
 import Address from '../../_components/forms/Adress';
+import newCustomers from '../../utils/sdk/newCustomers';
+import { setCustomer } from '../../utils/reducers/customerReducer';
 
 function RegisterPage(): React.JSX.Element {
   const [defaultAdress, setDefaultAdress] = useState(true);
@@ -26,10 +30,17 @@ function RegisterPage(): React.JSX.Element {
     mode: 'all',
   });
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const onSubmit = methods.handleSubmit((data) => {
-    console.log(data);
     const userRegistrationData: CustomerDraft = handleUserData(data);
-    console.log(userRegistrationData);
+    newCustomers(userRegistrationData)
+      .then((customerData) => {
+        dispatch(setCustomer(customerData));
+        navigate('/');
+      })
+      .catch(() => console.error);
   });
 
   const handleChange = useCallback((): void => {
