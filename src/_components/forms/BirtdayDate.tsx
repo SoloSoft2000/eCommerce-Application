@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import FormClasses from '../../enum/form/classes';
+import FormClasses from '../../helpers/enum/form/classes';
 
 function BirtdayDate(): React.JSX.Element {
   const {

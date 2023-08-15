@@ -3,16 +3,16 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Title from '../../components/forms/Title';
-import SwitchPageLinks from '../../components/forms/SwitchPageLinks';
-import Input from '../../components/forms/Input';
-import Password from '../../components/forms/Password';
-import SubmitFormButton from '../../components/forms/SubmitFormBtn';
-import getCustomers from '../../sdk/getCustomers';
-import { setCustomer } from '../../reducers/customerReducer';
-import loginSchema from '../../validationSchemas/loginSchema';
-import LoginPageClasses from '../../enum/pages/login';
-import FormClasses from '../../enum/form/classes';
+import Title from '../../_components/forms/Title';
+import SwitchPageLinks from '../../_components/forms/SwitchPageLinks';
+import Input from '../../_components/forms/Input';
+import Password from '../../_components/forms/Password';
+import SubmitFormButton from '../../_components/forms/SubmitFormBtn';
+import getCustomers from '../../utils/sdk/getCustomers';
+import { setCustomer } from '../../utils/reducers/customerReducer';
+import loginSchema from '../../utils/validationSchemas/loginSchema';
+import LoginPageClasses from '../../helpers/enum/pages/login';
+import FormClasses from '../../helpers/enum/form/classes';
 
 function LoginPage(): React.JSX.Element {
   const methods = useForm({

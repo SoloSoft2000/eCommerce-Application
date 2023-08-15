@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from './Navigation';
-import Img from '../images/logo4.jpg';
+import Img from '../assets/images/logo4.jpg';
 
 function Header(): React.JSX.Element {
   return (

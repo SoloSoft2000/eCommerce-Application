@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import FormProps from '../../interfaces/forms/form-props';
-import FormClasses from '../../enum/form/classes';
+import FormProps from '../../helpers/interfaces/forms/form-props';
+import FormClasses from '../../helpers/enum/form/classes';
 
 function SwitchPageLinks({ pageName }: FormProps): React.JSX.Element {
   return (

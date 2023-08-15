@@ -1,5 +1,5 @@
 import React from 'react';
-import Img from '../images/img-03.png';
+import Img from '../assets/images/img-03.png';
 
 function AboutUsPage(): React.JSX.Element {
   return (

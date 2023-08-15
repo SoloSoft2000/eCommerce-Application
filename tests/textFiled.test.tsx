@@ -1,8 +1,8 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
-import Input from '../src/components/forms/Input';
-import FormClasses from '../src/enum/form/classes';
+import Input from '../src/_components/forms/Input';
+import FormClasses from '../src/helpers/enum/form/classes';
 
 jest.mock('react-hook-form', () => ({
   useFormContext: jest.fn(() => ({

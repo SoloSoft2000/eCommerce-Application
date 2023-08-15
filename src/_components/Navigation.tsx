@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AiOutlineUser } from 'react-icons/ai';
 import { SlBasket } from 'react-icons/sl';
-import { RootState } from '../reducers/store';
-import { clearCustomer } from '../reducers/customerReducer';
+import { RootState } from '../utils/reducers/store';
+import { clearCustomer } from '../utils/reducers/customerReducer';
 
 function Navigation(): React.JSX.Element {
   const customer = useSelector((state: RootState) => state.customer);
