@@ -29,7 +29,7 @@ function RegisterPage(): React.JSX.Element {
     mode: 'all',
   });
 
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [succsessRegistration, setSuccsessRegistration] = useState(false);
   const [localCustomerData, setLocalCustomerData] = useState({});
 
@@ -48,10 +48,14 @@ function RegisterPage(): React.JSX.Element {
     newCustomers(userRegistrationData)
       .then((customerData) => {
         setLocalCustomerData(customerData);
-        setError(false);
+        setError(null);
         setSuccsessRegistration(true);
       })
-      .catch(() => setError(true));
+      .catch((err) =>
+        err.code === 400
+          ? setError('A user with this email already exists')
+          : setError('Server connection error')
+      );
   });
 
   const handleChange = useCallback((): void => {
@@ -121,9 +125,7 @@ function RegisterPage(): React.JSX.Element {
               </div>
             )}
             {error && (
-              <div className={FormClasses.MISTAKE_TEXT_LOGIN}>
-                A user with this email already exists.
-              </div>
+              <div className={FormClasses.MISTAKE_TEXT_LOGIN}>{error}</div>
             )}
 
             <SubmitFormButton
