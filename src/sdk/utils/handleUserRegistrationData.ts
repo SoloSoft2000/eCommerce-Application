@@ -21,23 +21,23 @@ function handleUserData(data: UserRegistrate): CustomerDraft {
     dateOfBirth: formatBirthdayDate(data.birthday),
     addresses: [
       {
-        key: '1',
+        key: 'adress_1',
         country: data.shipCountry,
         city: data.shipCity,
         streetName: data.shipStreet,
         postalCode: data.shipPostcode,
       },
       {
-        key: '2',
+        key: 'adress_2',
         country: data.billCountry || data.shipCountry,
         city: data.billCity || data.shipCity,
         streetName: data.billStreet || data.shipStreet,
         postalCode: data.billPostcode || data.shipPostcode,
       },
     ],
-    shippingAddresses: [1, 2],
-    defaultShippingAddress: 1,
-    billingAddresses: [0, 2],
+    shippingAddresses: [0],
+    defaultShippingAddress: 0,
+    billingAddresses: [1],
     defaultBillingAddress: 1,
   };
   return newUser;
