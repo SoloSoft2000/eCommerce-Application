@@ -9,7 +9,7 @@ function HomePage(): React.JSX.Element {
     <div className="container mx-auto main">
       {customer.firstName && (
         <h3 className="text-l font-bold pt-10 ml-20">
-          Welcome back, {customer.firstName}!
+          Hello, {customer.firstName}!
         </h3>
       )}
       <Main />

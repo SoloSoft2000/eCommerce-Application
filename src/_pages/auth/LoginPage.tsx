@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Title from '../../_components/forms/Title';
 import SwitchPageLinks from '../../_components/forms/SwitchPageLinks';
@@ -20,22 +19,31 @@ function LoginPage(): React.JSX.Element {
     mode: 'all',
   });
 
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(false);
+  const [succsessLogin, setSuccsessLogin] = useState(false);
+  const [localCustomerData, setLocalCustomerData] = useState({});
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (succsessLogin) {
+      setTimeout(() => {
+        dispatch(setCustomer(localCustomerData));
+      }, 3000);
+    }
+  }, [succsessLogin]);
 
   const onSubmit = methods.handleSubmit((data) => {
     const { email, password } = data;
 
     getCustomers(email, password) // 'sowa4il@gmail.com', 'JS&dontStop2023q1'
       .then((customerData) => {
-        dispatch(setCustomer(customerData));
-        setError(null);
-        navigate('/');
+        setLocalCustomerData(customerData);
+        setError(false);
+        setSuccsessLogin(true);
       })
       .catch(() => {
-        setError(`Invalid Email or Password`);
+        setError(true);
       });
   });
 
@@ -51,8 +59,15 @@ function LoginPage(): React.JSX.Element {
               <Input type={'email'} placeholder={'Email*:'} name={'email'} />
               <Password />
             </div>
+            {succsessLogin && (
+              <div className={FormClasses.SUCCESS_TEXT_LOGIN}>
+                You have successfully logged in
+              </div>
+            )}
             {error && (
-              <div className={FormClasses.MISTAKE_TEXT_LOGIN}>{error}</div>
+              <div className={FormClasses.MISTAKE_TEXT_LOGIN}>
+                Invalid Email or Password
+              </div>
             )}
             <SubmitFormButton
               value="Sign in"

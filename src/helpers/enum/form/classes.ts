@@ -10,6 +10,7 @@ const enum FormClasses {
   HALF_FIELD = 'w-full sm:w-[47%]',
   MISTAKE_TEXT = 'text-sm text-red-500 h-5',
   MISTAKE_TEXT_LOGIN = 'text-xl text-red-500 text-center mb-3',
+  SUCCESS_TEXT_LOGIN = 'text-xl text-emerald-500 text-center mb-3',
   ADDRESS_TITLE = 'py-2 px-1 font-bold',
   CHECKBOX = 'mr-2 inline-block my-3',
   BIRTDAY_LABEL = 'text-gray-400 mr-5',

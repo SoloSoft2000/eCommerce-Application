@@ -1,7 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { CustomerDraft } from '@commercetools/platform-sdk';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Title from '../../_components/forms/Title';
@@ -30,17 +29,29 @@ function RegisterPage(): React.JSX.Element {
     mode: 'all',
   });
 
+  const [error, setError] = useState(false);
+  const [succsessRegistration, setSuccsessRegistration] = useState(false);
+  const [localCustomerData, setLocalCustomerData] = useState({});
+
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (succsessRegistration) {
+      setTimeout(() => {
+        dispatch(setCustomer(localCustomerData));
+      }, 3000);
+    }
+  }, [succsessRegistration]);
 
   const onSubmit = methods.handleSubmit((data) => {
     const userRegistrationData: CustomerDraft = handleUserData(data);
     newCustomers(userRegistrationData)
       .then((customerData) => {
-        dispatch(setCustomer(customerData));
-        navigate('/');
+        setLocalCustomerData(customerData);
+        setError(false);
+        setSuccsessRegistration(true);
       })
-      .catch(() => console.error);
+      .catch(() => setError(true));
   });
 
   const handleChange = useCallback((): void => {
@@ -103,6 +114,17 @@ function RegisterPage(): React.JSX.Element {
 
               {!defaultAdress && <Address name={'Billing'} type={'bill'} />}
             </div>
+
+            {succsessRegistration && (
+              <div className={FormClasses.SUCCESS_TEXT_LOGIN}>
+                You have been successfully registered.
+              </div>
+            )}
+            {error && (
+              <div className={FormClasses.MISTAKE_TEXT_LOGIN}>
+                A user with this email already exists.
+              </div>
+            )}
 
             <SubmitFormButton
               value="Create an account"
