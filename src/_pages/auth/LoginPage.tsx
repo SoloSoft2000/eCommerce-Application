@@ -32,6 +32,7 @@ function LoginPage(): React.JSX.Element {
     getCustomers(email, password) // 'sowa4il@gmail.com', 'JS&dontStop2023q1'
       .then((customerData) => {
         dispatch(setCustomer(customerData));
+        setError(false);
         setSuccsessLogin(true);
         setTimeout(() => {
           navigate('/');
@@ -56,7 +57,7 @@ function LoginPage(): React.JSX.Element {
             </div>
             {succsessLogin && (
               <div className={FormClasses.SUCCESS_TEXT_LOGIN}>
-                You are successfully logged in
+                You have successfully logged in
               </div>
             )}
             {error && (

@@ -32,7 +32,8 @@ function App(): React.JSX.Element {
           />
           <Route
             path="/register"
-            element={customer.id ? <HomePage /> : <RegisterPage />}
+            element={<RegisterPage />}
+            // element={customer.id ? <HomePage /> : <RegisterPage />}
           />
           <Route path="/catalog" element={<CatalogPage />} />
           <Route path="/product" element={<ProductPage />} />

@@ -30,6 +30,9 @@ function RegisterPage(): React.JSX.Element {
     mode: 'all',
   });
 
+  const [error, setError] = useState(false);
+  const [succsessRegistration, setSuccsessRegistration] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -38,9 +41,13 @@ function RegisterPage(): React.JSX.Element {
     newCustomers(userRegistrationData)
       .then((customerData) => {
         dispatch(setCustomer(customerData));
-        navigate('/');
+        setError(false);
+        setSuccsessRegistration(true);
+        setTimeout(() => {
+          navigate('/');
+        }, 1500);
       })
-      .catch(() => console.error);
+      .catch(() => setError(true));
   });
 
   const handleChange = useCallback((): void => {
@@ -103,6 +110,17 @@ function RegisterPage(): React.JSX.Element {
 
               {!defaultAdress && <Address name={'Billing'} type={'bill'} />}
             </div>
+
+            {succsessRegistration && (
+              <div className={FormClasses.SUCCESS_TEXT_LOGIN}>
+                You have been successfully registered.
+              </div>
+            )}
+            {error && (
+              <div className={FormClasses.MISTAKE_TEXT_LOGIN}>
+                A user with this email already exists.
+              </div>
+            )}
 
             <SubmitFormButton
               value="Create an account"
