@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { CustomerDraft } from '@commercetools/platform-sdk';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Title from '../../_components/forms/Title';
@@ -35,7 +34,6 @@ function RegisterPage(): React.JSX.Element {
   const [localCustomerData, setLocalCustomerData] = useState({});
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (succsessRegistration) {
@@ -43,7 +41,7 @@ function RegisterPage(): React.JSX.Element {
         dispatch(setCustomer(localCustomerData));
       }, 3000);
     }
-  }, [succsessRegistration, navigate]);
+  }, [succsessRegistration]);
 
   const onSubmit = methods.handleSubmit((data) => {
     const userRegistrationData: CustomerDraft = handleUserData(data);

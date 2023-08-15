@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Title from '../../_components/forms/Title';
 import SwitchPageLinks from '../../_components/forms/SwitchPageLinks';
@@ -25,7 +24,6 @@ function LoginPage(): React.JSX.Element {
   const [localCustomerData, setLocalCustomerData] = useState({});
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (succsessLogin) {
@@ -33,7 +31,7 @@ function LoginPage(): React.JSX.Element {
         dispatch(setCustomer(localCustomerData));
       }, 3000);
     }
-  }, [succsessLogin, navigate]);
+  }, [succsessLogin]);
 
   const onSubmit = methods.handleSubmit((data) => {
     const { email, password } = data;
