@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -22,21 +22,27 @@ function LoginPage(): React.JSX.Element {
 
   const [error, setError] = useState(false);
   const [succsessLogin, setSuccsessLogin] = useState(false);
+  const [localCustomerData, setLocalCustomerData] = useState({});
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (succsessLogin) {
+      setTimeout(() => {
+        dispatch(setCustomer(localCustomerData));
+      }, 3000);
+    }
+  }, [succsessLogin, navigate]);
 
   const onSubmit = methods.handleSubmit((data) => {
     const { email, password } = data;
 
     getCustomers(email, password) // 'sowa4il@gmail.com', 'JS&dontStop2023q1'
       .then((customerData) => {
-        dispatch(setCustomer(customerData));
-        localStorage.setItem('Redirect', JSON.stringify('Yes'));
+        setLocalCustomerData(customerData);
         setError(false);
         setSuccsessLogin(true);
-        setTimeout(() => navigate('/'), 1500);
-        setTimeout(() => localStorage.removeItem('Redirect'), 2000);
       })
       .catch(() => {
         setError(true);

@@ -18,7 +18,6 @@ import { RootState } from './utils/reducers/store';
 
 function App(): React.JSX.Element {
   const customer = useSelector((state: RootState) => state.customer);
-  const redirectWaiting = localStorage.getItem('Redirect');
 
   return (
     <>
@@ -28,13 +27,10 @@ function App(): React.JSX.Element {
           <Route path="/" element={<HomePage />} />
           <Route
             path="/login"
-            element={
-              customer.id && !redirectWaiting ? <HomePage /> : <LoginPage />
-            }
+            element={customer.id ? <HomePage /> : <LoginPage />}
           />
           <Route
             path="/register"
-            // element={<RegisterPage />}
             element={customer.id ? <HomePage /> : <RegisterPage />}
           />
           <Route path="/catalog" element={<CatalogPage />} />

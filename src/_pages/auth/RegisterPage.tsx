@@ -32,28 +32,26 @@ function RegisterPage(): React.JSX.Element {
 
   const [error, setError] = useState(false);
   const [succsessRegistration, setSuccsessRegistration] = useState(false);
+  const [localCustomerData, setLocalCustomerData] = useState({});
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (succsessRegistration) {
-  //     setTimeout(() => {
-  //       navigate('/');
-  //     }, 1500);
-  //   }
-  // }, [succsessRegistration, navigate]);
+  useEffect(() => {
+    if (succsessRegistration) {
+      setTimeout(() => {
+        dispatch(setCustomer(localCustomerData));
+      }, 3000);
+    }
+  }, [succsessRegistration, navigate]);
 
   const onSubmit = methods.handleSubmit((data) => {
     const userRegistrationData: CustomerDraft = handleUserData(data);
     newCustomers(userRegistrationData)
       .then((customerData) => {
-        dispatch(setCustomer(customerData));
+        setLocalCustomerData(customerData);
         setError(false);
         setSuccsessRegistration(true);
-        setTimeout(() => {
-          navigate('/');
-        }, 1500);
       })
       .catch(() => setError(true));
   });
