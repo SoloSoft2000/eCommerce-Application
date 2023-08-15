@@ -5,11 +5,18 @@ import { BrowserRouter } from 'react-router-dom';
 import './assets/styles/index.css';
 import App from './App';
 import store from './utils/reducers/store';
+import { setCustomer } from './utils/reducers/customerReducer';
 
 const root = document.getElementById('root');
 
 if (!root) {
   throw new Error('No root element found');
+}
+
+const savedCustomer = localStorage.getItem('CT-Customer-SignIn');
+if (savedCustomer) {
+  const res = JSON.parse(savedCustomer);
+  store.dispatch(setCustomer(res));
 }
 
 createRoot(root).render(
