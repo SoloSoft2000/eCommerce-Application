@@ -15,7 +15,7 @@ if (!root) {
 
 const savedCustomer = localStorage.getItem('CT-Customer-SignIn');
 if (savedCustomer) {
-  const res = JSON.parse(savedCustomer)
+  const res = JSON.parse(savedCustomer);
   store.dispatch(setCustomer(res));
 }
 
