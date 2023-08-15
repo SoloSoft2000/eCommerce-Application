@@ -32,11 +32,11 @@ function LoginPage(): React.JSX.Element {
     getCustomers(email, password) // 'sowa4il@gmail.com', 'JS&dontStop2023q1'
       .then((customerData) => {
         dispatch(setCustomer(customerData));
+        localStorage.setItem('Redirect', JSON.stringify('Yes'));
         setError(false);
         setSuccsessLogin(true);
-        setTimeout(() => {
-          navigate('/');
-        }, 1500);
+        setTimeout(() => navigate('/'), 1500);
+        setTimeout(() => localStorage.removeItem('Redirect'), 2000);
       })
       .catch(() => {
         setError(true);

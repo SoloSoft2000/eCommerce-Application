@@ -36,14 +36,14 @@ function RegisterPage(): React.JSX.Element {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (succsessRegistration) {
-      setTimeout(() => {
-        navigate('/');
-      }, 1500);
-    }
-  }, [succsessRegistration, navigate]);
-  
+  // useEffect(() => {
+  //   if (succsessRegistration) {
+  //     setTimeout(() => {
+  //       navigate('/');
+  //     }, 1500);
+  //   }
+  // }, [succsessRegistration, navigate]);
+
   const onSubmit = methods.handleSubmit((data) => {
     const userRegistrationData: CustomerDraft = handleUserData(data);
     newCustomers(userRegistrationData)
@@ -51,9 +51,9 @@ function RegisterPage(): React.JSX.Element {
         dispatch(setCustomer(customerData));
         setError(false);
         setSuccsessRegistration(true);
-        // setTimeout(() => {
-        //   navigate('/');
-        // }, 1500);
+        setTimeout(() => {
+          navigate('/');
+        }, 1500);
       })
       .catch(() => setError(true));
   });
