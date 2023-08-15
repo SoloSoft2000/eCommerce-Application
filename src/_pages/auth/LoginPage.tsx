@@ -20,7 +20,8 @@ function LoginPage(): React.JSX.Element {
     mode: 'all',
   });
 
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(false);
+  const [succsessLogin, setSuccsessLogin] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,11 +32,13 @@ function LoginPage(): React.JSX.Element {
     getCustomers(email, password) // 'sowa4il@gmail.com', 'JS&dontStop2023q1'
       .then((customerData) => {
         dispatch(setCustomer(customerData));
-        setError(null);
-        navigate('/');
+        setSuccsessLogin(true);
+        setTimeout(() => {
+          navigate('/');
+        }, 1500);
       })
       .catch(() => {
-        setError(`Invalid Email or Password`);
+        setError(true);
       });
   });
 
@@ -51,8 +54,15 @@ function LoginPage(): React.JSX.Element {
               <Input type={'email'} placeholder={'Email*:'} name={'email'} />
               <Password />
             </div>
+            {succsessLogin && (
+              <div className={FormClasses.SUCCESS_TEXT_LOGIN}>
+                You are successfully logged in
+              </div>
+            )}
             {error && (
-              <div className={FormClasses.MISTAKE_TEXT_LOGIN}>{error}</div>
+              <div className={FormClasses.MISTAKE_TEXT_LOGIN}>
+                Invalid Email or Password
+              </div>
             )}
             <SubmitFormButton
               value="Sign in"
