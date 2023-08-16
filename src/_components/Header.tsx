@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SlMenu } from 'react-icons/sl';
+import { RxCross1 } from 'react-icons/rx';
 import Img from '../assets/images/logo4.jpg';
 import Navigation from './Navigation';
 
@@ -22,7 +23,7 @@ function Header(): React.JSX.Element {
           className="h-5 w-5 hidden max-md:inline-block"
           onClick={toggNavMenu}
         >
-          <SlMenu className="w-full h-full" />
+          {isOpen ? <RxCross1 className="w-full h-full transition-all duration-300 ease-in-out" /> : <SlMenu className="w-full h-full w-full h-full transition-all duration-300 ease-in-out" />}
         </button>
       </div>
     </header>
