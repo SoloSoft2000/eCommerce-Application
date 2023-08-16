@@ -1,4 +1,7 @@
-interface LayoutProps {
+export interface LayoutProps {
   children: React.ReactNode;
 }
-export default LayoutProps;
+
+export interface NavigationProps {
+  isOpen: boolean;
+}
