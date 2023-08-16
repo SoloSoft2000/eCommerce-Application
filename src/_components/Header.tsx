@@ -12,16 +12,19 @@ function Header(): React.JSX.Element {
       setOpen(false);
     };
 
-    document.addEventListener("mousedown", menuHandler)
-  })
+    document.addEventListener('mousedown', menuHandler);
+  });
   return (
     <header className="container mx-auto">
       <div className="flex justify-between">
         <Link to="/">
           <img className="m-3" src={Img} alt="logo" width="150" />
         </Link>
-        <Navigation isOpen={isOpen}/>
-        <button className="menu-btn mr-2 hidden max-md:block max-sm:block" onClick={():void => setOpen(!isOpen)}>
+        <Navigation isOpen={isOpen} />
+        <button
+          className="menu-btn mr-2 hidden max-md:block max-sm:block"
+          onClick={(): void => setOpen(!isOpen)}
+        >
           <SlMenu />
         </button>
       </div>
