@@ -21,7 +21,3 @@ main,
 .main {
   flex: 1 1 auto;
 }
-
-.active {
-  transform: translateX(100%);
-}
