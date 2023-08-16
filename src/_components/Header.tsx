@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { SlMenu } from 'react-icons/sl';
 import { RxCross1 } from 'react-icons/rx';
@@ -11,6 +11,20 @@ function Header(): React.JSX.Element {
   const toggNavMenu = useCallback(() => {
     setOpen((prevValue) => !prevValue);
   }, [isOpen]);
+
+  useEffect(() => {
+    const followResizing = (): void => {
+      if (window.innerWidth > 767) {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', followResizing);
+
+    return () => {
+      window.removeEventListener('resize', followResizing);
+    };
+  }, []);
 
   return (
     <header className="container mx-auto">
