@@ -60,8 +60,6 @@ function LoginPage(): React.JSX.Element {
             />
           </form>
         </FormProvider>
-        <p className="p-3">sowa4il@gmail.com </p>
-        <p className="p-3">JS&dontStop2023q1</p>
       </div>
     </main>
   );
