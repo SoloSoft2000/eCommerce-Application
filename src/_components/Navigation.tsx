@@ -6,6 +6,7 @@ import { SlBasket } from 'react-icons/sl';
 import { RootState } from '../utils/reducers/store';
 import { clearCustomer } from '../utils/reducers/customerReducer';
 import { NavigationProps } from '../helpers/interfaces/layout/layout-props';
+import NavClasses from '../helpers/enum/components/navClasses';
 
 function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
   const customer = useSelector((state: RootState) => state.customer);
@@ -16,42 +17,42 @@ function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
     dispatch(clearCustomer());
   }, [dispatch]);
 
+  const mainClasses = isOpen ? `${NavClasses.MAIN} translate-x-full` : NavClasses.MAIN;
+
   return (
     <nav
-      className={`flex max-md:flex-col max-md:fixed max-md:justify-start max-md:items-center md:justify-between max-md:gap-6 max-md:pt-6 md:gap-4 md:m-8 max-md:m-0 max-md:z-50 max-md:w-3/4 max-md:drop-shadow-md	max-md:h-full max-md:bg-white 
-      max-md:top-0 max-md:-left-3/4 max-md:transition-transform 
-      max-md:duration-400 max-md:ease-linear ${isOpen ? 'translate-x-full' : ''}`}
+      className= {mainClasses}
     >
       <Link
-        className="hover:text-neutral-500 max-lg:text-sm lg:text-2xl"
+        className={NavClasses.LINK}
         to="/"
       >
         Main
       </Link>
       <>
         <Link
-          className="hover:text-neutral-500 max-lg:text-sm lg:text-2xl"
+          className={NavClasses.LINK}
           to="/catalog"
         >
           Catalog Product
         </Link>
         <Link
-          className="hover:text-neutral-500 max-lg:text-sm lg:text-2xl"
+          className={NavClasses.LINK}
           to="/product"
         >
           Detailed Product
         </Link>
         <Link
-          className="hover:text-neutral-500 max-lg:text-sm lg:text-2xl"
+          className={NavClasses.LINK}
           to="/basket"
         >
-          <div className="flex items-center">
+          <div className={NavClasses.ICONS}>
             <SlBasket className="mr-1" /> Basket
           </div>
         </Link>
       </>
       <Link
-        className="hover:text-neutral-500 max-lg:text-sm lg:text-2xl"
+        className={NavClasses.LINK}
         to="/about"
       >
         About Us
@@ -60,15 +61,15 @@ function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
       {customer.id && (
         <>
           <Link
-            className="hover:text-neutral-500 max-lg:text-sm lg:text-2xl"
+            className={NavClasses.LINK}
             to="/profile"
           >
-            <div className="flex items-center">
+            <div className={NavClasses.ICONS}>
               <AiOutlineUser className="mr-1" /> User Profile
             </div>
           </Link>
           <Link
-            className="text-amber-600 hover:text-amber-500 max-lg:text-sm lg:text-2xl"
+            className={NavClasses.USER_LINK}
             to="/"
             onClick={handleLogout}
           >
@@ -79,13 +80,13 @@ function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
       {!customer.id && (
         <>
           <Link
-            className="text-amber-600 hover:text-amber-500 max-lg:text-sm lg:text-2xl"
+            className={NavClasses.USER_LINK}
             to="/login"
           >
             Login
           </Link>
           <Link
-            className="text-amber-600 hover:text-amber-500 max-lg:text-sm lg:text-2xl"
+            className={NavClasses.USER_LINK}
             to="/register"
           >
             Register

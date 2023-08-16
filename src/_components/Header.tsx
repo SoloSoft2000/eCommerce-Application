@@ -4,6 +4,7 @@ import { SlMenu } from 'react-icons/sl';
 import { RxCross1 } from 'react-icons/rx';
 import Img from '../assets/images/logo4.jpg';
 import Navigation from './Navigation';
+import HeaderClasses from '../helpers/enum/components/headerClasses';
 
 function Header(): React.JSX.Element {
   const [isOpen, setOpen] = useState(false);
@@ -25,19 +26,27 @@ function Header(): React.JSX.Element {
       window.removeEventListener('resize', followResizing);
     };
   }, []);
+  
+  useEffect(() => {
+    const menuHandler = (): void => {
+      setOpen(false);
+    };
+
+    document.addEventListener("mousedown", menuHandler)
+  })
 
   return (
-    <header className="container mx-auto">
-      <div className="flex justify-between max-md:items-center max-md:pr-2">
+    <header className={HeaderClasses.MAIN}>
+      <div className={HeaderClasses.LOGO}>
         <Link to="/">
           <img className="m-3" src={Img} alt="logo" width="150" />
         </Link>
         <Navigation isOpen={isOpen} />
         <button
-          className="h-5 w-5 hidden max-md:inline-block"
+          className={HeaderClasses.BUTTON}
           onClick={toggNavMenu}
         >
-          {isOpen ? <RxCross1 className="w-full h-full transition-all duration-300 ease-in-out" /> : <SlMenu className="w-full h-full w-full h-full transition-all duration-300 ease-in-out" />}
+          {isOpen ? <RxCross1 className={HeaderClasses.MENU_ICON} /> : <SlMenu className={HeaderClasses.MENU_ICON} />}
         </button>
       </div>
     </header>
