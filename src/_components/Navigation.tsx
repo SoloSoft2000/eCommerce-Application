@@ -5,8 +5,10 @@ import { AiOutlineUser } from 'react-icons/ai';
 import { SlBasket } from 'react-icons/sl';
 import { RootState } from '../utils/reducers/store';
 import { clearCustomer } from '../utils/reducers/customerReducer';
+import { NavigationProps } from '../helpers/interfaces/layout/layout-props';
+import NavClasses from '../helpers/enum/components/navClasses';
 
-function Navigation(): React.JSX.Element {
+function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
   const customer = useSelector((state: RootState) => state.customer);
 
   const dispatch = useDispatch();
@@ -15,50 +17,50 @@ function Navigation(): React.JSX.Element {
     dispatch(clearCustomer());
   }, [dispatch]);
 
+  const mainClasses = isOpen
+    ? `${NavClasses.MAIN} translate-x-full`
+    : NavClasses.MAIN;
+
   return (
-    <nav className="flex justify-between gap-4 m-8">
-      <Link className="hover:text-neutral-500" to="/">
+    <nav className={mainClasses}>
+      <Link className={NavClasses.LINK} to="/">
         Main
       </Link>
       <>
-        <Link className="hover:text-neutral-500" to="/catalog">
+        <Link className={NavClasses.LINK} to="/catalog">
           Catalog Product
         </Link>
-        <Link className="hover:text-neutral-500" to="/product">
+        <Link className={NavClasses.LINK} to="/product">
           Detailed Product
         </Link>
-        <Link className="hover:text-neutral-500" to="/basket">
-          <div className="flex items-center">
+        <Link className={NavClasses.LINK} to="/basket">
+          <div className={NavClasses.ICONS}>
             <SlBasket className="mr-1" /> Basket
           </div>
         </Link>
       </>
-      <Link className="hover:text-neutral-500" to="/about">
+      <Link className={NavClasses.LINK} to="/about">
         About Us
       </Link>
 
       {customer.id && (
         <>
-          <Link className="hover:text-neutral-500" to="/profile">
-            <div className="flex items-center">
+          <Link className={NavClasses.LINK} to="/profile">
+            <div className={NavClasses.ICONS}>
               <AiOutlineUser className="mr-1" /> User Profile
             </div>
           </Link>
-          <Link
-            className="text-amber-600 hover:text-amber-500"
-            to="/"
-            onClick={handleLogout}
-          >
+          <Link className={NavClasses.USER_LINK} to="/" onClick={handleLogout}>
             Log out
           </Link>
         </>
       )}
       {!customer.id && (
         <>
-          <Link className="text-amber-600 hover:text-amber-500" to="/login">
+          <Link className={NavClasses.USER_LINK} to="/login">
             Login
           </Link>
-          <Link className="text-amber-600 hover:text-amber-500" to="/register">
+          <Link className={NavClasses.USER_LINK} to="/register">
             Register
           </Link>
         </>
