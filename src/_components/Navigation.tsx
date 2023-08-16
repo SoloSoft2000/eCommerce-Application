@@ -23,26 +23,26 @@ function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
       max-md:duration-400 max-md:ease-linear ${isOpen ? 'translate-x-full' : ''}`}
     >
       <Link
-        className="hover:text-neutral-500 max-lg:text-sm max-md:text-2xl"
+        className="hover:text-neutral-500 max-lg:text-sm lg:text-2xl"
         to="/"
       >
         Main
       </Link>
       <>
         <Link
-          className="hover:text-neutral-500 max-lg:text-sm max-md:text-2xl"
+          className="hover:text-neutral-500 max-lg:text-sm lg:text-2xl"
           to="/catalog"
         >
           Catalog Product
         </Link>
         <Link
-          className="hover:text-neutral-500 max-lg:text-sm max-md:text-2xl"
+          className="hover:text-neutral-500 max-lg:text-sm lg:text-2xl"
           to="/product"
         >
           Detailed Product
         </Link>
         <Link
-          className="hover:text-neutral-500 max-lg:text-sm max-md:text-2xl"
+          className="hover:text-neutral-500 max-lg:text-sm lg:text-2xl"
           to="/basket"
         >
           <div className="flex items-center">
@@ -51,7 +51,7 @@ function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
         </Link>
       </>
       <Link
-        className="hover:text-neutral-500 max-lg:text-sm max-md:text-2xl"
+        className="hover:text-neutral-500 max-lg:text-sm lg:text-2xl"
         to="/about"
       >
         About Us
@@ -60,7 +60,7 @@ function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
       {customer.id && (
         <>
           <Link
-            className="hover:text-neutral-500 max-lg:text-sm max-md:text-2xl"
+            className="hover:text-neutral-500 max-lg:text-sm lg:text-2xl"
             to="/profile"
           >
             <div className="flex items-center">
@@ -68,7 +68,7 @@ function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
             </div>
           </Link>
           <Link
-            className="text-amber-600 hover:text-amber-500 max-lg:text-sm max-md:text-2xl"
+            className="text-amber-600 hover:text-amber-500 max-lg:text-sm lg:text-2xl"
             to="/"
             onClick={handleLogout}
           >
@@ -79,13 +79,13 @@ function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
       {!customer.id && (
         <>
           <Link
-            className="text-amber-600 hover:text-amber-500 max-lg:text-sm max-md:text-2xl"
+            className="text-amber-600 hover:text-amber-500 max-lg:text-sm lg:text-2xl"
             to="/login"
           >
             Login
           </Link>
           <Link
-            className="text-amber-600 hover:text-amber-500 max-lg:text-sm max-md:text-2xl"
+            className="text-amber-600 hover:text-amber-500 max-lg:text-sm lg:text-2xl"
             to="/register"
           >
             Register
