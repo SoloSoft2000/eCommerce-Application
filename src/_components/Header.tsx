@@ -26,14 +26,14 @@ function Header(): React.JSX.Element {
       window.removeEventListener('resize', followResizing);
     };
   }, []);
-  
+
   useEffect(() => {
     const menuHandler = (): void => {
       setOpen(false);
     };
 
-    document.addEventListener("mousedown", menuHandler)
-  })
+    document.addEventListener('mousedown', menuHandler);
+  });
 
   return (
     <header className={HeaderClasses.MAIN}>
@@ -42,11 +42,12 @@ function Header(): React.JSX.Element {
           <img className="m-3" src={Img} alt="logo" width="150" />
         </Link>
         <Navigation isOpen={isOpen} />
-        <button
-          className={HeaderClasses.BUTTON}
-          onClick={toggNavMenu}
-        >
-          {isOpen ? <RxCross1 className={HeaderClasses.MENU_ICON} /> : <SlMenu className={HeaderClasses.MENU_ICON} />}
+        <button className={HeaderClasses.BUTTON} onClick={toggNavMenu}>
+          {isOpen ? (
+            <RxCross1 className={HeaderClasses.MENU_ICON} />
+          ) : (
+            <SlMenu className={HeaderClasses.MENU_ICON} />
+          )}
         </button>
       </div>
     </header>
