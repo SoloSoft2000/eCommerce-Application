@@ -19,7 +19,7 @@ function LoginPage(): React.JSX.Element {
     mode: 'all',
   });
 
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [succsessLogin, setSuccsessLogin] = useState(false);
   const [localCustomerData, setLocalCustomerData] = useState({});
 
@@ -39,12 +39,14 @@ function LoginPage(): React.JSX.Element {
     getCustomers(email, password) // 'sowa4il@gmail.com', 'JS&dontStop2023q1'
       .then((customerData) => {
         setLocalCustomerData(customerData);
-        setError(false);
+        setError(null);
         setSuccsessLogin(true);
       })
-      .catch(() => {
-        setError(true);
-      });
+      .catch((err) =>
+        err.code === 400
+          ? setError('Invalid Email or Password')
+          : setError('Server connection error')
+      );
   });
 
   return (
@@ -65,9 +67,7 @@ function LoginPage(): React.JSX.Element {
               </div>
             )}
             {error && (
-              <div className={FormClasses.MISTAKE_TEXT_LOGIN}>
-                Invalid Email or Password
-              </div>
+              <div className={FormClasses.MISTAKE_TEXT_LOGIN}>{error}</div>
             )}
             <SubmitFormButton
               value="Sign in"
