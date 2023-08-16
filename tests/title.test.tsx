@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import React from 'react';
 import { render } from '@testing-library/react';
-import Title from '../src/_components/forms/Title';
+import Title from '../src/сomponents/forms/Title';
 
 describe('Title component', () => {
   it('renders correctly with given value and classes', () => {

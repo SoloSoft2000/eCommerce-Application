@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import ButtonLink from '../src/_components/ButtonLink'; 
+import ButtonLink from '../src/сomponents/ButtonLink';
 
 describe('ButtonLink', () => {
   it('renders the button with correct text', () => {

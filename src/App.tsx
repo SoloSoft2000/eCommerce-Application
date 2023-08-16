@@ -2,18 +2,18 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import Header from './_components/Header';
-import Footer from './_components/Footer';
-import HomePage from './_pages/HomePage';
-import LoginPage from './_pages/auth/LoginPage';
-import RegisterPage from './_pages/auth/RegisterPage';
-import CatalogPage from './_pages/CatalogPage';
-import ProductPage from './_pages/DetailedProductPage';
-import UserProfilePage from './_pages/UserProfilePage';
-import BasketPage from './_pages/BasketPage';
-import AboutUsPage from './_pages/AboutUsPage';
-import NoPage from './_pages/NoPage';
-import Layout from './_components/Layout';
+import Header from './сomponents/Header';
+import Footer from './сomponents/Footer';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/auth/LoginPage';
+import RegisterPage from './pages/auth/RegisterPage';
+import CatalogPage from './pages/CatalogPage';
+import ProductPage from './pages/DetailedProductPage';
+import UserProfilePage from './pages/UserProfilePage';
+import BasketPage from './pages/BasketPage';
+import AboutUsPage from './pages/AboutUsPage';
+import NoPage from './pages/NoPage';
+import Layout from './сomponents/Layout';
 import { RootState } from './utils/reducers/store';
 
 function App(): React.JSX.Element {

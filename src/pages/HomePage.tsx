@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../utils/reducers/store';
-import Main from '../_components/Main';
+import Main from '../сomponents/Main';
 
 function HomePage(): React.JSX.Element {
   const customer = useSelector((state: RootState) => state.customer);

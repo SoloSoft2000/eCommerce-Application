@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useFormContext } from 'react-hook-form';
-import Password from '../src/_components/forms/Password'; 
+import Password from '../src/сomponents/forms/Password';
 
 jest.mock('react-hook-form', () => ({
   useFormContext: jest.fn(),
@@ -9,7 +9,7 @@ jest.mock('react-hook-form', () => ({
 
 describe('Password', () => {
   it('renders empty password input', () => {
-     const mockFormContext = {
+    const mockFormContext = {
       register: jest.fn(),
       formState: { errors: {} },
     };
@@ -18,7 +18,9 @@ describe('Password', () => {
 
     render(<Password />);
 
-    const passwordInput = screen.getByPlaceholderText('Password*') as HTMLInputElement;
+    const passwordInput = screen.getByPlaceholderText(
+      'Password*'
+    ) as HTMLInputElement;
     expect(passwordInput.value).toBe('');
   });
 });

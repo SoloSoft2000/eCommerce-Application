@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Img from '../assets/images/404-error.png';
-import ButtonLink from '../_components/ButtonLink';
+import ButtonLink from '../сomponents/ButtonLink';
 import NoPageClasses from '../helpers/enum/components/noPageClasses';
 
 function NoPage(): React.JSX.Element {
