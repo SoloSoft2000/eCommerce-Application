@@ -3,12 +3,12 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { CustomerDraft } from '@commercetools/platform-sdk';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Title from '../../_components/forms/Title';
-import SwitchPageLinks from '../../_components/forms/SwitchPageLinks';
-import Input from '../../_components/forms/Input';
-import Password from '../../_components/forms/Password';
-import SubmitFormButton from '../../_components/forms/SubmitFormBtn';
-import BirtdayDate from '../../_components/forms/BirtdayDate';
+import Title from '../../сomponents/forms/Title';
+import SwitchPageLinks from '../../сomponents/forms/SwitchPageLinks';
+import Input from '../../сomponents/forms/Input';
+import Password from '../../сomponents/forms/Password';
+import SubmitFormButton from '../../сomponents/forms/SubmitFormBtn';
+import BirtdayDate from '../../сomponents/forms/BirtdayDate';
 import {
   registerSchemaOne,
   registerSchemaTwo,
@@ -16,7 +16,7 @@ import {
 import FormClasses from '../../helpers/enum/form/classes';
 import RegisterPageClasses from '../../helpers/enum/pages/regitester';
 import handleUserData from '../../utils/sdk/utils/handleUserRegistrationData';
-import Address from '../../_components/forms/Adress';
+import Address from '../../сomponents/forms/Adress';
 import newCustomers from '../../utils/sdk/newCustomers';
 import { setCustomer } from '../../utils/reducers/customerReducer';
 
@@ -77,7 +77,12 @@ function RegisterPage(): React.JSX.Element {
         <Title classes={FormClasses.TITLE} value="Create an account" />
         <SwitchPageLinks pageName="register" />
         <FormProvider {...methods}>
-          <form onSubmit={onSubmit} noValidate className={FormClasses.FORM}>
+          <form
+            onSubmit={onSubmit}
+            onBlur={(): void => setError('')}
+            noValidate
+            className={FormClasses.FORM}
+          >
             <Input
               type="email"
               placeholder="Email*:"

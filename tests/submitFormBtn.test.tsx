@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import SubmitFormButton from '../src/_components/forms/SubmitFormBtn';
+import SubmitFormButton from '../src/сomponents/forms/SubmitFormBtn';
 
 describe('SubmitFormButton', () => {
   it('renders with the provided value and expected classes', () => {

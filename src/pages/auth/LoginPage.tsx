@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Title from '../../_components/forms/Title';
-import SwitchPageLinks from '../../_components/forms/SwitchPageLinks';
-import Input from '../../_components/forms/Input';
-import Password from '../../_components/forms/Password';
-import SubmitFormButton from '../../_components/forms/SubmitFormBtn';
+import Title from '../../сomponents/forms/Title';
+import SwitchPageLinks from '../../сomponents/forms/SwitchPageLinks';
+import Input from '../../сomponents/forms/Input';
+import Password from '../../сomponents/forms/Password';
+import SubmitFormButton from '../../сomponents/forms/SubmitFormBtn';
 import getCustomers from '../../utils/sdk/getCustomers';
 import { setCustomer } from '../../utils/reducers/customerReducer';
 import loginSchema from '../../utils/validationSchemas/loginSchema';
@@ -56,7 +56,12 @@ function LoginPage(): React.JSX.Element {
         <SwitchPageLinks />
 
         <FormProvider {...methods}>
-          <form onSubmit={onSubmit} noValidate className={FormClasses.FORM}>
+          <form
+            onSubmit={onSubmit}
+            onBlur={(): void => setError('')}
+            noValidate
+            className={FormClasses.FORM}
+          >
             <div className="mb-12">
               <Input type={'email'} placeholder={'Email*:'} name={'email'} />
               <Password />
