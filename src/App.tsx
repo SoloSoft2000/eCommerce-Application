@@ -41,7 +41,7 @@ function App(): React.JSX.Element {
           />
           <Route path="/basket" element={<BasketPage />} />
           <Route path="/about" element={<AboutUsPage />} />
-          <Route path="*" element={<NoPage />} />
+          <Route path="/*" element={<NoPage />} />
         </Routes>
         <Footer />
       </Layout>
