@@ -8,7 +8,7 @@ function HomePage(): React.JSX.Element {
   return (
     <div className="container mx-auto main">
       {customer.firstName && (
-        <h3 className="text-l font-bold pt-10 ml-20">
+        <h3 className="text-xl font-bold pt-10 ml-20">
           Hello, {customer.firstName}!
         </h3>
       )}

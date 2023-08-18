@@ -7,8 +7,7 @@ import Footer from './сomponents/Footer';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
-import CatalogPageMain from './pages/CatalogPageMain';
-import CatalogPageAllGoods from './pages/CatalogPageAllGoods';
+import CatalogPage from './pages/CatalogPage';
 import ProductPage from './pages/DetailedProductPage';
 import UserProfilePage from './pages/UserProfilePage';
 import BasketPage from './pages/BasketPage';
@@ -34,8 +33,10 @@ function App(): React.JSX.Element {
             path="/register"
             element={customer.id ? <HomePage /> : <RegisterPage />}
           />
-          <Route path="/catalog" element={<CatalogPageMain />} />
-          <Route path="/catalog/all" element={<CatalogPageAllGoods />} />
+          <Route path="/catalog" element={<CatalogPage />} />
+          <Route path="/catalog-all" element={<CatalogPage />} />
+          <Route path="/catalog-rings" element={<CatalogPage />} />
+          <Route path="/catalog-earrings" element={<CatalogPage />} />
           <Route path="/product" element={<ProductPage />} />
           <Route
             path="/profile"

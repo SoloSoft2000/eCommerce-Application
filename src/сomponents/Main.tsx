@@ -1,11 +1,28 @@
 import React from 'react';
-import Img from '../assets/images/img-01.png';
+import CategoryCover from '../сomponents/catalog/CategoryCover';
+import Img1 from '../assets/images/img-01.png';
+import Img2 from '../assets/images/img-02.png';
+import Img3 from '../assets/images/img-03.png';
+import Img4 from '../assets/images/img-04.png';
 
 function Main(): React.JSX.Element {
   return (
     <main className="container mx-auto">
-      <h3 className="text-xl font-bold pt-20 text-center">Main page</h3>
-      <img className="mx-auto w-3/4 m-8" src={Img} alt="main picture" />
+      <div className="py-10 md:py-20 text-center font-bold">
+        <h1 className="text-2xl text-amber-600 mb-6">
+          Sparkle and Shine: Unforgettable Jewelry Designs
+        </h1>
+        <h2 className="text-xl">
+          Discover a world of possibilities in our store
+        </h2>
+      </div>
+
+      <div className="flex justify-around items-center flex-wrap gap-8 md:gap-y-14 py-8">
+        <CategoryCover img={Img3} path={'all'} name={'All'} />
+        <CategoryCover img={Img1} path={'rings'} name={'Rings'} />
+        <CategoryCover img={Img2} path={'earrings'} name={'Earrings'} />
+        <CategoryCover img={Img4} path={'necklace'} name={'Necklace'} />
+      </div>
     </main>
   );
 }
