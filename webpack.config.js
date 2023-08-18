@@ -10,7 +10,7 @@ module.exports = (argv) => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: isDevelopment ? 'bundle.dev.js' : 'bundle.prod.js',
-      assetModuleFilename: 'assets/[name].[ext]',
+      assetModuleFilename: 'assets/[name][ext]',
       clean: true,
     },
     devtool: isDevelopment ? 'inline-source-map' : false,
