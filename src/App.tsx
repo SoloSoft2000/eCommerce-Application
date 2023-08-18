@@ -34,9 +34,6 @@ function App(): React.JSX.Element {
             element={customer.id ? <HomePage /> : <RegisterPage />}
           />
           <Route path="/catalog" element={<CatalogPage />} />
-          <Route path="/catalog-all" element={<CatalogPage />} />
-          <Route path="/catalog-rings" element={<CatalogPage />} />
-          <Route path="/catalog-earrings" element={<CatalogPage />} />
           <Route path="/product" element={<ProductPage />} />
           <Route
             path="/profile"

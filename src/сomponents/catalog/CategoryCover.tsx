@@ -9,7 +9,7 @@ function CategoryCover({ img, name, path }: FormProps): React.JSX.Element {
 
   return (
     <Link
-      to={`/catalog-${path}`}
+      to={`/catalog`}
       className="flex justify-center items-center mx-auto w-full md:w-[45%] h-72 rounded-2xl bg-cover bg-no-repeat bg-center hover:opacity-50 text-xl font-bold"
       style={backgroundImage}
     >
