@@ -63,7 +63,7 @@ function LoginPage(): React.JSX.Element {
             className={FormClasses.FORM}
           >
             <div className="mb-12">
-              <Input type={'email'} placeholder={'Email*:'} name={'email'} />
+              <Input type={'text'} placeholder={'Email*:'} name={'email'} />
               <Password />
             </div>
             {succsessLogin && (

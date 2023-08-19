@@ -84,7 +84,7 @@ function RegisterPage(): React.JSX.Element {
             className={FormClasses.FORM}
           >
             <Input
-              type="email"
+              type="text"
               placeholder="Email*:"
               name="email"
               width={FormClasses.FULL_FIELD}
