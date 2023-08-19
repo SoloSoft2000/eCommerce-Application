@@ -4,7 +4,7 @@ import ProductCard from '../сomponents/catalog/ProductCard';
 import getProducts from '../utils/sdk/getProducts';
 
 function CatalogPage(): React.JSX.Element {
-  // getProducts();
+  getProducts();
   return (
     <main className="container mx-auto flex flex-wrap justify-between items-start pt-10">
       <Filter />
