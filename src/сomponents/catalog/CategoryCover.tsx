@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import FormProps from '../../helpers/interfaces/forms/form-props';
 
-function CategoryCover({ img, name, path }: FormProps): React.JSX.Element {
+function CategoryCover({ img, name }: FormProps): React.JSX.Element {
   const backgroundImage = {
     backgroundImage: `url(${img})`,
   };
