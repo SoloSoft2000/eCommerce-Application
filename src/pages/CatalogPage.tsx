@@ -1,8 +1,10 @@
 import React from 'react';
 import Filter from '../сomponents/catalog/Filter';
 import ProductCard from '../сomponents/catalog/ProductCard';
+import getProducts from '../utils/sdk/getProducts';
 
 function CatalogPage(): React.JSX.Element {
+  // getProducts();
   return (
     <main className="container mx-auto flex flex-wrap justify-between items-start pt-10">
       <Filter />

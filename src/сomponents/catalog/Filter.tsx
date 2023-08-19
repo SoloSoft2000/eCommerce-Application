@@ -13,17 +13,24 @@ function Filter(): React.JSX.Element {
 
       <BrandFilter />
 
-      <select className="w-full py-2 border-b-2 border-zinc-200">
-        <option value="">Sort by alphabet</option>
-        <option>Name: A-Z</option>
-        <option>Name: Z-A</option>
-      </select>
+      <label className="block font-bold">
+        Sort by alphabet:
+        <select className="w-full py-2 border-b-2 font-base border-zinc-200 font-normal text-orange-500">
+          <option value="">Sort: Random</option>
+          <option>Sort: A-Z</option>
+          <option>Sort: Z-A</option>
+        </select>
+      </label>
 
-      <select className="w-full py-2 border-b-2 border-zinc-200">
-        <option value="">Sort by Price</option>
-        <option>Price: Low to High</option>
-        <option>Price: Hight to Low</option>
-      </select>
+      <label className="block font-bold">
+        Sort by Price
+        <select className="w-full py-2 border-b-2 border-zinc-200 font-normal text-orange-500">
+          <option value="">Sort: Random</option>
+          <option>Price: Low to High</option>
+          <option>Price: Hight to Low</option>
+        </select>
+      </label>
+
       <PriceFilter />
     </div>
   );

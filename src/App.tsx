@@ -18,7 +18,6 @@ import { RootState } from './utils/reducers/store';
 
 function App(): React.JSX.Element {
   const customer = useSelector((state: RootState) => state.customer);
-
   return (
     <>
       <Layout>
