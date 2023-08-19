@@ -13,7 +13,10 @@ const namesRules = yup
   .string()
   .required('This field is required')
   .min(1, 'Must contain at least one character')
-  .matches(/^[A-Za-z]+$/, 'No special characters or numbers allowed');
+  .matches(
+    /^[A-Za-z]+$/,
+    'No special characters or numbers allowed, only Latin letters'
+  );
 
 const addressRules = yup
   .string()
