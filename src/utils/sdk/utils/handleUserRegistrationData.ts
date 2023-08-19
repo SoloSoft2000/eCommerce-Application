@@ -13,32 +13,40 @@ function formatBirthdayDate(date: Date | null | undefined): string | undefined {
 }
 
 function handleUserData(data: UserRegistrate): CustomerDraft {
+  const adressArray = [
+    {
+      key: 'adress_1',
+      country: data.shipCountry,
+      city: data.shipCity,
+      streetName: data.shipStreet,
+      postalCode: data.shipPostcode,
+    },
+  ];
+
+  const defShipingAdress = data.shipDefault ? 0 : undefined;
+  let defBillingAdress = defShipingAdress;
+
+  if (!data.defaultAdress) {
+    defBillingAdress = data.billDefault ? 1 : undefined;
+    adressArray.push({
+      key: 'adress_2',
+      country: data.billCountry as string,
+      city: data.billCity as string,
+      streetName: data.billStreet as string,
+      postalCode: data.billPostcode as string,
+    });
+  }
   const newUser: CustomerDraft = {
     email: data.email,
     password: data.password,
     firstName: data.firstName,
     lastName: data.lastName,
     dateOfBirth: formatBirthdayDate(data.birthday),
-    addresses: [
-      {
-        key: 'adress_1',
-        country: data.shipCountry,
-        city: data.shipCity,
-        streetName: data.shipStreet,
-        postalCode: data.shipPostcode,
-      },
-      {
-        key: 'adress_2',
-        country: data.billCountry || data.shipCountry,
-        city: data.billCity || data.shipCity,
-        streetName: data.billStreet || data.shipStreet,
-        postalCode: data.billPostcode || data.shipPostcode,
-      },
-    ],
+    addresses: adressArray,
     shippingAddresses: [0],
-    defaultShippingAddress: 0,
-    billingAddresses: [1],
-    defaultBillingAddress: 1,
+    defaultShippingAddress: defShipingAdress,
+    billingAddresses: [data.defaultAdress ? 0 : 1],
+    defaultBillingAddress: defBillingAdress,
   };
   return newUser;
 }

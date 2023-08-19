@@ -4,10 +4,9 @@ import Country from './Country';
 import FormClasses from '../../helpers/enum/form/classes';
 import FormProps from '../../helpers/interfaces/forms/form-props';
 
-function Address({ name, type }: FormProps): React.JSX.Element {
+function Address({ type }: FormProps): React.JSX.Element {
   return (
     <fieldset>
-      <legend className={FormClasses.ADDRESS_TITLE}>{name} address*:</legend>
       <Country name={`${type}Country`} />
       <div className={FormClasses.FORM_CONTAINER}>
         <Input

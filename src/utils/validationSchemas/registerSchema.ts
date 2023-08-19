@@ -27,11 +27,16 @@ const birthdayRules = yup
   .nullable()
   .typeError('Invalid date format');
 
+const booleanRules = yup.boolean();
+
 const registerSchemaOne = yup.object({
   email: emailRules,
   password: passwordRules,
   firstName: namesRules,
   lastName: namesRules,
+  defaultAdress: booleanRules,
+  shipDefault: booleanRules,
+  billDefault: booleanRules,
   shipCity: namesRules,
   shipCountry: countryRules,
   shipPostcode: shipPostalRules,
@@ -40,6 +45,7 @@ const registerSchemaOne = yup.object({
 });
 
 const registerSchemaTwo = registerSchemaOne.shape({
+  billDefault: booleanRules,
   billCountry: countryRules,
   billCity: namesRules,
   billPostcode: billPostalRules,
