@@ -4,6 +4,7 @@ import {
 } from '@commercetools/platform-sdk';
 import { projectKey } from './config';
 import createClient from './createClient';
+import setDataElements from './utils/handleProductData';
 
 async function getProducts(): Promise<ProductProjection[]> {
   const ctpClient = createClient();
@@ -18,4 +19,13 @@ async function getProducts(): Promise<ProductProjection[]> {
   return response.body.results;
 }
 
-export default getProducts;
+async function fetchData(): Promise<void> {
+  try {
+    const products = await getProducts();
+    setDataElements(products);
+  } catch (err) {
+    console.log('Error fetching products:', err);
+  }
+}
+
+export default fetchData;
