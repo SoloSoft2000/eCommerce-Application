@@ -12,10 +12,10 @@ const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    setProductsArray: (state, action) => {
-      const newState = action.payload;
-      return newState;
-    },
+    setProductsArray: (state, action) => ({
+      ...state,
+      data: action.payload,
+    }),
   },
 });
 
