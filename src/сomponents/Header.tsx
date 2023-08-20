@@ -33,7 +33,12 @@ function Header(): React.JSX.Element {
     };
 
     document.addEventListener('mousedown', menuHandler);
-  });
+
+    return () => {
+      window.removeEventListener('mousedown', menuHandler);
+    };
+  }, [isOpen]);
+
 
   return (
     <header className={HeaderClasses.MAIN}>
