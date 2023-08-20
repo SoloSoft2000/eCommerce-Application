@@ -8,7 +8,7 @@ type TabMenuProps = {
 
 function TabMenu({ setActiveTab, activeTab }: TabMenuProps): React.JSX.Element {
   return (
-    <div  className='w-full flex justify-between p-1'>
+    <div  className='w-full flex justify-around p-1'>
       <button
         onClick={(): void => setActiveTab('info')}
         className={ activeTab === 'info' ? 'text-amber-600' : 'hover:text-amber-500' }
