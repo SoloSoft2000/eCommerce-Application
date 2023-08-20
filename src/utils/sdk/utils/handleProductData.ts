@@ -1,38 +1,23 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
-import { useDispatch } from 'react-redux';
-import { setProductsArray } from '../../reducers/productsListReducer';
+import { ProductCardProps } from '../../../helpers/interfaces/catalog/catalog-props';
 
-type ProductCardProps = {
-  description: string;
-  title: string;
-  image: string;
-  price: string | number;
-  sale?: string | null;
-};
-
-function setDataElements(data: ProductProjection[]): void {
-  const dispatch = useDispatch();
-
+function setDataElements(data: ProductProjection[]): ProductCardProps[] {
   const items = data.map((item): ProductCardProps => {
     const description = item.description ? item.description['en-US'] : '';
     const title = item.name ? item.name['en-US'] : '';
+    const pricesList = item.masterVariant.prices;
     const price =
-      item.masterVariant.prices && item.masterVariant.prices[0]
-        ? item.masterVariant.prices[0].value.centAmount / 100
-        : 'Not allowed';
-
-    const image = item.masterVariant.images
-      ? item.masterVariant.images[0].url
-      : '';
+      pricesList && pricesList[0] ? pricesList[0].value.centAmount / 100 : '';
+    const imagesArray = item.masterVariant.images;
+    const imageCover = imagesArray ? imagesArray[0].url : '';
     return {
       description,
       title,
       price,
-      image,
+      image: imageCover,
     };
   });
-  console.log(items);
-  dispatch(setProductsArray(items));
+  return items;
 }
 
 export default setDataElements;

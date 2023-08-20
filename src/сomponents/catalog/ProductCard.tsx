@@ -1,12 +1,5 @@
 import React from 'react';
-
-type ProductCardProps = {
-  description: string;
-  title: string;
-  image: string;
-  price: string | number;
-  sale?: string | null;
-};
+import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
 
 function ProductCard(props: ProductCardProps): React.JSX.Element {
   return (
@@ -16,7 +9,7 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
           -{props.sale}%
         </div>
       )}
-      <div className="w-full object-bottom w-[18rem] h-[18rem] bg-orange-300 overflow-hidden rounded">
+      <div className="w-full object-bottom w-[18rem] h-[18rem] overflow-hidden rounded">
         <img
           className="object-cover w-full"
           src={props.image}
@@ -29,9 +22,11 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
           <p>{props.description}</p>
         </div>
         <p>
-          <span className="mr-2 line-through text-amber-400">
-            {props.price}
-          </span>
+          {props.price && (
+            <span className="mr-2 line-through text-amber-400">
+              $ {props.price}.00
+            </span>
+          )}
           <span className="text-amber-600 text-xl">$ 8.00</span>
         </p>
       </div>
