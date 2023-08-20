@@ -7,7 +7,7 @@ import {
 
 function ProductList({ data }: ProductListProps): React.JSX.Element {
   return (
-    <div className="flex w-3/4 justify-around items-center flex-wrap gap-8 md:gap-y-14">
+    <div className="flex w-full sm:max-w-[50rem] justify-around items-center flex-wrap gap-8 md:gap-y-14">
       {data &&
         data.map(
           (item: ProductCardProps, index: number): React.JSX.Element => (

@@ -4,7 +4,7 @@ import PriceFilter from './filter/PriceFilter';
 
 function Filter(): React.JSX.Element {
   return (
-    <div className="w-1/4 flex flex-col gap-8">
+    <div className="w-full sm:w-96 flex flex-col gap-8">
       <input
         type="text"
         className="border-2 border-zinc-200 p-2 w-full rounded"

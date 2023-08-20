@@ -9,7 +9,7 @@ function CatalogPage(): React.JSX.Element {
   console.log(productArray.data);
 
   return (
-    <main className="container mx-auto flex flex-wrap justify-between items-start pt-10">
+    <main className="container mx-auto flex flex-wrap sm:flex-nowrap gap-4 justify-between items-start py-10">
       <Filter />
       {productArray && <ProductList data={productArray.data} />}
     </main>
