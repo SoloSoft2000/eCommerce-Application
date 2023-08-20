@@ -22,9 +22,7 @@ function CatalogPage(): React.JSX.Element {
   }, [dispatch]);
 
   useEffect(() => {
-    if (productArray.data.length < 1) {
-      fetchData();
-    }
+    if (!productArray.data) fetchData();
   }, [productArray, fetchData]);
 
   return (

@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 type DataArray = {
-  data: [];
+  data: [] | null;
 };
 
 const initialState: DataArray = {
-  data: [],
+  data: null,
 };
 
 const productsSlice = createSlice({
