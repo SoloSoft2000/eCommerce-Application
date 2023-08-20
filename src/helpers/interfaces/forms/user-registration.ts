@@ -1,4 +1,7 @@
 interface UserRegistrate {
+  defaultAdress?: boolean;
+  shipDefault?: boolean;
+  billDefault?: boolean;
   email: string;
   password: string;
   firstName: string;
