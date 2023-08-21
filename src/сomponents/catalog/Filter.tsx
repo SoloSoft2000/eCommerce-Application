@@ -17,7 +17,7 @@ function Filter(): React.JSX.Element {
 
   const fetchData = useCallback(async () => {
     try {
-      const products = await getProducts(sortBy);
+      const products = await getProducts({sort: sortBy});
       const data = setDataElements(products);
       dispatch(setProductsArray(data));
     } catch (err) {

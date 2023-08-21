@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { RootState } from '../utils/reducers/store';
 import Filter from '../сomponents/catalog/Filter';
 import ProductList from '../сomponents/catalog/ProductList';
@@ -8,12 +9,14 @@ import setDataElements from '../utils/sdk/utils/handleProductData';
 import { setProductsArray } from '../utils/reducers/productsListReducer';
 
 function CatalogPage(): React.JSX.Element {
+  const {category} = useParams();
+  
   const productArray = useSelector((state: RootState) => state.products);
   const dispatch = useDispatch();
 
   const fetchData = useCallback(async () => {
     try {
-      const products = await getProducts();
+      const products = await getProducts( {cat: category});
       const data = setDataElements(products);
       dispatch(setProductsArray(data));
     } catch (err) {

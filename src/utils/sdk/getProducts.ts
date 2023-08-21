@@ -5,7 +5,13 @@ import {
 import { projectKey } from './config';
 import createClient from './createClient';
 
-async function getProducts(sort?: string): Promise<ProductProjection[]> {
+async function getProducts({
+  cat,
+  sort,
+}: {
+  cat?: string;
+  sort?: string;
+}): Promise<ProductProjection[]> {
   const ctpClient = createClient();
   const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
     projectKey,
@@ -17,11 +23,18 @@ async function getProducts(sort?: string): Promise<ProductProjection[]> {
     limit: 4,
   };
 
+  if (cat) {
+    const cats = await apiRoot.categories().get().execute();
+    console.log(cats);
+
+    queryArgs.filter = 'categories.id:"b6388f42-af47-4d33-b472-7c88a9103357"';
+  }
+
   if (sort) {
     queryArgs.sort = `name.en-Us ${sort}`;
   }
 
-  const productQuery = apiRoot.productProjections().get({
+  const productQuery = apiRoot.productProjections().search().get({
     queryArgs,
   });
 
