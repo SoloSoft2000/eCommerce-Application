@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { RootState } from '../utils/reducers/store';
@@ -13,6 +13,7 @@ function CatalogPage(): React.JSX.Element {
 
   const productArray = useSelector((state: RootState) => state.products);
   const dispatch = useDispatch();
+  const [filterMenu, setFilterMenu] = useState(true);
 
   const fetchData = useCallback(async () => {
     try {
@@ -28,9 +29,35 @@ function CatalogPage(): React.JSX.Element {
     if (!productArray.data) fetchData();
   }, [productArray, fetchData]);
 
+  // useEffect(() => {
+  //   const followResizing = (): void => {
+  //     if (window.innerWidth >= 640) {
+  //       setFilterMenu(true);
+  //     }
+  //   };
+
+  //   window.addEventListener('resize', followResizing);
+
+  //   return () => {
+  //     window.removeEventListener('resize', followResizing);
+  //   };
+  // }, []);
+
+  const toggleFilterMenu = useCallback(() => {
+    setFilterMenu(!filterMenu);
+  }, [filterMenu]);
+
   return (
     <main className="container mx-auto flex flex-wrap sm:flex-nowrap gap-4 justify-between items-start py-10">
-      <Filter />
+      <div>
+        <button
+          className="hover:text-gray-500 sm:hidden"
+          onClick={toggleFilterMenu}
+        >
+          {filterMenu ? 'Hide filters' : 'Show filters'}
+        </button>
+        {filterMenu && <Filter />}
+      </div>
       {productArray && <ProductList data={productArray.data} />}
     </main>
   );
