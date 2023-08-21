@@ -23,7 +23,8 @@ function UserInfo(): React.JSX.Element {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const onSubmit = methods.handleSubmit(() => { // data
+  const onSubmit = methods.handleSubmit(() => {
+    // data
     setIsEditing(false);
   });
 
