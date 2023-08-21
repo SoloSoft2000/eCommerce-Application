@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { subYears } from 'date-fns';
+import { parse, subYears } from 'date-fns';
 import { emailRules } from './mailPasswordRules';
 
 const namesRules = yup
@@ -10,14 +10,16 @@ const namesRules = yup
 
 const currentDate = new Date();
 const birthdayRules = yup
-  .date()
-  .transform((value) => new Date(value))
+  .string()
   .required('Date of birth is required')
-  .max(subYears(currentDate, 13), 'You must be at least 13 years old')
   .nullable()
+  .test('oldAge', 'You must be at least 13 years old', (value) => {
+    const parsedDate = parse(value as string, 'yyyy-MM-dd', new Date());
+    return parsedDate && parsedDate <= subYears(currentDate, 13);
+  })
   .typeError('Invalid date format');
 
-const profileSchema = yup.object({
+const profileSchema = yup.object().shape({
   email: emailRules,
   firstName: namesRules,
   lastName: namesRules,

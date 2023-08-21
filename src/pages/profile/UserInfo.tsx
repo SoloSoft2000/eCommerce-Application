@@ -15,15 +15,15 @@ function UserInfo(): React.JSX.Element {
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
-      dateOfBirth: new Date(user.dateOfBirth as string),
+      dateOfBirth: user.dateOfBirth,
     },
     resolver: yupResolver(profileSchema),
+    mode: 'all',
   });
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const onSubmit = methods.handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = methods.handleSubmit(() => { // data
     setIsEditing(false);
   });
 
@@ -36,7 +36,7 @@ function UserInfo(): React.JSX.Element {
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
-      dateOfBirth: new Date(user.dateOfBirth as string),
+      dateOfBirth: user.dateOfBirth,
     });
     setIsEditing(false);
   }, [user, methods]);
