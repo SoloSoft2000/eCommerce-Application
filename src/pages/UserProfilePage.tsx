@@ -13,8 +13,8 @@ function UserProfilePage(): React.JSX.Element {
     <main className={LoginPageClasses.MAIN}>
       <div className={LoginPageClasses.WRAPPER}>
         <Title classes={FormClasses.TITLE} value="User Profile" />
-        <TabMenu setActiveTab={setActiveTab} activeTab={activeTab}/>
-        
+        <TabMenu setActiveTab={setActiveTab} activeTab={activeTab} />
+
         {activeTab === 'info' && <UserInfo />}
         {activeTab === 'adresses' && <Adresses />}
       </div>
