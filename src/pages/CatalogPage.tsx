@@ -14,7 +14,7 @@ function CatalogPage(): React.JSX.Element {
   const fetchData = useCallback(async () => {
     try {
       const products = await getProducts();
-      const data = await setDataElements(products);
+      const data = setDataElements(products);
       dispatch(setProductsArray(data));
     } catch (err) {
       console.log(err);
