@@ -29,29 +29,29 @@ function CatalogPage(): React.JSX.Element {
     if (!productArray.data) fetchData();
   }, [productArray, fetchData]);
 
-  // useEffect(() => {
-  //   const followResizing = (): void => {
-  //     if (window.innerWidth >= 640) {
-  //       setFilterMenu(true);
-  //     }
-  //   };
+  useEffect(() => {
+    const followResizing = (): void => {
+      if (window.innerWidth >= 640) {
+        setFilterMenu(true);
+      }
+    };
 
-  //   window.addEventListener('resize', followResizing);
+    window.addEventListener('resize', followResizing);
 
-  //   return () => {
-  //     window.removeEventListener('resize', followResizing);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener('resize', followResizing);
+    };
+  }, []);
 
   const toggleFilterMenu = useCallback(() => {
     setFilterMenu(!filterMenu);
   }, [filterMenu]);
 
   return (
-    <main className="container mx-auto flex flex-wrap sm:flex-nowrap gap-4 justify-between items-start py-10">
-      <div>
+    <main className="container mx-auto flex flex-wrap sm:flex-nowrap gap-4 justify-center sm:justify-around items-start py-10">
+      <div className="flex w-full sm:w-96 flex-col justify-center">
         <button
-          className="hover:text-gray-500 sm:hidden"
+          className="px-4 py-2 bg-orange-300 hover:bg-orange-200 rounded sm:hidden text-xl w-full mb-3"
           onClick={toggleFilterMenu}
         >
           {filterMenu ? 'Hide filters' : 'Show filters'}
