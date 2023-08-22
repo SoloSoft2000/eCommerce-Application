@@ -1,11 +1,23 @@
-import React from 'react';
-import Img from '../assets/images/img-02.png';
+import React, { useState } from 'react';
+import LoginPageClasses from '../helpers/enum/pages/login';
+import Title from '../сomponents/forms/Title';
+import FormClasses from '../helpers/enum/form/classes';
+import TabMenu from './profile/TabMenu';
+import UserInfo from './profile/UserInfo';
+import Adresses from './profile/Adresses';
 
 function UserProfilePage(): React.JSX.Element {
+  const [activeTab, setActiveTab] = useState('info');
+
   return (
-    <main className="container mx-auto">
-      <h3 className="text-xl font-bold pt-20 text-center">User Profile</h3>
-      <img className="mx-auto w-1/2 m-8" src={Img} alt="main picture" />
+    <main className={LoginPageClasses.MAIN}>
+      <div className={LoginPageClasses.WRAPPER}>
+        <Title classes={FormClasses.TITLE} value="User Profile" />
+        <TabMenu setActiveTab={setActiveTab} activeTab={activeTab} />
+
+        {activeTab === 'info' && <UserInfo />}
+        {activeTab === 'adresses' && <Adresses />}
+      </div>
     </main>
   );
 }
