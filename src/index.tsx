@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './assets/styles/index.css';
+import './assets/favicon.ico';
 import App from './App';
 import store from './utils/reducers/store';
 import { setCustomer } from './utils/reducers/customerReducer';
