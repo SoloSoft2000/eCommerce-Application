@@ -18,7 +18,6 @@ import { RootState } from './utils/reducers/store';
 
 function App(): React.JSX.Element {
   const customer = useSelector((state: RootState) => state.customer);
-
   return (
     <>
       <Layout>
@@ -33,7 +32,7 @@ function App(): React.JSX.Element {
             path="/register"
             element={customer.id ? <HomePage /> : <RegisterPage />}
           />
-          <Route path="/catalog" element={<CatalogPage />} />
+          <Route path="/catalog/:category?" element={<CatalogPage />} />
           <Route path="/product" element={<ProductPage />} />
           <Route
             path="/profile"

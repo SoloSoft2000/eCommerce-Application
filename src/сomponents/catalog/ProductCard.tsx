@@ -1,20 +1,33 @@
 import React from 'react';
+import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
 
-function ProductCard(): React.JSX.Element {
+function ProductCard(props: ProductCardProps): React.JSX.Element {
   return (
-    <div className="w-[18.8rem] h-auto bg-white hover:drop-shadow-lg rounded relative cursor-pointer">
-      <div className="absolute flex justify-center items-center w-12 h-12 top-3 right-3 p-2 bg-white rounded-full">
-        -20%
+    <div className="border-[1px] border-zinc-200 w-[18rem] h-[30rem] h-auto bg-white hover:drop-shadow-lg rounded relative cursor-pointer overflow-hidden">
+      {props.sale && (
+        <div className="absolute flex justify-center items-center w-12 h-12 top-3 right-3 p-2 bg-white rounded-full">
+          -{props.sale}%
+        </div>
+      )}
+      <div className="w-full object-bottom w-[18rem] h-[18rem] overflow-hidden rounded">
+        <img
+          className="object-cover w-full"
+          src={props.image}
+          alt={props.description}
+        />
       </div>
-      <div className="w-[18.8rem] h-[18.8rem] bg-orange-300 rounded">
-        <img className="w-full" alt="" />
-      </div>
-      <div className="p-2 flex flex-col gap-3">
-        <h4 className="font-bold text-xl">Title</h4>
-        <p>Description</p>
+      <div className="h-[12rem] px-2 py-4 flex flex-col gap-3 justify-between">
+        <div>
+          <h4 className="font-bold text-xl mb-2">{props.title}</h4>
+          <p>{props.description}</p>
+        </div>
         <p>
-          <span className="mr-2 line-through text-amber-400">$ 10.00</span>
-          <span className="text-amber-600 text-xl">$ 8.00</span>
+          {!props.price && (
+            <span className="mr-2 line-through text-amber-400">
+              $ {props.price}.00
+            </span>
+          )}
+          <span className="text-amber-600 text-xl">$ {props.price}.00</span>
         </p>
       </div>
     </div>
