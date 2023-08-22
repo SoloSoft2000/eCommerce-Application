@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-type DataArray = {
+type DataProducts = {
+  category: '';
   data: [] | null;
 };
 
-const initialState: DataArray = {
+const initialState: DataProducts = {
+  category: '',
   data: null,
 };
 
@@ -16,9 +18,13 @@ const productsSlice = createSlice({
       ...state,
       data: action.payload,
     }),
+    setCategory: (state, action) => ({
+      ...state,
+      category: action.payload,
+    }),
   },
 });
 
-export const { setProductsArray } = productsSlice.actions;
+export const { setProductsArray, setCategory } = productsSlice.actions;
 
 export default productsSlice.reducer;

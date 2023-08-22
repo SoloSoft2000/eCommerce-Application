@@ -22,12 +22,12 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
           <p>{props.description}</p>
         </div>
         <p>
-          {props.price && (
+          {!props.price && (
             <span className="mr-2 line-through text-amber-400">
               $ {props.price}.00
             </span>
           )}
-          <span className="text-amber-600 text-xl">$ 8.00</span>
+          <span className="text-amber-600 text-xl">$ {props.price}.00</span>
         </p>
       </div>
     </div>
