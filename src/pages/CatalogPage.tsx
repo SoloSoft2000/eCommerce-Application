@@ -8,30 +8,35 @@ import setDataElements from '../utils/sdk/utils/handleProductData';
 import { setProductsArray } from '../utils/reducers/productsListReducer';
 
 function CatalogPage(): React.JSX.Element {
-  const productArray = useSelector((state: RootState) => state.products.data);
-  const categorySelected = useSelector(
-    (state: RootState) => state.products.category
-  );
-  const dispatch = useDispatch();
   const [filterMenu, setFilterMenu] = useState(true);
+
+  const productArray = useSelector((state: RootState) => state.products);
+  const dispatch = useDispatch();
 
   const fetchData = useCallback(async () => {
     try {
-      const products = await getProducts({ category: categorySelected });
+      const products = await getProducts({
+        category: productArray.category,
+        sort: productArray.sort,
+      });
       const data = setDataElements(products);
       dispatch(setProductsArray(data));
     } catch (err) {
       console.log(err);
     }
-  }, [dispatch]);
+  }, [dispatch, productArray.category, productArray.sort]);
 
   useEffect(() => {
-    if (!productArray) fetchData();
-  }, [fetchData, productArray]);
+    if (!productArray.data) {
+      fetchData();
+    }
+  }, [fetchData, productArray.data]);
 
   useEffect(() => {
-    if (categorySelected) fetchData();
-  }, [fetchData, categorySelected]);
+    if (productArray.category || productArray.sort) {
+      fetchData();
+    }
+  }, [fetchData, productArray.category, productArray.sort]);
 
   useEffect(() => {
     const followResizing = (): void => {
@@ -62,7 +67,7 @@ function CatalogPage(): React.JSX.Element {
         </button>
         {filterMenu && <Filter />}
       </div>
-      {productArray && <ProductList data={productArray} />}
+      {productArray && <ProductList data={productArray.data} />}
     </main>
   );
 }

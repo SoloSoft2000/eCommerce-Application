@@ -17,7 +17,7 @@ function CategoryCover({ img, name }: FormProps): React.JSX.Element {
     },
     [dispatch]
   );
-  console.log(name);
+
   return (
     <Link
       onClick={(): void => handleCategory(name)}

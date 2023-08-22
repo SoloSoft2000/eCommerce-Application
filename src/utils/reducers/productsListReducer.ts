@@ -2,11 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 type DataProducts = {
   category: '';
+  sort: '';
   data: [] | null;
 };
 
 const initialState: DataProducts = {
   category: '',
+  sort: '',
   data: null,
 };
 
@@ -22,9 +24,14 @@ const productsSlice = createSlice({
       ...state,
       category: action.payload,
     }),
+    setSortMethods: (state, action) => ({
+      ...state,
+      sort: action.payload,
+    }),
   },
 });
 
-export const { setProductsArray, setCategory } = productsSlice.actions;
+export const { setProductsArray, setCategory, setSortMethods } =
+  productsSlice.actions;
 
 export default productsSlice.reducer;

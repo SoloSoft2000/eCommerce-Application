@@ -1,41 +1,18 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../utils/reducers/store';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import BrandFilter from './filter/BrandFilter';
 import PriceFilter from './filter/PriceFilter';
-import getProducts from '../../utils/sdk/getProducts';
-import setDataElements from '../../utils/sdk/utils/handleProductData';
-import { setProductsArray } from '../../utils/reducers/productsListReducer';
+import { setSortMethods } from '../../utils/reducers/productsListReducer';
 
 function Filter(): React.JSX.Element {
   const [sortBy, setSortBy] = useState('');
   const dispatch = useDispatch();
 
-  const categorySelected = useSelector(
-    (state: RootState) => state.products.category
-  );
-
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const selectedSort = e.target.value;
     setSortBy(selectedSort);
+    dispatch(setSortMethods(selectedSort));
   };
-
-  const fetchData = useCallback(async () => {
-    try {
-      const products = await getProducts({
-        category: categorySelected,
-        sort: sortBy,
-      });
-      const data = setDataElements(products);
-      dispatch(setProductsArray(data));
-    } catch (err) {
-      console.log(err);
-    }
-  }, [dispatch, sortBy]);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
 
   return (
     <div className="w-full flex flex-col gap-8">
