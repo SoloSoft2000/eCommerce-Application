@@ -1,9 +1,5 @@
-import {
-  createApiBuilderFromCtpClient,
-  ProductProjection,
-} from '@commercetools/platform-sdk';
-import { projectKey } from './config';
-import createClient from './createClient';
+import { ProductProjection } from '@commercetools/platform-sdk';
+import createApiRoot from './createApiRoot';
 
 async function getProducts({
   category,
@@ -12,10 +8,8 @@ async function getProducts({
   category?: string;
   sort?: string;
 }): Promise<ProductProjection[]> {
-  const ctpClient = createClient();
-  const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
-    projectKey,
-  });
+  // const ctpClient = createClient();
+  const apiRoot = createApiRoot();
 
   const queryArgs: Record<string, string | number> = {
     limit: 4,

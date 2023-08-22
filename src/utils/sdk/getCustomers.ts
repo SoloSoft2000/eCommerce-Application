@@ -9,7 +9,7 @@ async function getCustomers(
   username: string,
   password: string
 ): Promise<Customer> {
-  const ctpClient = createClient({ username, password });
+  const ctpClient = createClient();
 
   const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
     projectKey,
