@@ -21,7 +21,7 @@ function Main(): React.JSX.Element {
         <CategoryCover img={Img3} path={'all'} name={'All'} />
         <CategoryCover img={Img1} path={'rings'} name={'Rings'} />
         <CategoryCover img={Img2} path={'earrings'} name={'Earrings'} />
-        <CategoryCover img={Img4} path={'necklace'} name={'Necklace'} />
+        <CategoryCover img={Img4} path={'necklace'} name={'Necklaces'} />
       </div>
     </main>
   );

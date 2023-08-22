@@ -23,7 +23,7 @@ function CatalogPage(): React.JSX.Element {
         const data = setDataElements(products);
         dispatch(setProductsArray(data));
       } catch (err) {
-        console.log(err);
+        throw new Error(`Catalog page: ${err}`);
       }
     };
     fetchData();
