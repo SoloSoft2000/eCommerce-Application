@@ -13,30 +13,21 @@ function CatalogPage(): React.JSX.Element {
   const productArray = useSelector((state: RootState) => state.products);
   const dispatch = useDispatch();
 
-  const fetchData = useCallback(async () => {
-    try {
-      const products = await getProducts({
-        category: productArray.category,
-        sort: productArray.sort,
-      });
-      const data = setDataElements(products);
-      dispatch(setProductsArray(data));
-    } catch (err) {
-      console.log(err);
-    }
+  useEffect(() => {
+    const fetchData = async (): Promise<void> => {
+      try {
+        const products = await getProducts({
+          category: productArray.category,
+          sort: productArray.sort,
+        });
+        const data = setDataElements(products);
+        dispatch(setProductsArray(data));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
   }, [dispatch, productArray.category, productArray.sort]);
-
-  useEffect(() => {
-    if (!productArray.data) {
-      fetchData();
-    }
-  }, [fetchData, productArray.data]);
-
-  useEffect(() => {
-    if (productArray.category || productArray.sort) {
-      fetchData();
-    }
-  }, [fetchData, productArray.category, productArray.sort]);
 
   useEffect(() => {
     const followResizing = (): void => {
