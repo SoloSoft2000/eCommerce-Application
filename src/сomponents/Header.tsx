@@ -1,0 +1,57 @@
+import React, { useCallback, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { SlMenu } from 'react-icons/sl';
+import { RxCross1 } from 'react-icons/rx';
+import Img from '../assets/images/logo4.jpg';
+import Navigation from './Navigation';
+import HeaderClasses from '../helpers/enum/components/headerClasses';
+
+function Header(): React.JSX.Element {
+  const [isOpen, setOpen] = useState(false);
+
+  const toggNavMenu = useCallback(() => {
+    setOpen((prevValue) => !prevValue);
+  }, [isOpen]);
+
+  useEffect(() => {
+    const followResizing = (): void => {
+      if (window.innerWidth > 767) {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', followResizing);
+
+    return () => {
+      window.removeEventListener('resize', followResizing);
+    };
+  }, []);
+
+  useEffect(() => {
+    const menuHandler = (): void => {
+      setOpen(false);
+    };
+
+    document.addEventListener('mousedown', menuHandler);
+  });
+
+  return (
+    <header className={HeaderClasses.MAIN}>
+      <div className={HeaderClasses.LOGO}>
+        <Link to="/">
+          <img className="m-3" src={Img} alt="logo" width="150" />
+        </Link>
+        <Navigation isOpen={isOpen} />
+        <button className={HeaderClasses.BUTTON} onClick={toggNavMenu}>
+          {isOpen ? (
+            <RxCross1 className={HeaderClasses.MENU_ICON} />
+          ) : (
+            <SlMenu className={HeaderClasses.MENU_ICON} />
+          )}
+        </button>
+      </div>
+    </header>
+  );
+}
+
+export default Header;

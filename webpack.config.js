@@ -31,14 +31,10 @@ module.exports = (argv) => {
         },
         {
           test: /\.(scss|css)$/,
-          use: [
-            MiniCssExtractPlugin.loader,
-            'css-loader',
-            'postcss-loader'
-          ],
+          use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
         },
         {
-          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
           type: 'asset/resource',
         },
         {
@@ -49,8 +45,9 @@ module.exports = (argv) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: "./src/index.html",
-        filename: "./index.html"
+        template: './src/index.html',
+        filename: './index.html',
+        favicon: './src/favicon.ico'
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css',

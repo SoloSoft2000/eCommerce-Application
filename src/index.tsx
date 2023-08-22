@@ -1,11 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import './styles/index.css';
+import './assets/styles/index.css';
 import App from './App';
-import userReducer from './reducers/userReducer';
+import store from './utils/reducers/store';
+import { setCustomer } from './utils/reducers/customerReducer';
 
 const root = document.getElementById('root');
 
@@ -13,11 +13,11 @@ if (!root) {
   throw new Error('No root element found');
 }
 
-const store = configureStore({
-  reducer: {
-    user: userReducer,
-  },
-});
+const savedCustomer = localStorage.getItem('CT-Customer-SignIn');
+if (savedCustomer) {
+  const res = JSON.parse(savedCustomer);
+  store.dispatch(setCustomer(res));
+}
 
 createRoot(root).render(
   <Provider store={store}>
