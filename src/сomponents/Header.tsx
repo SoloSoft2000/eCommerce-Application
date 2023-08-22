@@ -39,7 +39,6 @@ function Header(): React.JSX.Element {
     };
   }, [isOpen]);
 
-
   return (
     <header className={HeaderClasses.MAIN}>
       <div className={HeaderClasses.LOGO}>
