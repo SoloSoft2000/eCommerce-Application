@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../utils/reducers/store';
 import BrandFilter from './filter/BrandFilter';
 import PriceFilter from './filter/PriceFilter';
 import getProducts from '../../utils/sdk/getProducts';
@@ -10,6 +11,10 @@ function Filter(): React.JSX.Element {
   const [sortBy, setSortBy] = useState('');
   const dispatch = useDispatch();
 
+  const categorySelected = useSelector(
+    (state: RootState) => state.products.category
+  );
+
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const selectedSort = e.target.value;
     setSortBy(selectedSort);
@@ -17,7 +22,10 @@ function Filter(): React.JSX.Element {
 
   const fetchData = useCallback(async () => {
     try {
-      const products = await getProducts({ sort: sortBy });
+      const products = await getProducts({
+        category: categorySelected,
+        sort: sortBy,
+      });
       const data = setDataElements(products);
       dispatch(setProductsArray(data));
     } catch (err) {

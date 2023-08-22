@@ -9,14 +9,15 @@ import { setProductsArray } from '../utils/reducers/productsListReducer';
 
 function CatalogPage(): React.JSX.Element {
   const productArray = useSelector((state: RootState) => state.products.data);
-  const category = useSelector((state: RootState) => state.products.category);
+  const categorySelected = useSelector(
+    (state: RootState) => state.products.category
+  );
   const dispatch = useDispatch();
   const [filterMenu, setFilterMenu] = useState(true);
 
   const fetchData = useCallback(async () => {
-    console.log(category);
     try {
-      const products = await getProducts({ cat: category });
+      const products = await getProducts({ category: categorySelected });
       const data = setDataElements(products);
       dispatch(setProductsArray(data));
     } catch (err) {
@@ -29,8 +30,8 @@ function CatalogPage(): React.JSX.Element {
   }, [fetchData, productArray]);
 
   useEffect(() => {
-    if (category) fetchData();
-  }, [fetchData, category]);
+    if (categorySelected) fetchData();
+  }, [fetchData, categorySelected]);
 
   useEffect(() => {
     const followResizing = (): void => {
