@@ -42,10 +42,8 @@ function LoginPage(): React.JSX.Element {
         setError(null);
         setSuccsessLogin(true);
       })
-      .catch((err) =>
-        err.code === 400
-          ? setError('Invalid Email or Password')
-          : setError('Server connection error')
+      .catch(() =>
+        setError('Invalid Email or Password')
       );
   });
 
