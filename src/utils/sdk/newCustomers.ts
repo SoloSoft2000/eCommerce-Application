@@ -1,19 +1,13 @@
 import {
   ClientResponse,
-  createApiBuilderFromCtpClient,
   Customer,
   CustomerDraft,
   CustomerSignInResult,
 } from '@commercetools/platform-sdk';
-import { projectKey } from './config';
-import createClient from './createClient';
+import createApiRoot from './createApiRoot';
 
 async function newCustomers(newCustomer: CustomerDraft): Promise<Customer> {
-  const ctpClient = createClient();
-
-  const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
-    projectKey,
-  });
+  const apiRoot = createApiRoot();
 
   const createCustomer = (): Promise<ClientResponse<CustomerSignInResult>> =>
     apiRoot
