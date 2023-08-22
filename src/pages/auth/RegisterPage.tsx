@@ -61,6 +61,7 @@ function RegisterPage(): React.JSX.Element {
   const handleChange = useCallback((): void => {
     setDefaultAdress((prev) => !prev);
     methods.reset({
+      [defaultAdress ? 'billDefault' : 'shipDefault']: false,
       [defaultAdress ? 'billCountry' : 'shipCountry']: '',
       [defaultAdress ? 'billCity' : 'shipCity']: '',
       [defaultAdress ? 'billPostcode' : 'shipPostcode']: '',
@@ -84,7 +85,7 @@ function RegisterPage(): React.JSX.Element {
             className={FormClasses.FORM}
           >
             <Input
-              type="email"
+              type="text"
               placeholder="Email*:"
               name="email"
               width={FormClasses.FULL_FIELD}
@@ -108,11 +109,20 @@ function RegisterPage(): React.JSX.Element {
             <div className={FormClasses.FORM_CONTAINER}>
               <BirtdayDate />
             </div>
-            <Address name={'Shipping'} type={'ship'} />
+            <legend className={FormClasses.ADDRESS_TITLE}>
+              Shipping address*:
+            </legend>
+            <input
+              type="checkbox"
+              {...methods.register('shipDefault')}
+              className={FormClasses.CHECKBOX}
+            />
+            <label htmlFor={`shipDefault`}>Set as default address</label>
+            <Address type={'ship'} />
             <div className="mb-12">
               <input
                 type="checkbox"
-                name="defaultAdress"
+                {...methods.register('defaultAdress')}
                 className={FormClasses.CHECKBOX}
                 checked={defaultAdress}
                 onChange={handleChange}
@@ -120,7 +130,21 @@ function RegisterPage(): React.JSX.Element {
               <label htmlFor="defaultAdress">
                 Set as address for billing and shipping
               </label>
-
+              {!defaultAdress && (
+                <legend className={FormClasses.ADDRESS_TITLE}>
+                  Billing address*:
+                </legend>
+              )}
+              {!defaultAdress && (
+                <input
+                  type="checkbox"
+                  {...methods.register('billDefault')}
+                  className={FormClasses.CHECKBOX}
+                />
+              )}
+              {!defaultAdress && (
+                <label htmlFor={`shipDefault`}>Set as default address</label>
+              )}
               {!defaultAdress && <Address name={'Billing'} type={'bill'} />}
             </div>
 
