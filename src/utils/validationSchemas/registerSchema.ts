@@ -14,8 +14,8 @@ const namesRules = yup
   .required('This field is required')
   .min(1, 'Must contain at least one character')
   .matches(
-    /^[A-Za-z]+$/,
-    'No special characters or numbers allowed, only Latin letters'
+    /^[A-Za-z]+( [A-Za-z]+)*$/,
+    'No special characters or numbers allowed, only Latin letters and spaces between words'
   );
 
 const addressRules = yup
