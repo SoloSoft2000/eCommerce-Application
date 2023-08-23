@@ -1,6 +1,5 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import Header from './сomponents/Header';
 import Footer from './сomponents/Footer';
@@ -14,30 +13,19 @@ import BasketPage from './pages/BasketPage';
 import AboutUsPage from './pages/AboutUsPage';
 import NoPage from './pages/NoPage';
 import Layout from './сomponents/Layout';
-import { RootState } from './utils/reducers/store';
 
 function App(): React.JSX.Element {
-  const customer = useSelector((state: RootState) => state.customer);
   return (
     <>
       <Layout>
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route
-            path="/login"
-            element={customer.id ? <HomePage /> : <LoginPage />}
-          />
-          <Route
-            path="/register"
-            element={customer.id ? <HomePage /> : <RegisterPage />}
-          />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/catalog/:category?" element={<CatalogPage />} />
           <Route path="/product" element={<ProductPage />} />
-          <Route
-            path="/profile"
-            element={customer.id ? <UserProfilePage /> : <NoPage />}
-          />
+          <Route path="/profile" element={<UserProfilePage />} />
           <Route path="/basket" element={<BasketPage />} />
           <Route path="/about" element={<AboutUsPage />} />
           <Route path="/*" element={<NoPage />} />

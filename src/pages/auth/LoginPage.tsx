@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
 import Title from '../../сomponents/forms/Title';
 import SwitchPageLinks from '../../сomponents/forms/SwitchPageLinks';
 import Input from '../../сomponents/forms/Input';
@@ -12,8 +13,18 @@ import { setCustomer } from '../../utils/reducers/customerReducer';
 import loginSchema from '../../utils/validationSchemas/loginSchema';
 import LoginPageClasses from '../../helpers/enum/pages/login';
 import FormClasses from '../../helpers/enum/form/classes';
+import { RootState } from '../../utils/reducers/store';
 
 function LoginPage(): React.JSX.Element {
+  const navigate = useNavigate();
+  const customer = useSelector((state: RootState) => state.customer);
+
+  useEffect(() => {
+    if (customer.id) {
+      navigate('/');
+    }
+  }, [customer, navigate]);
+
   const methods = useForm({
     resolver: yupResolver(loginSchema),
     mode: 'all',
