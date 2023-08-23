@@ -42,9 +42,7 @@ function LoginPage(): React.JSX.Element {
         setError(null);
         setSuccsessLogin(true);
       })
-      .catch(() =>
-        setError('Invalid Email or Password')
-      );
+      .catch(() => setError('Invalid Email or Password'));
   });
 
   return (
