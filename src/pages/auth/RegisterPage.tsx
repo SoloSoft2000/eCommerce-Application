@@ -28,10 +28,10 @@ function RegisterPage(): React.JSX.Element {
 
   useEffect(() => {
     if (customer.id) {
-      navigate("/");
+      navigate('/');
     }
   }, [customer, navigate]);
-  
+
   const [defaultAdress, setDefaultAdress] = useState(true);
   const methods = useForm({
     resolver: yupResolver(

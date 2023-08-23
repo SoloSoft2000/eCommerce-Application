@@ -21,7 +21,7 @@ function LoginPage(): React.JSX.Element {
 
   useEffect(() => {
     if (customer.id) {
-      navigate("/");
+      navigate('/');
     }
   }, [customer, navigate]);
 
