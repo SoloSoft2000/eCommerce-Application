@@ -1,8 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CustomerDraft } from '@commercetools/platform-sdk';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
 import Title from '../../сomponents/forms/Title';
 import SwitchPageLinks from '../../сomponents/forms/SwitchPageLinks';
 import Input from '../../сomponents/forms/Input';
@@ -19,8 +20,18 @@ import handleUserData from '../../utils/sdk/utils/handleUserRegistrationData';
 import Address from '../../сomponents/forms/Adress';
 import newCustomers from '../../utils/sdk/newCustomers';
 import { setCustomer } from '../../utils/reducers/customerReducer';
+import { RootState } from '../../utils/reducers/store';
 
 function RegisterPage(): React.JSX.Element {
+  const navigate = useNavigate();
+  const customer = useSelector((state: RootState) => state.customer);
+
+  useEffect(() => {
+    if (customer.id) {
+      navigate("/");
+    }
+  }, [customer, navigate]);
+  
   const [defaultAdress, setDefaultAdress] = useState(true);
   const methods = useForm({
     resolver: yupResolver(
