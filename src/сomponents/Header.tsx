@@ -4,6 +4,7 @@ import { SlMenu } from 'react-icons/sl';
 import { RxCross1 } from 'react-icons/rx';
 import Img from '../assets/images/logo4.jpg';
 import Navigation from './Navigation';
+import styles from '../assets/styles/header.module.scss';
 
 function Header(): React.JSX.Element {
   const [isOpen, setOpen] = useState(false);
@@ -39,17 +40,17 @@ function Header(): React.JSX.Element {
   }, [isOpen]);
 
   return (
-    <header className='head-main'>
-      <div className='logo'>
+    <header className={styles.main}>
+      <div className={styles.logo}>
         <Link to="/">
           <img className="m-3" src={Img} alt="logo" width="150" />
         </Link>
         <Navigation isOpen={isOpen} />
-        <button className='head-button' onClick={toggNavMenu}>
+        <button className={styles.button} onClick={toggNavMenu}>
           {isOpen ? (
-            <RxCross1 className='head-menu_icon' />
+            <RxCross1 className={styles.menu_icon} />
           ) : (
-            <SlMenu className='head-menu_icon' />
+            <SlMenu className={styles.menu_icon} />
           )}
         </button>
       </div>
