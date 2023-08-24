@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import FormProps from '../../helpers/interfaces/forms/form-props';
-import FormClasses from '../../helpers/enum/form/classes';
 
 function Input({
   type,
@@ -22,14 +21,14 @@ function Input({
   return (
     <div className={width}>
       <input
-        className={FormClasses.GENERAL_FIELD}
+        className="general_field"
         placeholder={placeholder}
         type={type}
         {...register(name)}
         autoComplete="on"
       />
       {errorMessage && (
-        <p className={FormClasses.MISTAKE_TEXT}>{errorMessage.toString()}</p>
+        <p className="mistake_text">{errorMessage.toString()}</p>
       )}
     </div>
   );

@@ -14,8 +14,6 @@ import {
   registerSchemaOne,
   registerSchemaTwo,
 } from '../../utils/validationSchemas/registerSchema';
-import FormClasses from '../../helpers/enum/form/classes';
-import RegisterPageClasses from '../../helpers/enum/pages/regitester';
 import handleUserData from '../../utils/sdk/utils/handleUserRegistrationData';
 import Address from '../../сomponents/forms/Adress';
 import newCustomers from '../../utils/sdk/newCustomers';
@@ -81,52 +79,50 @@ function RegisterPage(): React.JSX.Element {
   }, [setDefaultAdress]);
 
   return (
-    <main className={RegisterPageClasses.MAIN}>
-      <div className={RegisterPageClasses.WRAPPER}>
-        <div className={RegisterPageClasses.AGE_LIMIT}>
+    <main className="reg-main">
+      <div className="login-wrapper">
+        <div className="age_limit">
           <p>13+</p>
         </div>
-        <Title classes={FormClasses.TITLE} value="Create an account" />
+        <Title classes="form-title" value="Create an account" />
         <SwitchPageLinks pageName="register" />
         <FormProvider {...methods}>
           <form
             onSubmit={onSubmit}
             onBlur={(): void => setError('')}
             noValidate
-            className={FormClasses.FORM}
+            className="form"
           >
             <Input
               type="text"
               placeholder="Email*:"
               name="email"
-              width={FormClasses.FULL_FIELD}
+              width="full_field"
             />
             <Password />
-            <div className={FormClasses.FORM_CONTAINER}>
+            <div className="form_container">
               <Input
                 name="firstName"
                 placeholder="First Name*"
                 type="text"
-                width={FormClasses.HALF_FIELD}
+                width="half_field"
               />
               <Input
                 name="lastName"
                 placeholder="Last Name*"
                 type="text"
-                width={FormClasses.HALF_FIELD}
+                width="half_field"
               />
             </div>
 
-            <div className={FormClasses.FORM_CONTAINER}>
+            <div className="form_container">
               <BirtdayDate />
             </div>
-            <legend className={FormClasses.ADDRESS_TITLE}>
-              Shipping address*:
-            </legend>
+            <legend className="address_title">Shipping address*:</legend>
             <input
               type="checkbox"
               {...methods.register('shipDefault')}
-              className={FormClasses.CHECKBOX}
+              className="checkbox"
             />
             <label htmlFor={`shipDefault`}>Set as default address</label>
             <Address type={'ship'} />
@@ -134,7 +130,7 @@ function RegisterPage(): React.JSX.Element {
               <input
                 type="checkbox"
                 {...methods.register('defaultAdress')}
-                className={FormClasses.CHECKBOX}
+                className="checkbox"
                 checked={defaultAdress}
                 onChange={handleChange}
               />
@@ -142,15 +138,13 @@ function RegisterPage(): React.JSX.Element {
                 Set as address for billing and shipping
               </label>
               {!defaultAdress && (
-                <legend className={FormClasses.ADDRESS_TITLE}>
-                  Billing address*:
-                </legend>
+                <legend className="address_title">Billing address*:</legend>
               )}
               {!defaultAdress && (
                 <input
                   type="checkbox"
                   {...methods.register('billDefault')}
-                  className={FormClasses.CHECKBOX}
+                  className="checkbox"
                 />
               )}
               {!defaultAdress && (
@@ -160,18 +154,13 @@ function RegisterPage(): React.JSX.Element {
             </div>
 
             {succsessRegistration && (
-              <div className={FormClasses.SUCCESS_TEXT_LOGIN}>
+              <div className="success_text_login">
                 You have been successfully registered.
               </div>
             )}
-            {error && (
-              <div className={FormClasses.MISTAKE_TEXT_LOGIN}>{error}</div>
-            )}
+            {error && <div className="mistake_text_login">{error}</div>}
 
-            <SubmitFormButton
-              value="Create an account"
-              classes={FormClasses.SUBMIT_BTN}
-            />
+            <SubmitFormButton value="Create an account" classes="submit_btn" />
           </form>
         </FormProvider>
       </div>

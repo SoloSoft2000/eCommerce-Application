@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "*.scss": "postcss",
+    "*.module.scss": "postcss"
+  }
+}

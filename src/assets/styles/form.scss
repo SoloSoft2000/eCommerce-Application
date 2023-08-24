@@ -1,0 +1,67 @@
+.form-title {
+  @apply text-xl font-bold mb-8 text-center;
+}
+
+.sitch_page_links_wrapper {
+  @apply w-full bg-zinc-200 flex justify-between p-1 rounded mb-10 sm:mb-20;
+}
+
+.active_link {
+  @apply w-6/12 rounded text-center p-2 hover:bg-zinc-300;
+}
+
+.disable_link {
+  @apply bg-white rounded w-6/12 text-center p-2 cursor-default drop-shadow-sm;
+}
+
+.form {
+  @apply px-2 sm:px-0;
+}
+
+.form_container {
+  @apply flex justify-between flex-wrap;
+}
+
+.general_field {
+  @apply w-full border-b-2 border-zinc-200 py-3 px-1 mb-1;
+}
+
+.full_field {
+  @apply w-full;
+}
+
+.half_field {
+  @apply w-full sm:w-[47%];
+}
+
+.mistake_text {
+  @apply text-sm text-red-500 h-5;
+}
+
+.mistake_text_login {
+  @apply text-xl text-red-500 text-center mb-3;
+}
+
+.success_text_login {
+  @apply text-xl text-emerald-500 text-center mb-3;
+}
+
+.address_title {
+  @apply py-2 px-1 font-bold;
+}
+
+.checkbox {
+  @apply mr-2 inline-block my-3;
+}
+
+.birthday_label {
+  @apply text-gray-400 mr-5;
+}
+
+.submit_btn {
+  @apply w-full text-center rounded bg-black p-3 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer;
+}
+
+.country_option_text {
+  @apply text-gray-400;
+}

@@ -1,29 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FormProps from '../../helpers/interfaces/forms/form-props';
-import FormClasses from '../../helpers/enum/form/classes';
 
 function SwitchPageLinks({ pageName }: FormProps): React.JSX.Element {
   return (
-    <div className={FormClasses.SITCH_PAGE_LINKS_WRAPPER}>
+    <div className="sitch_page_links_wrapper">
       <Link
         to="/login"
-        className={
-          pageName === 'register'
-            ? FormClasses.ACTIVE_LINK
-            : FormClasses.DISABLE_LINK
-        }
+        className={pageName === 'register' ? 'active_link' : 'disable_link'}
       >
         Sign in
       </Link>
 
       <Link
         to="/register"
-        className={
-          pageName === 'register'
-            ? FormClasses.DISABLE_LINK
-            : FormClasses.ACTIVE_LINK
-        }
+        className={pageName === 'register' ? 'disable_link' : 'active_link'}
       >
         Register
       </Link>

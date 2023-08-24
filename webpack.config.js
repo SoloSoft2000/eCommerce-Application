@@ -31,7 +31,7 @@ module.exports = (argv) => {
         },
         {
           test: /\.(scss|css)$/,
-          use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+          use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
