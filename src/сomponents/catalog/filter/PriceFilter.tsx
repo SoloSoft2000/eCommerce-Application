@@ -1,14 +1,40 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { setPriceRange } from '../../../utils/reducers/productsListReducer';
 
 function PriceFilter(): React.JSX.Element {
+  const dispatch = useDispatch();
+
+  const [minPrice, setMinPrice] = useState<number | ''>('');
+  const [maxPrice, setMaxPrice] = useState<number | ''>('');
+
+  const handlePrice = useCallback(() => {
+    dispatch(setPriceRange([minPrice, maxPrice]));
+  }, [dispatch, minPrice, maxPrice]);
+
   return (
     <div className="flex flex-col">
       <label className="font-semibold mb-2">Price Range:</label>
       <div className="flex justify-between items-center flex-nowrap gap-3">
-        <input type="number" placeholder="Min" className="border p-1 w-[30%]" />
+        <input
+          type="number"
+          placeholder="Min"
+          className="border p-1 w-[30%]"
+          value={minPrice}
+          onChange={(e): void => setMinPrice(+e.target.value)}
+        />
         <span>-</span>
-        <input type="number" placeholder="Max" className="border p-1 w-[30%]" />
-        <button className="px-4 py-2 bg-orange-300 hover:bg-orange-200 rounded w-[30%]">
+        <input
+          type="number"
+          placeholder="Max"
+          className="border p-1 w-[30%]"
+          value={maxPrice}
+          onChange={(e): void => setMaxPrice(+e.target.value)}
+        />
+        <button
+          className="px-4 py-2 bg-orange-300 hover:bg-orange-200 rounded w-[30%]"
+          onClick={handlePrice}
+        >
           OK
         </button>
       </div>

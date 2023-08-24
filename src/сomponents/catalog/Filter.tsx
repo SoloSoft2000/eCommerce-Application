@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import BrandFilter from './filter/BrandFilter';
 import PriceFilter from './filter/PriceFilter';
@@ -12,21 +12,23 @@ function Filter(): React.JSX.Element {
 
   const dispatch = useDispatch();
 
-  const handleSortChange =
+  const handleSortChange = useCallback(
     (key: string) =>
-    (e: React.ChangeEvent<HTMLSelectElement>): void => {
-      const selectedValue = e.target.value;
-      setSorting((prevSorting) => ({
-        ...prevSorting,
-        [key]: selectedValue,
-      }));
+      (e: React.ChangeEvent<HTMLSelectElement>): void => {
+        const selectedValue = e.target.value;
+        setSorting((prevSorting) => ({
+          ...prevSorting,
+          [key]: selectedValue,
+        }));
 
-      const values = Object.values({
-        ...sorting,
-        [key]: selectedValue,
-      }).filter(Boolean);
-      dispatch(setSortMethods(values));
-    };
+        const values = Object.values({
+          ...sorting,
+          [key]: selectedValue,
+        }).filter(Boolean);
+        dispatch(setSortMethods(values));
+      },
+    [sorting]
+  );
 
   return (
     <div className="w-full flex flex-col gap-8">

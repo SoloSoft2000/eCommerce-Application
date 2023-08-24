@@ -12,6 +12,7 @@ function CatalogPage(): React.JSX.Element {
   const [catalog, setCatalog] = useState<ProductCardProps[]>([]);
 
   const productArray = useSelector((state: RootState) => state.products);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +20,8 @@ function CatalogPage(): React.JSX.Element {
       try {
         const products = await getProducts({
           category: productArray.category,
-          sort: [...productArray.sort],
+          sort: productArray.sort,
+          priceRange: productArray.price,
         });
         const data = setDataElements(products);
         setCatalog(data);
@@ -28,7 +30,7 @@ function CatalogPage(): React.JSX.Element {
       }
     };
     fetchData();
-  }, [dispatch, productArray.category, productArray.sort]);
+  }, [dispatch, productArray]);
 
   useEffect(() => {
     const followResizing = (): void => {

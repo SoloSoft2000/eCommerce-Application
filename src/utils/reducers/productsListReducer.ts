@@ -4,12 +4,14 @@ type DataProducts = {
   category: '';
   sort: string[];
   data: [] | null;
+  price: number[];
 };
 
 const initialState: DataProducts = {
   category: '',
   sort: [],
   data: null,
+  price: [],
 };
 
 const productsSlice = createSlice({
@@ -28,10 +30,14 @@ const productsSlice = createSlice({
       ...state,
       sort: action.payload,
     }),
+    setPriceRange: (state, action) => ({
+      ...state,
+      price: action.payload,
+    }),
   },
 });
 
-export const { setProductsArray, setCategory, setSortMethods } =
+export const { setProductsArray, setCategory, setSortMethods, setPriceRange } =
   productsSlice.actions;
 
 export default productsSlice.reducer;

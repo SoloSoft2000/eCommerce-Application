@@ -17,7 +17,8 @@ function ProductList({ data }: ProductListProps): React.JSX.Element {
               image={item.image}
               key={index}
               price={item.price}
-              sale={null}
+              discount={item.discount}
+              salePercent={item.salePercent}
             />
           )
         )}

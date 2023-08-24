@@ -2,11 +2,12 @@ import React from 'react';
 import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
 
 function ProductCard(props: ProductCardProps): React.JSX.Element {
+  console.log(props);
   return (
     <div className="border-[1px] border-zinc-200 w-[18rem] h-[30rem] h-auto bg-white hover:drop-shadow-lg rounded relative cursor-pointer overflow-hidden">
-      {props.sale && (
+      {props.discount && (
         <div className="absolute flex justify-center items-center w-12 h-12 top-3 right-3 p-2 bg-white rounded-full">
-          -{props.sale}%
+          -{props.salePercent}%
         </div>
       )}
       <div className="w-full object-bottom w-[18rem] h-[18rem] overflow-hidden rounded">
@@ -22,12 +23,14 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
           <p>{props.description}</p>
         </div>
         <p>
-          {!props.price && (
+          {props.discount && (
             <span className="mr-2 line-through text-amber-400">
-              $ {props.price}.00
+              $ {props.price}
             </span>
           )}
-          <span className="text-amber-600 text-xl">$ {props.price}.00</span>
+          <span className="text-amber-600 text-xl">
+            $ {props.discount ? props.discount : props.price}
+          </span>
         </p>
       </div>
     </div>
