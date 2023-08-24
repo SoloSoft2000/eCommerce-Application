@@ -10,5 +10,5 @@ export const scopes = [
   `introspect_oauth_tokens:${projectKey}`,
   `manage_customers:${projectKey}`,
 ];
-export const clientId = 'KOWGHiCr2wZ_6E9wGt_GPMm4';
-export const clientSecret = 'B3GUvmd6R2mnYzUhGAjZLEKsObXkl8HI';
+export const clientId = 'ytTXosfAHPbauBVfXE-JuHY5';
+export const clientSecret = 'Zf114w4pwbZ-uNT-w5oVFl7lAAeQk5rX';
