@@ -1,5 +1,4 @@
 import React from 'react';
-// import FormClasses from "../../helpers/enum/form/classes";
 
 type TabMenuProps = {
   setActiveTab: (tab: string) => void;
