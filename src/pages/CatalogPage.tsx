@@ -1,33 +1,39 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../utils/reducers/store';
 import Filter from '../сomponents/catalog/Filter';
 import ProductList from '../сomponents/catalog/ProductList';
 import getProducts from '../utils/sdk/getProducts';
 import setDataElements from '../utils/sdk/utils/handleProductData';
-import { setProductsArray } from '../utils/reducers/productsListReducer';
+import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
 
 function CatalogPage(): React.JSX.Element {
+  const { category } = useParams();
+
   const [filterMenu, setFilterMenu] = useState(true);
+  const [catalog, setCatalog] = useState<ProductCardProps[]>([]);
 
   const productArray = useSelector((state: RootState) => state.products);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       try {
         const products = await getProducts({
-          category: productArray.category,
+          category,
           sort: productArray.sort,
+          priceRange: productArray.price,
         });
         const data = setDataElements(products);
-        dispatch(setProductsArray(data));
+        setCatalog(data);
       } catch (err) {
         throw new Error(`Catalog page: ${err}`);
       }
     };
     fetchData();
-  }, [dispatch, productArray.category, productArray.sort]);
+  }, [dispatch, productArray]);
 
   useEffect(() => {
     const followResizing = (): void => {
@@ -58,7 +64,7 @@ function CatalogPage(): React.JSX.Element {
         </button>
         {filterMenu && <Filter />}
       </div>
-      {productArray && <ProductList data={productArray.data} />}
+      <ProductList data={catalog} />
     </main>
   );
 }

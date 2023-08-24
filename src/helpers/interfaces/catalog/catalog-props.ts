@@ -3,7 +3,8 @@ interface ProductCardProps {
   title: string;
   image: string;
   price: string | number;
-  sale?: string | null;
+  discount?: string | number;
+  salePercent?: string | number;
 }
 
 interface ProductListProps {

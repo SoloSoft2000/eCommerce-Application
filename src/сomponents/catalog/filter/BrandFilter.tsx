@@ -3,7 +3,7 @@ import React from 'react';
 function BrandFilter(): React.JSX.Element {
   return (
     <div className="flex flex-col">
-      <label className="font-semibold">Brand:</label>
+      <label className="font-semibold">Material:</label>
       <div className="flex items-center mt-2">
         <input
           type="checkbox"
@@ -12,7 +12,7 @@ function BrandFilter(): React.JSX.Element {
           value="A"
         />
         <label htmlFor="checkboxA" className="ml-2">
-          A
+          Gold
         </label>
       </div>
       <div className="flex items-center mt-2">
@@ -23,7 +23,7 @@ function BrandFilter(): React.JSX.Element {
           value="B"
         />
         <label htmlFor="checkboxB" className="ml-2">
-          B
+          Silver
         </label>
       </div>
     </div>

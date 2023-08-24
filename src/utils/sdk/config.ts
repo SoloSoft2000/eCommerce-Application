@@ -22,7 +22,8 @@ export const scopes = [
   `view_discount_codes:${projectKey}`,
   `view_staged_quotes:${projectKey}`,
   `view_orders:${projectKey}`,
+  `view_products:${projectKey}`,
 ];
 
-export const clientId = 'ytTXosfAHPbauBVfXE-JuHY5';
-export const clientSecret = 'Zf114w4pwbZ-uNT-w5oVFl7lAAeQk5rX';
+export const clientId = '4DJ1vUUEBcJzhc-2LUWIkqjl';
+export const clientSecret = 'FOGUBqzBML2N_5_9HR7QRpOBTlBBTloz';
