@@ -33,6 +33,8 @@ async function getProducts({
     queryArgs.sort = sort;
   }
 
+  queryArgs.filter = 'variants.price.centAmount:range (* to 10000)';
+
   const productQuery = apiRoot.productProjections().search().get({
     queryArgs,
   });
