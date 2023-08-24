@@ -1,6 +1,13 @@
 {
   "files.associations": {
     "*.scss": "postcss",
-    "*.module.scss": "postcss"
-  }
+    "*.module.scss": "postcss",
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.includeLanguages": {
+      "plaintext": "html"
+  },
+  "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+  },
 }
