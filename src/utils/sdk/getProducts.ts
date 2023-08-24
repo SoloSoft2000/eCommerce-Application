@@ -6,12 +6,11 @@ async function getProducts({
   sort,
 }: {
   category?: string;
-  sort?: string;
+  sort?: string[];
 }): Promise<ProductProjection[]> {
-  // const ctpClient = createClient();
   const apiRoot = createApiRoot();
 
-  const queryArgs: Record<string, string | number> = {
+  const queryArgs: Record<string, string | number | string[]> = {
     limit: 4,
   };
 
@@ -30,8 +29,8 @@ async function getProducts({
     }
   }
 
-  if (sort) {
-    queryArgs.sort = `name.en-Us ${sort}`;
+  if (sort && sort.length > 0) {
+    queryArgs.sort = sort;
   }
 
   const productQuery = apiRoot.productProjections().search().get({

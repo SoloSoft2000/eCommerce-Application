@@ -5,10 +5,11 @@ import Filter from '../сomponents/catalog/Filter';
 import ProductList from '../сomponents/catalog/ProductList';
 import getProducts from '../utils/sdk/getProducts';
 import setDataElements from '../utils/sdk/utils/handleProductData';
-import { setProductsArray } from '../utils/reducers/productsListReducer';
+import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
 
 function CatalogPage(): React.JSX.Element {
   const [filterMenu, setFilterMenu] = useState(true);
+  const [catalog, setCatalog] = useState<ProductCardProps[]>([]);
 
   const productArray = useSelector((state: RootState) => state.products);
   const dispatch = useDispatch();
@@ -18,10 +19,10 @@ function CatalogPage(): React.JSX.Element {
       try {
         const products = await getProducts({
           category: productArray.category,
-          sort: productArray.sort,
+          sort: [...productArray.sort],
         });
         const data = setDataElements(products);
-        dispatch(setProductsArray(data));
+        setCatalog(data);
       } catch (err) {
         throw new Error(`Catalog page: ${err}`);
       }
@@ -58,7 +59,7 @@ function CatalogPage(): React.JSX.Element {
         </button>
         {filterMenu && <Filter />}
       </div>
-      {productArray && <ProductList data={productArray.data} />}
+      <ProductList data={catalog} />
     </main>
   );
 }

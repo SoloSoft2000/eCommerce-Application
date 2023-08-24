@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 type DataProducts = {
   category: '';
-  sort: '';
+  sort: string[];
   data: [] | null;
 };
 
 const initialState: DataProducts = {
   category: '',
-  sort: '',
+  sort: [],
   data: null,
 };
 
