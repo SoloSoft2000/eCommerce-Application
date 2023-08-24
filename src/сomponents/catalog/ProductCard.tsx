@@ -2,7 +2,6 @@ import React from 'react';
 import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
 
 function ProductCard(props: ProductCardProps): React.JSX.Element {
-  console.log(props);
   return (
     <div className="border-[1px] border-zinc-200 w-[18rem] h-[30rem] h-auto bg-white hover:drop-shadow-lg rounded relative cursor-pointer overflow-hidden">
       {props.discount && (

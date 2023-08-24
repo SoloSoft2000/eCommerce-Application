@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../utils/reducers/store';
 import Filter from '../сomponents/catalog/Filter';
@@ -8,6 +9,8 @@ import setDataElements from '../utils/sdk/utils/handleProductData';
 import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
 
 function CatalogPage(): React.JSX.Element {
+  const { category } = useParams();
+
   const [filterMenu, setFilterMenu] = useState(true);
   const [catalog, setCatalog] = useState<ProductCardProps[]>([]);
 
@@ -19,7 +22,7 @@ function CatalogPage(): React.JSX.Element {
     const fetchData = async (): Promise<void> => {
       try {
         const products = await getProducts({
-          category: productArray.category,
+          category,
           sort: productArray.sort,
           priceRange: productArray.price,
         });

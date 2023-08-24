@@ -12,6 +12,7 @@ module.exports = (argv) => {
       filename: isDevelopment ? 'bundle.dev.js' : 'bundle.prod.js',
       assetModuleFilename: 'assets/[name][ext]',
       clean: true,
+      publicPath: '/',
     },
     devtool: isDevelopment ? 'inline-source-map' : false,
     devServer: {
@@ -46,7 +47,7 @@ module.exports = (argv) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './src/index.html',
-        filename: './index.html',      
+        filename: './index.html',
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css',
