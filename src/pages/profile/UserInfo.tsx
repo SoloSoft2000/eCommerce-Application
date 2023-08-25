@@ -89,15 +89,6 @@ function UserInfo(): React.JSX.Element {
               BirthDay:
             </label>
             <BirtdayDate readonly={!isEditing} />
-            {/* <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="date"
-              readOnly={!isEditing}
-              {...methods.register('dateOfBirth')}
-            />
-            {methods.formState.errors.dateOfBirth && (
-              <span>{methods.formState.errors.dateOfBirth.message}</span>
-            )} */}
           </div>
           {isEditing ? (
             <>
