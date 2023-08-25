@@ -41,7 +41,7 @@ function handleUserData(data: UserRegistrate): CustomerDraft {
     password: data.password,
     firstName: data.firstName,
     lastName: data.lastName,
-    dateOfBirth: formatBirthdayDate(data.birthday),
+    dateOfBirth: formatBirthdayDate(data.dateOfBirth),
     addresses: adressArray,
     shippingAddresses: [0],
     defaultShippingAddress: defShipingAdress,

@@ -44,7 +44,7 @@ const registerSchemaOne = yup.object({
   shipCountry: countryRules,
   shipPostcode: shipPostalRules,
   shipStreet: addressRules,
-  birthday: birthdayRules,
+  dateOfBirth: birthdayRules,
 });
 
 const registerSchemaTwo = registerSchemaOne.shape({

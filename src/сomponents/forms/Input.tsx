@@ -9,7 +9,7 @@ function Input({
   name,
   placeholder,
   width,
-  readonly,
+  readonly = String(false),
 }: FormProps): React.JSX.Element {
   const {
     register,
