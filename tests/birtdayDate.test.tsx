@@ -16,7 +16,7 @@ describe('BirtdayDate', () => {
 
     (useFormContext as jest.Mock).mockReturnValue(mockJest);
 
-    render(<BirtdayDate />);
+    render(<BirtdayDate readonly={false}/>);
 
     const inputEl = screen.queryByLabelText('Date of birth*');
     expect(inputEl).toBeNull();

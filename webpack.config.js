@@ -31,8 +31,22 @@ module.exports = (argv) => {
           exclude: /node_modules/,
         },
         {
-          test: /\.(scss|css)$/,
-          use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+          test: /\.module\.scss$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+              }
+            },
+            'postcss-loader',
+            'sass-loader'
+          ]
+        },
+        {
+          test: /^((?!\.module).)*\.(scss|css)$/,
+          use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,

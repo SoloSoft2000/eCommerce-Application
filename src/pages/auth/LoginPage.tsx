@@ -11,9 +11,9 @@ import SubmitFormButton from '../../сomponents/forms/SubmitFormBtn';
 import getCustomers from '../../utils/sdk/getCustomers';
 import { setCustomer } from '../../utils/reducers/customerReducer';
 import loginSchema from '../../utils/validationSchemas/loginSchema';
-import LoginPageClasses from '../../helpers/enum/pages/login';
-import FormClasses from '../../helpers/enum/form/classes';
 import { RootState } from '../../utils/reducers/store';
+import LoginStyles from '../../assets/styles/login.module.scss';
+import FormStyles from '../../assets/styles/form.module.scss';
 
 function LoginPage(): React.JSX.Element {
   const navigate = useNavigate();
@@ -57,9 +57,9 @@ function LoginPage(): React.JSX.Element {
   });
 
   return (
-    <main className={LoginPageClasses.MAIN}>
-      <div className={LoginPageClasses.WRAPPER}>
-        <Title classes={FormClasses.TITLE} value="Sign in" />
+    <main className={LoginStyles.main}>
+      <div className={LoginStyles.wrapper}>
+        <Title classes={FormStyles.title} value="Sign in" />
         <SwitchPageLinks />
 
         <FormProvider {...methods}>
@@ -67,24 +67,21 @@ function LoginPage(): React.JSX.Element {
             onSubmit={onSubmit}
             onBlur={(): void => setError('')}
             noValidate
-            className={FormClasses.FORM}
+            className={FormStyles.form}
           >
             <div className="mb-12">
               <Input type={'text'} placeholder={'Email*:'} name={'email'} />
               <Password />
             </div>
             {succsessLogin && (
-              <div className={FormClasses.SUCCESS_TEXT_LOGIN}>
+              <div className={FormStyles.success_text_login}>
                 You have successfully logged in
               </div>
             )}
             {error && (
-              <div className={FormClasses.MISTAKE_TEXT_LOGIN}>{error}</div>
+              <div className={FormStyles.mistake_text_login}>{error}</div>
             )}
-            <SubmitFormButton
-              value="Sign in"
-              classes={FormClasses.SUBMIT_BTN}
-            />
+            <SubmitFormButton value="Sign in" classes={FormStyles.submit_btn} />
           </form>
         </FormProvider>
       </div>

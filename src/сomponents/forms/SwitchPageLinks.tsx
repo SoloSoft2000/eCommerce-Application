@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FormProps from '../../helpers/interfaces/forms/form-props';
-import FormClasses from '../../helpers/enum/form/classes';
+import FormStyles from '../../assets/styles/form.module.scss';
 
 function SwitchPageLinks({ pageName }: FormProps): React.JSX.Element {
   return (
-    <div className={FormClasses.SITCH_PAGE_LINKS_WRAPPER}>
+    <div className={FormStyles.switch_page_links_wrapper}>
       <Link
         to="/login"
         className={
           pageName === 'register'
-            ? FormClasses.ACTIVE_LINK
-            : FormClasses.DISABLE_LINK
+            ? FormStyles.active_link
+            : FormStyles.disable_link
         }
       >
         Sign in
@@ -21,8 +21,8 @@ function SwitchPageLinks({ pageName }: FormProps): React.JSX.Element {
         to="/register"
         className={
           pageName === 'register'
-            ? FormClasses.DISABLE_LINK
-            : FormClasses.ACTIVE_LINK
+            ? FormStyles.disable_link
+            : FormStyles.active_link
         }
       >
         Register

@@ -1,0 +1,15 @@
+.main {
+  @apply container mx-auto;
+}
+
+.logo {
+  @apply flex justify-between max-md:items-center max-md:pr-2;
+}
+
+.button {
+  @apply h-5 w-5 hidden max-md:inline-block;
+}
+
+.menu_icon {
+  @apply w-full h-full transition-all duration-300 ease-in-out;
+}

@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../utils/reducers/store';
-import LoginPageClasses from '../helpers/enum/pages/login';
 import Title from '../сomponents/forms/Title';
-import FormClasses from '../helpers/enum/form/classes';
 import TabMenu from './profile/TabMenu';
 import UserInfo from './profile/UserInfo';
 import Adresses from './profile/Adresses';
+import LoginStyles from '../assets/styles/login.module.scss';
+import FormStyles from '../assets/styles/form.module.scss';
 
 function UserProfilePage(): React.JSX.Element {
   const navigate = useNavigate();
@@ -22,9 +22,9 @@ function UserProfilePage(): React.JSX.Element {
   const [activeTab, setActiveTab] = useState('info');
 
   return (
-    <main className={LoginPageClasses.MAIN}>
-      <div className={LoginPageClasses.WRAPPER}>
-        <Title classes={FormClasses.TITLE} value="User Profile" />
+    <main className={LoginStyles.main}>
+      <div className={LoginStyles.wrapper}>
+        <Title classes={FormStyles.title} value="User Profile" />
         <TabMenu setActiveTab={setActiveTab} activeTab={activeTab} />
 
         {activeTab === 'info' && <UserInfo />}
