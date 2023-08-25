@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
+import FormStyles from '../../assets/styles/form.module.scss';
 
 function Password(): React.JSX.Element {
   const {
@@ -20,21 +21,21 @@ function Password(): React.JSX.Element {
   return (
     <>
       <input
-        className="general_field"
+        className={FormStyles.general_field}
         placeholder="Password*"
         type={passwordIsShown ? 'text' : 'password'}
         autoComplete="on"
         {...register('password')}
       />
       {errorMessage && (
-        <div className="mistake_text">{errorMessage.toString()}</div>
+        <div className={FormStyles.mistake_text}>{errorMessage.toString()}</div>
       )}
       <input
         type="checkbox"
         name="passwordIsShown"
         checked={passwordIsShown}
         onChange={togglePassword}
-        className="checkbox"
+        className={FormStyles.checkbox}
       />
       <label htmlFor="passwordIsShown">
         {passwordIsShown ? 'Hide Password' : 'Show Password'}

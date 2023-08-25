@@ -19,6 +19,8 @@ import Address from '../../сomponents/forms/Adress';
 import newCustomers from '../../utils/sdk/newCustomers';
 import { setCustomer } from '../../utils/reducers/customerReducer';
 import { RootState } from '../../utils/reducers/store';
+import RegistrationStyles from '../../assets/styles/login.module.scss';
+import FormStyles from '../../assets/styles/form.module.scss';
 
 function RegisterPage(): React.JSX.Element {
   const navigate = useNavigate();
@@ -79,50 +81,50 @@ function RegisterPage(): React.JSX.Element {
   }, [setDefaultAdress]);
 
   return (
-    <main className="reg-main">
-      <div className="login-wrapper">
-        <div className="age_limit">
+    <main className={RegistrationStyles.reg_main}>
+      <div className={RegistrationStyles.wrapper}>
+        <div className={RegistrationStyles.age_limit}>
           <p>13+</p>
         </div>
-        <Title classes="form-title" value="Create an account" />
+        <Title classes={FormStyles.title} value="Create an account" />
         <SwitchPageLinks pageName="register" />
         <FormProvider {...methods}>
           <form
             onSubmit={onSubmit}
             onBlur={(): void => setError('')}
             noValidate
-            className="form"
+            className={FormStyles.form}
           >
             <Input
               type="text"
               placeholder="Email*:"
               name="email"
-              width="full_field"
+              width={FormStyles.full_field}
             />
             <Password />
-            <div className="form_container">
+            <div className={FormStyles.container}>
               <Input
                 name="firstName"
                 placeholder="First Name*"
                 type="text"
-                width="half_field"
+                width={FormStyles.half_field}
               />
               <Input
                 name="lastName"
                 placeholder="Last Name*"
                 type="text"
-                width="half_field"
+                width={FormStyles.half_field}
               />
             </div>
 
-            <div className="form_container">
+            <div className={FormStyles.container}>
               <BirtdayDate />
             </div>
-            <legend className="address_title">Shipping address*:</legend>
+            <legend className={FormStyles.address_title}>Shipping address*:</legend>
             <input
               type="checkbox"
               {...methods.register('shipDefault')}
-              className="checkbox"
+              className={FormStyles.checkbox}
             />
             <label htmlFor={`shipDefault`}>Set as default address</label>
             <Address type={'ship'} />
@@ -130,7 +132,7 @@ function RegisterPage(): React.JSX.Element {
               <input
                 type="checkbox"
                 {...methods.register('defaultAdress')}
-                className="checkbox"
+                className={FormStyles.checkbox}
                 checked={defaultAdress}
                 onChange={handleChange}
               />
@@ -138,13 +140,13 @@ function RegisterPage(): React.JSX.Element {
                 Set as address for billing and shipping
               </label>
               {!defaultAdress && (
-                <legend className="address_title">Billing address*:</legend>
+                <legend className={FormStyles.address_title}>Billing address*:</legend>
               )}
               {!defaultAdress && (
                 <input
                   type="checkbox"
                   {...methods.register('billDefault')}
-                  className="checkbox"
+                  className={FormStyles.checkbox}
                 />
               )}
               {!defaultAdress && (
@@ -154,13 +156,13 @@ function RegisterPage(): React.JSX.Element {
             </div>
 
             {succsessRegistration && (
-              <div className="success_text_login">
+              <div className={FormStyles.success_text_login}>
                 You have been successfully registered.
               </div>
             )}
-            {error && <div className="mistake_text_login">{error}</div>}
+            {error && <div className={FormStyles.mistake_text_login}>{error}</div>}
 
-            <SubmitFormButton value="Create an account" classes="submit_btn" />
+            <SubmitFormButton value="Create an account" classes={FormStyles.submit_btn} />
           </form>
         </FormProvider>
       </div>

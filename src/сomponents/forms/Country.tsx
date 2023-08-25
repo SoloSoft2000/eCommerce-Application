@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import FormProps from '../../helpers/interfaces/forms/form-props';
+import FormStyles from '../../assets/styles/form.module.scss';
 
 function Country({ name }: FormProps): React.JSX.Element {
   const {
@@ -14,16 +15,16 @@ function Country({ name }: FormProps): React.JSX.Element {
   );
 
   return (
-    <div className="full_field">
-      <select className="general_field" {...register(name)}>
-        <option value="" className="country_option_text">
+    <div className={FormStyles.full_field}>
+      <select className={FormStyles.general_field} {...register(name)}>
+        <option value="" className={FormStyles.country_option_text}>
           Country*
         </option>
         <option value="US">USA</option>
         <option value="CA">Canada</option>
       </select>
       {errorMessage && (
-        <p className="mistake_text">{errorMessage.toString()}</p>
+        <p className={FormStyles.mistake_text}>{errorMessage.toString()}</p>
       )}
     </div>
   );

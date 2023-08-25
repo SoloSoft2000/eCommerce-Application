@@ -1,8 +1,8 @@
-.form-title {
+.title {
   @apply text-xl font-bold mb-8 text-center;
 }
 
-.sitch_page_links_wrapper {
+.switch_page_links_wrapper {
   @apply w-full bg-zinc-200 flex justify-between p-1 rounded mb-10 sm:mb-20;
 }
 
@@ -18,7 +18,7 @@
   @apply px-2 sm:px-0;
 }
 
-.form_container {
+.container {
   @apply flex justify-between flex-wrap;
 }
 

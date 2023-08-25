@@ -12,6 +12,8 @@ import getCustomers from '../../utils/sdk/getCustomers';
 import { setCustomer } from '../../utils/reducers/customerReducer';
 import loginSchema from '../../utils/validationSchemas/loginSchema';
 import { RootState } from '../../utils/reducers/store';
+import LoginStyles from '../../assets/styles/login.module.scss';
+import FormStyles from '../../assets/styles/form.module.scss';
 
 function LoginPage(): React.JSX.Element {
   const navigate = useNavigate();
@@ -55,9 +57,9 @@ function LoginPage(): React.JSX.Element {
   });
 
   return (
-    <main className="login-main">
-      <div className="login-wrapper">
-        <Title classes="form-title" value="Sign in" />
+    <main className={LoginStyles.main}>
+      <div className={LoginStyles.wrapper}>
+        <Title classes={FormStyles.title} value="Sign in" />
         <SwitchPageLinks />
 
         <FormProvider {...methods}>
@@ -65,19 +67,19 @@ function LoginPage(): React.JSX.Element {
             onSubmit={onSubmit}
             onBlur={(): void => setError('')}
             noValidate
-            className=".form"
+            className={FormStyles.form}
           >
             <div className="mb-12">
               <Input type={'text'} placeholder={'Email*:'} name={'email'} />
               <Password />
             </div>
             {succsessLogin && (
-              <div className="success_text_login">
+              <div className={FormStyles.success_text_login}>
                 You have successfully logged in
               </div>
             )}
-            {error && <div className="mistake_text_login">{error}</div>}
-            <SubmitFormButton value="Sign in" classes="submit_btn" />
+            {error && <div className={FormStyles.mistake_text_login}>{error}</div>}
+            <SubmitFormButton value="Sign in" classes={FormStyles.submit_btn} />
           </form>
         </FormProvider>
       </div>
