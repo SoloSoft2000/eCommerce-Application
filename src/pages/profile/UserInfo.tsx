@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../utils/reducers/store';
 import profileSchema from '../../utils/validationSchemas/profileSchema';
+import FormStyles from '../../assets/styles/form.module.scss';
 
 function UserInfo(): React.JSX.Element {
   const user: Customer = useSelector((state: RootState) => state.customer);
@@ -48,7 +49,7 @@ function UserInfo(): React.JSX.Element {
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={onSubmit}
         >
-          <div className="form_container">
+          <div className={FormStyles.container}>
             <label className="block text-gray-700 mb-2" htmlFor="email">
               E-Mail:
             </label>
@@ -56,7 +57,7 @@ function UserInfo(): React.JSX.Element {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="E-Mail*"
               type="text"
-              width="half_field"
+              width={FormStyles.half_field}
               readOnly={!isEditing}
               {...methods.register('email')}
             />
@@ -73,7 +74,7 @@ function UserInfo(): React.JSX.Element {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="First Name*"
               type="text"
-              width="half_field"
+              width={FormStyles.half_field}
               readOnly={!isEditing}
               {...methods.register('firstName')}
             />
@@ -87,7 +88,7 @@ function UserInfo(): React.JSX.Element {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Last Name*"
               type="text"
-              width="half_field"
+              width={FormStyles.half_field}
               readOnly={!isEditing}
               {...methods.register('lastName')}
             />

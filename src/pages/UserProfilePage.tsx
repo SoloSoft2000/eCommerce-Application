@@ -6,6 +6,8 @@ import Title from '../сomponents/forms/Title';
 import TabMenu from './profile/TabMenu';
 import UserInfo from './profile/UserInfo';
 import Adresses from './profile/Adresses';
+import LoginStyles from '../assets/styles/login.module.scss';
+import FormStyles from '../assets/styles/form.module.scss';
 
 function UserProfilePage(): React.JSX.Element {
   const navigate = useNavigate();
@@ -20,9 +22,9 @@ function UserProfilePage(): React.JSX.Element {
   const [activeTab, setActiveTab] = useState('info');
 
   return (
-    <main className="login-main">
-      <div className="login-wrapper">
-        <Title classes="form-title" value="User Profile" />
+    <main className={LoginStyles.main}>
+      <div className={LoginStyles.wrapper}>
+        <Title classes={FormStyles.title} value="User Profile" />
         <TabMenu setActiveTab={setActiveTab} activeTab={activeTab} />
 
         {activeTab === 'info' && <UserInfo />}
