@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import FormStyles from '../../assets/styles/form.module.scss';
 
-function BirtdayDate({readonly}: {readonly: boolean}): React.JSX.Element {
+function BirtdayDate({ readonly }: { readonly: boolean }): React.JSX.Element {
   const {
     register,
     formState: { errors },
@@ -19,11 +19,7 @@ function BirtdayDate({readonly}: {readonly: boolean}): React.JSX.Element {
         <label htmlFor="Birthday" className={FormStyles.birthday_label}>
           Date of birth*
         </label>
-        <input
-          type="date"
-          readOnly={readonly}
-          {...register('dateOfBirth')}
-        />
+        <input type="date" readOnly={readonly} {...register('dateOfBirth')} />
       </div>
       {errorMessage && (
         <p className={FormStyles.mistake_text}>{errorMessage.toString()}</p>

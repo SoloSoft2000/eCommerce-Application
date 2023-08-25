@@ -118,7 +118,7 @@ function RegisterPage(): React.JSX.Element {
             </div>
 
             <div className={FormStyles.container}>
-              <BirtdayDate readonly={false}/>
+              <BirtdayDate readonly={false} />
             </div>
             <legend className={FormStyles.address_title}>
               Shipping address*:
