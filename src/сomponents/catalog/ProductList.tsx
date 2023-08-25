@@ -12,16 +12,16 @@ function ProductList({ data }: ProductListProps): React.JSX.Element {
       {data &&
         data.map(
           (item: ProductCardProps, index: number): React.JSX.Element => (
-            <Link to={`/product/${item.id}`} key={index}> 
-            <ProductCard
-              description={item.description}
-              title={item.title}
-              image={item.image}
-              key={index}
-              price={item.price}
-              discount={item.discount}
-              salePercent={item.salePercent}
-            />
+            <Link to={`/product/${item.id}`} key={index}>
+              <ProductCard
+                description={item.description}
+                title={item.title}
+                image={item.image}
+                key={index}
+                price={item.price}
+                discount={item.discount}
+                salePercent={item.salePercent}
+              />
             </Link>
           )
         )}
