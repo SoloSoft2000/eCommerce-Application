@@ -78,7 +78,9 @@ function LoginPage(): React.JSX.Element {
                 You have successfully logged in
               </div>
             )}
-            {error && <div className={FormStyles.mistake_text_login}>{error}</div>}
+            {error && (
+              <div className={FormStyles.mistake_text_login}>{error}</div>
+            )}
             <SubmitFormButton value="Sign in" classes={FormStyles.submit_btn} />
           </form>
         </FormProvider>

@@ -27,7 +27,7 @@ function Address({ type }: FormProps): React.JSX.Element {
         placeholder="Street Address*"
         type="text"
         width={FormStyles.full_field}
-        />
+      />
     </fieldset>
   );
 }

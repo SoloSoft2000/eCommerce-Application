@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../utils/reducers/store';
 import profileSchema from '../../utils/validationSchemas/profileSchema';
 import FormStyles from '../../assets/styles/form.module.scss';
+import Input from '../../сomponents/forms/Input';
+import BirtdayDate from '../../сomponents/forms/BirtdayDate';
 
 function UserInfo(): React.JSX.Element {
   const user: Customer = useSelector((state: RootState) => state.customer);
@@ -53,60 +55,40 @@ function UserInfo(): React.JSX.Element {
             <label className="block text-gray-700 mb-2" htmlFor="email">
               E-Mail:
             </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="E-Mail*"
+            <Input
               type="text"
-              width={FormStyles.half_field}
-              readOnly={!isEditing}
-              {...methods.register('email')}
+              placeholder="Email*:"
+              name="email"
+              width={FormStyles.full_field}
+              readonly={String(!isEditing)}
             />
-            {methods.formState.errors.email && (
-              <span>{methods.formState.errors.email.message}</span>
-            )}
             <label
               className="block text-gray-700 mt-3 mb-2"
               htmlFor="firstName"
             >
               First Name:
             </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="First Name*"
+            <Input
               type="text"
-              width={FormStyles.half_field}
-              readOnly={!isEditing}
-              {...methods.register('firstName')}
+              placeholder="First Name*:"
+              name="firstName"
+              width={FormStyles.full_field}
+              readonly={String(!isEditing)}
             />
-            {methods.formState.errors.firstName && (
-              <span>{methods.formState.errors.firstName.message}</span>
-            )}
             <label className="block text-gray-700 mt-3 mb-2" htmlFor="lastName">
               Last Name:
             </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Last Name*"
+            <Input
               type="text"
-              width={FormStyles.half_field}
-              readOnly={!isEditing}
-              {...methods.register('lastName')}
+              placeholder="Last Name*:"
+              name="lastName"
+              width={FormStyles.full_field}
+              readonly={String(!isEditing)}
             />
-            {methods.formState.errors.lastName && (
-              <span>{methods.formState.errors.lastName.message}</span>
-            )}
             <label className="block text-gray-700 mt-3 mb-2" htmlFor="birthday">
               BirthDay:
             </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="date"
-              readOnly={!isEditing}
-              {...methods.register('dateOfBirth')}
-            />
-            {methods.formState.errors.dateOfBirth && (
-              <span>{methods.formState.errors.dateOfBirth.message}</span>
-            )}
+            <BirtdayDate readonly={!isEditing} />
           </div>
           {isEditing ? (
             <>
