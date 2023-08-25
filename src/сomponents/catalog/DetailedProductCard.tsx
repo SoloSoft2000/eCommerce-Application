@@ -9,9 +9,9 @@ function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
         <h3 className='text-2xl font-bold mb-11'>{props.title}</h3>
         <p className='text-xl mb-11'>{props.description}</p>
         <div className='flex mb-11'>
-        <div className={`text-2xl ${props.discount ? 'line-through text-amber-600' : 'text-amber-600'}`}>{props.price}</div>
+        <div className={`text-2xl ${props.discount ? 'line-through text-amber-600' : 'text-amber-600'}`}>$ {props.price}</div>
             {props.discount ? (
-                <div className='text-2xl text-red-600 ml-2'>{props.discount}</div>
+                <div className='text-2xl text-red-600 ml-2'>$ {props.discount}</div>
               ) : (
                 <div className='text-2xl text-red-600 ml-2'>&nbsp;</div>
               )}

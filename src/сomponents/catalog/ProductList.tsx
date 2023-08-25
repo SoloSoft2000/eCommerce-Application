@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import {
   ProductListProps,
@@ -11,6 +12,7 @@ function ProductList({ data }: ProductListProps): React.JSX.Element {
       {data &&
         data.map(
           (item: ProductCardProps, index: number): React.JSX.Element => (
+            <Link to={`/product/${item.id}`} key={index}> 
             <ProductCard
               description={item.description}
               title={item.title}
@@ -20,6 +22,7 @@ function ProductList({ data }: ProductListProps): React.JSX.Element {
               discount={item.discount}
               salePercent={item.salePercent}
             />
+            </Link>
           )
         )}
     </div>

@@ -30,9 +30,6 @@ function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
         <Link className={NavStyles.link} to="/catalog">
           Catalog Product
         </Link>
-        <Link className={NavStyles.link} to="/product">
-          Detailed Product
-        </Link>
         <Link className={NavStyles.link} to="/basket">
           <div className={NavStyles.icons}>
             <SlBasket className="mr-1" /> Basket

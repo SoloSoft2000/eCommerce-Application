@@ -12,6 +12,7 @@ function setProductEl(data: ProductProjection): ProductCardProps {
   pricesList && pricesList[0].discounted ? (pricesList[0].discounted.value.centAmount / 100).toFixed(2) : '';
   const salePercent = price && discount ? (((+price - +discount) / +discount) * 100).toFixed() : '';
   return {
+    id: data.id,
     description,
     title,
     price,

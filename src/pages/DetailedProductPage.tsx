@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import DetailedProductCard from '../сomponents/catalog/DetailedProductCard';
 import returnProductById from '../utils/sdk/getDetailedProduct';
 import setProductEl from '../utils/sdk/utils/handleDetailedProductData';
@@ -6,22 +7,26 @@ import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
 
 function ProductPage(): React.JSX.Element {
 
+  const { productId } = useParams();
   const [prodData, setProdData] = useState<ProductCardProps>();
  
   useEffect(() => {
-    const fetchData = async (): Promise<void> => {
+    if (productId) {
+       const fetchData = async (): Promise<void> => {
       try {
-        const response = await returnProductById();
+        const response = await returnProductById(productId);
         const data = setProductEl(response);
         setProdData(data);
         console.log(data);
         console.log(response);
+        console.log(productId);
       } catch (err) {
         throw new Error(`Detailed product page: ${err}`);
       }
     };
     fetchData();
-}, []);
+    } 
+}, [productId]);
   
 return (
     <main className="container mx-auto">
