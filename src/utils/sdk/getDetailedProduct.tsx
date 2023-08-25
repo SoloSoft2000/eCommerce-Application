@@ -10,7 +10,3 @@ const id = 'd6ac30db-0b36-47c7-8988-921d67203f7f';
   }
   
   export default returnProductById;
-  
-
-
-
