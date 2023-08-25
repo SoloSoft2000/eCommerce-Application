@@ -1,21 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import DetailedProductCard from '../сomponents/catalog/DetailedProductCard';
+import returnProductById from '../utils/sdk/getDetailedProduct';
+import setProductEl from '../utils/sdk/utils/handleDetailedProductData';
 
 function ProductPage(): React.JSX.Element {
-  return (
+  
+  useEffect(() => {
+    const fetchData = async (): Promise<void> => {
+      try {
+        const response = await returnProductById();
+        const data = setProductEl(response);
+        console.log(data);
+        console.log(response);
+      } catch (err) {
+        throw new Error(`Detailed product page: ${err}`);
+      }
+    };
+    fetchData();
+}, []);
+  
+return (
     <main className="container mx-auto">
-      <div className='flex justify-center mt-16'>
-        <div className='border-2 w-1/3'>Picture will be here</div>
-        <div className='ml-8 w-1/3 border-2'>
-          <h3 className='text-2xl font-bold mb-11'>Product name</h3>
-          <p className='text-xl mb-11'>Product description</p>
-          <div className='flex mb-11'> 
-            <div className='text-amber-600 text-2xl'>Reg Price</div>
-            <div className='text-2xl text-red-600 ml-2'>Sale price</div>
-          </div>
-          <button className='w-1/2 mb-11 text-center rounded bg-black p-3 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer'>Add to Cart</button>
-        </div> 
-      </div>
-     
+      <DetailedProductCard />
     </main>
   );
 }
