@@ -8,14 +8,22 @@ function SwitchPageLinks({ pageName }: FormProps): React.JSX.Element {
     <div className={FormStyles.switch_page_links_wrapper}>
       <Link
         to="/login"
-        className={pageName === 'register' ? FormStyles.active_link : FormStyles.disable_link}
+        className={
+          pageName === 'register'
+            ? FormStyles.active_link
+            : FormStyles.disable_link
+        }
       >
         Sign in
       </Link>
 
       <Link
         to="/register"
-        className={pageName === 'register' ? FormStyles.disable_link : FormStyles.active_link}
+        className={
+          pageName === 'register'
+            ? FormStyles.disable_link
+            : FormStyles.active_link
+        }
       >
         Register
       </Link>

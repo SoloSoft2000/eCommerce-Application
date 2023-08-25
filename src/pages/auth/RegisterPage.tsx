@@ -120,7 +120,9 @@ function RegisterPage(): React.JSX.Element {
             <div className={FormStyles.container}>
               <BirtdayDate />
             </div>
-            <legend className={FormStyles.address_title}>Shipping address*:</legend>
+            <legend className={FormStyles.address_title}>
+              Shipping address*:
+            </legend>
             <input
               type="checkbox"
               {...methods.register('shipDefault')}
@@ -140,7 +142,9 @@ function RegisterPage(): React.JSX.Element {
                 Set as address for billing and shipping
               </label>
               {!defaultAdress && (
-                <legend className={FormStyles.address_title}>Billing address*:</legend>
+                <legend className={FormStyles.address_title}>
+                  Billing address*:
+                </legend>
               )}
               {!defaultAdress && (
                 <input
@@ -160,9 +164,14 @@ function RegisterPage(): React.JSX.Element {
                 You have been successfully registered.
               </div>
             )}
-            {error && <div className={FormStyles.mistake_text_login}>{error}</div>}
+            {error && (
+              <div className={FormStyles.mistake_text_login}>{error}</div>
+            )}
 
-            <SubmitFormButton value="Create an account" classes={FormStyles.submit_btn} />
+            <SubmitFormButton
+              value="Create an account"
+              classes={FormStyles.submit_btn}
+            />
           </form>
         </FormProvider>
       </div>
