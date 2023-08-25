@@ -6,7 +6,7 @@ import { SlBasket } from 'react-icons/sl';
 import { RootState } from '../utils/reducers/store';
 import { clearCustomer } from '../utils/reducers/customerReducer';
 import { NavigationProps } from '../helpers/interfaces/layout/layout-props';
-import NavClasses from '../helpers/enum/components/navClasses';
+import NavStyles from '../assets/styles/nav.module.scss';
 
 function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
   const customer = useSelector((state: RootState) => state.customer);
@@ -18,49 +18,49 @@ function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
   }, [dispatch]);
 
   const mainClasses = isOpen
-    ? `${NavClasses.MAIN} translate-x-full`
-    : NavClasses.MAIN;
+    ? `${NavStyles.main} translate-x-full`
+    : NavStyles.main;
 
   return (
     <nav className={mainClasses}>
-      <Link className={NavClasses.LINK} to="/">
+      <Link className={NavStyles.link} to="/">
         Main
       </Link>
       <>
-        <Link className={NavClasses.LINK} to="/catalog">
+        <Link className={NavStyles.link} to="/catalog">
           Catalog Product
         </Link>
-        <Link className={NavClasses.LINK} to="/product">
+        <Link className={NavStyles.link} to="/product">
           Detailed Product
         </Link>
-        <Link className={NavClasses.LINK} to="/basket">
-          <div className={NavClasses.ICONS}>
+        <Link className={NavStyles.link} to="/basket">
+          <div className={NavStyles.icons}>
             <SlBasket className="mr-1" /> Basket
           </div>
         </Link>
       </>
-      <Link className={NavClasses.LINK} to="/about">
+      <Link className={NavStyles.link} to="/about">
         About Us
       </Link>
 
       {customer.id && (
         <>
-          <Link className={NavClasses.LINK} to="/profile">
-            <div className={NavClasses.ICONS}>
+          <Link className={NavStyles.link} to="/profile">
+            <div className={NavStyles.icons}>
               <AiOutlineUser className="mr-1" /> User Profile
             </div>
           </Link>
-          <Link className={NavClasses.USER_LINK} to="/" onClick={handleLogout}>
+          <Link className={NavStyles.user_link} to="/" onClick={handleLogout}>
             Log out
           </Link>
         </>
       )}
       {!customer.id && (
         <>
-          <Link className={NavClasses.USER_LINK} to="/login">
+          <Link className={NavStyles.user_link} to="/login">
             Login
           </Link>
-          <Link className={NavClasses.USER_LINK} to="/register">
+          <Link className={NavStyles.user_link} to="/register">
             Register
           </Link>
         </>
