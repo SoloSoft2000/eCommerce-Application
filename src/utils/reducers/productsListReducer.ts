@@ -5,6 +5,7 @@ type DataProducts = {
   sort: string[];
   data: [] | null;
   price: number[];
+  text: string;
 };
 
 const initialState: DataProducts = {
@@ -12,6 +13,7 @@ const initialState: DataProducts = {
   sort: [],
   data: null,
   price: [],
+  text: '',
 };
 
 const productsSlice = createSlice({
@@ -34,10 +36,19 @@ const productsSlice = createSlice({
       ...state,
       price: action.payload,
     }),
+    setTextMethods: (state, action) => ({
+      ...state,
+      text: action.payload,
+    }),
   },
 });
 
-export const { setProductsArray, setCategory, setSortMethods, setPriceRange } =
-  productsSlice.actions;
+export const {
+  setProductsArray,
+  setCategory,
+  setSortMethods,
+  setPriceRange,
+  setTextMethods,
+} = productsSlice.actions;
 
 export default productsSlice.reducer;

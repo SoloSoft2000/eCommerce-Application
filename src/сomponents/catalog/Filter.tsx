@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import BrandFilter from './filter/BrandFilter';
 import PriceFilter from './filter/PriceFilter';
+import ByInputFilter from './filter/ByInput';
 import { setSortMethods } from '../../utils/reducers/productsListReducer';
 
 function Filter(): React.JSX.Element {
@@ -13,31 +14,25 @@ function Filter(): React.JSX.Element {
   const dispatch = useDispatch();
 
   const handleSortChange = useCallback(
-    (key: string) =>
+    (key: keyof typeof sorting) =>
       (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const selectedValue = e.target.value;
         setSorting((prevSorting) => ({
           ...prevSorting,
           [key]: selectedValue,
         }));
-
-        const values = Object.values({
-          ...sorting,
-          [key]: selectedValue,
-        }).filter(Boolean);
-        dispatch(setSortMethods(values));
       },
-    [sorting]
+    []
   );
+
+  useEffect(() => {
+    const values = Object.values(sorting).filter(Boolean);
+    dispatch(setSortMethods(values));
+  }, [sorting, dispatch]);
 
   return (
     <div className="w-full flex flex-col gap-8">
-      <input
-        type="text"
-        className="border-2 border-zinc-200 p-2 w-full rounded"
-        placeholder="Type a name..."
-      />
-
+      <ByInputFilter />
       <BrandFilter />
 
       <label className="block font-bold">

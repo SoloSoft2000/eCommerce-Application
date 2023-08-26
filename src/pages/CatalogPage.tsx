@@ -25,6 +25,7 @@ function CatalogPage(): React.JSX.Element {
           category,
           sort: productArray.sort,
           priceRange: productArray.price,
+          text: productArray.text,
         });
         const data = setDataElements(products);
         setCatalog(data);

@@ -5,10 +5,12 @@ async function getProducts({
   category,
   sort,
   priceRange,
+  text,
 }: {
   category?: string;
   sort?: string[];
   priceRange: number[];
+  text?: string;
 }): Promise<ProductProjection[]> {
   const apiRoot = createApiRoot();
   const filters: string[] = [];
@@ -17,7 +19,9 @@ async function getProducts({
     limit: 20,
   };
 
-  // queryArgs['text.en-US'] = '"Crystal Stars"';
+  if (text) {
+    queryArgs['text.en-US'] = `"${text}"`;
+  }
 
   if (category && category !== 'All') {
     const {
@@ -48,12 +52,6 @@ async function getProducts({
   const productQuery = apiRoot.productProjections().search().get({
     queryArgs,
   });
-
-  // const discount = await apiRoot
-  //   .productDiscounts()
-  //   .get({ queryArgs: { filter: `categories.id:"ring"` } })
-  //   .execute();
-  // console.log(discount);
 
   const response = await productQuery.execute();
   console.log(response.body.results);
