@@ -56,9 +56,9 @@ async function getProducts({
   if (category && category !== 'All') {
     const categoryId = await getProducstByCategory(category);
     if (categoryId) filters.push(`categories.id:"${categoryId}"`);
-    filters.push(
-      `categories.id:subtree("21a865a4-69d0-4350-9f14-042414653c37")`
-    );
+    // filters.push(
+    //   `categories.id:subtree("21a865a4-69d0-4350-9f14-042414653c37")`
+    // );
   }
 
   if (priceRange && priceRange.length > 0) {

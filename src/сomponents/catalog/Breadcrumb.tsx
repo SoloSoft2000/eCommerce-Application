@@ -17,7 +17,9 @@ function BreadcrumbCatalog(): React.ReactElement {
     .map((crumb, index, array) => {
       const pathSegment = `/${crumb}`;
       const isLastCrumb = index === array.length - 1;
-      const crumbCapitalize = crumb.charAt(0).toUpperCase() + crumb.slice(1);
+      const formattedName = crumb.replace('%20', '-');
+      const crumbCapitalize =
+        formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
 
       const handleBreadcrumbClick = (): void => {
         if (isLastCrumb) {
@@ -30,13 +32,13 @@ function BreadcrumbCatalog(): React.ReactElement {
       return (
         <div key={crumb} className="flex items-center">
           {isLastCrumb ? (
-            <span className="text-gray-500 cursor-default">
+            <span className="text-orange-500 cursor-default">
               {crumbCapitalize}
             </span>
           ) : (
             <Link
               to={pathSegment}
-              className="hover:text-blue-500"
+              className="hover:text-zinc-600"
               onClick={handleBreadcrumbClick}
             >
               {crumbCapitalize}
@@ -47,7 +49,7 @@ function BreadcrumbCatalog(): React.ReactElement {
       );
     });
 
-  return <div className="flex">{breadcrumbItems}</div>;
+  return <div className="flex mb-6">{breadcrumbItems}</div>;
 }
 
 export default BreadcrumbCatalog;

@@ -8,12 +8,14 @@ import getProducts from '../utils/sdk/getProducts';
 import setDataElements from '../utils/sdk/utils/handleProductData';
 import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
 import BreadcrumbCatalog from '../сomponents/catalog/Breadcrumb';
+import MainCatalogPage from './MainCatalogPage';
 
 function CatalogPage(): React.JSX.Element {
   const { category } = useParams();
 
   const [filterMenu, setFilterMenu] = useState(true);
   const [catalog, setCatalog] = useState<ProductCardProps[]>([]);
+  const [categoriesMenu, setCategoriesMenu] = useState(false);
 
   const productArray = useSelector((state: RootState) => state.products);
 
@@ -35,7 +37,7 @@ function CatalogPage(): React.JSX.Element {
       }
     };
     fetchData();
-  }, [dispatch, productArray]);
+  }, [dispatch, productArray, categoriesMenu]);
 
   useEffect(() => {
     const followResizing = (): void => {
@@ -56,8 +58,20 @@ function CatalogPage(): React.JSX.Element {
   }, [filterMenu]);
 
   return (
-    <main className="container mx-auto py-10">
+    <main className="container mx-auto pt-2 pb-10">
       <BreadcrumbCatalog />
+      <div
+        className="text-xl font-bold mb-4"
+        onMouseOver={(): void => setCategoriesMenu(true)}
+        onMouseOut={(): void => setCategoriesMenu(false)}
+      >
+        <p>All categories</p>
+        {categoriesMenu && (
+          <div className="border-2 drop-shadow-md">
+            <MainCatalogPage />
+          </div>
+        )}
+      </div>
       <div className="flex flex-wrap sm:flex-nowrap gap-4 justify-center sm:justify-around items-start">
         <div className="flex w-full sm:w-96 flex-col justify-center">
           <button
