@@ -56,6 +56,9 @@ async function getProducts({
   if (category && category !== 'All') {
     const categoryId = await getProducstByCategory(category);
     if (categoryId) filters.push(`categories.id:"${categoryId}"`);
+    filters.push(
+      `categories.id:subtree("21a865a4-69d0-4350-9f14-042414653c37")`
+    );
   }
 
   if (priceRange && priceRange.length > 0) {
@@ -64,7 +67,6 @@ async function getProducts({
   }
 
   if (sort && sort.length > 0) queryArgs.sort = sort;
-
   queryArgs.filter = filters;
 
   const productQuery = apiRoot.productProjections().search().get({

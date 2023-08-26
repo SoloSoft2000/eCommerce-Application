@@ -3,27 +3,23 @@ import { createSlice } from '@reduxjs/toolkit';
 type DataProducts = {
   category: '';
   sort: string[];
-  data: [] | null;
   price: number[];
   text: string;
+  crumb: string | null;
 };
 
 const initialState: DataProducts = {
   category: '',
   sort: [],
-  data: null,
   price: [],
   text: '',
+  crumb: null,
 };
 
 const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    setProductsArray: (state, action) => ({
-      ...state,
-      data: action.payload,
-    }),
     setCategory: (state, action) => ({
       ...state,
       category: action.payload,
@@ -40,15 +36,24 @@ const productsSlice = createSlice({
       ...state,
       text: action.payload,
     }),
+    setBreadcrumb: (state, action) => ({
+      ...state,
+      crumb: action.payload,
+    }),
+    clearSelectedBreadcrumb: (state) => ({
+      ...state,
+      crumb: null,
+    }),
   },
 });
 
 export const {
-  setProductsArray,
   setCategory,
   setSortMethods,
   setPriceRange,
   setTextMethods,
+  setBreadcrumb,
+  clearSelectedBreadcrumb,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
