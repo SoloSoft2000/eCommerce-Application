@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import BrandFilter from './filter/BrandFilter';
+import MaterialFilter from './filter/MaterialFilter';
 import PriceFilter from './filter/PriceFilter';
 import ByInputFilter from './filter/ByInput';
 import { setSortMethods } from '../../utils/reducers/productsListReducer';
@@ -33,7 +33,7 @@ function Filter(): React.JSX.Element {
   return (
     <div className="w-full flex flex-col gap-8">
       <ByInputFilter />
-      <BrandFilter />
+      <MaterialFilter />
 
       <label className="block font-bold">
         Sort by alphabet:
