@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import {
   ProductListProps,
@@ -11,15 +12,17 @@ function ProductList({ data }: ProductListProps): React.JSX.Element {
       {data &&
         data.map(
           (item: ProductCardProps, index: number): React.JSX.Element => (
-            <ProductCard
-              description={item.description}
-              title={item.title}
-              image={item.image}
-              key={index}
-              price={item.price}
-              discount={item.discount}
-              salePercent={item.salePercent}
-            />
+            <Link to={`/product/${item.id}`} key={index}>
+              <ProductCard
+                description={item.description}
+                title={item.title}
+                image={item.image}
+                key={index}
+                price={item.price}
+                discount={item.discount}
+                salePercent={item.salePercent}
+              />
+            </Link>
           )
         )}
     </div>

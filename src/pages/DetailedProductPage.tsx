@@ -1,21 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import DetailedProductCard from '../сomponents/catalog/DetailedProductCard';
+import returnProductById from '../utils/sdk/getDetailedProduct';
+import setProductEl from '../utils/sdk/utils/handleDetailedProductData';
+import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
 
 function ProductPage(): React.JSX.Element {
+  const { productId } = useParams();
+  const [prodData, setProdData] = useState<ProductCardProps>();
+
+  useEffect(() => {
+    if (productId) {
+      const fetchData = async (): Promise<void> => {
+        try {
+          const response = await returnProductById(productId);
+          const data = setProductEl(response);
+          setProdData(data);
+          console.log(data);
+          console.log(response);
+          console.log(productId);
+        } catch (err) {
+          throw new Error(`Detailed product page: ${err}`);
+        }
+      };
+      fetchData();
+    }
+  }, [productId]);
+
   return (
     <main className="container mx-auto">
-      <div className='flex justify-center mt-16'>
-        <div className='border-2 w-1/3'>Picture will be here</div>
-        <div className='ml-8 w-1/3 border-2'>
-          <h3 className='text-2xl font-bold mb-11'>Product name</h3>
-          <p className='text-xl mb-11'>Product description</p>
-          <div className='flex mb-11'> 
-            <div className='text-amber-600 text-2xl'>Reg Price</div>
-            <div className='text-2xl text-red-600 ml-2'>Sale price</div>
-          </div>
-          <button className='w-1/2 mb-11 text-center rounded bg-black p-3 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer'>Add to Cart</button>
-        </div> 
-      </div>
-     
+      {prodData !== undefined && (
+        <DetailedProductCard
+          description={prodData.description}
+          title={prodData.title}
+          image={prodData.image}
+          price={prodData.price}
+          discount={prodData.discount}
+          salePercent={prodData.salePercent}
+        />
+      )}
     </main>
   );
 }

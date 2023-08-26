@@ -21,6 +21,7 @@ function setDataElements(data: ProductProjection[]): ProductCardProps[] {
         ? (((+price - +discount) / +discount) * 100).toFixed()
         : '';
     return {
+      id: item.id,
       description,
       title,
       price,
