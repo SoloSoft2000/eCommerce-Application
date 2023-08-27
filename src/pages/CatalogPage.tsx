@@ -104,6 +104,12 @@ function CatalogPage(): React.JSX.Element {
                 sortMethod={'sortByPriceRange'}
               />
             ))}
+          {productArray.text && (
+            <AppliedFilter
+              name={`Search: ${productArray.text}`}
+              sortMethod={'sortByText'}
+            />
+          )}
         </div>
       </div>
 

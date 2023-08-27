@@ -1,10 +1,12 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BsSearch } from 'react-icons/bs';
+import { RootState } from '../../../utils/reducers/store';
 import { setTextMethods } from '../../../utils/reducers/productsListReducer';
 
 function ByInputFilter(): React.JSX.Element {
   const [inputText, setInputText] = useState('');
+  const text = useSelector((state: RootState) => state.products.text);
 
   const dispatch = useDispatch();
 
@@ -19,6 +21,10 @@ function ByInputFilter(): React.JSX.Element {
   useEffect(() => {
     dispatch(setTextMethods(inputText));
   }, [inputText, dispatch]);
+
+  useEffect(() => {
+    if (!text) setInputText('');
+  }, [text]);
 
   return (
     <div className="relative h-10">
