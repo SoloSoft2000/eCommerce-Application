@@ -37,7 +37,7 @@ function CatalogPage(): React.JSX.Element {
       }
     };
     fetchData();
-  }, [dispatch, productArray, categoriesMenu]);
+  }, [dispatch, productArray, category]);
 
   useEffect(() => {
     const followResizing = (): void => {
@@ -60,19 +60,16 @@ function CatalogPage(): React.JSX.Element {
   return (
     <main className="container mx-auto pt-2 pb-10">
       <BreadcrumbCatalog />
-      <div
-        className="text-xl font-bold mb-4"
-        onMouseOver={(): void => setCategoriesMenu(true)}
-        onMouseOut={(): void => setCategoriesMenu(false)}
-      >
-        <p>All categories</p>
-        {categoriesMenu && (
-          <div className="border-2 drop-shadow-md">
-            <MainCatalogPage />
-          </div>
-        )}
+      <div className="w-full sm:w-96 relative mb-[2rem]">
+        <button
+          className="w-full px-4 py-2 bg-orange-300 hover:bg-orange-200 rounded w-full cursor-pointer relative text-xl"
+          onClick={(): void => setCategoriesMenu((prev) => !prev)}
+        >
+          Categories
+          <span className="fon-bold text-2xl absolute right-2 top-1">+</span>
+        </button>
       </div>
-      <div className="flex flex-wrap sm:flex-nowrap gap-4 justify-center sm:justify-around items-start">
+      <div className="flex flex-wrap sm:flex-nowrap gap-4 justify-center sm:justify-between items-start relative">
         <div className="flex w-full sm:w-96 flex-col justify-center">
           <button
             className="px-4 py-2 bg-orange-300 hover:bg-orange-200 rounded sm:hidden text-xl w-full mb-3"
@@ -82,7 +79,14 @@ function CatalogPage(): React.JSX.Element {
           </button>
           {filterMenu && <Filter />}
         </div>
-        <ProductList data={catalog} />
+        <div className="grow flex justify-center">
+          <ProductList data={catalog} />
+        </div>
+        {categoriesMenu && (
+          <div className="absolute left-0 top-[-2rem] w-full border-2 drop-shadow-md bg-white">
+            <MainCatalogPage />
+          </div>
+        )}
       </div>
     </main>
   );

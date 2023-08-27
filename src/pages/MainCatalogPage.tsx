@@ -22,7 +22,11 @@ const categoryImageMap: Record<string, string> = {
   'Silver rings': SilverRing,
 };
 
-function MainCatalogPage(): React.JSX.Element {
+function MainCatalogPage({
+  title,
+}: {
+  [key: string]: string;
+}): React.JSX.Element {
   const [categoriesCover, setCategoriesCover] = useState<string[]>([]);
 
   useEffect(() => {
@@ -40,7 +44,7 @@ function MainCatalogPage(): React.JSX.Element {
 
   return (
     <main className="container mx-auto py-10 text-center">
-      <h2 className="text-3xl font-bold mb-6">Enjoy Our Catalog</h2>
+      {title && <h2 className="text-3xl font-bold mb-6">{title}</h2>}
       <div className="flex flex-wrap gap-5 justify-center">
         {categoriesCover.map((category, index) => (
           <CategoryCover

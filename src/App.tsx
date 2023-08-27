@@ -24,7 +24,10 @@ function App(): React.JSX.Element {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/catalog" element={<MainCatalogPage />} />
+          <Route
+            path="/catalog"
+            element={<MainCatalogPage title={'Enjoy Our Catalog'} />}
+          />
           <Route path="/catalog/:category?" element={<CatalogPage />} />
           <Route path="/product" element={<NoPage />} />
           <Route path="/product/:productId?" element={<ProductPage />} />
