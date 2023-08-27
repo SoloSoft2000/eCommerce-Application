@@ -1,7 +1,14 @@
 import React from 'react';
+import Highlighter from 'react-highlight-words';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../utils/reducers/store';
 import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
 
 function ProductCard(props: ProductCardProps): React.JSX.Element {
+  const textForHighLight = useSelector(
+    (state: RootState) => state.products.text
+  );
+
   return (
     <div className="border-[1px] border-zinc-200 w-[18rem] h-[30rem] h-auto bg-white hover:drop-shadow-lg rounded relative cursor-pointer overflow-hidden">
       {props.discount && (
@@ -18,8 +25,22 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
       </div>
       <div className="h-[12rem] px-2 py-4 flex flex-col gap-3 justify-between">
         <div>
-          <h4 className="font-bold text-xl mb-2">{props.title}</h4>
-          <p>{props.description}</p>
+          <h4 className="font-bold text-xl mb-2">
+            <Highlighter
+              highlightClassName="bg-yellow-300"
+              searchWords={textForHighLight.split(' ')}
+              autoEscape={true}
+              textToHighlight={props.title}
+            />
+          </h4>
+          <p>
+            <Highlighter
+              highlightClassName="bg-yellow-200"
+              searchWords={textForHighLight.split(' ')}
+              autoEscape={true}
+              textToHighlight={props.description}
+            />
+          </p>
         </div>
         <p>
           {props.discount && (
