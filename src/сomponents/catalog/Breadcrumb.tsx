@@ -44,7 +44,9 @@ function BreadcrumbCatalog(): React.ReactElement {
               {crumbCapitalize}
             </Link>
           )}
-          {!isLastCrumb && <span className="mx-1">/</span>}
+          {!isLastCrumb && (
+            <span className="mx-2 text-sm text-zinc-600">&#62;</span>
+          )}
         </div>
       );
     });

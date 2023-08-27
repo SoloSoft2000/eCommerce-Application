@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../utils/reducers/store';
 import MaterialFilter from './filter/MaterialFilter';
 import PriceFilter from './filter/PriceFilter';
 import ByInputFilter from './filter/ByInput';
@@ -10,11 +11,12 @@ function Filter(): React.JSX.Element {
     sortByPrice: '',
     sortByAbc: '',
   });
+  const sort = useSelector((state: RootState) => state.products.sort);
 
   const dispatch = useDispatch();
 
   const handleSortChange = useCallback(
-    (key: keyof typeof sorting) =>
+    (key: string) =>
       (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const selectedValue = e.target.value;
         setSorting((prevSorting) => ({
@@ -26,8 +28,11 @@ function Filter(): React.JSX.Element {
   );
 
   useEffect(() => {
-    const values = Object.values(sorting).filter(Boolean);
-    dispatch(setSortMethods(values));
+    setSorting(() => sort);
+  }, [sort, dispatch]);
+
+  useEffect(() => {
+    dispatch(setSortMethods(sorting));
   }, [sorting, dispatch]);
 
   return (

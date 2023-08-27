@@ -9,6 +9,7 @@ import setDataElements from '../utils/sdk/utils/handleProductData';
 import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
 import BreadcrumbCatalog from '../сomponents/catalog/Breadcrumb';
 import MainCatalogPage from './MainCatalogPage';
+import AppliedFilter from '../сomponents/catalog/AppliedFilters';
 
 function CatalogPage(): React.JSX.Element {
   const { category } = useParams();
@@ -18,7 +19,7 @@ function CatalogPage(): React.JSX.Element {
   const [categoriesMenu, setCategoriesMenu] = useState(false);
 
   const productArray = useSelector((state: RootState) => state.products);
-
+  const { sortByAbc, sortByPrice } = productArray.sort;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ function CatalogPage(): React.JSX.Element {
       try {
         const products = await getProducts({
           category,
-          sort: productArray.sort,
+          sort: Object.values(productArray.sort).filter(Boolean),
           priceRange: productArray.price,
           text: productArray.text,
         });
@@ -60,15 +61,43 @@ function CatalogPage(): React.JSX.Element {
   return (
     <main className="container mx-auto pt-2 pb-10">
       <BreadcrumbCatalog />
-      <div className="w-full sm:w-96 relative mb-[2rem]">
-        <button
-          className="w-full px-4 py-2 bg-orange-300 hover:bg-orange-200 rounded w-full cursor-pointer relative text-xl"
-          onClick={(): void => setCategoriesMenu((prev) => !prev)}
-        >
-          Categories
-          <span className="fon-bold text-2xl absolute right-2 top-1">+</span>
-        </button>
+      <div className="flex flex-wrap sm:flex-nowrap gap-8 justify-center sm:justify-between items-center relative z-10 mb-[2rem]">
+        <div className="w-full sm:w-96 relative">
+          <button
+            className="w-full px-4 h-[3rem] bg-orange-300 hover:bg-orange-200 rounded w-full cursor-pointer relative text-xl"
+            onClick={(): void => setCategoriesMenu((prev) => !prev)}
+          >
+            Categories
+            <span className="fon-bold text-2xl absolute right-2 top-1">+</span>
+          </button>
+        </div>
+        {categoriesMenu && (
+          <div className="absolute left-0 top-[3rem] w-full border-2 drop-shadow-md bg-white">
+            <MainCatalogPage />
+          </div>
+        )}
+        <div className="grow flex justify-start flex-wrap gap-4">
+          {sortByPrice === 'price asc' && (
+            <AppliedFilter
+              name={'Price: Low to High'}
+              sortMethod={'sortByPrice'}
+            />
+          )}
+          {sortByPrice === 'price desc' && (
+            <AppliedFilter
+              name={'Price: High to Low'}
+              sortMethod={'sortByPrice'}
+            />
+          )}
+          {sortByAbc === 'name.en-Us asc' && (
+            <AppliedFilter name={'Name: A-Z'} sortMethod={'sortByAbc'} />
+          )}
+          {sortByAbc === 'name.en-Us desc' && (
+            <AppliedFilter name={'Name: Z-A'} sortMethod={'sortByAbc'} />
+          )}
+        </div>
       </div>
+
       <div className="flex flex-wrap sm:flex-nowrap gap-4 justify-center sm:justify-between items-start relative">
         <div className="flex w-full sm:w-96 flex-col justify-center">
           <button
@@ -82,11 +111,6 @@ function CatalogPage(): React.JSX.Element {
         <div className="grow flex justify-center">
           <ProductList data={catalog} />
         </div>
-        {categoriesMenu && (
-          <div className="absolute left-0 top-[-2rem] w-full border-2 drop-shadow-md bg-white">
-            <MainCatalogPage />
-          </div>
-        )}
       </div>
     </main>
   );

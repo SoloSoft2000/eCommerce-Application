@@ -2,7 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 type DataProducts = {
   category: '';
-  sort: string[];
+  sort: {
+    sortByAbc: string;
+    sortByPrice: string;
+  };
   price: number[];
   text: string;
   crumb: string | null;
@@ -10,7 +13,10 @@ type DataProducts = {
 
 const initialState: DataProducts = {
   category: '',
-  sort: [],
+  sort: {
+    sortByAbc: '',
+    sortByPrice: '',
+  },
   price: [],
   text: '',
   crumb: null,
