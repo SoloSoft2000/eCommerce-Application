@@ -1,7 +1,10 @@
 import React, { useCallback } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSortMethods } from '../../utils/reducers/productsListReducer';
+import {
+  setPriceRange,
+  setSortMethods,
+} from '../../utils/reducers/productsListReducer';
 import { RootState } from '../../utils/reducers/store';
 
 function AppliedFilter({
@@ -10,17 +13,22 @@ function AppliedFilter({
 }: {
   [key: string]: string;
 }): React.JSX.Element {
-  const sort = useSelector((state: RootState) => state.products.sort);
+  const productArray = useSelector((state: RootState) => state.products);
   const dispatch = useDispatch();
 
   const handleFilterClick = useCallback(
     (sortOption: string) => {
-      const sortAr = { ...sort };
-      if (sortOption === 'sortByPrice') sortAr.sortByPrice = '';
-      if (sortOption === 'sortByAbc') sortAr.sortByAbc = '';
-      dispatch(setSortMethods(sortAr));
+      if (sortOption === 'sortByPrice' || sortOption === 'sortByAbc') {
+        const sortAr = { ...productArray.sort };
+        if (sortOption === 'sortByPrice') sortAr.sortByPrice = '';
+        if (sortOption === 'sortByAbc') sortAr.sortByAbc = '';
+        dispatch(setSortMethods(sortAr));
+      }
+      if (productArray.price) {
+        dispatch(setPriceRange([]));
+      }
     },
-    [dispatch, sort.sortByPrice, sort.sortByAbc]
+    [dispatch, productArray]
   );
 
   return (

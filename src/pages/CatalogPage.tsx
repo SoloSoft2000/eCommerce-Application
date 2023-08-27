@@ -95,6 +95,15 @@ function CatalogPage(): React.JSX.Element {
           {sortByAbc === 'name.en-Us desc' && (
             <AppliedFilter name={'Name: Z-A'} sortMethod={'sortByAbc'} />
           )}
+          {productArray.price[0] ||
+            (productArray.price[1] && (
+              <AppliedFilter
+                name={`Price from ${
+                  productArray.price[0] ? productArray.price[0] : 0
+                } to ${productArray.price[1] ? productArray.price[1] : '*'}`}
+                sortMethod={'sortByPriceRange'}
+              />
+            ))}
         </div>
       </div>
 

@@ -1,9 +1,11 @@
-import React, { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { setPriceRange } from '../../../utils/reducers/productsListReducer';
+import { RootState } from '../../../utils/reducers/store';
 
 function PriceFilter(): React.JSX.Element {
   const dispatch = useDispatch();
+  const priceArray = useSelector((state: RootState) => state.products.price);
 
   const [minPrice, setMinPrice] = useState<number | ''>('');
   const [maxPrice, setMaxPrice] = useState<number | ''>('');
@@ -11,6 +13,11 @@ function PriceFilter(): React.JSX.Element {
   const handlePrice = useCallback(() => {
     dispatch(setPriceRange([minPrice, maxPrice]));
   }, [dispatch, minPrice, maxPrice]);
+
+  useEffect(() => {
+    setMinPrice(priceArray[0] || '');
+    setMaxPrice(priceArray[1] || '');
+  }, [priceArray]);
 
   return (
     <div className="flex flex-col">
