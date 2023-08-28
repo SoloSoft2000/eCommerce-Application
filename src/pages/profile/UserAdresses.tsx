@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../utils/reducers/store';
 
-function Adresses(): React.JSX.Element {
+function UserAdresses(): React.JSX.Element {
   const user: Customer = useSelector((state: RootState) => state.customer);
   return (
     <div>
@@ -25,4 +25,4 @@ function Adresses(): React.JSX.Element {
   );
 }
 
-export default Adresses;
+export default UserAdresses;

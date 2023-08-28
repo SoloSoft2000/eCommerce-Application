@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../utils/reducers/store';
 import profileSchema from '../../utils/validationSchemas/profileSchema';
 import FormStyles from '../../assets/styles/form.module.scss';
+import UserInfoStyles from '../../assets/styles/userinfo.module.scss';
 import Input from '../../сomponents/forms/Input';
 import BirtdayDate from '../../сomponents/forms/BirtdayDate';
 
@@ -52,7 +53,7 @@ function UserInfo(): React.JSX.Element {
           onSubmit={onSubmit}
         >
           <div className={FormStyles.container}>
-            <label className="block text-gray-700 mb-2" htmlFor="email">
+            <label className={UserInfoStyles.label} htmlFor="email">
               E-Mail:
             </label>
             <Input
@@ -63,7 +64,7 @@ function UserInfo(): React.JSX.Element {
               readonly={String(!isEditing)}
             />
             <label
-              className="block text-gray-700 mt-3 mb-2"
+              className={UserInfoStyles.label}
               htmlFor="firstName"
             >
               First Name:
@@ -75,7 +76,7 @@ function UserInfo(): React.JSX.Element {
               width={FormStyles.full_field}
               readonly={String(!isEditing)}
             />
-            <label className="block text-gray-700 mt-3 mb-2" htmlFor="lastName">
+            <label className={UserInfoStyles.label} htmlFor="lastName">
               Last Name:
             </label>
             <Input
@@ -85,7 +86,7 @@ function UserInfo(): React.JSX.Element {
               width={FormStyles.full_field}
               readonly={String(!isEditing)}
             />
-            <label className="block text-gray-700 mt-3 mb-2" htmlFor="birthday">
+            <label className={UserInfoStyles.label} htmlFor="birthday">
               BirthDay:
             </label>
             <BirtdayDate readonly={!isEditing} />
