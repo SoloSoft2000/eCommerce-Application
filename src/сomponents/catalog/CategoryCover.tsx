@@ -1,33 +1,20 @@
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import FormProps from '../../helpers/interfaces/forms/form-props';
-import { setCategory } from '../../utils/reducers/productsListReducer';
 
-function CategoryCover({ img, name }: FormProps): React.JSX.Element {
-  const backgroundImage = {
-    backgroundImage: `url(${img})`,
-  };
-
-  const dispatch = useDispatch();
-
-  const handleCategory = useCallback(
-    (catName: string): void => {
-      dispatch(setCategory(catName));
-    },
-    [dispatch]
-  );
-
+function CategoryCover({
+  img,
+  name,
+}: {
+  [key: string]: string;
+}): React.JSX.Element {
   return (
-    <Link
-      onClick={(): void => handleCategory(name)}
-      to={`/catalog/${name}`}
-      className="flex justify-center items-center mx-auto w-full md:w-[45%] h-72 rounded-2xl bg-cover bg-no-repeat bg-center hover:opacity-50 text-xl font-bold"
-      style={backgroundImage}
-    >
-      <span className="flex justify-center items-center w-36 h-12 bg-orange-300 rounded-xl drop-shadow-xl">
-        {name}
-      </span>
+    <Link to={`/catalog/${name}`}>
+      <div className="border-[1px] border-zinc-200 w-[15rem] h-[18rem] h-auto bg-white rounded relative cursor-pointer overflow-hidden pb-2 text-center hover:text-orange-500 hover:drop-shadow-lg">
+        <div className="w-full object-bottom w-[15rem] h-[15rem] overflow-hidden rounded">
+          <img className="object-cover w-full" src={img} alt={name} />
+        </div>
+        <h4 className="text-xl">{name}</h4>
+      </div>
     </Link>
   );
 }

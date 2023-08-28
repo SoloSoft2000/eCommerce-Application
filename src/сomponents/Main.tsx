@@ -1,5 +1,5 @@
 import React from 'react';
-import CategoryCover from '../сomponents/catalog/CategoryCover';
+import MainCategoryCover from './MainCategoryCover';
 import Img1 from '../assets/images/img-01.png';
 import Img2 from '../assets/images/img-02.png';
 import Img3 from '../assets/images/img-03.png';
@@ -18,10 +18,10 @@ function Main(): React.JSX.Element {
       </div>
 
       <div className="flex justify-around items-center flex-wrap gap-8 md:gap-y-14 py-8">
-        <CategoryCover img={Img3} path={'all'} name={'All'} />
-        <CategoryCover img={Img1} path={'rings'} name={'Rings'} />
-        <CategoryCover img={Img2} path={'earrings'} name={'Earrings'} />
-        <CategoryCover img={Img4} path={'necklace'} name={'Necklaces'} />
+        <MainCategoryCover img={Img3} path={'all'} name={'All'} />
+        <MainCategoryCover img={Img1} path={'rings'} name={'Rings'} />
+        <MainCategoryCover img={Img2} path={'earrings'} name={'Earrings'} />
+        <MainCategoryCover img={Img4} path={'necklace'} name={'Necklaces'} />
       </div>
     </main>
   );

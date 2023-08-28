@@ -1,45 +1,69 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
 import createApiRoot from './createApiRoot';
 
+const apiRoot = createApiRoot();
+
+type ProductList = {
+  category?: string;
+  sort?: string[];
+  priceRange: number[];
+  text?: string;
+};
+
+async function getProducstByCategory(
+  category: string
+): Promise<string | undefined> {
+  const {
+    body: { results },
+  } = await apiRoot.categories().get().execute();
+
+  const mainCategories = results.filter((r) => !r.ancestors.length);
+
+  const categoryId = mainCategories.find(
+    (cat) => cat.name['en-US'] === category
+  );
+  return categoryId?.id;
+}
+
+function filterByPriceRange(priceRange: number[]): string | null {
+  if (priceRange && priceRange.length > 0) {
+    const [min, max] = priceRange;
+    const minValueInCents: number = min ? min * 100 : 0;
+    const maxValueInCents: string | number = max ? max * 100 : '*';
+
+    return `variants.price.centAmount:range (${minValueInCents} to ${maxValueInCents})`;
+  }
+
+  return null;
+}
+
 async function getProducts({
   category,
   sort,
   priceRange,
-}: {
-  category?: string;
-  sort?: string[];
-  priceRange: number[];
-}): Promise<ProductProjection[]> {
-  const apiRoot = createApiRoot();
+  text,
+}: ProductList): Promise<ProductProjection[]> {
   const filters: string[] = [];
 
   const queryArgs: Record<string, string | number | string[]> = {
     limit: 20,
   };
 
-  // queryArgs['text.en-US'] = '"Crystal Stars"';
+  if (text) {
+    queryArgs['text.en-US'] = `"${text}"`;
+  }
 
   if (category && category !== 'All') {
-    const {
-      body: { results },
-    } = await apiRoot.categories().get().execute();
-
-    const mainCategories = results.filter((r) => !r.ancestors.length);
-
-    const categoryId = mainCategories.find(
-      (cat) => cat.name['en-US'] === category
-    );
-    if (categoryId) filters.push(`categories.id:"${categoryId.id}"`);
+    const categoryId = await getProducstByCategory(category);
+    if (categoryId) filters.push(`categories.id:"${categoryId}"`);
+    // filters.push(
+    //   `categories.id:subtree("21a865a4-69d0-4350-9f14-042414653c37")`
+    // );
   }
 
   if (priceRange && priceRange.length > 0) {
-    const [min, max] = priceRange;
-    const minValueInCents: number = min ? min * 100 : 0;
-    const maxValueInCents: string | number = max ? max * 100 : '*';
-
-    filters.push(
-      `variants.price.centAmount:range (${minValueInCents} to ${maxValueInCents})`
-    );
+    const priceRangeFilter = filterByPriceRange(priceRange);
+    if (priceRangeFilter) filters.push(priceRangeFilter);
   }
 
   if (sort && sort.length > 0) queryArgs.sort = sort;
@@ -48,12 +72,6 @@ async function getProducts({
   const productQuery = apiRoot.productProjections().search().get({
     queryArgs,
   });
-
-  // const discount = await apiRoot
-  //   .productDiscounts()
-  //   .get({ queryArgs: { filter: `categories.id:"ring"` } })
-  //   .execute();
-  // console.log(discount);
 
   const response = await productQuery.execute();
   console.log(response.body.results);

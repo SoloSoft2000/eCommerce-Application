@@ -1,6 +1,6 @@
 import React from 'react';
 
-function BrandFilter(): React.JSX.Element {
+function MaterialFilter(): React.JSX.Element {
   return (
     <div className="flex flex-col">
       <label className="font-semibold">Material:</label>
@@ -30,4 +30,4 @@ function BrandFilter(): React.JSX.Element {
   );
 }
 
-export default BrandFilter;
+export default MaterialFilter;

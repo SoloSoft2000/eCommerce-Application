@@ -1,7 +1,9 @@
-import React, { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import BrandFilter from './filter/BrandFilter';
+import React, { useCallback, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../utils/reducers/store';
+import MaterialFilter from './filter/MaterialFilter';
 import PriceFilter from './filter/PriceFilter';
+import ByInputFilter from './filter/ByInput';
 import { setSortMethods } from '../../utils/reducers/productsListReducer';
 
 function Filter(): React.JSX.Element {
@@ -9,6 +11,7 @@ function Filter(): React.JSX.Element {
     sortByPrice: '',
     sortByAbc: '',
   });
+  const sort = useSelector((state: RootState) => state.products.sort);
 
   const dispatch = useDispatch();
 
@@ -20,25 +23,22 @@ function Filter(): React.JSX.Element {
           ...prevSorting,
           [key]: selectedValue,
         }));
-
-        const values = Object.values({
-          ...sorting,
-          [key]: selectedValue,
-        }).filter(Boolean);
-        dispatch(setSortMethods(values));
       },
-    [sorting]
+    []
   );
+
+  useEffect(() => {
+    setSorting(() => sort);
+  }, [sort, dispatch]);
+
+  useEffect(() => {
+    dispatch(setSortMethods(sorting));
+  }, [sorting, dispatch]);
 
   return (
     <div className="w-full flex flex-col gap-8">
-      <input
-        type="text"
-        className="border-2 border-zinc-200 p-2 w-full rounded"
-        placeholder="Type a name..."
-      />
-
-      <BrandFilter />
+      <ByInputFilter />
+      <MaterialFilter />
 
       <label className="block font-bold">
         Sort by alphabet:
