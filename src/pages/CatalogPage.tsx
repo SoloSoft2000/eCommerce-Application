@@ -21,7 +21,6 @@ function CatalogPage(): React.JSX.Element {
   const productArray = useSelector((state: RootState) => state.products);
   const { sortByAbc, sortByPrice } = productArray.sort;
   const dispatch = useDispatch();
-
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       try {
