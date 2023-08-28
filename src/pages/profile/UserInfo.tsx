@@ -46,10 +46,10 @@ function UserInfo(): React.JSX.Element {
   }, [user, methods]);
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <FormProvider {...methods}>
         <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          className={isEditing ? "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" : "bg-red-300 shadow-md rounded px-8 pt-6 pb-8 mb-4"}
           onSubmit={onSubmit}
         >
           <div className={FormStyles.container}>

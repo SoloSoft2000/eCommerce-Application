@@ -23,7 +23,8 @@ function Input({
   return (
     <div className={width}>
       <input
-        className={FormStyles.general_field}
+        // className={FormStyles.general_field}
+        className={`${FormStyles.general_field} ${readonly === 'true' ? 'bg-gray-200' : 'bg-red-300'}`}
         placeholder={placeholder}
         type={type}
         readOnly={stringToBoolean(readonly)}
