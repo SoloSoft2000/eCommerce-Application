@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
-import { BiEditAlt } from 'react-icons/bi';
+import { MdEditOff, MdEdit } from 'react-icons/md';
 import { RootState } from '../../utils/reducers/store';
 import profileSchema from '../../utils/validationSchemas/profileSchema';
 import FormStyles from '../../assets/styles/form.module.scss';
@@ -53,7 +53,7 @@ function UserInfo(): React.JSX.Element {
         <form className={FormStyles.form} onSubmit={onSubmit}>
           <div>
             <label className={UserInfoStyles.label} htmlFor="email">
-              E-Mail:{isEditing && <BiEditAlt />}
+              E-Mail:{isEditing ? <MdEdit className='h-5 w-5 animate-bounce '/> : <MdEditOff className='h-5 w-5'/>}
             </label>
             <Input
               type="text"
@@ -63,7 +63,7 @@ function UserInfo(): React.JSX.Element {
               readonly={String(!isEditing)}
             />
             <label className={UserInfoStyles.label} htmlFor="firstName">
-              First Name:{isEditing && <BiEditAlt />}
+              First Name:{isEditing ? <MdEdit className='h-5 w-5 animate-bounce '/> : <MdEditOff className='h-5 w-5'/>}
             </label>
             <Input
               type="text"
@@ -73,7 +73,7 @@ function UserInfo(): React.JSX.Element {
               readonly={String(!isEditing)}
             />
             <label className={UserInfoStyles.label} htmlFor="lastName">
-              Last Name:{isEditing && <BiEditAlt />}
+              Last Name:{isEditing ? <MdEdit className='h-5 w-5 animate-bounce '/> : <MdEditOff className='h-5 w-5'/>}
             </label>
             <Input
               type="text"
@@ -83,7 +83,7 @@ function UserInfo(): React.JSX.Element {
               readonly={String(!isEditing)}
             />
             <label className={UserInfoStyles.label} htmlFor="birthday">
-              BirthDay:{isEditing && <BiEditAlt />}
+              BirthDay:{isEditing ? <MdEdit className='h-5 w-5 animate-bounce '/> : <MdEditOff className='h-5 w-5'/>}
             </label>
             <BirtdayDate readonly={!isEditing} />
           </div>
