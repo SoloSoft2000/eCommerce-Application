@@ -5,9 +5,10 @@ import { RootState } from '../utils/reducers/store';
 import Title from '../сomponents/forms/Title';
 import TabMenu from './profile/TabMenu';
 import UserInfo from './profile/UserInfo';
-import Adresses from './profile/Adresses';
+import UserAdresses from './profile/UserAdresses';
 import LoginStyles from '../assets/styles/login.module.scss';
 import FormStyles from '../assets/styles/form.module.scss';
+import UserPassword from './profile/UserPassword';
 
 function UserProfilePage(): React.JSX.Element {
   const navigate = useNavigate();
@@ -28,7 +29,8 @@ function UserProfilePage(): React.JSX.Element {
         <TabMenu setActiveTab={setActiveTab} activeTab={activeTab} />
 
         {activeTab === 'info' && <UserInfo />}
-        {activeTab === 'adresses' && <Adresses />}
+        {activeTab === 'adresses' && <UserAdresses />}
+        {activeTab === 'passwords' && <UserPassword />}
       </div>
     </main>
   );

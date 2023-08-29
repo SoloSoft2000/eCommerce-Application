@@ -3,9 +3,11 @@ import React, { useCallback, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
+import { MdEditOff, MdEdit } from 'react-icons/md';
 import { RootState } from '../../utils/reducers/store';
 import profileSchema from '../../utils/validationSchemas/profileSchema';
 import FormStyles from '../../assets/styles/form.module.scss';
+import UserInfoStyles from '../../assets/styles/userinfo.module.scss';
 import Input from '../../сomponents/forms/Input';
 import BirtdayDate from '../../сomponents/forms/BirtdayDate';
 
@@ -45,15 +47,13 @@ function UserInfo(): React.JSX.Element {
   }, [user, methods]);
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
+      {/* {`w-full ${  isEditing ? 'bg-white' : 'bg-zinc-200'}`}> */}
       <FormProvider {...methods}>
-        <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-          onSubmit={onSubmit}
-        >
-          <div className={FormStyles.container}>
-            <label className="block text-gray-700 mb-2" htmlFor="email">
-              E-Mail:
+        <form className={FormStyles.form} onSubmit={onSubmit}>
+          <div>
+            <label className={UserInfoStyles.label} htmlFor="email">
+              E-Mail:{isEditing ? <MdEdit className='h-5 w-5 animate-bounce '/> : <MdEditOff className='h-5 w-5'/>}
             </label>
             <Input
               type="text"
@@ -62,11 +62,8 @@ function UserInfo(): React.JSX.Element {
               width={FormStyles.full_field}
               readonly={String(!isEditing)}
             />
-            <label
-              className="block text-gray-700 mt-3 mb-2"
-              htmlFor="firstName"
-            >
-              First Name:
+            <label className={UserInfoStyles.label} htmlFor="firstName">
+              First Name:{isEditing ? <MdEdit className='h-5 w-5 animate-bounce '/> : <MdEditOff className='h-5 w-5'/>}
             </label>
             <Input
               type="text"
@@ -75,8 +72,8 @@ function UserInfo(): React.JSX.Element {
               width={FormStyles.full_field}
               readonly={String(!isEditing)}
             />
-            <label className="block text-gray-700 mt-3 mb-2" htmlFor="lastName">
-              Last Name:
+            <label className={UserInfoStyles.label} htmlFor="lastName">
+              Last Name:{isEditing ? <MdEdit className='h-5 w-5 animate-bounce '/> : <MdEditOff className='h-5 w-5'/>}
             </label>
             <Input
               type="text"
@@ -85,18 +82,24 @@ function UserInfo(): React.JSX.Element {
               width={FormStyles.full_field}
               readonly={String(!isEditing)}
             />
-            <label className="block text-gray-700 mt-3 mb-2" htmlFor="birthday">
-              BirthDay:
+            <label className={UserInfoStyles.label} htmlFor="birthday">
+              BirthDay:{isEditing ? <MdEdit className='h-5 w-5 animate-bounce '/> : <MdEditOff className='h-5 w-5'/>}
             </label>
             <BirtdayDate readonly={!isEditing} />
           </div>
           {isEditing ? (
-            <>
-              <button type="submit">Save</button>
-              <button onClick={cancelEditing}>Cancel</button>
-            </>
+            <div className="flex justify-between">
+              <button type="submit" className={UserInfoStyles.btn}>
+                Save
+              </button>
+              <button onClick={cancelEditing} className={UserInfoStyles.btn}>
+                Cancel
+              </button>
+            </div>
           ) : (
-            <button onClick={startEditing}>Edit</button>
+            <button onClick={startEditing} className={FormStyles.submit_btn}>
+              Edit
+            </button>
           )}
         </form>
       </FormProvider>
