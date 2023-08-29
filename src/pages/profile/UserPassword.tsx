@@ -25,13 +25,9 @@ function UserPassword(): React.JSX.Element {
   return (
     <div className="w-full">
       <FormProvider {...methods}>
-        <form
-          onSubmit={onSubmit}
-        >
-          <div >
-            <label>
-              Old Password:
-            </label>
+        <form onSubmit={onSubmit}>
+          <div>
+            <label>Old Password:</label>
             <Password />
           </div>
           {/* <div >
@@ -40,7 +36,10 @@ function UserPassword(): React.JSX.Element {
             </label>
             <Password />
           </div> */}
-          <SubmitFormButton value="Change password" classes={FormStyles.submit_btn} />
+          <SubmitFormButton
+            value="Change password"
+            classes={FormStyles.submit_btn}
+          />
         </form>
       </FormProvider>
     </div>

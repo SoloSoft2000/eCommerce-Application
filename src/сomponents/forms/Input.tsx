@@ -23,7 +23,7 @@ function Input({
   return (
     <div className={width}>
       <input
-         className={FormStyles.general_field}
+        className={FormStyles.general_field}
         placeholder={placeholder}
         type={type}
         readOnly={stringToBoolean(readonly)}

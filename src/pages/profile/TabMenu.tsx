@@ -12,7 +12,9 @@ function TabMenu({ setActiveTab, activeTab }: TabMenuProps): React.JSX.Element {
       <button
         onClick={(): void => setActiveTab('info')}
         className={
-          activeTab === 'info' ? FormStyles.disable_link : FormStyles.active_link
+          activeTab === 'info'
+            ? FormStyles.disable_link
+            : FormStyles.active_link
         }
       >
         Personal Info
@@ -20,7 +22,9 @@ function TabMenu({ setActiveTab, activeTab }: TabMenuProps): React.JSX.Element {
       <button
         onClick={(): void => setActiveTab('adresses')}
         className={
-          activeTab === 'adresses' ? FormStyles.disable_link : FormStyles.active_link
+          activeTab === 'adresses'
+            ? FormStyles.disable_link
+            : FormStyles.active_link
         }
       >
         Adresses
@@ -28,7 +32,9 @@ function TabMenu({ setActiveTab, activeTab }: TabMenuProps): React.JSX.Element {
       <button
         onClick={(): void => setActiveTab('passwords')}
         className={
-          activeTab === 'passwords' ? FormStyles.disable_link : FormStyles.active_link
+          activeTab === 'passwords'
+            ? FormStyles.disable_link
+            : FormStyles.active_link
         }
       >
         Change password

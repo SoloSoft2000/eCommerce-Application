@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
-import {BiEditAlt} from 'react-icons/bi';
+import { BiEditAlt } from 'react-icons/bi';
 import { RootState } from '../../utils/reducers/store';
 import profileSchema from '../../utils/validationSchemas/profileSchema';
 import FormStyles from '../../assets/styles/form.module.scss';
@@ -47,16 +47,13 @@ function UserInfo(): React.JSX.Element {
   }, [user, methods]);
 
   return (
-    <div className='w-full'> 
-       {/* {`w-full ${  isEditing ? 'bg-white' : 'bg-zinc-200'}`}> */}
+    <div className="w-full">
+      {/* {`w-full ${  isEditing ? 'bg-white' : 'bg-zinc-200'}`}> */}
       <FormProvider {...methods}>
-        <form
-          className={FormStyles.form}
-          onSubmit={onSubmit}
-        >
-          <div >
+        <form className={FormStyles.form} onSubmit={onSubmit}>
+          <div>
             <label className={UserInfoStyles.label} htmlFor="email">
-              E-Mail:{ isEditing && <BiEditAlt />}
+              E-Mail:{isEditing && <BiEditAlt />}
             </label>
             <Input
               type="text"
@@ -65,11 +62,8 @@ function UserInfo(): React.JSX.Element {
               width={FormStyles.full_field}
               readonly={String(!isEditing)}
             />
-            <label
-              className={UserInfoStyles.label}
-              htmlFor="firstName"
-            >
-              First Name:{ isEditing && <BiEditAlt />}
+            <label className={UserInfoStyles.label} htmlFor="firstName">
+              First Name:{isEditing && <BiEditAlt />}
             </label>
             <Input
               type="text"
@@ -79,7 +73,7 @@ function UserInfo(): React.JSX.Element {
               readonly={String(!isEditing)}
             />
             <label className={UserInfoStyles.label} htmlFor="lastName">
-              Last Name:{ isEditing && <BiEditAlt />}
+              Last Name:{isEditing && <BiEditAlt />}
             </label>
             <Input
               type="text"
@@ -89,17 +83,23 @@ function UserInfo(): React.JSX.Element {
               readonly={String(!isEditing)}
             />
             <label className={UserInfoStyles.label} htmlFor="birthday">
-              BirthDay:{ isEditing && <BiEditAlt />}
+              BirthDay:{isEditing && <BiEditAlt />}
             </label>
             <BirtdayDate readonly={!isEditing} />
           </div>
           {isEditing ? (
-            <div className = 'flex justify-between'>
-              <button type="submit" className={UserInfoStyles.btn}>Save</button>
-              <button onClick={cancelEditing} className={UserInfoStyles.btn}>Cancel</button>
+            <div className="flex justify-between">
+              <button type="submit" className={UserInfoStyles.btn}>
+                Save
+              </button>
+              <button onClick={cancelEditing} className={UserInfoStyles.btn}>
+                Cancel
+              </button>
             </div>
           ) : (
-            <button onClick={startEditing} className={FormStyles.submit_btn}>Edit</button>
+            <button onClick={startEditing} className={FormStyles.submit_btn}>
+              Edit
+            </button>
           )}
         </form>
       </FormProvider>
