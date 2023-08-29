@@ -64,7 +64,7 @@ async function getProducts({
     queryArgs['text.en-US'] = `"${text}"`;
   }
 
-  if (category && category !== 'All') {
+  if (category && category !== 'All products') {
     const categoryId = await getProducstByCategory(category);
     if (categoryId[0]) filters.push(`categories.id:"${categoryId[0]}"`);
     if (categoryId[1]) {

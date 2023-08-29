@@ -19,7 +19,7 @@ function Main(): React.JSX.Element {
 
       <div className="flex justify-around items-center flex-wrap gap-8 md:gap-y-14 py-8">
         <div className="w-[45%]">
-          <MainCategoryCover img={Img3} name={'All'} />
+          <MainCategoryCover img={Img3} name={'All products'} />
         </div>
         <div className="w-[45%]">
           <MainCategoryCover img={Img1} name={'Rings'} />
