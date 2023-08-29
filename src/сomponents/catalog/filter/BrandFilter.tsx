@@ -40,8 +40,8 @@ function BrandFilter(): React.JSX.Element {
         onChange={handleCheckboxChange}
       />
       <Checkbox
-        name={'NY-fashion'}
-        isChecked={selectedBrands.includes('NY-fashion')}
+        name={'NY-Fashion'}
+        isChecked={selectedBrands.includes('NY-Fashion')}
         onChange={handleCheckboxChange}
       />
     </div>

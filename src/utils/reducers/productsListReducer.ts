@@ -7,6 +7,7 @@ type DataProducts = {
     sortByPrice: string;
   };
   brand: string[];
+  style: string[];
   price: number[];
   text: string;
   crumb: string | null;
@@ -19,6 +20,7 @@ const initialState: DataProducts = {
     sortByPrice: '',
   },
   brand: [],
+  style: [],
   price: [],
   text: '',
   crumb: null,
@@ -48,6 +50,10 @@ const productsSlice = createSlice({
       ...state,
       brand: action.payload,
     }),
+    setStyles: (state, action) => ({
+      ...state,
+      style: action.payload,
+    }),
     setBreadcrumb: (state, action) => ({
       ...state,
       crumb: action.payload,
@@ -65,6 +71,7 @@ export const {
   setPriceRange,
   setTextMethods,
   setBrands,
+  setStyles,
   setBreadcrumb,
   clearSelectedBreadcrumb,
 } = productsSlice.actions;

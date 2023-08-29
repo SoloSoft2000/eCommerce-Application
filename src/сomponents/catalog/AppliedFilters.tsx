@@ -5,6 +5,7 @@ import {
   setBrands,
   setPriceRange,
   setSortMethods,
+  setStyles,
   setTextMethods,
 } from '../../utils/reducers/productsListReducer';
 import { RootState } from '../../utils/reducers/store';
@@ -32,6 +33,13 @@ function AppliedFilter({
           (brand) => brand !== sortOption.split(':')[1]
         );
         dispatch(setBrands(newArr));
+      }
+      if (sortOption.split(':')[0] === 'sortByStyle') {
+        const styleArr = [...productArray.style];
+        const newStyleArr = styleArr.filter(
+          (style) => style !== sortOption.split(':')[1]
+        );
+        dispatch(setStyles(newStyleArr));
       }
       if (sortOption === 'sortByPriceRange') dispatch(setPriceRange([]));
       if (sortOption === 'sortByText') dispatch(setTextMethods(''));

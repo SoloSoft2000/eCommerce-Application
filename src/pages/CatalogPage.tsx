@@ -11,7 +11,8 @@ import BreadcrumbCatalog from '../сomponents/catalog/Breadcrumb';
 import MainCatalogPage from './MainCatalogPage';
 import AppliedFilter from '../сomponents/catalog/AppliedFilters';
 
-const brand = ['ABC-Style', 'Romantics LTD', 'NY-fashion'];
+const brand = ['ABC-Style', 'Romantics LTD', 'NY-Fashion'];
+const styles = ['Retro', 'Modern', 'Casual', 'Chic'];
 
 function CatalogPage(): React.JSX.Element {
   const { category } = useParams();
@@ -32,6 +33,7 @@ function CatalogPage(): React.JSX.Element {
           priceRange: productArray.price,
           text: productArray.text,
           brand: productArray.brand,
+          style: productArray.style,
         });
         const data = setDataElements(products);
         setCatalog(data);
@@ -59,6 +61,10 @@ function CatalogPage(): React.JSX.Element {
   const toggleFilterMenu = useCallback(() => {
     setFilterMenu(!filterMenu);
   }, [filterMenu]);
+
+  useEffect(() => {
+    setCategoriesMenu(false);
+  }, [category]);
 
   return (
     <main className="container mx-auto pt-2 pb-10">
@@ -120,6 +126,19 @@ function CatalogPage(): React.JSX.Element {
                     key={el}
                     name={`Brand: ${el}`}
                     sortMethod={`sortByBrand:${el}`}
+                  />
+                );
+              }
+              return null;
+            })}
+          {productArray.style &&
+            styles.map((el): React.ReactNode | null => {
+              if (productArray.style.includes(el)) {
+                return (
+                  <AppliedFilter
+                    key={el}
+                    name={`Style: ${el}`}
+                    sortMethod={`sortByStyle:${el}`}
                   />
                 );
               }
