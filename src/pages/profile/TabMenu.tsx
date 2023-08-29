@@ -10,8 +10,8 @@ function TabMenu(): React.JSX.Element {
   return (
     <div className={FormStyles.switch_page_links_wrapper}>
       <button
-        onClick={(): void => navigate('info')}
-        className={currentPath.includes('info') ? FormStyles.disable_link : FormStyles.active_link }
+        onClick={(): void => navigate('')}
+        className={!currentPath.includes('adresses') && !currentPath.includes('passwords') ? FormStyles.disable_link : FormStyles.active_link }
       >
         Personal Info
       </button>

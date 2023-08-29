@@ -42,7 +42,7 @@ function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
 
       {customer.id && (
         <>
-          <Link className={NavStyles.link} to="/profile/info">
+          <Link className={NavStyles.link} to="/profile">
             <div className={NavStyles.icons}>
               <AiOutlineUser className="mr-1" /> User Profile
             </div>

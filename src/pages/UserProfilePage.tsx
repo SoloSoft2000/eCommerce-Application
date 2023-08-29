@@ -28,7 +28,7 @@ function UserProfilePage(): React.JSX.Element {
         <TabMenu  />
 
          <Routes>
-          <Route path="info" element={<UserInfo />} />
+          <Route path="" element={<UserInfo />} />
           <Route path="adresses" element={<UserAdresses />} />
           <Route path="passwords" element={<UserPassword />} />
         </Routes>
