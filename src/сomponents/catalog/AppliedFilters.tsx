@@ -2,8 +2,10 @@ import React, { useCallback } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  setBrands,
   setPriceRange,
   setSortMethods,
+  setStyles,
   setTextMethods,
 } from '../../utils/reducers/productsListReducer';
 import { RootState } from '../../utils/reducers/store';
@@ -25,8 +27,22 @@ function AppliedFilter({
         if (sortOption === 'sortByAbc') sortAr.sortByAbc = '';
         dispatch(setSortMethods(sortAr));
       }
-      if (productArray.price) dispatch(setPriceRange([]));
-      if (productArray.text) dispatch(setTextMethods(''));
+      if (sortOption.split(':')[0] === 'sortByBrand') {
+        const brandArr = [...productArray.brand];
+        const newArr = brandArr.filter(
+          (brand) => brand !== sortOption.split(':')[1]
+        );
+        dispatch(setBrands(newArr));
+      }
+      if (sortOption.split(':')[0] === 'sortByStyle') {
+        const styleArr = [...productArray.style];
+        const newStyleArr = styleArr.filter(
+          (style) => style !== sortOption.split(':')[1]
+        );
+        dispatch(setStyles(newStyleArr));
+      }
+      if (sortOption === 'sortByPriceRange') dispatch(setPriceRange([]));
+      if (sortOption === 'sortByText') dispatch(setTextMethods(''));
     },
     [dispatch, productArray]
   );

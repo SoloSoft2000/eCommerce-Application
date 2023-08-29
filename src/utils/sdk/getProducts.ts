@@ -1,5 +1,6 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
 import createApiRoot from './createApiRoot';
+import getProducstCategories from './getProductsCategories';
 
 const apiRoot = createApiRoot();
 
@@ -8,21 +9,33 @@ type ProductList = {
   sort?: string[];
   priceRange: number[];
   text?: string;
+  brand?: string[];
+  style?: string[];
 };
 
 async function getProducstByCategory(
   category: string
-): Promise<string | undefined> {
-  const {
-    body: { results },
-  } = await apiRoot.categories().get().execute();
+): Promise<(string | undefined)[]> {
+  const categories = await getProducstCategories();
+  const categoriesId: { [key: string]: string } = {
+    mainCategory: '',
+    subCategory: '',
+  };
 
-  const mainCategories = results.filter((r) => !r.ancestors.length);
-
-  const categoryId = mainCategories.find(
-    (cat) => cat.name['en-US'] === category
-  );
-  return categoryId?.id;
+  categories.forEach((cat) => {
+    if (cat.name['en-US'] === category) {
+      categoriesId.mainCategory = cat.id;
+    }
+    if (cat.children) {
+      cat.children.forEach((child) => {
+        if (child.name['en-US'] === category) {
+          categoriesId.mainCategory = cat.id;
+          categoriesId.subCategory = child.id;
+        }
+      });
+    }
+  });
+  return Object.values(categoriesId);
 }
 
 function filterByPriceRange(priceRange: number[]): string | null {
@@ -42,6 +55,8 @@ async function getProducts({
   sort,
   priceRange,
   text,
+  brand,
+  style,
 }: ProductList): Promise<ProductProjection[]> {
   const filters: string[] = [];
 
@@ -53,17 +68,27 @@ async function getProducts({
     queryArgs['text.en-US'] = `"${text}"`;
   }
 
-  if (category && category !== 'All') {
+  if (category && category !== 'All products') {
     const categoryId = await getProducstByCategory(category);
-    if (categoryId) filters.push(`categories.id:"${categoryId}"`);
-    // filters.push(
-    //   `categories.id:subtree("21a865a4-69d0-4350-9f14-042414653c37")`
-    // );
+    if (categoryId[0]) filters.push(`categories.id:"${categoryId[0]}"`);
+    if (categoryId[1]) {
+      filters.push(`categories.id:subtree("${categoryId[1]}")`);
+    }
   }
 
   if (priceRange && priceRange.length > 0) {
     const priceRangeFilter = filterByPriceRange(priceRange);
     if (priceRangeFilter) filters.push(priceRangeFilter);
+  }
+
+  if (brand && brand.length > 0) {
+    const brands = brand.map((el) => `"${el}"`).join(',');
+    filters.push(`variants.attributes.attribute-brand:${brands}`);
+  }
+
+  if (style && style.length > 0) {
+    const styles = style.map((el) => `"${el}"`).join(',');
+    filters.push(`variants.attributes.attribute-style:${styles}`);
   }
 
   if (sort && sort.length > 0) queryArgs.sort = sort;
@@ -74,7 +99,6 @@ async function getProducts({
   });
 
   const response = await productQuery.execute();
-  console.log(response.body.results);
   return response.body.results;
 }
 
