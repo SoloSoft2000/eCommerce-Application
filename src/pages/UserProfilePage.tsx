@@ -20,14 +20,13 @@ function UserProfilePage(): React.JSX.Element {
     }
   }, [customer, navigate]);
 
-
   return (
     <main className={LoginStyles.main}>
       <div className={LoginStyles.wrapper}>
         <Title classes={FormStyles.title} value="User Profile" />
-        <TabMenu  />
+        <TabMenu />
 
-         <Routes>
+        <Routes>
           <Route path="" element={<UserInfo />} />
           <Route path="adresses" element={<UserAdresses />} />
           <Route path="passwords" element={<UserPassword />} />
