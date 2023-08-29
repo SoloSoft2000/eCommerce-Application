@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
+import {BiEditAlt} from 'react-icons/bi';
 import { RootState } from '../../utils/reducers/store';
 import profileSchema from '../../utils/validationSchemas/profileSchema';
 import FormStyles from '../../assets/styles/form.module.scss';
@@ -46,15 +47,16 @@ function UserInfo(): React.JSX.Element {
   }, [user, methods]);
 
   return (
-    <div className="w-full">
+    <div className='w-full'> 
+       {/* {`w-full ${  isEditing ? 'bg-white' : 'bg-zinc-200'}`}> */}
       <FormProvider {...methods}>
         <form
-          className={isEditing ? "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" : "bg-red-300 shadow-md rounded px-8 pt-6 pb-8 mb-4"}
+          className={FormStyles.form}
           onSubmit={onSubmit}
         >
-          <div className={FormStyles.container}>
+          <div >
             <label className={UserInfoStyles.label} htmlFor="email">
-              E-Mail:
+              E-Mail:{ isEditing && <BiEditAlt />}
             </label>
             <Input
               type="text"
@@ -67,7 +69,7 @@ function UserInfo(): React.JSX.Element {
               className={UserInfoStyles.label}
               htmlFor="firstName"
             >
-              First Name:
+              First Name:{ isEditing && <BiEditAlt />}
             </label>
             <Input
               type="text"
@@ -77,7 +79,7 @@ function UserInfo(): React.JSX.Element {
               readonly={String(!isEditing)}
             />
             <label className={UserInfoStyles.label} htmlFor="lastName">
-              Last Name:
+              Last Name:{ isEditing && <BiEditAlt />}
             </label>
             <Input
               type="text"
@@ -87,17 +89,17 @@ function UserInfo(): React.JSX.Element {
               readonly={String(!isEditing)}
             />
             <label className={UserInfoStyles.label} htmlFor="birthday">
-              BirthDay:
+              BirthDay:{ isEditing && <BiEditAlt />}
             </label>
             <BirtdayDate readonly={!isEditing} />
           </div>
           {isEditing ? (
-            <>
-              <button type="submit">Save</button>
-              <button onClick={cancelEditing}>Cancel</button>
-            </>
+            <div className = 'flex justify-between'>
+              <button type="submit" className={UserInfoStyles.btn}>Save</button>
+              <button onClick={cancelEditing} className={UserInfoStyles.btn}>Cancel</button>
+            </div>
           ) : (
-            <button onClick={startEditing}>Edit</button>
+            <button onClick={startEditing} className={FormStyles.submit_btn}>Edit</button>
           )}
         </form>
       </FormProvider>

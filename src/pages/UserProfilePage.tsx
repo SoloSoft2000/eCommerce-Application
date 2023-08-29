@@ -8,6 +8,7 @@ import UserInfo from './profile/UserInfo';
 import UserAdresses from './profile/UserAdresses';
 import LoginStyles from '../assets/styles/login.module.scss';
 import FormStyles from '../assets/styles/form.module.scss';
+import UserPassword from './profile/UserPassword';
 
 function UserProfilePage(): React.JSX.Element {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ function UserProfilePage(): React.JSX.Element {
 
         {activeTab === 'info' && <UserInfo />}
         {activeTab === 'adresses' && <UserAdresses />}
+        {activeTab === 'passwords' && <UserPassword />}
       </div>
     </main>
   );
