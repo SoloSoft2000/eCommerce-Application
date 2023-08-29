@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../utils/reducers/store';
 import Title from '../сomponents/forms/Title';
@@ -20,17 +20,18 @@ function UserProfilePage(): React.JSX.Element {
     }
   }, [customer, navigate]);
 
-  const [activeTab, setActiveTab] = useState('info');
 
   return (
     <main className={LoginStyles.main}>
       <div className={LoginStyles.wrapper}>
         <Title classes={FormStyles.title} value="User Profile" />
-        <TabMenu setActiveTab={setActiveTab} activeTab={activeTab} />
+        <TabMenu  />
 
-        {activeTab === 'info' && <UserInfo />}
-        {activeTab === 'adresses' && <UserAdresses />}
-        {activeTab === 'passwords' && <UserPassword />}
+         <Routes>
+          <Route path="info" element={<UserInfo />} />
+          <Route path="adresses" element={<UserAdresses />} />
+          <Route path="passwords" element={<UserPassword />} />
+        </Routes>
       </div>
     </main>
   );
