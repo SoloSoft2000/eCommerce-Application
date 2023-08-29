@@ -9,6 +9,7 @@ type ProductList = {
   sort?: string[];
   priceRange: number[];
   text?: string;
+  brand?: string[];
 };
 
 async function getProducstByCategory(
@@ -53,6 +54,7 @@ async function getProducts({
   sort,
   priceRange,
   text,
+  brand,
 }: ProductList): Promise<ProductProjection[]> {
   const filters: string[] = [];
 
@@ -75,6 +77,11 @@ async function getProducts({
   if (priceRange && priceRange.length > 0) {
     const priceRangeFilter = filterByPriceRange(priceRange);
     if (priceRangeFilter) filters.push(priceRangeFilter);
+  }
+
+  if (brand && brand.length > 0) {
+    const brands = brand.map((el) => `"${el}"`).join(',');
+    filters.push(`variants.attributes.attribute-brand:${brands}`);
   }
 
   if (sort && sort.length > 0) queryArgs.sort = sort;

@@ -1,10 +1,11 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../utils/reducers/store';
-import MaterialFilter from './filter/MaterialFilter';
+import StyleFilter from './filter/StyleFilter';
 import PriceFilter from './filter/PriceFilter';
 import ByInputFilter from './filter/ByInput';
 import { setSortMethods } from '../../utils/reducers/productsListReducer';
+import BrandFilter from './filter/BrandFilter';
 
 function Filter(): React.JSX.Element {
   const [sorting, setSorting] = useState({
@@ -38,7 +39,8 @@ function Filter(): React.JSX.Element {
   return (
     <div className="w-full flex flex-col gap-8">
       <ByInputFilter />
-      <MaterialFilter />
+      <BrandFilter />
+      <StyleFilter />
 
       <label className="block font-bold">
         Sort by alphabet:

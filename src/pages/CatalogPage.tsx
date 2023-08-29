@@ -11,6 +11,8 @@ import BreadcrumbCatalog from '../сomponents/catalog/Breadcrumb';
 import MainCatalogPage from './MainCatalogPage';
 import AppliedFilter from '../сomponents/catalog/AppliedFilters';
 
+const brand = ['ABC-Style', 'Romantics LTD', 'NY-fashion'];
+
 function CatalogPage(): React.JSX.Element {
   const { category } = useParams();
 
@@ -29,6 +31,7 @@ function CatalogPage(): React.JSX.Element {
           sort: Object.values(productArray.sort).filter(Boolean),
           priceRange: productArray.price,
           text: productArray.text,
+          brand: productArray.brand,
         });
         const data = setDataElements(products);
         setCatalog(data);
@@ -109,6 +112,19 @@ function CatalogPage(): React.JSX.Element {
               sortMethod={'sortByText'}
             />
           )}
+          {productArray.brand &&
+            brand.map((el): React.ReactNode | null => {
+              if (productArray.brand.includes(el)) {
+                return (
+                  <AppliedFilter
+                    key={el}
+                    name={`Brand: ${el}`}
+                    sortMethod={`sortByBrand:${el}`}
+                  />
+                );
+              }
+              return null;
+            })}
         </div>
       </div>
 

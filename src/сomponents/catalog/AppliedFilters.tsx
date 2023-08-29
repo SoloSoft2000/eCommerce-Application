@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  setBrands,
   setPriceRange,
   setSortMethods,
   setTextMethods,
@@ -25,8 +26,15 @@ function AppliedFilter({
         if (sortOption === 'sortByAbc') sortAr.sortByAbc = '';
         dispatch(setSortMethods(sortAr));
       }
-      if (productArray.price) dispatch(setPriceRange([]));
-      if (productArray.text) dispatch(setTextMethods(''));
+      if (sortOption.split(':')[0] === 'sortByBrand') {
+        const brandArr = [...productArray.brand];
+        const newArr = brandArr.filter(
+          (brand) => brand !== sortOption.split(':')[1]
+        );
+        dispatch(setBrands(newArr));
+      }
+      if (sortOption === 'sortByPriceRange') dispatch(setPriceRange([]));
+      if (sortOption === 'sortByText') dispatch(setTextMethods(''));
     },
     [dispatch, productArray]
   );
