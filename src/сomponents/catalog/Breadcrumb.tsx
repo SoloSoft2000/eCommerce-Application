@@ -15,7 +15,7 @@ function BreadcrumbCatalog(): React.ReactElement {
     .split('/')
     .filter((crumb) => crumb !== '')
     .map((crumb, index, array) => {
-      const pathSegment = `/catalog/${crumb}`;
+      const pathSegment = `/${array.slice(0, index + 1).join('/')}`;
       const isLastCrumb = index === array.length - 1;
       const formattedName = crumb.replace('%20', '-');
       const crumbCapitalize =

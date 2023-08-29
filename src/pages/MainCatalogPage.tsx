@@ -64,7 +64,10 @@ function MainCatalogPage({
       </div>
       <div className="w-full flex flex-wrap gap-10 items-start justify-center">
         {categoriesCover.map((category, index) => (
-          <div key={index} className="flex flex-col gap-6 justify-center">
+          <div
+            key={`${category}-${index}`}
+            className="flex flex-col gap-6 justify-center"
+          >
             <div className="w-[20rem]">
               <MainCategoryCover
                 name={category.name['en-US']}
@@ -75,7 +78,7 @@ function MainCatalogPage({
               <div className="flex flex-col gap-4 items-center">
                 {category.children.map((childCategory, childIndex) => (
                   <CategoryCover
-                    key={`child-${childIndex}`}
+                    key={`${childCategory}-${childIndex}`}
                     parentName={category.name['en-US']}
                     name={childCategory.name['en-US']}
                     img={categoryImageMap[childCategory.name['en-US']] || Img}
