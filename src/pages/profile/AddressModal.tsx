@@ -61,6 +61,51 @@ function AddressModal({
             <FormProvider {...methods}>
               <form className={FormStyles.form} onSubmit={onSubmit}>
                 <AddressComp type="" />
+
+                <div className="mt-2 flex justify-around items-center">
+                  <div>
+                    <div className="flex items-center text-xs text-gray-500">
+                      <input
+                        type="checkbox"
+                        className="ml-2 mr-2 accent-black"
+                        // checked={user.billingAddressIds?.includes(
+                        //   address.id as string
+                        // )}
+                      />
+                      Billing address
+                    </div>
+                    <div className="flex items-center text-xs text-gray-500">
+                      <input
+                        type="checkbox"
+                        className="ml-2 mr-2 accent-black"
+                        // checked={address.id === user.defaultBillingAddressId}
+                      />
+                      Default Billing
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="flex justify-end items-center text-xs text-gray-500">
+                      Shipping address
+                      <input
+                        type="checkbox"
+                        className="ml-2 mr-2 accent-black"
+                        // checked={user.shippingAddressIds?.includes(
+                        //   address.id as string
+                        // )}
+                      />
+                    </div>
+                    <div className="flex justify-end items-center text-xs text-gray-500">
+                      Default Shipping
+                      <input
+                        type="checkbox"
+                        className="ml-2 mr-2 accent-black"
+                        // checked={address.id === user.defaultShippingAddressId}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+
                 <button className={UserInfoStyles.addressBtn} type="submit">
                   Save
                 </button>
