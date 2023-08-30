@@ -3,6 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import AddressComp from '../../сomponents/forms/Adress';
 import UserInfoStyles from '../../assets/styles/userinfo.module.scss';
+import FormStyles from '../../assets/styles/form.module.scss';
 import addressSchema from '../../utils/validationSchemas/addressSchema';
 
 export type AddressEdit = {
@@ -52,13 +53,13 @@ function AddressModal({
   return (
     <>
       {isOpen ? (
-        <div className={UserInfoStyles.modal}>
-          <div className={UserInfoStyles.modal__content}>
+        <div className={UserInfoStyles.modal} onClick={onClose}>
+          <div className={UserInfoStyles.modal__content} onClick={(e): void => e.stopPropagation()}>
             <div className={UserInfoStyles.close} onClick={onClose}>
               &times;
             </div>
             <FormProvider {...methods}>
-              <form onSubmit={onSubmit}>
+              <form className={FormStyles.form} onSubmit={onSubmit}>
                 <AddressComp type="" />
                 <button className={UserInfoStyles.addressBtn} type="submit">
                   Save

@@ -15,7 +15,7 @@
 }
 
 .modal__content {
-  @apply bg-white p-8 rounded shadow-lg relative;
+  @apply bg-white p-8 rounded shadow-lg relative h-[22rem] w-[32rem] max-w-full max-md:mx-2.5 max-sm:mx-2.5 flex justify-center items-center;
 }
 
 .close {
