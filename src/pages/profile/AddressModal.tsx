@@ -2,6 +2,7 @@ import { Address } from '@commercetools/platform-sdk';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import AddressComp from '../../сomponents/forms/Adress';
+import UserInfoStyles from '../../assets/styles/userinfo.module.scss';
 
 type AddressModalProps = {
   isOpen: boolean;
@@ -32,19 +33,19 @@ function AddressModal({
 
   return (<>
     {isOpen ? (
-    <div className='modal'>
-      <h1>modal {isOpen}</h1>
-      <div className="modal-content">
-        <span className="close cursor-pointer" onClick={onClose}>
-          &times;
-        </span>
-        <FormProvider {...methods}>
-          <form onSubmit={onSubmit}>
-            <AddressComp type="new" />
-            <button type="submit">Save</button>
-          </form>
-        </FormProvider>
-      </div>
+    <div className={UserInfoStyles.modal}>
+        <div className={UserInfoStyles.modal__content}>
+            <div className={UserInfoStyles.close} onClick={onClose}>
+              &times;
+            </div>
+            <FormProvider {...methods}>
+              <form onSubmit={onSubmit}>
+                <AddressComp type="new" />
+                <button className={UserInfoStyles.addressBtn} type="submit">Save</button>
+                <button className={UserInfoStyles.addressBtn} onClick={onClose}>Cancel</button>
+              </form>
+            </FormProvider>
+        </div>
     </div> ) : null }</>
   );
 }

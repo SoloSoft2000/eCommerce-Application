@@ -11,5 +11,13 @@
 }
 
 .modal {
-  @apply flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none;
+  @apply fixed z-50 inset-0 overflow-hidden bg-black/50 flex items-center justify-center;
+}
+
+.modal__content {
+  @apply bg-white p-8 rounded shadow-lg relative ;
+}
+
+.close {
+  @apply text-gray-400 absolute px-1 top-2 right-2 cursor-pointer border;
 }
