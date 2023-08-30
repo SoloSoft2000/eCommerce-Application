@@ -41,7 +41,11 @@ function AddressModal({
   }, [isOpen, address, methods.reset]);
 
   const onSubmit = methods.handleSubmit((data) => {
-    console.log('save to server', address?.Id === '' ? 'new' : address?.Id, data);
+    console.log(
+      'save to server',
+      address?.Id === '' ? 'new' : address?.Id,
+      data
+    );
     onClose();
   });
 

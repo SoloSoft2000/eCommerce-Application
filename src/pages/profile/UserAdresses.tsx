@@ -11,7 +11,7 @@ const initialAddress: AddressEdit = {
   City: '',
   Postcode: '',
   Street: '',
-  Id: ''
+  Id: '',
 };
 
 function UserAdresses(): React.JSX.Element {
@@ -26,7 +26,7 @@ function UserAdresses(): React.JSX.Element {
         City: address.city as string,
         Postcode: address.postalCode as string,
         Street: address.streetName as string,
-        Id: address.id as string
+        Id: address.id as string,
       });
     } else {
       setAddress(initialAddress);
