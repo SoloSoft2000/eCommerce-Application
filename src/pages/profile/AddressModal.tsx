@@ -1,34 +1,43 @@
-import { Address } from '@commercetools/platform-sdk';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import AddressComp from '../../сomponents/forms/Adress';
 import UserInfoStyles from '../../assets/styles/userinfo.module.scss';
+import addressSchema from '../../utils/validationSchemas/addressSchema';
+
+export type AddressEdit = {
+  Country: "US" | "CA",
+  City: string,
+  Postcode: string,
+  Street: string
+}
 
 type AddressModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  address?: Address;
-  onSave: (data: Address) => void;
+  address?: AddressEdit;
 };
 
-function AddressModal({
-  isOpen,
-  onClose,
-  address,
-  onSave,
-}: AddressModalProps): React.JSX.Element {
+function AddressModal({isOpen, onClose, address}: AddressModalProps): React.JSX.Element {
   const methods = useForm({
-    defaultValues: {
-      country: address?.country,
-      city: address?.city,
-      postalCode: address?.postalCode,
-      streetName: address?.streetName,
-    },
+    resolver: yupResolver(addressSchema),
+    mode: 'all',
   });
 
+  useEffect(() => {
+    if (isOpen && address) {
+      methods.reset({
+        Country: address.Country,
+        City: address.City,
+        Postcode: address.Postcode,
+        Street: address.Street
+      })
+    }
+  }, [isOpen, address, methods.reset])
+
   const onSubmit = methods.handleSubmit((data) => {
-    onSave(data as Address);
-    onClose();
+   console.log('save to server', data);
+   onClose();
   });
 
   return (<>
@@ -40,9 +49,9 @@ function AddressModal({
             </div>
             <FormProvider {...methods}>
               <form onSubmit={onSubmit}>
-                <AddressComp type="new" />
+                <AddressComp type="" />
                 <button className={UserInfoStyles.addressBtn} type="submit">Save</button>
-                <button className={UserInfoStyles.addressBtn} onClick={onClose}>Cancel</button>
+                <button className={UserInfoStyles.addressBtn} type="reset" onClick={onClose}>Cancel</button>
               </form>
             </FormProvider>
         </div>
