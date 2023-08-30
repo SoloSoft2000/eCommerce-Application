@@ -9,3 +9,7 @@
 .addressBtn {
   @apply m-2 px-4 py-1 text-center text-sm rounded bg-black text-white drop-shadow-sm hover:bg-slate-600 cursor-pointer;
 }
+
+.modal {
+  @apply flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none;
+}

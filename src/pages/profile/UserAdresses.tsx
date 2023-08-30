@@ -8,7 +8,6 @@ import AddressModal from './AddressModal';
 
 function UserAdresses(): React.JSX.Element {
   const user: Customer = useSelector((state: RootState) => state.customer);
-  console.log(user);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState({
@@ -27,6 +26,8 @@ function UserAdresses(): React.JSX.Element {
   };
 
   const closeModal = (): void => {
+    console.log('close modal');
+    
     setSelectedAddress({
       country: '',
     });

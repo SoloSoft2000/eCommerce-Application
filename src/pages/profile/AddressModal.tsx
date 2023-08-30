@@ -30,11 +30,12 @@ function AddressModal({
     onClose();
   });
 
-  return (
-    <div className={`modal ${isOpen ? 'open' : ''}`}>
+  return (<>
+    {isOpen ? (
+    <div className='modal'>
       <h1>modal {isOpen}</h1>
       <div className="modal-content">
-        <span className="close" onClick={onClose}>
+        <span className="close cursor-pointer" onClick={onClose}>
           &times;
         </span>
         <FormProvider {...methods}>
@@ -44,7 +45,7 @@ function AddressModal({
           </form>
         </FormProvider>
       </div>
-    </div>
+    </div> ) : null }</>
   );
 }
 
