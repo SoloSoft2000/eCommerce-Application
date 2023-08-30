@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { countryRules, shipPostalRules } from './countryPostalSchema';
+import { countryRules, PostalRules } from './countryPostalSchema';
 
 const namesRules = yup
   .string()
@@ -18,7 +18,7 @@ const addressRules = yup
 const addressSchema = yup.object({
   Country: countryRules,
   City: namesRules,
-  Postcode: shipPostalRules,
+  Postcode: PostalRules,
   Street: addressRules,
 });
 
