@@ -62,7 +62,10 @@ function AddressModal({
     <>
       {isOpen ? (
         <div className={UserInfoStyles.modal} onClick={onClose}>
-          <div className={UserInfoStyles.modal__content} onClick={(e): void => e.stopPropagation()}>
+          <div
+            className={UserInfoStyles.modal__content}
+            onClick={(e): void => e.stopPropagation()}
+          >
             <div className={UserInfoStyles.close} onClick={onClose}>
               &times;
             </div>
@@ -82,7 +85,6 @@ function AddressModal({
                             methods.setValue('defaultBilling', false);
                           }
                         }}
-
                       />
                       Billing address
                     </div>
@@ -129,7 +131,6 @@ function AddressModal({
                     </div>
                   </div>
                 </div>
-
 
                 <button className={UserInfoStyles.addressBtn} type="submit">
                   Save
