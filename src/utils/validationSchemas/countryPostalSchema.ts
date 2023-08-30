@@ -10,6 +10,18 @@ const validatePostalCode = (country: string, value: string): boolean => {
   return false;
 };
 
+export const PostalRules = yup
+  .string()
+  .required('Postal code is required')
+  .test(
+    'isValidPostalCode',
+    'Invalid postal code format',
+    function check(value) {
+      const country = this.parent.Country;
+      return validatePostalCode(country, value);
+    }
+  );
+
 export const shipPostalRules = yup
   .string()
   .required('Postal code is required')
