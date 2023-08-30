@@ -30,18 +30,18 @@ function ProductPage(): React.JSX.Element {
 
   return (
     <main className="container mx-auto">
-      {prodData !== undefined && (
-        <DetailedProductCard
-          description={prodData.description}
-          title={prodData.title}
-          image={prodData.image}
-          images={productImages}
-          price={prodData.price}
-          discount={prodData.discount}
-          salePercent={prodData.salePercent}
-        />
-      )}
-    </main>
+    {prodData !== undefined && (
+      <DetailedProductCard
+        description={prodData.description}
+        title={prodData.title}
+        image={prodData.image}
+        images={productImages}
+        price={prodData.price}
+        discount={prodData.discount}
+        salePercent={prodData.salePercent}
+      />
+    )}
+  </main>
   );
 }
 

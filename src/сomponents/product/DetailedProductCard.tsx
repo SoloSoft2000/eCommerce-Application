@@ -1,15 +1,15 @@
 import React from 'react';
 import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
-import ImgSlider from './ImgSlider';
+// import ImgSlider from './ImgSlider';
+import SwiperComponent from './SwiperSlider';
+
 
 function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
   const images = props.images || [];
 
   return (
     <div className="flex justify-center mt-28 h-full">
-      <div className="w-1/3">
-        <ImgSlider images={images} />
-      </div>
+      {images.length > 0 && <SwiperComponent images={images} />} 
       <div className="ml-8 w-1/3">
         <h3 className="text-2xl font-bold mb-11">{props.title}</h3>
         <p className="text-xl mb-11">{props.description}</p>

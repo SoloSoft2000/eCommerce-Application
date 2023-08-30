@@ -11,3 +11,7 @@ export interface SliderDotProps {
   isActive: boolean;
   onClick: () => void;
 }
+
+export interface SwiperComponentProps {
+  images: string[];
+}
