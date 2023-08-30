@@ -6,6 +6,7 @@ interface ProductCardProps {
   discount?: string | number;
   salePercent?: string | number;
   id?: string;
+  images?: string[] | undefined;
   productBrand?: string;
   productStyle?: string;
 }
