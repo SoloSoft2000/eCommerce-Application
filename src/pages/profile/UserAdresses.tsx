@@ -1,13 +1,41 @@
-import { Customer } from '@commercetools/platform-sdk';
-import React from 'react';
+import { Address, Customer } from '@commercetools/platform-sdk';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../utils/reducers/store';
 import UserInfoStyles from '../../assets/styles/userinfo.module.scss';
 import FormStyles from '../../assets/styles/form.module.scss';
+import AddressModal from './AddressModal';
 
 function UserAdresses(): React.JSX.Element {
   const user: Customer = useSelector((state: RootState) => state.customer);
   console.log(user);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState({
+    country: '',
+  });
+
+  const openModal = (address?: Address): void => {
+    console.log('openModal', address);
+
+    setSelectedAddress(
+      address || {
+        country: '',
+      }
+    );
+    setModalOpen(true);
+  };
+
+  const closeModal = (): void => {
+    setSelectedAddress({
+      country: '',
+    });
+    setModalOpen(false);
+  };
+
+  const saveAddress = (address: Address): void => {
+    console.log('Saved address:', address);
+  };
 
   return (
     <div>
@@ -70,14 +98,31 @@ function UserAdresses(): React.JSX.Element {
                 </div>
               </div>
               <div className="flex justify-end mt-2">
-                <button className={UserInfoStyles.addressBtn}>Edit</button>
+                <button
+                  className={UserInfoStyles.addressBtn}
+                  onClick={(): void => openModal(address)}
+                >
+                  Edit
+                </button>
                 <button className={UserInfoStyles.addressBtn}>Remove</button>
               </div>
             </div>
           </li>
         ))}
       </ul>
-      <button className={FormStyles.submit_btn}>Add new address</button>
+      <button
+        className={FormStyles.submit_btn}
+        onClick={(): void => openModal()}
+      >
+        Add new address
+      </button>
+
+      <AddressModal
+        isOpen={modalOpen}
+        onClose={closeModal}
+        address={selectedAddress}
+        onSave={saveAddress}
+      />
     </div>
   );
 }
