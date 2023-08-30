@@ -20,7 +20,10 @@ const variantsSlider = {
   };
 
   const variantsArrows = {
-    hover: {
+    default: {
+      scale: 1,
+    },
+    clicked: {
       scale: 1.2,
     },
   };

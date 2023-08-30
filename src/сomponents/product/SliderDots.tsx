@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { variantsDots } from '../../helpers/functions/sliderVariaions';
+import { variantsDots } from '../../helpers/functions/sliderVariations';
 import { SliderDotProps } from '../../helpers/interfaces/product/slider-props';
 
 function SliderDot({ isActive, onClick }: SliderDotProps): React.JSX.Element {

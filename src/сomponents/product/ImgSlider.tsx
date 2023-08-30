@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ImgSliderProps } from '../../helpers/interfaces/product/slider-props';
-import { variantsSlider } from '../../helpers/functions/sliderVariaions';
+import { variantsSlider } from '../../helpers/functions/sliderVariations';
 import SliderArrow from './SliderArrow';
 import SliderDot from './SliderDots';
 
