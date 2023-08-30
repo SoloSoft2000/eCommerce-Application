@@ -20,6 +20,10 @@ function ImgSlider({ images }: ImgSliderProps): JSX.Element {
     );
   };
 
+  const dotClick = (index: number): void => {
+    setIndexCurrent(index);
+  };
+
   return (
     <div className="img-slider relative">
       <img
@@ -27,7 +31,7 @@ function ImgSlider({ images }: ImgSliderProps): JSX.Element {
         src={images[indexCurrent]}
         alt={`Image ${indexCurrent}`}
       />
-      <div className="slide_direction absolute top-1/2 w-full transform -translate-y-1/2 flex justify-between">
+      <div className="slide-direction absolute top-1/2 w-full transform -translate-y-1/2 flex justify-between">
         <div className="left" onClick={imgPrevious}>
           <HiOutlineArrowNarrowLeft className="h-8 w-8 mx-3 text-white cursor-pointer border border-gray-900 bg-gray-900 rounded-full p-1" />
         </div>
@@ -35,6 +39,15 @@ function ImgSlider({ images }: ImgSliderProps): JSX.Element {
           <HiOutlineArrowNarrowRight className="h-8 w-8 mx-3 text-white cursor-pointer border border-gray-900 bg-gray-900 rounded-full p-1" />
         </div>
       </div>
+      <div className="dot-click -mt-8 pb-2 flex justify-center gap-4">
+            {images.map((_, index: number) => (
+              <div
+                key={index}
+                className={`dot ${indexCurrent === index ? 'active bg-white' : ''} bg-gray-900 w-4 h-4 rounded-full`} 
+                onClick={(): void => dotClick(index)}
+              ></div>
+            ))}
+          </div>
     </div>
   );
 }

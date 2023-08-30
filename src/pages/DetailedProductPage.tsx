@@ -16,9 +16,6 @@ function ProductPage(): React.JSX.Element {
           const response = await returnProductById(productId);
           const data = setProductEl(response);
           setProdData(data);
-          console.log(data);
-          console.log(response);
-          console.log(productId);
         } catch (err) {
           throw new Error(`Detailed product page: ${err}`);
         }
