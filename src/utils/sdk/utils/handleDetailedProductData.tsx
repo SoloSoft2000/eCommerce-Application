@@ -11,7 +11,7 @@ function setProductEl(data: ProductProjection): ProductCardProps {
       : '';
   const imagesArray = data.masterVariant.images;
   const imageCover = imagesArray ? imagesArray[0].url : '';
-  const imagesGallery = imagesArray?.map(imageObject => imageObject.url);
+  const imagesGallery = imagesArray?.map((imageObject) => imageObject.url);
   console.log('imageCover', imageCover);
   console.log('imagesArray', imagesArray);
   console.log('imagesGallery', imagesGallery);

@@ -1,5 +1,5 @@
 type ImgSliderProps = {
-    images: string[];
-  };
+  images: string[];
+};
 
 export default ImgSliderProps;
