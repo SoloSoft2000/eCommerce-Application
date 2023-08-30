@@ -6,11 +6,11 @@ import UserInfoStyles from '../../assets/styles/userinfo.module.scss';
 import addressSchema from '../../utils/validationSchemas/addressSchema';
 
 export type AddressEdit = {
-  Country: "US" | "CA",
-  City: string,
-  Postcode: string,
-  Street: string
-}
+  Country: 'US' | 'CA';
+  City: string;
+  Postcode: string;
+  Street: string;
+};
 
 type AddressModalProps = {
   isOpen: boolean;
@@ -18,7 +18,11 @@ type AddressModalProps = {
   address?: AddressEdit;
 };
 
-function AddressModal({isOpen, onClose, address}: AddressModalProps): React.JSX.Element {
+function AddressModal({
+  isOpen,
+  onClose,
+  address,
+}: AddressModalProps): React.JSX.Element {
   const methods = useForm({
     resolver: yupResolver(addressSchema),
     mode: 'all',
@@ -30,32 +34,43 @@ function AddressModal({isOpen, onClose, address}: AddressModalProps): React.JSX.
         Country: address.Country,
         City: address.City,
         Postcode: address.Postcode,
-        Street: address.Street
-      })
+        Street: address.Street,
+      });
     }
-  }, [isOpen, address, methods.reset])
+  }, [isOpen, address, methods.reset]);
 
   const onSubmit = methods.handleSubmit((data) => {
-   console.log('save to server', data);
-   onClose();
+    console.log('save to server', data);
+    onClose();
   });
 
-  return (<>
-    {isOpen ? (
-    <div className={UserInfoStyles.modal}>
-        <div className={UserInfoStyles.modal__content}>
+  return (
+    <>
+      {isOpen ? (
+        <div className={UserInfoStyles.modal}>
+          <div className={UserInfoStyles.modal__content}>
             <div className={UserInfoStyles.close} onClick={onClose}>
               &times;
             </div>
             <FormProvider {...methods}>
               <form onSubmit={onSubmit}>
                 <AddressComp type="" />
-                <button className={UserInfoStyles.addressBtn} type="submit">Save</button>
-                <button className={UserInfoStyles.addressBtn} type="reset" onClick={onClose}>Cancel</button>
+                <button className={UserInfoStyles.addressBtn} type="submit">
+                  Save
+                </button>
+                <button
+                  className={UserInfoStyles.addressBtn}
+                  type="reset"
+                  onClick={onClose}
+                >
+                  Cancel
+                </button>
               </form>
             </FormProvider>
+          </div>
         </div>
-    </div> ) : null }</>
+      ) : null}
+    </>
   );
 }
 
