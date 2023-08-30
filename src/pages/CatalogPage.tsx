@@ -23,6 +23,8 @@ function CatalogPage(): React.JSX.Element {
 
   const productArray = useSelector((state: RootState) => state.products);
   const { sortByAbc, sortByPrice } = productArray.sort;
+  const [minPrice, maxPrice] = productArray.price;
+
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
@@ -38,7 +40,7 @@ function CatalogPage(): React.JSX.Element {
         const data = setDataElements(products);
         setCatalog(data);
       } catch (err) {
-        throw new Error(`Catalog page: ${err}`);
+        console.error(`Catalog page: ${err}`);
       }
     };
     fetchData();
@@ -50,9 +52,7 @@ function CatalogPage(): React.JSX.Element {
         setFilterMenu(true);
       }
     };
-
     window.addEventListener('resize', followResizing);
-
     return () => {
       window.removeEventListener('resize', followResizing);
     };
@@ -65,6 +65,27 @@ function CatalogPage(): React.JSX.Element {
   useEffect(() => {
     setCategoriesMenu(false);
   }, [category]);
+
+  const appliedFilterGenerator = useCallback(
+    (name: string, sortMethod: string) => (
+      <AppliedFilter key={name} name={name} sortMethod={sortMethod} />
+    ),
+    []
+  );
+
+  const generateAppliedFilters = useCallback(
+    (array: string[], values: string[], name: string) =>
+      values.map((el) => {
+        if (array.includes(el)) {
+          return appliedFilterGenerator(
+            `${name}: ${el}`,
+            `sortBy${name}:${el}`
+          );
+        }
+        return null;
+      }),
+    []
+  );
 
   return (
     <main className="container mx-auto pt-2 pb-10">
@@ -85,65 +106,30 @@ function CatalogPage(): React.JSX.Element {
           </div>
         )}
         <div className="grow flex justify-start flex-wrap gap-4">
-          {sortByPrice === 'price asc' && (
-            <AppliedFilter
-              name={'Price: Low to High'}
-              sortMethod={'sortByPrice'}
-            />
-          )}
-          {sortByPrice === 'price desc' && (
-            <AppliedFilter
-              name={'Price: High to Low'}
-              sortMethod={'sortByPrice'}
-            />
-          )}
-          {sortByAbc === 'name.en-Us asc' && (
-            <AppliedFilter name={'Name: A-Z'} sortMethod={'sortByAbc'} />
-          )}
-          {sortByAbc === 'name.en-Us desc' && (
-            <AppliedFilter name={'Name: Z-A'} sortMethod={'sortByAbc'} />
-          )}
-          {productArray.price[0] ||
-            (productArray.price[1] && (
-              <AppliedFilter
-                name={`Price from ${
-                  productArray.price[0] ? productArray.price[0] : 0
-                } to ${productArray.price[1] ? productArray.price[1] : '*'}`}
-                sortMethod={'sortByPriceRange'}
-              />
-            ))}
-          {productArray.text && (
-            <AppliedFilter
-              name={`Search: ${productArray.text}`}
-              sortMethod={'sortByText'}
-            />
-          )}
+          {sortByPrice === 'price asc' &&
+            appliedFilterGenerator('Price: Low to High', 'sortByPrice')}
+          {sortByPrice === 'price desc' &&
+            appliedFilterGenerator('Price: High to Low', 'sortByPrice')}
+          {sortByAbc === 'name.en-Us asc' &&
+            appliedFilterGenerator('Name: A-Z', 'sortByAbc')}
+          {sortByAbc === 'name.en-Us desc' &&
+            appliedFilterGenerator('Name: Z-A', 'sortByAbc')}
+
+          {(minPrice || maxPrice) &&
+            appliedFilterGenerator(
+              `Price from ${minPrice || 0} to ${maxPrice || '*'}`,
+              'sortByPriceRange'
+            )}
+          {productArray.text &&
+            appliedFilterGenerator(
+              `Search: ${productArray.text}`,
+              'sortByText'
+            )}
           {productArray.brand &&
-            brand.map((el): React.ReactNode | null => {
-              if (productArray.brand.includes(el)) {
-                return (
-                  <AppliedFilter
-                    key={el}
-                    name={`Brand: ${el}`}
-                    sortMethod={`sortByBrand:${el}`}
-                  />
-                );
-              }
-              return null;
-            })}
+            generateAppliedFilters(brand, productArray.brand, 'Brand')}
+
           {productArray.style &&
-            styles.map((el): React.ReactNode | null => {
-              if (productArray.style.includes(el)) {
-                return (
-                  <AppliedFilter
-                    key={el}
-                    name={`Style: ${el}`}
-                    sortMethod={`sortByStyle:${el}`}
-                  />
-                );
-              }
-              return null;
-            })}
+            generateAppliedFilters(styles, productArray.style, 'Style')}
         </div>
       </div>
 

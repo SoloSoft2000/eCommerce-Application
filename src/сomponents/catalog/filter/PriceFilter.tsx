@@ -7,6 +7,7 @@ function PriceFilter(): React.JSX.Element {
   const dispatch = useDispatch();
   const priceArray = useSelector((state: RootState) => state.products.price);
 
+  const [priceMin, priceMax] = priceArray;
   const [minPrice, setMinPrice] = useState<number | ''>('');
   const [maxPrice, setMaxPrice] = useState<number | ''>('');
 
@@ -15,8 +16,8 @@ function PriceFilter(): React.JSX.Element {
   }, [dispatch, minPrice, maxPrice]);
 
   useEffect(() => {
-    setMinPrice(priceArray[0] || '');
-    setMaxPrice(priceArray[1] || '');
+    setMinPrice(priceMin || '');
+    setMaxPrice(priceMax || '');
   }, [priceArray]);
 
   return (

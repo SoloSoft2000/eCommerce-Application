@@ -36,11 +36,11 @@ const categoryImageMap: Record<string, string> = {
   'Plain Earrings': PlainEarrings,
 };
 
-function MainCatalogPage({
-  title,
-}: {
-  [key: string]: string;
-}): React.JSX.Element {
+type MainCatalogData = {
+  title?: string;
+};
+
+function MainCatalogPage({ title }: MainCatalogData): React.JSX.Element {
   const [categoriesCover, setCategoriesCover] = useState<CategoryTree[]>([]);
 
   useEffect(() => {

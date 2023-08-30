@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+type CategoryCoverData = {
+  [key: string]: string;
+};
+
 function CategoryCover({
   img,
   parentName,
   name,
-}: {
-  [key: string]: string;
-}): React.JSX.Element {
+}: CategoryCoverData): React.JSX.Element {
   return (
     <Link to={`/catalog/${parentName}/${name}`}>
       <div className="border-[1px] border-zinc-200 w-[15rem] h-[18rem] h-auto bg-white rounded relative cursor-pointer overflow-hidden pb-2 text-center hover:text-orange-500 hover:drop-shadow-lg">

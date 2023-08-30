@@ -7,6 +7,8 @@ interface ProductCardProps {
   salePercent?: string | number;
   id?: string;
   images?: string[] | undefined;
+  productBrand?: string;
+  productStyle?: string;
 }
 
 interface ProductListProps {
