@@ -12,6 +12,10 @@ export type AddressEdit = {
   Postcode: string;
   Street: string;
   Id: string;
+  shipping: boolean;
+  defaultShipping: boolean;
+  billing: boolean;
+  defaultBilling: boolean;
 };
 
 type AddressModalProps = {
@@ -37,6 +41,10 @@ function AddressModal({
         City: address.City,
         Postcode: address.Postcode,
         Street: address.Street,
+        billing: address.billing,
+        shipping: address.shipping,
+        defaultBilling: address.defaultBilling,
+        defaultShipping: address.defaultShipping,
       });
     }
   }, [isOpen, address, methods.reset]);
@@ -68,9 +76,13 @@ function AddressModal({
                       <input
                         type="checkbox"
                         className="ml-2 mr-2 accent-black"
-                        // checked={user.billingAddressIds?.includes(
-                        //   address.id as string
-                        // )}
+                        {...methods.register('billing')}
+                        onChange={(e): void => {
+                          if (!e.target.checked) {
+                            methods.setValue('defaultBilling', false);
+                          }
+                        }}
+
                       />
                       Billing address
                     </div>
@@ -78,7 +90,12 @@ function AddressModal({
                       <input
                         type="checkbox"
                         className="ml-2 mr-2 accent-black"
-                        // checked={address.id === user.defaultBillingAddressId}
+                        {...methods.register('defaultBilling')}
+                        onChange={(e): void => {
+                          if (e.target.checked) {
+                            methods.setValue('billing', true);
+                          }
+                        }}
                       />
                       Default Billing
                     </div>
@@ -89,9 +106,12 @@ function AddressModal({
                       <input
                         type="checkbox"
                         className="ml-2 mr-2 accent-black"
-                        // checked={user.shippingAddressIds?.includes(
-                        //   address.id as string
-                        // )}
+                        {...methods.register('shipping')}
+                        onChange={(e): void => {
+                          if (!e.target.checked) {
+                            methods.setValue('defaultShipping', false);
+                          }
+                        }}
                       />
                     </div>
                     <div className="flex justify-end items-center text-xs text-gray-500">
@@ -99,7 +119,12 @@ function AddressModal({
                       <input
                         type="checkbox"
                         className="ml-2 mr-2 accent-black"
-                        // checked={address.id === user.defaultShippingAddressId}
+                        {...methods.register('defaultShipping')}
+                        onChange={(e): void => {
+                          if (e.target.checked) {
+                            methods.setValue('shipping', true);
+                          }
+                        }}
                       />
                     </div>
                   </div>

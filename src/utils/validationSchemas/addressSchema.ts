@@ -20,6 +20,10 @@ const addressSchema = yup.object({
   City: namesRules,
   Postcode: PostalRules,
   Street: addressRules,
+  billing: yup.boolean(),
+  shipping: yup.boolean(),
+  defaultBilling: yup.boolean(),
+  defaultShipping: yup.boolean(),
 });
 
 export default addressSchema;

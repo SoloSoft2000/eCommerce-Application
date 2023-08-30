@@ -12,6 +12,10 @@ const initialAddress: AddressEdit = {
   Postcode: '',
   Street: '',
   Id: '',
+  billing: false,
+  shipping: false,
+  defaultBilling: false,
+  defaultShipping: false
 };
 
 function UserAdresses(): React.JSX.Element {
@@ -27,6 +31,10 @@ function UserAdresses(): React.JSX.Element {
         Postcode: address.postalCode as string,
         Street: address.streetName as string,
         Id: address.id as string,
+        billing: user.billingAddressIds?.includes(address?.id as string) as boolean,
+        shipping: user.shippingAddressIds?.includes(address?.id as string) as boolean,
+        defaultBilling: address.id === user.defaultBillingAddressId,
+        defaultShipping: address.id === user.defaultShippingAddressId
       });
     } else {
       setAddress(initialAddress);
