@@ -50,6 +50,17 @@ function filterByPriceRange(priceRange: number[]): string | null {
   return null;
 }
 
+function generateFilter(
+  attributeName: string,
+  values: string[],
+  filters: string[]
+): void {
+  if (values && values.length > 0) {
+    const formattedValues = values.map((el: string) => `"${el}"`).join(',');
+    filters.push(`variants.attributes.${attributeName}:${formattedValues}`);
+  }
+}
+
 async function getProducts({
   category,
   sort,
@@ -60,13 +71,10 @@ async function getProducts({
 }: ProductList): Promise<ProductProjection[]> {
   const filters: string[] = [];
 
-  const queryArgs: Record<string, string | number | string[]> = {
+  const queryArgs: Record<string, string | number | string[] | boolean> = {
     limit: 20,
+    fuzzy: true,
   };
-
-  if (text) {
-    queryArgs['text.en-US'] = `"${text}"`;
-  }
 
   if (category && category !== 'All products') {
     const categoryId = await getProducstByCategory(category);
@@ -82,16 +90,17 @@ async function getProducts({
   }
 
   if (brand && brand.length > 0) {
-    const brands = brand.map((el) => `"${el}"`).join(',');
-    filters.push(`variants.attributes.attribute-brand:${brands}`);
+    generateFilter('attribute-brand', brand, filters);
   }
 
   if (style && style.length > 0) {
-    const styles = style.map((el) => `"${el}"`).join(',');
-    filters.push(`variants.attributes.attribute-style:${styles}`);
+    generateFilter('attribute-style', style, filters);
   }
 
   if (sort && sort.length > 0) queryArgs.sort = sort;
+
+  if (text) queryArgs['text.en-US'] = `"${text}"`;
+
   queryArgs.filter = filters;
 
   const productQuery = apiRoot.productProjections().search().get({

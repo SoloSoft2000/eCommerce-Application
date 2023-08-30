@@ -9,14 +9,17 @@ function StyleFilter(): React.JSX.Element {
   const dispatch = useDispatch();
   const stylesArray = useSelector((state: RootState) => state.products.style);
 
-  const handleCheckboxChange = useCallback((name: string) => {
-    setSelectedStyles((prevSelectedStyles: string[]) => {
-      if (prevSelectedStyles.includes(name)) {
-        return prevSelectedStyles.filter((style) => style !== name);
-      }
-      return [...prevSelectedStyles, name];
-    });
-  }, []);
+  const handleCheckboxChange = useCallback(
+    (name: string) => {
+      setSelectedStyles((prevSelectedStyles: string[]) => {
+        if (prevSelectedStyles.includes(name)) {
+          return prevSelectedStyles.filter((style) => style !== name);
+        }
+        return [...prevSelectedStyles, name];
+      });
+    },
+    [selectedStyles]
+  );
 
   useEffect(() => {
     dispatch(setStyles(selectedStyles));

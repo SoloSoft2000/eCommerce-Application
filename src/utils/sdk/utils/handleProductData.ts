@@ -20,6 +20,10 @@ function setDataElements(data: ProductProjection[]): ProductCardProps[] {
       price && discount
         ? (((+price - +discount) / +discount) * 100).toFixed()
         : '';
+    const productAttributes = item.masterVariant.attributes;
+    const productStyle = productAttributes ? productAttributes[1].value[0] : '';
+    const productBrand = productAttributes ? productAttributes[0].value[0] : '';
+
     return {
       id: item.id,
       description,
@@ -27,6 +31,8 @@ function setDataElements(data: ProductProjection[]): ProductCardProps[] {
       price,
       discount,
       salePercent,
+      productBrand,
+      productStyle,
       image: imageCover,
     };
   });

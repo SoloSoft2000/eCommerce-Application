@@ -10,39 +10,44 @@ import {
 } from '../../utils/reducers/productsListReducer';
 import { RootState } from '../../utils/reducers/store';
 
+type AppliedFilters = {
+  [key: string]: string;
+};
+
 function AppliedFilter({
   name,
   sortMethod,
-}: {
-  [key: string]: string;
-}): React.JSX.Element {
+}: AppliedFilters): React.JSX.Element {
   const productArray = useSelector((state: RootState) => state.products);
   const dispatch = useDispatch();
 
+  const updateArrayAndDispatch = useCallback(
+    (array: string[], value: string): string[] => {
+      const newArray = [...array].filter((item) => item !== value);
+      return newArray;
+    },
+    [productArray]
+  );
+
   const handleFilterClick = useCallback(
     (sortOption: string) => {
-      if (sortOption === 'sortByPrice' || sortOption === 'sortByAbc') {
+      const [option, value] = sortOption.split(':');
+      if (option === 'sortByPrice' || option === 'sortByAbc') {
         const sortAr = { ...productArray.sort };
         if (sortOption === 'sortByPrice') sortAr.sortByPrice = '';
         if (sortOption === 'sortByAbc') sortAr.sortByAbc = '';
         dispatch(setSortMethods(sortAr));
       }
-      if (sortOption.split(':')[0] === 'sortByBrand') {
-        const brandArr = [...productArray.brand];
-        const newArr = brandArr.filter(
-          (brand) => brand !== sortOption.split(':')[1]
-        );
+      if (option === 'sortByBrand') {
+        const newArr = updateArrayAndDispatch(productArray.brand, value);
         dispatch(setBrands(newArr));
       }
-      if (sortOption.split(':')[0] === 'sortByStyle') {
-        const styleArr = [...productArray.style];
-        const newStyleArr = styleArr.filter(
-          (style) => style !== sortOption.split(':')[1]
-        );
+      if (option === 'sortByStyle') {
+        const newStyleArr = updateArrayAndDispatch(productArray.style, value);
         dispatch(setStyles(newStyleArr));
       }
-      if (sortOption === 'sortByPriceRange') dispatch(setPriceRange([]));
-      if (sortOption === 'sortByText') dispatch(setTextMethods(''));
+      if (option === 'sortByPriceRange') dispatch(setPriceRange([]));
+      if (option === 'sortByText') dispatch(setTextMethods(''));
     },
     [dispatch, productArray]
   );

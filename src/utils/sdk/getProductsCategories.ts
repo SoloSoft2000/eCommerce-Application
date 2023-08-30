@@ -26,10 +26,8 @@ function categoryTree(categories: Category[]): CategoryTree[] {
 
 async function getProducstCategories(): Promise<CategoryTree[]> {
   const {
-    body: { results },
+    body: { results: mainCategories },
   } = await apiRoot.categories().get().execute();
-
-  const mainCategories = results;
 
   const categoryTrees = categoryTree(mainCategories);
   return categoryTrees;
