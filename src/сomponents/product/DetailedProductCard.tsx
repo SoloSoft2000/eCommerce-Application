@@ -6,7 +6,7 @@ function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
   const images = props.images || [];
 
   return (
-    <div className="flex justify-center mt-28">
+    <div className="flex justify-center mt-28 h-full">
       <div className="w-1/3">
         <ImgSlider images={images} />
       </div>
