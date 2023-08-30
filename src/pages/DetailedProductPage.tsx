@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import DetailedProductCard from '../сomponents/catalog/DetailedProductCard';
+import DetailedProductCard from '../сomponents/product/DetailedProductCard';
 import returnProductById from '../utils/sdk/getDetailedProduct';
 import setProductEl from '../utils/sdk/utils/handleDetailedProductData';
 import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
@@ -34,6 +34,7 @@ function ProductPage(): React.JSX.Element {
           description={prodData.description}
           title={prodData.title}
           image={prodData.image}
+          images={prodData.images}
           price={prodData.price}
           discount={prodData.discount}
           salePercent={prodData.salePercent}

@@ -1,11 +1,17 @@
 import React from 'react';
 import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
+import ImgSlider from './ImgSlider';
 
 function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
+  console.log(props.images);
+
+  const images = props.images || [];
+
   return (
     <div className="flex justify-center mt-28">
       <div className="border-2 w-1/3">
-        <img src={props.image} alt={props.description} />
+        {/* <img src={props.image} alt={props.description} /> */}
+        <ImgSlider images={images} />
       </div>
       <div className="ml-8 w-1/3">
         <h3 className="text-2xl font-bold mb-11">{props.title}</h3>

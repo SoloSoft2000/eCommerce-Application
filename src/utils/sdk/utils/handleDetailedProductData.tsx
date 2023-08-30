@@ -11,6 +11,10 @@ function setProductEl(data: ProductProjection): ProductCardProps {
       : '';
   const imagesArray = data.masterVariant.images;
   const imageCover = imagesArray ? imagesArray[0].url : '';
+  const imagesGallery = imagesArray?.map(imageObject => imageObject.url);
+  console.log('imageCover', imageCover);
+  console.log('imagesArray', imagesArray);
+  console.log('imagesGallery', imagesGallery);
   const discount =
     pricesList && pricesList[0].discounted
       ? (pricesList[0].discounted.value.centAmount / 100).toFixed(2)
@@ -27,6 +31,7 @@ function setProductEl(data: ProductProjection): ProductCardProps {
     discount,
     salePercent,
     image: imageCover,
+    images: imagesGallery,
   };
 }
 
