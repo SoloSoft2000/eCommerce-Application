@@ -6,6 +6,8 @@ interface ProductCardProps {
   discount?: string | number;
   salePercent?: string | number;
   id?: string;
+  productBrand?: string;
+  productStyle?: string;
 }
 
 interface ProductListProps {

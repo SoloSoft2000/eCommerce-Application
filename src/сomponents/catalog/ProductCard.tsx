@@ -23,8 +23,14 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
           alt={props.description}
         />
       </div>
-      <div className="h-[12rem] px-2 py-4 flex flex-col gap-3 justify-between">
+      <div className="h-[12rem] px-2 pt-2 pb-4 flex flex-col gap-2 justify-between">
         <div>
+          <p className="font-bold">
+            {props.productBrand}{' '}
+            <span className="text-slate-500	font-normal	px-1">
+              {props.productStyle}
+            </span>
+          </p>
           <h4 className="font-bold text-xl mb-2">
             <Highlighter
               highlightClassName="bg-yellow-300"
