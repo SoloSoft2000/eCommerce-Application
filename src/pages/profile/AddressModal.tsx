@@ -117,7 +117,7 @@ function AddressModal({
                       />
                       Billing address
                     </div>
-                    <div className="flex items-center text-xs text-gray-500">
+                  { address?.Id ? null :  <div className="flex items-center text-xs text-gray-500">
                       <input
                         type="checkbox"
                         className="ml-2 mr-2 accent-black"
@@ -129,7 +129,7 @@ function AddressModal({
                         }}
                       />
                       Default Billing
-                    </div>
+                    </div> }
                   </div>
                   <div className="text-right">
                     <div className="flex justify-end items-center text-xs text-gray-500">
@@ -145,7 +145,7 @@ function AddressModal({
                         }}
                       />
                     </div>
-                    <div className="flex justify-end items-center text-xs text-gray-500">
+                    { address?.Id ? null : <div className="flex justify-end items-center text-xs text-gray-500">
                       Default Shipping
                       <input
                         type="checkbox"
@@ -157,7 +157,7 @@ function AddressModal({
                           }
                         }}
                       />
-                    </div>
+                    </div> }
                   </div>
                 </div>
 
