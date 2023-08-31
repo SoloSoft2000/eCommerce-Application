@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import DetailedProductCard from '../сomponents/product/DetailedProductCard';
 import returnProductById from '../utils/sdk/getDetailedProduct';
 import setProductEl from '../utils/sdk/utils/handleDetailedProductData';
 import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
+import BreadcrumbCatalog from '../сomponents/catalog/Breadcrumb';
 
 function ProductPage(): React.JSX.Element {
   const { productId } = useParams();
+  console.log(productId);
   const [prodData, setProdData] = useState<ProductCardProps>();
-  const dispatch = useDispatch();
   useEffect(() => {}, [productId]);
 
   useEffect(() => {
@@ -29,6 +29,7 @@ function ProductPage(): React.JSX.Element {
 
   return (
     <main className="container mx-auto">
+      <BreadcrumbCatalog />
       {prodData !== undefined && (
         <DetailedProductCard
           description={prodData.description}

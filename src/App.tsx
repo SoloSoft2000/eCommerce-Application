@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, useParams } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './сomponents/Header';
 import Footer from './сomponents/Footer';
 import HomePage from './pages/HomePage';
@@ -15,9 +15,6 @@ import NoPage from './pages/NoPage';
 import Layout from './сomponents/Layout';
 
 function App(): React.JSX.Element {
-  const { productId } = useParams();
-  console.log(productId);
-
   return (
     <>
       <Layout>
@@ -37,11 +34,12 @@ function App(): React.JSX.Element {
           />
 
           <Route
-            path="/catalog/:category/:productId"
+            path="/catalog/:category/product/:productId"
             element={<ProductPage />}
           />
+
           <Route
-            path="/catalog/:category?/:subcategory?/:productId?"
+            path="/catalog/:category/:category/product/:productId"
             element={<ProductPage />}
           />
           <Route path="/profile" element={<UserProfilePage />} />

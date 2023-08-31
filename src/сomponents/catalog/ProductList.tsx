@@ -8,13 +8,12 @@ import {
 
 function ProductList({ data }: ProductListProps): React.JSX.Element {
   const currentPath = useLocation().pathname;
-
   return (
     <div className="flex w-full sm:max-w-[50rem] justify-around items-center flex-wrap gap-8 md:gap-y-14">
       {data &&
         data.map(
           (item: ProductCardProps, index: number): React.JSX.Element => (
-            <Link to={`${currentPath}/${item.id}`} key={index}>
+            <Link to={`${currentPath}/product/${item.id}`} key={index}>
               <ProductCard
                 description={item.description}
                 title={item.title}
