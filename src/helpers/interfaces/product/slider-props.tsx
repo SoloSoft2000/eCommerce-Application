@@ -3,7 +3,7 @@ export type ImgSliderProps = {
 };
 
 export interface SliderArrowProps {
-  direction: 'left' | 'right'; 
+  direction: 'left' | 'right';
   onClick: () => void;
 }
 

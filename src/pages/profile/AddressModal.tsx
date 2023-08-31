@@ -66,16 +66,15 @@ function AddressModal({
           country: data.Country,
           city: data.City,
           postalCode: data.Postcode,
-          streetName: data.Street
-        }
-      }
-      updateUser(customer, action)
-        .then(newUser => {
-          dispatch(setCustomer(newUser));
-        })
+          streetName: data.Street,
+        },
+      };
+      updateUser(customer, action).then((newUser) => {
+        dispatch(setCustomer(newUser));
+      });
     }
     console.log(address ? 'new' : 'edit');
-    
+
     console.log(
       'save to server',
       address?.Id === '' ? 'new' : address?.Id,
