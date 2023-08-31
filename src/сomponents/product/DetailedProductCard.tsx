@@ -1,6 +1,5 @@
 import React from 'react';
 import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
-// import ImgSlider from './ImgSlider';
 import SwiperComponent from './SwiperSlider';
 
 
