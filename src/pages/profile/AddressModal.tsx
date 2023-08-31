@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { CustomerAddAddressAction } from '@commercetools/platform-sdk';
 import AddressComp from '../../сomponents/forms/Adress';
 import UserInfoStyles from '../../assets/styles/userinfo.module.scss';
 import FormStyles from '../../assets/styles/form.module.scss';
 import addressSchema from '../../utils/validationSchemas/addressSchema';
+import updateUser from '../../utils/sdk/updateUser';
+import { RootState } from '../../utils/reducers/store';
+import { setCustomer } from '../../utils/reducers/customerReducer';
 
 export type AddressEdit = {
   Country: 'US' | 'CA';
@@ -29,6 +34,8 @@ function AddressModal({
   onClose,
   address,
 }: AddressModalProps): React.JSX.Element {
+  const customer = useSelector((state: RootState) => state.customer);
+
   const methods = useForm({
     resolver: yupResolver(addressSchema),
     mode: 'all',
@@ -49,7 +56,26 @@ function AddressModal({
     }
   }, [isOpen, address, methods.reset]);
 
+  const dispatch = useDispatch();
+
   const onSubmit = methods.handleSubmit((data) => {
+    if (address) {
+      const action: CustomerAddAddressAction = {
+        action: 'addAddress',
+        address: {
+          country: data.Country,
+          city: data.City,
+          postalCode: data.Postcode,
+          streetName: data.Street
+        }
+      }
+      updateUser(customer, action)
+        .then(newUser => {
+          dispatch(setCustomer(newUser));
+        })
+    }
+    console.log(address ? 'new' : 'edit');
+    
     console.log(
       'save to server',
       address?.Id === '' ? 'new' : address?.Id,
