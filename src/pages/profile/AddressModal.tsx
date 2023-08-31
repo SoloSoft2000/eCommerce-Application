@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import addressSchema from '../../utils/validationSchemas/addressSchema';
 import updateUser from '../../utils/sdk/updateUser';
 import { RootState } from '../../utils/reducers/store';
 import { setCustomer } from '../../utils/reducers/customerReducer';
+import NotificationContext from '../../utils/notification/NotificationContext';
 
 export type AddressEdit = {
   Country: 'US' | 'CA';
@@ -57,6 +58,7 @@ function AddressModal({
   }, [isOpen, address, methods.reset]);
 
   const dispatch = useDispatch();
+  const showNotification = useContext(NotificationContext);
 
   const onSubmit = methods.handleSubmit((data) => {
     if (address) {
@@ -74,6 +76,8 @@ function AddressModal({
       });
     }
     console.log(address ? 'new' : 'edit');
+
+    showNotification('edit');
 
     console.log(
       'save to server',
