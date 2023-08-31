@@ -5,8 +5,8 @@ import { RootState } from '../../../utils/reducers/store';
 import { setTextMethods } from '../../../utils/reducers/productsListReducer';
 
 function ByInputFilter(): React.JSX.Element {
-  const [inputText, setInputText] = useState('');
   const text = useSelector((state: RootState) => state.products.text);
+  const [inputText, setInputText] = useState(text);
 
   const dispatch = useDispatch();
 

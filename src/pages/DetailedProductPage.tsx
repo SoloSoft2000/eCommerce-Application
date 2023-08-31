@@ -4,6 +4,8 @@ import DetailedProductCard from '../сomponents/product/DetailedProductCard';
 import returnProductById from '../utils/sdk/getDetailedProduct';
 import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
 import setProductWithId from '../utils/sdk/utils/handleDetailedProductData';
+import BreadcrumbCatalog from '../сomponents/catalog/Breadcrumb';
+
 
 function ProductPage(): React.JSX.Element {
   const { productId } = useParams();
@@ -26,22 +28,22 @@ function ProductPage(): React.JSX.Element {
       };
       fetchData();
     }
-  }, [productId]);
-
+  }, []);
   return (
     <main className="container mx-auto">
-    {prodData !== undefined && (
-      <DetailedProductCard
-        description={prodData.description}
-        title={prodData.title}
-        image={prodData.image}
-        images={productImages}
-        price={prodData.price}
-        discount={prodData.discount}
-        salePercent={prodData.salePercent}
-      />
-    )}
-  </main>
+      <BreadcrumbCatalog />
+      {prodData !== undefined && (
+        <DetailedProductCard
+          description={prodData.description}
+          title={prodData.title}
+          image={prodData.image}
+          images={productImages}
+          price={prodData.price}
+          discount={prodData.discount}
+          salePercent={prodData.salePercent}
+        />
+      )}
+    </main>
   );
 }
 

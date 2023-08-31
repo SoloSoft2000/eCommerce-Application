@@ -1,6 +1,6 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Header from './сomponents/Header';
 import Footer from './сomponents/Footer';
 import HomePage from './pages/HomePage';
@@ -14,8 +14,16 @@ import BasketPage from './pages/BasketPage';
 import AboutUsPage from './pages/AboutUsPage';
 import NoPage from './pages/NoPage';
 import Layout from './сomponents/Layout';
+import { clearAllFilters } from './utils/reducers/productsListReducer';
 
 function App(): React.JSX.Element {
+  const dispatch = useDispatch();
+  const currentPath = useLocation().pathname;
+  useEffect(() => {
+    if (!currentPath.split('/').includes('catalog'))
+      dispatch(clearAllFilters());
+  }, [currentPath]);
+
   return (
     <>
       <Layout>
@@ -30,12 +38,20 @@ function App(): React.JSX.Element {
           />
           <Route path="/catalog/:category?" element={<CatalogPage />} />
           <Route
-            path="/catalog/:category?/:category?"
+            path="/catalog/:category/:subcategory"
             element={<CatalogPage />}
           />
-          <Route path="/product" element={<NoPage />} />
-          <Route path="/product/:productId?" element={<ProductPage />} />
-          <Route path="/profile/*" element={<UserProfilePage />} />
+
+          <Route
+            path="/catalog/:category/product/:productId"
+            element={<ProductPage />}
+          />
+
+          <Route
+            path="/catalog/:category/:category/product/:productId"
+            element={<ProductPage />}
+          />
+          <Route path="/profile" element={<UserProfilePage />} />
           <Route path="/basket" element={<BasketPage />} />
           <Route path="/about" element={<AboutUsPage />} />
           <Route path="/*" element={<NoPage />} />

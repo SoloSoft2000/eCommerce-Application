@@ -13,7 +13,7 @@ function BreadcrumbCatalog(): React.ReactElement {
 
   const breadcrumbItems = currentPath
     .split('/')
-    .filter((crumb) => crumb !== '')
+    .filter((crumb) => crumb !== '' && !crumb.includes('-'))
     .map((crumb, index, array) => {
       const pathSegment = `/${array.slice(0, index + 1).join('/')}`;
       const isLastCrumb = index === array.length - 1;

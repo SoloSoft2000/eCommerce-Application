@@ -5,9 +5,11 @@ import Checkbox from './Checkbox';
 import { setBrands } from '../../../utils/reducers/productsListReducer';
 
 function BrandFilter(): React.JSX.Element {
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-  const dispatch = useDispatch();
   const brandsArray = useSelector((state: RootState) => state.products.brand);
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([
+    ...brandsArray,
+  ]);
+  const dispatch = useDispatch();
 
   const handleCheckboxChange = useCallback((name: string) => {
     setSelectedBrands((prevSelectedBrands: string[]) => {
