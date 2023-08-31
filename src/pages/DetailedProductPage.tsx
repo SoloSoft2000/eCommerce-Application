@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import DetailedProductCard from '../сomponents/catalog/DetailedProductCard';
 import returnProductById from '../utils/sdk/getDetailedProduct';
 import setProductEl from '../utils/sdk/utils/handleDetailedProductData';
@@ -8,6 +9,8 @@ import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
 function ProductPage(): React.JSX.Element {
   const { productId } = useParams();
   const [prodData, setProdData] = useState<ProductCardProps>();
+  const dispatch = useDispatch();
+  useEffect(() => {}, [productId]);
 
   useEffect(() => {
     if (productId) {
