@@ -8,7 +8,7 @@ import BreadcrumbCatalog from '../сomponents/catalog/Breadcrumb';
 
 function ProductPage(): React.JSX.Element {
   const { productId } = useParams();
-  console.log(productId);
+
   const [prodData, setProdData] = useState<ProductCardProps>();
   useEffect(() => {}, [productId]);
 
@@ -25,7 +25,7 @@ function ProductPage(): React.JSX.Element {
       };
       fetchData();
     }
-  }, [productId]);
+  }, []);
 
   return (
     <main className="container mx-auto">
