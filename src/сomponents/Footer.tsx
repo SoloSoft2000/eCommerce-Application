@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer(): React.JSX.Element {
   return (
-    <footer className="container mx-auto left-0 z-20 w-full p-4 bg-white border-y border-gray-200">
+    <footer className="container mx-auto left-0 z-7 w-full p-4 bg-white border-y border-gray-200">
       <div className="container flex justify-between">
         <div className="flex flex-col">
           <a
