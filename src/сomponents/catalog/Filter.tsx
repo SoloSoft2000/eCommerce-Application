@@ -8,11 +8,12 @@ import { setSortMethods } from '../../utils/reducers/productsListReducer';
 import BrandFilter from './filter/BrandFilter';
 
 function Filter(): React.JSX.Element {
-  const [sorting, setSorting] = useState({
-    sortByPrice: '',
-    sortByAbc: '',
-  });
   const sort = useSelector((state: RootState) => state.products.sort);
+
+  const [sorting, setSorting] = useState({
+    sortByPrice: sort.sortByPrice || '',
+    sortByAbc: sort.sortByAbc || '',
+  });
 
   const dispatch = useDispatch();
 
@@ -41,7 +42,6 @@ function Filter(): React.JSX.Element {
       <ByInputFilter />
       <BrandFilter />
       <StyleFilter />
-
       <label className="block font-bold">
         Sort by alphabet:
         <select
@@ -54,7 +54,6 @@ function Filter(): React.JSX.Element {
           <option value="name.en-Us desc">Sort: Z-A</option>
         </select>
       </label>
-
       <label className="block font-bold">
         Sort by Price
         <select
@@ -67,7 +66,6 @@ function Filter(): React.JSX.Element {
           <option value="price desc">Price: Hight to Low</option>
         </select>
       </label>
-
       <PriceFilter />
     </div>
   );

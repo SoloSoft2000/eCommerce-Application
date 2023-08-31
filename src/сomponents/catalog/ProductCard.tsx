@@ -53,7 +53,7 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
               textToHighlight={props.title}
             />
           </h4>
-          <p>
+          <p className="overflow-hidden max-h-[3rem]">
             <Highlighter
               highlightClassName="bg-yellow-200"
               searchWords={textForHighLight.split(' ')}
