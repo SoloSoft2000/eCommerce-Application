@@ -64,7 +64,7 @@ function UserAdresses(): React.JSX.Element {
         showNotification(`Default ${typeDefault} address updated`);
       })
       .catch(() => showNotification('Error'));
-  }, [])
+  }, [user])
 
   const addressList = useMemo(
     () =>
@@ -97,7 +97,7 @@ function UserAdresses(): React.JSX.Element {
                     type="radio"
                     className="ml-2 mr-2 accent-black"
                     checked={address.id === user.defaultBillingAddressId}
-                    onChange = {(): void => changeDefault('Shipping', address.id as string)}
+                    onChange = {(): void => changeDefault('Billing', address.id as string)}
                   />
                   Set as Default Billing
                 </div>
