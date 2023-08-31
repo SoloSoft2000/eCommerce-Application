@@ -1,5 +1,6 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Header from './сomponents/Header';
 import Footer from './сomponents/Footer';
 import HomePage from './pages/HomePage';
@@ -13,8 +14,16 @@ import BasketPage from './pages/BasketPage';
 import AboutUsPage from './pages/AboutUsPage';
 import NoPage from './pages/NoPage';
 import Layout from './сomponents/Layout';
+import { clearAllFilters } from './utils/reducers/productsListReducer';
 
 function App(): React.JSX.Element {
+  const dispatch = useDispatch();
+  const currentPath = useLocation().pathname;
+  useEffect(() => {
+    if (!currentPath.split('/').includes('catalog'))
+      dispatch(clearAllFilters());
+  }, [currentPath]);
+
   return (
     <>
       <Layout>
