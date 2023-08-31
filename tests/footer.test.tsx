@@ -25,7 +25,7 @@ describe('Footer', () => {
     expect(logoImg).toBeInTheDocument();
 
     const expectedClasses =
-      'container mx-auto left-0 z-20 w-full p-4 bg-white border-y border-gray-200';
+      'container mx-auto left-0 z-7 w-full p-4 bg-white border-y border-gray-200';
     expect(footerEl).toHaveClass(expectedClasses);
   });
 });

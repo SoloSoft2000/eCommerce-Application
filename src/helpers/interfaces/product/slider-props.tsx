@@ -1,13 +1,9 @@
-export type ImgSliderProps = {
+export interface SwiperComponentProps {
   images: string[];
+}
+
+export type ImgModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  image?: string;
 };
-
-export interface SliderArrowProps {
-  direction: 'left' | 'right'; 
-  onClick: () => void;
-}
-
-export interface SliderDotProps {
-  isActive: boolean;
-  onClick: () => void;
-}
