@@ -6,6 +6,7 @@ import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
 import setProductWithId from '../utils/sdk/utils/handleDetailedProductData';
 import BreadcrumbCatalog from '../сomponents/catalog/Breadcrumb';
 
+
 function ProductPage(): React.JSX.Element {
   const { productId } = useParams();
   const [prodData, setProdData] = useState<ProductCardProps | undefined>();
@@ -28,7 +29,6 @@ function ProductPage(): React.JSX.Element {
       fetchData();
     }
   }, []);
-
   return (
     <main className="container mx-auto">
       <BreadcrumbCatalog />
