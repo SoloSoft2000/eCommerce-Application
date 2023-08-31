@@ -116,8 +116,7 @@ function CatalogPage(): React.JSX.Element {
           {sortByAbc === 'name.en-Us desc' &&
             appliedFilterGenerator('Name: Z-A', 'sortByAbc')}
 
-          {(minPrice || maxPrice) &&
-            maxPrice !== 0 &&
+          {(minPrice || maxPrice > 0) &&
             appliedFilterGenerator(
               `Price from ${minPrice || 0} to ${maxPrice || '*'}`,
               'sortByPriceRange'
