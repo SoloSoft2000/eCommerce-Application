@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 type DataProducts = {
-  category: '';
+  category: string;
   sort: {
     sortByAbc: string;
     sortByPrice: string;
@@ -26,38 +26,29 @@ const initialState: DataProducts = {
   crumb: null,
 };
 
+type ActionType<T> = {
+  payload: T;
+  type: string;
+};
+
+const createSetReducer =
+  <T>(property: keyof DataProducts) =>
+  (state: DataProducts, action: ActionType<T>): DataProducts => ({
+    ...state,
+    [property]: action.payload,
+  });
+
 const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    setCategory: (state, action) => ({
-      ...state,
-      category: action.payload,
-    }),
-    setSortMethods: (state, action) => ({
-      ...state,
-      sort: action.payload,
-    }),
-    setPriceRange: (state, action) => ({
-      ...state,
-      price: action.payload,
-    }),
-    setTextMethods: (state, action) => ({
-      ...state,
-      text: action.payload,
-    }),
-    setBrands: (state, action) => ({
-      ...state,
-      brand: action.payload,
-    }),
-    setStyles: (state, action) => ({
-      ...state,
-      style: action.payload,
-    }),
-    setBreadcrumb: (state, action) => ({
-      ...state,
-      crumb: action.payload,
-    }),
+    setCategory: createSetReducer('category'),
+    setSortMethods: createSetReducer('sort'),
+    setPriceRange: createSetReducer('price'),
+    setTextMethods: createSetReducer('text'),
+    setBrands: createSetReducer('brand'),
+    setStyles: createSetReducer('style'),
+    setBreadcrumb: createSetReducer('crumb'),
     clearSelectedBreadcrumb: (state) => ({
       ...state,
       crumb: null,

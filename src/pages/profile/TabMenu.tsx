@@ -1,18 +1,19 @@
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import FormStyles from '../../assets/styles/form.module.scss';
 
-type TabMenuProps = {
-  setActiveTab: (tab: string) => void;
-  activeTab: string;
-};
+function TabMenu(): React.JSX.Element {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentPath = location.pathname;
 
-function TabMenu({ setActiveTab, activeTab }: TabMenuProps): React.JSX.Element {
   return (
     <div className={FormStyles.switch_page_links_wrapper}>
       <button
-        onClick={(): void => setActiveTab('info')}
+        onClick={(): void => navigate('')}
         className={
-          activeTab === 'info'
+          !currentPath.includes('adresses') &&
+          !currentPath.includes('passwords')
             ? FormStyles.disable_link
             : FormStyles.active_link
         }
@@ -20,9 +21,9 @@ function TabMenu({ setActiveTab, activeTab }: TabMenuProps): React.JSX.Element {
         Personal Info
       </button>
       <button
-        onClick={(): void => setActiveTab('adresses')}
+        onClick={(): void => navigate('adresses')}
         className={
-          activeTab === 'adresses'
+          currentPath.includes('adresses')
             ? FormStyles.disable_link
             : FormStyles.active_link
         }
@@ -30,9 +31,9 @@ function TabMenu({ setActiveTab, activeTab }: TabMenuProps): React.JSX.Element {
         Adresses
       </button>
       <button
-        onClick={(): void => setActiveTab('passwords')}
+        onClick={(): void => navigate('passwords')}
         className={
-          activeTab === 'passwords'
+          currentPath.includes('passwords')
             ? FormStyles.disable_link
             : FormStyles.active_link
         }

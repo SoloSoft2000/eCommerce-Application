@@ -23,6 +23,8 @@ function ProductList({ data }: ProductListProps): React.JSX.Element {
                 price={item.price}
                 discount={item.discount}
                 salePercent={item.salePercent}
+                productBrand={item.productBrand}
+                productStyle={item.productStyle}
               />
             </Link>
           )

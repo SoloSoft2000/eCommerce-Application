@@ -53,7 +53,12 @@ function UserInfo(): React.JSX.Element {
         <form className={FormStyles.form} onSubmit={onSubmit}>
           <div>
             <label className={UserInfoStyles.label} htmlFor="email">
-              E-Mail:{isEditing ? <MdEdit className='h-5 w-5 animate-bounce '/> : <MdEditOff className='h-5 w-5'/>}
+              E-Mail:
+              {isEditing ? (
+                <MdEdit className="h-5 w-5 animate-bounce " />
+              ) : (
+                <MdEditOff className="h-5 w-5" />
+              )}
             </label>
             <Input
               type="text"
@@ -63,7 +68,12 @@ function UserInfo(): React.JSX.Element {
               readonly={String(!isEditing)}
             />
             <label className={UserInfoStyles.label} htmlFor="firstName">
-              First Name:{isEditing ? <MdEdit className='h-5 w-5 animate-bounce '/> : <MdEditOff className='h-5 w-5'/>}
+              First Name:
+              {isEditing ? (
+                <MdEdit className="h-5 w-5 animate-bounce " />
+              ) : (
+                <MdEditOff className="h-5 w-5" />
+              )}
             </label>
             <Input
               type="text"
@@ -73,7 +83,12 @@ function UserInfo(): React.JSX.Element {
               readonly={String(!isEditing)}
             />
             <label className={UserInfoStyles.label} htmlFor="lastName">
-              Last Name:{isEditing ? <MdEdit className='h-5 w-5 animate-bounce '/> : <MdEditOff className='h-5 w-5'/>}
+              Last Name:
+              {isEditing ? (
+                <MdEdit className="h-5 w-5 animate-bounce " />
+              ) : (
+                <MdEditOff className="h-5 w-5" />
+              )}
             </label>
             <Input
               type="text"
@@ -83,7 +98,12 @@ function UserInfo(): React.JSX.Element {
               readonly={String(!isEditing)}
             />
             <label className={UserInfoStyles.label} htmlFor="birthday">
-              BirthDay:{isEditing ? <MdEdit className='h-5 w-5 animate-bounce '/> : <MdEditOff className='h-5 w-5'/>}
+              BirthDay:
+              {isEditing ? (
+                <MdEdit className="h-5 w-5 animate-bounce " />
+              ) : (
+                <MdEditOff className="h-5 w-5" />
+              )}
             </label>
             <BirtdayDate readonly={!isEditing} />
           </div>
