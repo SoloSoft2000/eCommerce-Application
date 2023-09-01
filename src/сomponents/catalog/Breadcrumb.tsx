@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
   setBreadcrumb,
   clearSelectedBreadcrumb,
 } from '../../utils/reducers/productsListReducer';
+import { BreadcrumbProps } from '../../helpers/interfaces/catalog/breadcrumb-props';
 
-function BreadcrumbCatalog(): React.ReactElement {
+function BreadcrumbCatalog({ title }: BreadcrumbProps): React.ReactElement {
   const currentPath = useLocation().pathname;
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (title) {
+      dispatch(setBreadcrumb(title));
+    }
+  }, [title, dispatch]);
 
   const breadcrumbItems = currentPath
     .split('/')
@@ -28,6 +35,16 @@ function BreadcrumbCatalog(): React.ReactElement {
           dispatch(setBreadcrumb(crumbCapitalize));
         }
       };
+
+      if (title && isLastCrumb) {
+        return (
+          <div key="title" className="flex items-center">
+            <span className="text-orange-500 cursor-default">
+              {title}
+            </span>
+          </div>
+        );
+      }
 
       return (
         <div key={crumb} className="flex items-center">

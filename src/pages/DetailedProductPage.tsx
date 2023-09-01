@@ -31,7 +31,7 @@ function ProductPage(): React.JSX.Element {
   }, []);
   return (
     <main className="container mx-auto">
-      <BreadcrumbCatalog />
+      <BreadcrumbCatalog title={prodData?.title} />
       {prodData !== undefined && (
         <DetailedProductCard
           description={prodData.description}
