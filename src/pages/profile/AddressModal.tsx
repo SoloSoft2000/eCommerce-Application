@@ -2,7 +2,11 @@ import React, { useContext, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { CustomerAddAddressAction } from '@commercetools/platform-sdk';
+import {
+  CustomerAddAddressAction,
+  CustomerChangeAddressAction,
+  CustomerUpdateAction,
+} from '@commercetools/platform-sdk';
 import AddressComp from '../../сomponents/forms/Adress';
 import UserInfoStyles from '../../assets/styles/userinfo.module.scss';
 import FormStyles from '../../assets/styles/form.module.scss';
@@ -61,29 +65,83 @@ function AddressModal({
   const showNotification = useContext(NotificationContext);
 
   const onSubmit = methods.handleSubmit((data) => {
-    if (address) {
-      const action: CustomerAddAddressAction = {
-        action: 'addAddress',
-        address: {
-          country: data.Country,
-          city: data.City,
-          postalCode: data.Postcode,
-          streetName: data.Street,
-        },
-      };
-      updateUser(customer, action).then((newUser) => {
-        dispatch(setCustomer(newUser));
-      });
+    const keyAddress = (+new Date()).toString(16);
+    const action: CustomerAddAddressAction | CustomerChangeAddressAction =
+      address?.Id === ''
+        ? {
+            action: 'addAddress',
+            address: {
+              key: keyAddress,
+              country: data.Country,
+              city: data.City,
+              postalCode: data.Postcode,
+              streetName: data.Street,
+            },
+          }
+        : {
+            action: 'changeAddress',
+            address: {
+              key: keyAddress,
+              country: data.Country,
+              city: data.City,
+              postalCode: data.Postcode,
+              streetName: data.Street,
+            },
+            addressId: address?.Id,
+          };
+
+    const actions: CustomerUpdateAction[] = [action];
+    if (address?.Id === '') {
+      if (data.billing) {
+        actions.push({
+          action: 'addBillingAddressId',
+          addressKey: keyAddress,
+        });
+      }
+      if (data.shipping) {
+        actions.push({
+          action: 'addShippingAddressId',
+          addressKey: keyAddress,
+        });
+      }
+      if (data.defaultBilling) {
+        actions.push({
+          action: 'setDefaultBillingAddress',
+          addressKey: keyAddress,
+        });
+      }
+      if (data.defaultShipping) {
+        actions.push({
+          action: 'setDefaultShippingAddress',
+          addressKey: keyAddress,
+        });
+      }
+    } else {
+      if (data.billing !== address?.billing) {
+        actions.push({
+          action: data.billing
+            ? 'addBillingAddressId'
+            : 'removeBillingAddressId',
+          addressId: address?.Id as string,
+        });
+      }
+      if (data.shipping !== address?.shipping) {
+        actions.push({
+          action: data.shipping
+            ? 'addShippingAddressId'
+            : 'removeShippingAddressId',
+          addressId: address?.Id as string,
+        });
+      }
     }
-    console.log(address ? 'new' : 'edit');
 
-    showNotification('edit');
+    updateUser(customer, actions)
+      .then((newUser) => {
+        dispatch(setCustomer(newUser));
+        showNotification('Addresses updated');
+      })
+      .catch((err) => showNotification(err));
 
-    console.log(
-      'save to server',
-      address?.Id === '' ? 'new' : address?.Id,
-      data
-    );
     onClose();
   });
 
@@ -117,19 +175,21 @@ function AddressModal({
                       />
                       Billing address
                     </div>
-                  { address?.Id ? null :  <div className="flex items-center text-xs text-gray-500">
-                      <input
-                        type="checkbox"
-                        className="ml-2 mr-2 accent-black"
-                        {...methods.register('defaultBilling')}
-                        onChange={(e): void => {
-                          if (e.target.checked) {
-                            methods.setValue('billing', true);
-                          }
-                        }}
-                      />
-                      Default Billing
-                    </div> }
+                    {address?.Id ? null : (
+                      <div className="flex items-center text-xs text-gray-500">
+                        <input
+                          type="checkbox"
+                          className="ml-2 mr-2 accent-black"
+                          {...methods.register('defaultBilling')}
+                          onChange={(e): void => {
+                            if (e.target.checked) {
+                              methods.setValue('billing', true);
+                            }
+                          }}
+                        />
+                        Default Billing
+                      </div>
+                    )}
                   </div>
                   <div className="text-right">
                     <div className="flex justify-end items-center text-xs text-gray-500">
@@ -145,19 +205,21 @@ function AddressModal({
                         }}
                       />
                     </div>
-                    { address?.Id ? null : <div className="flex justify-end items-center text-xs text-gray-500">
-                      Default Shipping
-                      <input
-                        type="checkbox"
-                        className="ml-2 mr-2 accent-black"
-                        {...methods.register('defaultShipping')}
-                        onChange={(e): void => {
-                          if (e.target.checked) {
-                            methods.setValue('shipping', true);
-                          }
-                        }}
-                      />
-                    </div> }
+                    {address?.Id ? null : (
+                      <div className="flex justify-end items-center text-xs text-gray-500">
+                        Default Shipping
+                        <input
+                          type="checkbox"
+                          className="ml-2 mr-2 accent-black"
+                          {...methods.register('defaultShipping')}
+                          onChange={(e): void => {
+                            if (e.target.checked) {
+                              methods.setValue('shipping', true);
+                            }
+                          }}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
 

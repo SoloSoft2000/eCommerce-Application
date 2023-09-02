@@ -5,7 +5,9 @@ import { RootState } from '../../utils/reducers/store';
 import UserInfoStyles from '../../assets/styles/userinfo.module.scss';
 import FormStyles from '../../assets/styles/form.module.scss';
 import AddressModal, { AddressEdit } from './AddressModal';
-import updateDefaultAddressStatus from '../../utils/sdk/updateAddressType';
+import updateAddressStatus, {
+  AddressActionType,
+} from '../../utils/sdk/updateAddressStatus';
 import NotificationContext from '../../utils/notification/NotificationContext';
 import { setCustomer } from '../../utils/reducers/customerReducer';
 
@@ -28,7 +30,7 @@ function UserAdresses(): React.JSX.Element {
 
   const dispatch = useDispatch();
   const showNotification = useContext(NotificationContext);
-    
+
   const openModal = useCallback((address: Address | null): void => {
     if (address) {
       setAddress({
@@ -57,14 +59,17 @@ function UserAdresses(): React.JSX.Element {
     setModalOpen(false);
   }, []);
 
-  const changeDefault = useCallback((typeDefault: string, dataId: string): void => {
-    updateDefaultAddressStatus(user, typeDefault, dataId)
-      .then((newUser) => {
-        dispatch(setCustomer(newUser));
-        showNotification(`Default ${typeDefault} address updated`);
-      })
-      .catch(() => showNotification('Error'));
-  }, [user])
+  const changeDefault = useCallback(
+    (typeDefault: AddressActionType, dataId: string): void => {
+      updateAddressStatus(user, typeDefault, dataId)
+        .then((newUser) => {
+          dispatch(setCustomer(newUser));
+          showNotification(`Default ${typeDefault} address updated`);
+        })
+        .catch(() => showNotification('Error'));
+    },
+    [user]
+  );
 
   const addressList = useMemo(
     () =>
@@ -97,7 +102,12 @@ function UserAdresses(): React.JSX.Element {
                     type="radio"
                     className="ml-2 mr-2 accent-black"
                     checked={address.id === user.defaultBillingAddressId}
-                    onChange = {(): void => changeDefault('Billing', address.id as string)}
+                    onChange={(): void =>
+                      changeDefault(
+                        'setDefaultBillingAddress',
+                        address.id as string
+                      )
+                    }
                   />
                   Set as Default Billing
                 </div>
@@ -120,7 +130,12 @@ function UserAdresses(): React.JSX.Element {
                     type="radio"
                     className="ml-2 mr-2 accent-black"
                     checked={address.id === user.defaultShippingAddressId}
-                    onChange = {(): void => changeDefault('Shipping', address.id as string)}
+                    onChange={(): void =>
+                      changeDefault(
+                        'setDefaultShippingAddress',
+                        address.id as string
+                      )
+                    }
                   />
                 </div>
               </div>

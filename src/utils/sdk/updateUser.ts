@@ -9,7 +9,7 @@ import createApiRoot from './createApiRoot';
 
 async function updateUser(
   customer: Customer,
-  action: CustomerUpdateAction
+  actions: CustomerUpdateAction[]
 ): Promise<Customer> {
   const apiRoot = createApiRoot();
 
@@ -20,7 +20,7 @@ async function updateUser(
       .post({
         body: {
           version: customer.version,
-          actions: [action],
+          actions,
         },
       })
       .execute();
