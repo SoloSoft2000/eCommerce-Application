@@ -51,7 +51,7 @@ function App(): React.JSX.Element {
             path="/catalog/:category/:category/product/:productId"
             element={<ProductPage />}
           />
-          <Route path="/profile" element={<UserProfilePage />} />
+          <Route path="/profile/*" element={<UserProfilePage />} />
           <Route path="/basket" element={<BasketPage />} />
           <Route path="/about" element={<AboutUsPage />} />
           <Route path="/*" element={<NoPage />} />
