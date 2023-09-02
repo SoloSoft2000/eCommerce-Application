@@ -7,6 +7,7 @@ import './assets/favicon.ico';
 import App from './App';
 import store from './utils/reducers/store';
 import { setCustomer } from './utils/reducers/customerReducer';
+import NotificationProvider from './utils/notification/NotificationProvider';
 
 const root = document.getElementById('root');
 
@@ -23,7 +24,9 @@ if (savedCustomer) {
 createRoot(root).render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <NotificationProvider>
+        <App />
+      </NotificationProvider>
     </BrowserRouter>
   </Provider>
 );

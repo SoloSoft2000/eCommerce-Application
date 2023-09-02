@@ -1,10 +1,15 @@
 import { Address, Customer } from '@commercetools/platform-sdk';
-import React, { useState, useCallback, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useCallback, useMemo, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../utils/reducers/store';
 import UserInfoStyles from '../../assets/styles/userinfo.module.scss';
 import FormStyles from '../../assets/styles/form.module.scss';
 import AddressModal, { AddressEdit } from './AddressModal';
+import updateAddressStatus, {
+  AddressActionType,
+} from '../../utils/sdk/updateAddressStatus';
+import NotificationContext from '../../utils/notification/NotificationContext';
+import { setCustomer } from '../../utils/reducers/customerReducer';
 
 const initialAddress: AddressEdit = {
   Country: 'US',
@@ -22,6 +27,9 @@ function UserAdresses(): React.JSX.Element {
   const user: Customer = useSelector((state: RootState) => state.customer);
   const [modalOpen, setModalOpen] = useState(false);
   const [addressToEdit, setAddress] = useState(initialAddress);
+
+  const dispatch = useDispatch();
+  const showNotification = useContext(NotificationContext);
 
   const openModal = useCallback((address: Address | null): void => {
     if (address) {
@@ -51,6 +59,18 @@ function UserAdresses(): React.JSX.Element {
     setModalOpen(false);
   }, []);
 
+  const changeDefault = useCallback(
+    (typeDefault: AddressActionType, dataId: string): void => {
+      updateAddressStatus(user, typeDefault, dataId)
+        .then((newUser) => {
+          dispatch(setCustomer(newUser));
+          showNotification(`Default ${typeDefault} address updated`);
+        })
+        .catch(() => showNotification('Error'));
+    },
+    [user]
+  );
+
   const addressList = useMemo(
     () =>
       user.addresses.map((address) => (
@@ -79,12 +99,17 @@ function UserAdresses(): React.JSX.Element {
                 </div>
                 <div className="flex items-center text-xs text-gray-500">
                   <input
-                    type="checkbox"
+                    type="radio"
                     className="ml-2 mr-2 accent-black"
                     checked={address.id === user.defaultBillingAddressId}
-                    readOnly
+                    onChange={(): void =>
+                      changeDefault(
+                        'setDefaultBillingAddress',
+                        address.id as string
+                      )
+                    }
                   />
-                  Default Billing
+                  Set as Default Billing
                 </div>
               </div>
               <div className="text-right">
@@ -100,12 +125,17 @@ function UserAdresses(): React.JSX.Element {
                   />
                 </div>
                 <div className="flex justify-end items-center text-xs text-gray-500">
-                  Default Shipping
+                  Set as Default Shipping
                   <input
-                    type="checkbox"
+                    type="radio"
                     className="ml-2 mr-2 accent-black"
                     checked={address.id === user.defaultShippingAddressId}
-                    readOnly
+                    onChange={(): void =>
+                      changeDefault(
+                        'setDefaultShippingAddress',
+                        address.id as string
+                      )
+                    }
                   />
                 </div>
               </div>
@@ -122,7 +152,7 @@ function UserAdresses(): React.JSX.Element {
           </div>
         </li>
       )),
-    [user.addresses, openModal]
+    [user, openModal]
   );
 
   return (

@@ -1,0 +1,16 @@
+.portal {
+  @apply fixed w-24 h-10 top-4 right-4 rounded-xl bg-black/50 text-white p-4;
+  animation: slideRightToLeft 5s forwards;
+}
+
+@keyframes slideRightToLeft {
+  0% {
+    transform: translateX(100%);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
