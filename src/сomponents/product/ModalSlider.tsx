@@ -4,11 +4,18 @@ import 'swiper/css';
 import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs';
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from 'react-icons/bs';
 import { GrClose } from 'react-icons/gr';
 import { ModalSliderProps } from '../../helpers/interfaces/product/slider-props';
 
-function ModalSlider({ images, selectedIndex, onClose }: ModalSliderProps): React.ReactElement {
+function ModalSlider({
+  images,
+  selectedIndex,
+  onClose,
+}: ModalSliderProps): React.ReactElement {
   const [isNextArrowClicked, setNextArrowClicked] = useState(false);
   const [isPrevArrowClicked, setPrevArrowClicked] = useState(false);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(selectedIndex);
@@ -37,8 +44,11 @@ function ModalSlider({ images, selectedIndex, onClose }: ModalSliderProps): Reac
     }
   };
 
-return (
-  <div className="fixed top-0 left-0 flex justify-center items-center w-full h-full bg-black bg-opacity-70 z-20" onClick={clickOutsideModal}>
+  return (
+    <div
+      className="fixed top-0 left-0 flex justify-center items-center w-full h-full bg-black bg-opacity-70 z-20"
+      onClick={clickOutsideModal}
+    >
       <div className="bg-white p-4 shadow-md w-1/3">
         <Swiper
           initialSlide={currentSlideIndex !== null ? currentSlideIndex : 0}
@@ -57,32 +67,30 @@ return (
             </SwiperSlide>
           ))}
           <div
-          className={`swiper-button image-swiper-button-next absolute top-1/2 transform -translate-y-1/2 right-3 z-10 h-8 w-8 select-none ${
-            isNextArrowClicked ? 'scale-125' : ''
-          }`}
-          onClick={nextArrowClick}
-        >
-          <BsFillArrowRightCircleFill className="w-7 h-7" />
-        </div>
-        <div
-          className={`swiper-button image-swiper-button-prev absolute top-1/2 transform -translate-y-1/2 left-3 z-10 h-8 w-8 select-none ${
-            isPrevArrowClicked ? 'scale-125' : ''
-          }`}
-          onClick={prevArrowClick}
-        >
-          <BsFillArrowLeftCircleFill className="w-7 h-7" />
-        </div>
-        <button
+            className={`swiper-button image-swiper-button-next absolute top-1/2 transform -translate-y-1/2 right-3 z-10 h-8 w-8 select-none ${
+              isNextArrowClicked ? 'scale-125' : ''
+            }`}
+            onClick={nextArrowClick}
+          >
+            <BsFillArrowRightCircleFill className="w-7 h-7" />
+          </div>
+          <div
+            className={`swiper-button image-swiper-button-prev absolute top-1/2 transform -translate-y-1/2 left-3 z-10 h-8 w-8 select-none ${
+              isPrevArrowClicked ? 'scale-125' : ''
+            }`}
+            onClick={prevArrowClick}
+          >
+            <BsFillArrowLeftCircleFill className="w-7 h-7" />
+          </div>
+          <button
             className="absolute top-1 right-1 cursor-pointer z-10"
             onClick={onClose}
           >
-            <GrClose className='m-1 p-1 bg-gray-100 hover:bg-white rounded-none w-7 h-7' />
+            <GrClose className="m-1 p-1 bg-gray-100 hover:bg-white rounded-none w-7 h-7" />
           </button>
         </Swiper>
-        
       </div>
     </div>
-    
   );
 }
 

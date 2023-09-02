@@ -4,15 +4,20 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Pagination, Navigation } from 'swiper/modules';
-import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs';
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from 'react-icons/bs';
 import { SwiperComponentProps } from '../../helpers/interfaces/product/slider-props';
-import ModalSlider from './ModalSlider'; 
+import ModalSlider from './ModalSlider';
 
 function SwiperComponent({ images }: SwiperComponentProps): React.ReactElement {
   const [isNextArrowClicked, setNextArrowClicked] = useState(false);
   const [isPrevArrowClicked, setPrevArrowClicked] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
+    null
+  );
 
   const openModal = (index: number): void => {
     setSelectedImageIndex(index);
@@ -38,23 +43,22 @@ function SwiperComponent({ images }: SwiperComponentProps): React.ReactElement {
     }, 200);
   }, []);
 
-
-return (
-  <>
-  <Swiper
-    pagination={{
-      type: 'fraction',
-      }}
-    navigation={{
-    nextEl: '.image-swiper-button-next',
-    prevEl: '.image-swiper-button-prev',
-      }}
-    modules={[Pagination, Navigation]}
-    className="mySwiper relative w-1/3"
-    loop={true}
-    >
-      {images.map((image, index) => (
-        <SwiperSlide key={index}>
+  return (
+    <>
+      <Swiper
+        pagination={{
+          type: 'fraction',
+        }}
+        navigation={{
+          nextEl: '.image-swiper-button-next',
+          prevEl: '.image-swiper-button-prev',
+        }}
+        modules={[Pagination, Navigation]}
+        className="mySwiper relative w-1/3"
+        loop={true}
+      >
+        {images.map((image, index) => (
+          <SwiperSlide key={index}>
             <img
               src={image}
               alt={`Slide ${index + 1}`}

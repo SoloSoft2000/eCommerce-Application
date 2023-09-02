@@ -6,13 +6,11 @@ export type ImgModalProps = {
   isOpen: boolean;
   onClose: () => void;
   image?: string;
-  children?: React.ReactNode;  
+  children?: React.ReactNode;
 };
-
 
 export interface ModalSliderProps {
   images: string[];
   selectedIndex: number;
   onClose: () => void;
-
 }
