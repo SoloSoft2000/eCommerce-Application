@@ -54,7 +54,7 @@ function SwiperComponent({ images }: SwiperComponentProps): React.ReactElement {
           prevEl: '.image-swiper-button-prev',
         }}
         modules={[Pagination, Navigation]}
-        className="mySwiper relative h-full w-1/4 max-sm:w-3/5 hover:drop-shadow-lg"
+        className="mySwiper relative h-full w-1/4 max-sm:w-3/5 border rounded hover:drop-shadow-lg"
         loop={true}
       >
         {images.map((image, index) => (
