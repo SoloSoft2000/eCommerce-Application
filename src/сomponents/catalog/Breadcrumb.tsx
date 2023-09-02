@@ -39,7 +39,7 @@ function BreadcrumbCatalog({ title }: BreadcrumbProps): React.ReactElement {
       if (title && isLastCrumb) {
         return (
           <div key="title" className="flex items-center">
-            <span className="text-orange-500 cursor-default">{title}</span>
+            <span className="text-orange-500 cursor-default max-md:text-sm">{title}</span>
           </div>
         );
       }

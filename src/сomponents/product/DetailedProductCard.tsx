@@ -11,46 +11,44 @@ function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
   const currencyPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    // currencyDisplay: 'narrowSymbol',
   }).format(price);
 
   const currencyDiscount = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    // currencyDisplay: 'narrowSymbol',
   }).format(discount);
 
   return (
-    <div className="flex mt-28 justify-center h-full">
+    <div className="max-md:flex-col max-md:mt-8 flex mt-28 justify-center h-full">
       {images.length > 0 && <SwiperComponent images={images} />}
-      <div className="ml-8 w-1/2">
-        <h3 className="text-2xl font-bold mb-8">{props.title}</h3>
-        <p className="text-xl mb-8">{props.description}</p>
-        <div className='flex mb-8'>
-          <div className='flex justify-center'>
-            <span className='text-slate-500	font-normal	pr-1'>Brand:</span>
-            <h3 className="font-bold px-1 mr-3">{props.productBrand}</h3>
+      <div className="w-1/2 max-md:mt-5 max-md:mx-auto">
+        <h3 className="max-lg:text-sm text-2xl font-bold mb-8 max-md:mb-5">{props.title}</h3>
+        <p className="max-lg:text-sm text-xl mb-8 max-md:mb-5">{props.description}</p>
+        <div className='flex mb-8 max-md:mb-5 max-md:flex-col'>
+          <div className='flex max-md:flex-col justify-center'>
+            <span className='max-lg:text-sm text-slate-500 font-normal pr-1'>Brand:</span>
+            <h3 className="max-lg:text-sm font-bold px-1 mr-3 max-md:mr-0 max-md:mb-2 max-md:px-0">{props.productBrand}</h3>
           </div>
-          <div className='flex justify-center'>
-            <span className='text-slate-500	font-normal	pr-1'>Style:</span>
-            <p className="font-bold px-1">{props.productStyle}</p>
+          <div className='flex max-md:flex-col justify-center'>
+            <span className='max-lg:text-sm text-slate-500 font-normal pr-1'>Style:</span>
+            <p className="max-lg:text-sm font-bold px-1 max-md:px-0">{props.productStyle}</p>
           </div >
         </div>
-        <div className="flex mb-11">
+        <div className="flex mb-11 max-md:mb-5">
           <div
-            className={`text-2xl ${
+            className={`max-lg:text-sm text-2xl ${
               props.discount ? 'line-through text-amber-600' : 'text-amber-600'
             }`}
           >
            {currencyPrice}
           </div>
           {props.discount ? (
-            <div className="text-2xl text-red-600 ml-2">{currencyDiscount}</div>
+            <div className="max-lg:text-sm text-2xl text-red-600 ml-2">{currencyDiscount}</div>
           ) : (
-            <div className="text-2xl text-red-600 ml-2">&nbsp;</div>
+            <div className="max-lg:text-sm text-2xl text-red-600 ml-2">&nbsp;</div>
           )}
         </div>
-        <button className="w-1/2 mb-11 text-center rounded bg-black p-3 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer">
+        <button className="max-md:block w-1/2 max-md:w-9/12 max-md:text-xs max-md:mx-auto mb-11 text-center rounded bg-black p-3 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer">
           Add to Cart
         </button>
       </div>

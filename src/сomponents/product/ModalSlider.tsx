@@ -49,7 +49,7 @@ function ModalSlider({
       className="fixed top-0 left-0 flex justify-center items-center w-full h-full bg-black bg-opacity-70 z-20"
       onClick={clickOutsideModal}
     >
-      <div className="bg-white p-4 shadow-md w-1/3">
+      <div className="bg-white p-4 shadow-md md:max-xl:w-1/2 max-md:w-9/12 w-1/3">
         <Swiper
           initialSlide={currentSlideIndex !== null ? currentSlideIndex : 0}
           navigation={{
