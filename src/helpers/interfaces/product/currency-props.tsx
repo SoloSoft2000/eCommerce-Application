@@ -1,5 +1,5 @@
 export interface CurrencyProps {
-    value: number;
-    currencyCode?: string;
-    className?: string;
+  value: number;
+  currencyCode?: string;
+  className?: string;
 }
