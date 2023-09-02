@@ -1,23 +1,14 @@
 import React from 'react';
 import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
 import SwiperComponent from './SwiperSlider';
+import CurrencyFormatter from '../../helpers/functions/currency-formatter';
 
 function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
-  const images = props.images || [];
+  const images: string[] = props.images || [];
 
-  const price = typeof props.price === 'number' ? props.price : parseFloat(props.price);
-  const discount = typeof props.discount === 'number' ? props.discount : parseFloat(props.discount || '');
+  const price: number = typeof props.price === 'number' ? props.price : parseFloat(props.price);
+  const discount: number = typeof props.discount === 'number' ? props.discount : parseFloat(props.discount || '');
   
-  const currencyPrice = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(price);
-
-  const currencyDiscount = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(discount);
-
   return (
     <div className="max-md:flex-col max-md:mt-8 flex mt-28 justify-center h-full">
       {images.length > 0 && <SwiperComponent images={images} />}
@@ -40,10 +31,12 @@ function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
               props.discount ? 'line-through text-amber-600' : 'text-amber-600'
             }`}
           >
-           {currencyPrice}
+           <CurrencyFormatter value={price} />
           </div>
           {props.discount ? (
-            <div className="max-lg:text-sm text-2xl text-red-600 ml-2">{currencyDiscount}</div>
+            <div className="max-lg:text-sm text-2xl text-red-600 ml-2">
+              <CurrencyFormatter value={discount} />
+            </div>
           ) : (
             <div className="max-lg:text-sm text-2xl text-red-600 ml-2">&nbsp;</div>
           )}
