@@ -9,7 +9,9 @@ function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
     <div className="flex mt-28 justify-center h-full">
       {images.length > 0 && <SwiperComponent images={images} />}
       <div className="ml-8 w-1/2">
+        <h3 className="text-2xl font-bold mb-11">{props.productBrand}</h3>
         <h3 className="text-2xl font-bold mb-11">{props.title}</h3>
+        <p className="text-slate-500	font-normal	px-1">{props.productStyle}</p>
         <p className="text-xl mb-11">{props.description}</p>
         <div className="flex mb-11">
           <div
