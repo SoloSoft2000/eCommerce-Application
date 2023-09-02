@@ -41,6 +41,8 @@ function ProductPage(): React.JSX.Element {
           price={prodData.price}
           discount={prodData.discount}
           salePercent={prodData.salePercent}
+          productBrand={prodData.productBrand}
+          productStyle={prodData.productStyle}
         />
       )}
     </main>
