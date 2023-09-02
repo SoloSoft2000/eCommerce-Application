@@ -1,7 +1,7 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { ProductCardProps } from '../../../helpers/interfaces/catalog/catalog-props';
 
-function setProductEl(data: ProductProjection): ProductCardProps {
+function setProductWithId(data: ProductProjection): ProductCardProps {
   const description = data.description ? data.description['en-US'] : '';
   const title = data.name ? data.name['en-US'] : '';
   const pricesList = data.masterVariant.prices;
@@ -20,6 +20,9 @@ function setProductEl(data: ProductProjection): ProductCardProps {
     price && discount
       ? (((+price - +discount) / +discount) * 100).toFixed()
       : '';
+  const productAttr = data.masterVariant.attributes;
+  const productStyle = productAttr ? productAttr[1].value[0] : '';
+  const productBrand = productAttr ? productAttr[0].value[0] : '';
   return {
     id: data.id,
     description,
@@ -29,7 +32,9 @@ function setProductEl(data: ProductProjection): ProductCardProps {
     salePercent,
     image: imageCover,
     images: imagesGallery,
+    productBrand,
+    productStyle,
   };
 }
 
-export default setProductEl;
+export default setProductWithId;

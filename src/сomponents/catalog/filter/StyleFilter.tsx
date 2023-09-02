@@ -5,9 +5,11 @@ import Checkbox from './Checkbox';
 import { setStyles } from '../../../utils/reducers/productsListReducer';
 
 function StyleFilter(): React.JSX.Element {
-  const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
-  const dispatch = useDispatch();
   const stylesArray = useSelector((state: RootState) => state.products.style);
+  const [selectedStyles, setSelectedStyles] = useState<string[]>([
+    ...stylesArray,
+  ]);
+  const dispatch = useDispatch();
 
   const handleCheckboxChange = useCallback(
     (name: string) => {

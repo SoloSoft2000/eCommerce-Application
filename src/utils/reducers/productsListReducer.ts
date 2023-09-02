@@ -53,6 +53,7 @@ const productsSlice = createSlice({
       ...state,
       crumb: null,
     }),
+    clearAllFilters: () => initialState,
   },
 });
 
@@ -65,6 +66,7 @@ export const {
   setStyles,
   setBreadcrumb,
   clearSelectedBreadcrumb,
+  clearAllFilters,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

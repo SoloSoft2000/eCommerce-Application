@@ -8,8 +8,8 @@ function PriceFilter(): React.JSX.Element {
   const priceArray = useSelector((state: RootState) => state.products.price);
 
   const [priceMin, priceMax] = priceArray;
-  const [minPrice, setMinPrice] = useState<number | ''>('');
-  const [maxPrice, setMaxPrice] = useState<number | ''>('');
+  const [minPrice, setMinPrice] = useState<number | ''>(priceMin || '');
+  const [maxPrice, setMaxPrice] = useState<number | ''>(priceMax || '');
 
   const handlePrice = useCallback(() => {
     dispatch(setPriceRange([minPrice, maxPrice]));

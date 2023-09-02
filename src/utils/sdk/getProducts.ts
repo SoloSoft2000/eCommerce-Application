@@ -74,6 +74,7 @@ async function getProducts({
   const queryArgs: Record<string, string | number | string[] | boolean> = {
     limit: 20,
     fuzzy: true,
+    fuzzyLevel: 0,
   };
 
   if (category && category !== 'All products') {

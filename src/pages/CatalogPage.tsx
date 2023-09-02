@@ -26,6 +26,7 @@ function CatalogPage(): React.JSX.Element {
   const [minPrice, maxPrice] = productArray.price;
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       try {
@@ -70,7 +71,7 @@ function CatalogPage(): React.JSX.Element {
     (name: string, sortMethod: string) => (
       <AppliedFilter key={name} name={name} sortMethod={sortMethod} />
     ),
-    []
+    [productArray]
   );
 
   const generateAppliedFilters = useCallback(
@@ -84,7 +85,7 @@ function CatalogPage(): React.JSX.Element {
         }
         return null;
       }),
-    []
+    [productArray]
   );
 
   return (
@@ -115,7 +116,7 @@ function CatalogPage(): React.JSX.Element {
           {sortByAbc === 'name.en-Us desc' &&
             appliedFilterGenerator('Name: Z-A', 'sortByAbc')}
 
-          {(minPrice || maxPrice) &&
+          {(minPrice || maxPrice > 0) &&
             appliedFilterGenerator(
               `Price from ${minPrice || 0} to ${maxPrice || '*'}`,
               'sortByPriceRange'
