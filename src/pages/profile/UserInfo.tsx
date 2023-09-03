@@ -1,8 +1,8 @@
-import { Customer } from '@commercetools/platform-sdk';
-import React, { useCallback, useState } from 'react';
+import { Customer, CustomerUpdateAction } from '@commercetools/platform-sdk';
+import React, { useCallback, useContext, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { MdEditOff, MdEdit } from 'react-icons/md';
 import { RootState } from '../../utils/reducers/store';
 import profileSchema from '../../utils/validationSchemas/profileSchema';
@@ -10,10 +10,17 @@ import FormStyles from '../../assets/styles/form.module.scss';
 import UserInfoStyles from '../../assets/styles/userinfo.module.scss';
 import Input from '../../сomponents/forms/Input';
 import BirtdayDate from '../../сomponents/forms/BirtdayDate';
+import updateUser from '../../utils/sdk/updateUser';
+import NotificationContext from '../../utils/notification/NotificationContext';
+import { setCustomer } from '../../utils/reducers/customerReducer';
 
 function UserInfo(): React.JSX.Element {
   const user: Customer = useSelector((state: RootState) => state.customer);
+  const [loading, setLoading] = useState(false);
 
+  const dispatch = useDispatch();
+  const showNotification = useContext(NotificationContext);
+  
   const methods = useForm({
     defaultValues: {
       email: user.email,
@@ -27,9 +34,37 @@ function UserInfo(): React.JSX.Element {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const onSubmit = methods.handleSubmit(() => {
-    // data
-    setIsEditing(false);
+  const onSubmit = methods.handleSubmit((newData) => {
+    setLoading(true);
+    const actions: CustomerUpdateAction[] = [
+      {
+        action: 'changeEmail',
+        email: newData.email
+      },
+      {
+        action: 'setFirstName',
+        firstName: newData.firstName
+      },
+      {
+        action: 'setLastName',
+        lastName: newData.lastName
+      },
+      {
+        action: 'setDateOfBirth',
+        dateOfBirth: newData.dateOfBirth as string
+      }
+    ]
+
+    updateUser(user, actions)
+      .then((newUser) => {
+        dispatch(setCustomer(newUser));
+        showNotification('User info updated')
+      })
+      .catch((err) => showNotification(err))
+      .finally(() => {
+        setLoading(false);
+        setIsEditing(false);
+      })
   });
 
   const startEditing = useCallback(() => {
@@ -48,7 +83,12 @@ function UserInfo(): React.JSX.Element {
 
   return (
     <div className="w-full">
-      {/* {`w-full ${  isEditing ? 'bg-white' : 'bg-zinc-200'}`}> */}
+      {loading && (
+        <div className={UserInfoStyles.modal}>
+          <div className={UserInfoStyles.loader}></div>
+          <p>Please wait...</p>
+        </div>
+      )}
       <FormProvider {...methods}>
         <form className={FormStyles.form} onSubmit={onSubmit}>
           <div>
