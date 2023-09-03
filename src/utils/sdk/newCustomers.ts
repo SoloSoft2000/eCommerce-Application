@@ -17,7 +17,10 @@ async function newCustomers(newCustomer: CustomerDraft): Promise<Customer> {
       })
       .execute();
 
-  return (await createCustomer()).body.customer;
+  const {
+    body: { customer },
+  } = await createCustomer();
+  return customer;
 }
 
 export default newCustomers;

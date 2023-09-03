@@ -9,7 +9,8 @@ export type AddressActionType =
   | 'removeShippingAddressId'
   | 'setDefaultBillingAddress'
   | 'addBillingAddressId'
-  | 'removeBillingAddressId';
+  | 'removeBillingAddressId'
+  | 'removeAddress';
 
 function updateAddressStatus(
   customer: Customer,
@@ -17,7 +18,6 @@ function updateAddressStatus(
   addressIdKey: string,
   isId = true
 ): Promise<Customer> {
-  console.log(actionType);
   const action: CustomerUpdateAction = isId
     ? {
         action: actionType,
@@ -28,7 +28,9 @@ function updateAddressStatus(
         key: addressIdKey,
       };
 
-  const body = updateUser(customer, [action]);
+  const body = updateUser(customer, [action]).catch((err) => {
+    throw Error(err.message);
+  });
 
   return body;
 }

@@ -6,7 +6,7 @@ async function getCustomers(
   password: string
 ): Promise<Customer> {
   const apiRoot = createApiRoot();
-  const customer = await apiRoot
+  const customerExec = await apiRoot
     .me()
     .login()
     .post({
@@ -16,7 +16,10 @@ async function getCustomers(
       },
     });
 
-  return (await customer.execute()).body.customer;
+  const {
+    body: { customer },
+  } = await customerExec.execute();
+  return customer;
 }
 
 export default getCustomers;

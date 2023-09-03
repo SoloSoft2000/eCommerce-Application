@@ -27,46 +27,54 @@ function UserAdresses(): React.JSX.Element {
   const user: Customer = useSelector((state: RootState) => state.customer);
   const [modalOpen, setModalOpen] = useState(false);
   const [addressToEdit, setAddress] = useState(initialAddress);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const showNotification = useContext(NotificationContext);
 
-  const openModal = useCallback((address: Address | null): void => {
-    if (address) {
-      setAddress({
-        Country: address.country as 'US' | 'CA',
-        City: address.city as string,
-        Postcode: address.postalCode as string,
-        Street: address.streetName as string,
-        Id: address.id as string,
-        billing: user.billingAddressIds?.includes(
-          address?.id as string
-        ) as boolean,
-        shipping: user.shippingAddressIds?.includes(
-          address?.id as string
-        ) as boolean,
-        defaultBilling: address.id === user.defaultBillingAddressId,
-        defaultShipping: address.id === user.defaultShippingAddressId,
-      });
-    } else {
-      setAddress(initialAddress);
-    }
-    setModalOpen(true);
-  }, []);
+  const openModal = useCallback(
+    (address: Address | null): void => {
+      if (address) {
+        setAddress({
+          Country: address.country as 'US' | 'CA',
+          City: address.city as string,
+          Postcode: address.postalCode as string,
+          Street: address.streetName as string,
+          Id: address.id as string,
+          billing:
+            (user.billingAddressIds?.includes(
+              address?.id as string
+            ) as boolean) || false,
+          shipping:
+            (user.shippingAddressIds?.includes(
+              address?.id as string
+            ) as boolean) || false,
+          defaultBilling: address.id === user.defaultBillingAddressId,
+          defaultShipping: address.id === user.defaultShippingAddressId,
+        });
+      } else {
+        setAddress(initialAddress);
+      }
+      setModalOpen(true);
+    },
+    [user]
+  );
 
   const closeModal = useCallback((): void => {
     setAddress(initialAddress);
     setModalOpen(false);
   }, []);
 
-  const changeDefault = useCallback(
+  const useAddressAction = useCallback(
     (typeDefault: AddressActionType, dataId: string): void => {
+      setLoading(true);
       updateAddressStatus(user, typeDefault, dataId)
         .then((newUser) => {
           dispatch(setCustomer(newUser));
-          showNotification(`Default ${typeDefault} address updated`);
+          showNotification(`Address updated`);
         })
-        .catch(() => showNotification('Error'));
+        .catch(() => showNotification('Error'))
+        .finally(() => setLoading(false));
     },
     [user]
   );
@@ -103,7 +111,7 @@ function UserAdresses(): React.JSX.Element {
                     className="ml-2 mr-2 accent-black"
                     checked={address.id === user.defaultBillingAddressId}
                     onChange={(): void =>
-                      changeDefault(
+                      useAddressAction(
                         'setDefaultBillingAddress',
                         address.id as string
                       )
@@ -131,7 +139,7 @@ function UserAdresses(): React.JSX.Element {
                     className="ml-2 mr-2 accent-black"
                     checked={address.id === user.defaultShippingAddressId}
                     onChange={(): void =>
-                      changeDefault(
+                      useAddressAction(
                         'setDefaultShippingAddress',
                         address.id as string
                       )
@@ -147,7 +155,14 @@ function UserAdresses(): React.JSX.Element {
               >
                 Edit
               </button>
-              <button className={UserInfoStyles.addressBtn}>Remove</button>
+              <button
+                className={UserInfoStyles.addressBtn}
+                onClick={(): void =>
+                  useAddressAction('removeAddress', address.id as string)
+                }
+              >
+                Remove
+              </button>
             </div>
           </div>
         </li>
@@ -157,6 +172,12 @@ function UserAdresses(): React.JSX.Element {
 
   return (
     <div>
+      {loading && (
+        <div className={UserInfoStyles.modal}>
+          <div className={UserInfoStyles.loader}></div>
+          <p>Please wait...</p>
+        </div>
+      )}
       <ul>{addressList}</ul>
       <button
         className={FormStyles.submit_btn}
