@@ -28,9 +28,8 @@ function updateAddressStatus(
         key: addressIdKey,
       };
 
-  const body = updateUser(customer, [action])
-  .catch((err) => {
-    throw Error(err.message)
+  const body = updateUser(customer, [action]).catch((err) => {
+    throw Error(err.message);
   });
 
   return body;
