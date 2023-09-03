@@ -71,7 +71,7 @@ function UserAdresses(): React.JSX.Element {
       updateAddressStatus(user, typeDefault, dataId)
         .then((newUser) => {
           dispatch(setCustomer(newUser));
-          showNotification(`Default ${typeDefault}\naddress updated`);
+          showNotification(`Address updated`);
         })
         .catch(() => showNotification('Error'))
         .finally(() => setLoading(false));
@@ -155,7 +155,15 @@ function UserAdresses(): React.JSX.Element {
               >
                 Edit
               </button>
-              <button className={UserInfoStyles.addressBtn}>Remove</button>
+              <button
+                className={UserInfoStyles.addressBtn}
+                onClick={(): void =>
+                  changeDefault(
+                    'removeAddress',
+                    address.id as string
+                  )
+                }
+              >Remove</button>
             </div>
           </div>
         </li>

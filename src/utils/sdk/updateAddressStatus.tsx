@@ -9,7 +9,8 @@ export type AddressActionType =
   | 'removeShippingAddressId'
   | 'setDefaultBillingAddress'
   | 'addBillingAddressId'
-  | 'removeBillingAddressId';
+  | 'removeBillingAddressId'
+  | 'removeAddress';
 
 function updateAddressStatus(
   customer: Customer,
