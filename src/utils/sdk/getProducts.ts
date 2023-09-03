@@ -113,3 +113,4 @@ async function getProducts({
 }
 
 export default getProducts;
+export { filterByPriceRange, generateFilter };
