@@ -28,14 +28,20 @@ function UserPassword(): React.JSX.Element {
         <form onSubmit={onSubmit}>
           <div>
             <label>Old Password:</label>
-            <Password />
+            <Password fieldName="oldPassword"/>
           </div>
-          {/* <div >
+          <div >
             <label>
               New Password:
             </label>
-            <Password />
-          </div> */}
+            <Password fieldName="password"/>
+          </div>
+          <div>
+            <label>
+              Repeat password:
+            </label>
+            <Password fieldName="repeatPassword"/>
+          </div>
           <SubmitFormButton
             value="Change password"
             classes={FormStyles.submit_btn}
