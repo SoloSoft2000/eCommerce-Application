@@ -25,7 +25,9 @@ async function updateUser(
       })
       .execute();
 
-  const { body } = await updateCustomer();
+  const { body } = await updateCustomer().catch((err) => {
+    throw Error(err.message);
+  });
   return body;
 }
 
