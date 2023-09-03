@@ -23,7 +23,6 @@ jest.mock('react-router-dom', () => ({
       pathname: '/mocked-path',
     }),
   }));
-  
  
 jest.mock('react-redux', () => ({
     useDispatch: () => jest.fn(), 
