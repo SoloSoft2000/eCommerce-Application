@@ -65,7 +65,7 @@ function UserAdresses(): React.JSX.Element {
     setModalOpen(false);
   }, []);
 
-  const changeDefault = useCallback(
+  const useAddressAction = useCallback(
     (typeDefault: AddressActionType, dataId: string): void => {
       setLoading(true);
       updateAddressStatus(user, typeDefault, dataId)
@@ -111,7 +111,7 @@ function UserAdresses(): React.JSX.Element {
                     className="ml-2 mr-2 accent-black"
                     checked={address.id === user.defaultBillingAddressId}
                     onChange={(): void =>
-                      changeDefault(
+                      useAddressAction(
                         'setDefaultBillingAddress',
                         address.id as string
                       )
@@ -139,7 +139,7 @@ function UserAdresses(): React.JSX.Element {
                     className="ml-2 mr-2 accent-black"
                     checked={address.id === user.defaultShippingAddressId}
                     onChange={(): void =>
-                      changeDefault(
+                      useAddressAction(
                         'setDefaultShippingAddress',
                         address.id as string
                       )
@@ -158,7 +158,7 @@ function UserAdresses(): React.JSX.Element {
               <button
                 className={UserInfoStyles.addressBtn}
                 onClick={(): void =>
-                  changeDefault(
+                  useAddressAction(
                     'removeAddress',
                     address.id as string
                   )
