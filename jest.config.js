@@ -10,4 +10,5 @@ module.exports = {
   },
   collectCoverage: true,
   collectCoverageFrom: ["src/**/*.tsx"],
+  transformIgnorePatterns: ["node_modules/(?!swiper|ssr-window|dom7)"],
 };

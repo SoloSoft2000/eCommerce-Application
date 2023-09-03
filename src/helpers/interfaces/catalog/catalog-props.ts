@@ -1,7 +1,7 @@
 interface ProductCardProps {
   description: string;
   title: string;
-  image: string;
+  image?: string;
   price: string | number;
   discount?: string | number;
   salePercent?: string | number;
