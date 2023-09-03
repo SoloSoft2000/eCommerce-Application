@@ -21,3 +21,7 @@
 .close {
   @apply text-gray-400 absolute px-1 top-2 right-2 cursor-pointer border;
 }
+
+.loader {
+  @apply border border-t-4 border-blue-500 rounded-full animate-spin h-12 w-12;
+}

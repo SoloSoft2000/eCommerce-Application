@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -40,6 +40,7 @@ function AddressModal({
   address,
 }: AddressModalProps): React.JSX.Element {
   const customer = useSelector((state: RootState) => state.customer);
+  const [loading, setLoading] = useState(false);
 
   const methods = useForm({
     resolver: yupResolver(addressSchema),
@@ -65,6 +66,8 @@ function AddressModal({
   const showNotification = useContext(NotificationContext);
 
   const onSubmit = methods.handleSubmit((data) => {
+    setLoading(true);
+    onClose();
     const keyAddress = (+new Date()).toString(16);
     const action: CustomerAddAddressAction | CustomerChangeAddressAction =
       address?.Id === ''
@@ -140,13 +143,20 @@ function AddressModal({
         dispatch(setCustomer(newUser));
         showNotification('Addresses updated');
       })
-      .catch((err) => showNotification(err));
-
-    onClose();
+      .catch((err) => showNotification(err))
+      .finally(() => {
+        setLoading(false);
+      });
   });
 
   return (
     <>
+      {loading && (
+        <div className={UserInfoStyles.modal}>
+          <div className={UserInfoStyles.loader}></div>
+          <p>Please wait...</p>
+        </div>
+      )}
       {isOpen ? (
         <div className={UserInfoStyles.modal} onClick={onClose}>
           <div
