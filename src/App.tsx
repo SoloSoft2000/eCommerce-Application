@@ -38,7 +38,7 @@ function App(): React.JSX.Element {
           />
           <Route path="/catalog/:category?" element={<CatalogPage />} />
           <Route
-            path="/catalog/:category/:subcategory"
+            path="/catalog/:category/:category"
             element={<CatalogPage />}
           />
 
