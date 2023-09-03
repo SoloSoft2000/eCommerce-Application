@@ -158,12 +158,11 @@ function UserAdresses(): React.JSX.Element {
               <button
                 className={UserInfoStyles.addressBtn}
                 onClick={(): void =>
-                  useAddressAction(
-                    'removeAddress',
-                    address.id as string
-                  )
+                  useAddressAction('removeAddress', address.id as string)
                 }
-              >Remove</button>
+              >
+                Remove
+              </button>
             </div>
           </div>
         </li>

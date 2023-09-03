@@ -2,7 +2,11 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import FormStyles from '../../assets/styles/form.module.scss';
 
-function Password({ fieldName = 'password' }: { fieldName?: string }): React.JSX.Element {
+function Password({
+  fieldName = 'password',
+}: {
+  fieldName?: string;
+}): React.JSX.Element {
   const {
     register,
     formState: { errors },
@@ -22,7 +26,11 @@ function Password({ fieldName = 'password' }: { fieldName?: string }): React.JSX
     <>
       <input
         className={FormStyles.general_field}
-        placeholder={`${fieldName === 'password' || fieldName === 'oldPassword' ? 'Password' : 'Repeat password'}*`}
+        placeholder={`${
+          fieldName === 'password' || fieldName === 'oldPassword'
+            ? 'Password'
+            : 'Repeat password'
+        }*`}
         type={passwordIsShown ? 'text' : 'password'}
         autoComplete="on"
         {...register(fieldName)}

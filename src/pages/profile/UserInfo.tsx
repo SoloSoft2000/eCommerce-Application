@@ -20,7 +20,7 @@ function UserInfo(): React.JSX.Element {
 
   const dispatch = useDispatch();
   const showNotification = useContext(NotificationContext);
-  
+
   const methods = useForm({
     defaultValues: {
       email: user.email,
@@ -39,32 +39,32 @@ function UserInfo(): React.JSX.Element {
     const actions: CustomerUpdateAction[] = [
       {
         action: 'changeEmail',
-        email: newData.email
+        email: newData.email,
       },
       {
         action: 'setFirstName',
-        firstName: newData.firstName
+        firstName: newData.firstName,
       },
       {
         action: 'setLastName',
-        lastName: newData.lastName
+        lastName: newData.lastName,
       },
       {
         action: 'setDateOfBirth',
-        dateOfBirth: newData.dateOfBirth as string
-      }
-    ]
+        dateOfBirth: newData.dateOfBirth as string,
+      },
+    ];
 
     updateUser(user, actions)
       .then((newUser) => {
         dispatch(setCustomer(newUser));
-        showNotification('User info updated')
+        showNotification('User info updated');
       })
       .catch((err) => showNotification(err))
       .finally(() => {
         setLoading(false);
         setIsEditing(false);
-      })
+      });
   });
 
   const startEditing = useCallback(() => {
