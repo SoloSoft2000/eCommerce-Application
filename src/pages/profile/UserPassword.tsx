@@ -19,7 +19,7 @@ function UserPassword(): React.JSX.Element {
 
   const dispatch = useDispatch();
   const showNotification = useContext(NotificationContext);
-  
+
   const methods = useForm({
     resolver: yupResolver(passwordSchema),
     mode: 'all',
@@ -37,10 +37,10 @@ function UserPassword(): React.JSX.Element {
         methods.reset({
           oldPassword: '',
           password: '',
-          repeatPassword: ''
-        })
+          repeatPassword: '',
+        });
         setLoading(false);
-      })
+      });
   });
 
   return (
