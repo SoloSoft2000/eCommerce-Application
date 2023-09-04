@@ -60,7 +60,15 @@ function UserInfo(): React.JSX.Element {
         dispatch(setCustomer(newUser));
         showNotification('User info updated');
       })
-      .catch((err) => showNotification(err))
+      .catch((err) =>{
+        showNotification(err.message || err);
+        methods.reset({
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          dateOfBirth: user.dateOfBirth,
+        });    
+      })
       .finally(() => {
         setLoading(false);
         setIsEditing(false);
