@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../utils/reducers/store';
@@ -10,12 +10,15 @@ import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
 import BreadcrumbCatalog from '../сomponents/catalog/Breadcrumb';
 import MainCatalogPage from './MainCatalogPage';
 import AppliedFilter from '../сomponents/catalog/AppliedFilters';
+import NotificationContext from '../utils/notification/NotificationContext';
 
 const brand = ['ABC-Style', 'Romantics LTD', 'NY-Fashion'];
 const styles = ['Retro', 'Modern', 'Casual', 'Chic'];
 
 function CatalogPage(): React.JSX.Element {
   const { category } = useParams();
+
+  const showNotification = useContext(NotificationContext);
 
   const [filterMenu, setFilterMenu] = useState(true);
   const [catalog, setCatalog] = useState<ProductCardProps[]>([]);
@@ -41,7 +44,7 @@ function CatalogPage(): React.JSX.Element {
         const data = setDataElements(products);
         setCatalog(data);
       } catch (err) {
-        console.error(`Catalog page: ${err}`);
+        showNotification(`Catalog page: ${err}`, 'error');
       }
     };
     fetchData();

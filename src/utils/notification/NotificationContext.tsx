@@ -1,7 +1,9 @@
 import React from 'react';
 
-const NotificationContext = React.createContext<(message: string) => void>(
-  () => {}
-);
+export type NotificationType = 'success' | 'error' | 'default';
+
+const NotificationContext = React.createContext<
+  (message: string, noteType: NotificationType) => void
+>(() => {});
 
 export default NotificationContext;

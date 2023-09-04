@@ -71,9 +71,9 @@ function UserAdresses(): React.JSX.Element {
       updateAddressStatus(user, typeDefault, dataId)
         .then((newUser) => {
           dispatch(setCustomer(newUser));
-          showNotification(`Address updated`);
+          showNotification(`Address updated`, 'success');
         })
-        .catch(() => showNotification('Error'))
+        .catch(() => showNotification('Error', 'error'))
         .finally(() => setLoading(false));
     },
     [user]

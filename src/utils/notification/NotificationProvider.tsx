@@ -1,28 +1,38 @@
 import React, { ReactNode, useCallback, useState } from 'react';
 import Notification from './Notification';
-import NotificationContext from './NotificationContext';
+import NotificationContext, { NotificationType } from './NotificationContext';
 
 const NotificationProvider = ({
   children,
 }: {
   children: ReactNode;
 }): React.JSX.Element => {
-  const [notification, setNotification] = useState('');
+  const [notification, setNotification] = useState<{
+    message: string;
+    noteType: NotificationType;
+  } | null>(null);
 
-  const showNotification = useCallback((message: string) => {
-    setNotification(message);
-    setTimeout(() => setNotification(''), 5000);
-  }, []);
+  const showNotification = useCallback(
+    (message: string, noteType: NotificationType) => {
+      setNotification({ message, noteType });
+      setTimeout(() => setNotification(null), 5000);
+    },
+    []
+  );
 
   const onClose = useCallback(() => {
-    setNotification('');
+    setNotification(null);
   }, []);
 
   return (
     <NotificationContext.Provider value={showNotification}>
       {children}
       {notification && (
-        <Notification message={notification} onClose={onClose} />
+        <Notification
+          message={notification.message}
+          noteType={notification.noteType as NotificationType}
+          onClose={onClose}
+        />
       )}
     </NotificationContext.Provider>
   );
