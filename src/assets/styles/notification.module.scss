@@ -1,5 +1,15 @@
-.portal {
-  @apply fixed  top-4 right-4 mx-4 mt-4 rounded-xl bg-black/50 text-white p-4;
+.portaldef {
+  @apply fixed top-4 right-4 mx-4 mt-4 rounded-xl bg-black/50 text-white p-4;
+  animation: slideRightToLeft 5s forwards;
+}
+
+.success {
+  @apply fixed top-4 right-4 mx-4 mt-4 rounded-xl text-white p-4 bg-green-500;
+  animation: slideRightToLeft 5s forwards;
+}
+
+.error {
+  @apply fixed top-4 right-4 mx-4 mt-4 rounded-xl text-white p-4 bg-red-500;
   animation: slideRightToLeft 5s forwards;
 }
 

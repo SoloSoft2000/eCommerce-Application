@@ -141,9 +141,9 @@ function AddressModal({
     updateUser(customer, actions)
       .then((newUser) => {
         dispatch(setCustomer(newUser));
-        showNotification('Addresses updated');
+        showNotification('Addresses updated', 'success');
       })
-      .catch((err) => showNotification(err))
+      .catch((err) => showNotification(err, 'error'))
       .finally(() => {
         setLoading(false);
       });

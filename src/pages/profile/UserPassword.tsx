@@ -30,9 +30,9 @@ function UserPassword(): React.JSX.Element {
     updatePassword(user, data.oldPassword, data.password)
       .then((updatedUser) => {
         dispatch(setCustomer(updatedUser));
-        showNotification('User info updated');
+        showNotification('User info updated', 'success');
       })
-      .catch((err) => showNotification(err.message))
+      .catch((err) => showNotification(err.message, 'error'))
       .finally(() => {
         methods.reset({
           oldPassword: '',

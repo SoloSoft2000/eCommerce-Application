@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Img from '../assets/images/img-03.png';
 import EarringsImage from '../assets/images/img-02.png';
 import NecklacesImage from '../assets/images/img-04.png';
@@ -19,6 +19,7 @@ import getProducstCategories, {
   CategoryTree,
 } from '../utils/sdk/getProductsCategories';
 import MainCategoryCover from '../сomponents/MainCategoryCover';
+import NotificationContext from '../utils/notification/NotificationContext';
 
 const categoryImageMap: Record<string, string> = {
   Necklaces: NecklacesImage,
@@ -43,13 +44,15 @@ type MainCatalogData = {
 function MainCatalogPage({ title }: MainCatalogData): React.JSX.Element {
   const [categoriesCover, setCategoriesCover] = useState<CategoryTree[]>([]);
 
+  const showNotification = useContext(NotificationContext);
+
   useEffect(() => {
     const fetchCategoriesCover = async (): Promise<void> => {
       try {
         const categoriesData = await getProducstCategories();
         setCategoriesCover(categoriesData);
       } catch (error) {
-        console.error(error);
+        showNotification(String(error), 'error');
       }
     };
 
