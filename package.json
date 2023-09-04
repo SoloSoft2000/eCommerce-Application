@@ -62,7 +62,7 @@
     "html-webpack-plugin": "^5.5.3",
     "husky": "^8.0.3",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^29.6.2",
+    "jest": "^29.6.4",
     "jest-environment-jsdom": "^29.6.2",
     "lint-staged": "^13.2.3",
     "mini-css-extract-plugin": "^2.7.6",
