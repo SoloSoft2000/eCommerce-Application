@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import isEmail from 'validator/es/lib/isEmail';
+import validator from 'validator';
 
 export const emailRules = yup
   .string()
@@ -20,7 +20,7 @@ export const emailRules = yup
   .test(
     'emailtest',
     'Email address must be properly formatted (e.g., user@example.com)',
-    (value) => isEmail(value)
+    (value) => validator.isEmail(value)
   );
 
 export const passwordRules = yup
