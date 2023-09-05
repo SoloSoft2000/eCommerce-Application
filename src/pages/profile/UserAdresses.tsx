@@ -117,7 +117,8 @@ function UserAdresses(): React.JSX.Element {
                       )
                     }
                   />
-                  {address.id !== user.defaultBillingAddressId && 'Set as'} Default Billing
+                  {address.id !== user.defaultBillingAddressId && 'Set as'}{' '}
+                  Default Billing
                 </div>
               </div>
               <div className="text-right">
@@ -133,7 +134,8 @@ function UserAdresses(): React.JSX.Element {
                   />
                 </div>
                 <div className="flex justify-end items-center text-xs text-gray-500">
-                  {address.id !== user.defaultShippingAddressId && 'Set as'} Default Shipping
+                  {address.id !== user.defaultShippingAddressId && 'Set as'}{' '}
+                  Default Shipping
                   <input
                     type="radio"
                     className="ml-2 mr-2 accent-black"
