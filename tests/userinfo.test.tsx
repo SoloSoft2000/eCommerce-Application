@@ -1,85 +1,147 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { Customer } from '@commercetools/platform-sdk';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+import { Store } from 'redux';
 import UserInfo from '../src/pages/profile/UserInfo';
+import updateUser from '../src/utils/sdk/updateUser';
+
+jest.mock('../src/utils/sdk/updateUser', () => jest.fn().mockResolvedValue({}));
+
+const mockStore = configureStore([]);
 
 describe('UserInfo component', () => {
-  const mockShowNotification = jest.fn();
-  const mockDispatch = jest.fn();
-  const mockUpdateUser = jest.fn();
-  const mockSetCustomer = jest.fn();
-
-  jest.mock('react-redux', () => ({
-    ...jest.requireActual('react-redux'),
-    useSelector: jest.fn(),
-    useDispatch: (): jest.Mock => mockDispatch,
-  }));
-
-  jest.mock('../src/utils/sdk/updateUser', () => jest.fn(() => mockUpdateUser()));
-  
-  interface SetCustomerAction {
-    type: 'SET_CUSTOMER';
-    payload: Customer;
-  }
-  
-  jest.mock('../src/utils/reducers/customerReducer', () => ({
-    setCustomer: (user: Customer): SetCustomerAction => ({
-      type: 'SET_CUSTOMER',
-      payload: user,
-    }),
-  }));
-
-  jest.mock('../src/utils/notification/NotificationContext', () => ({
-    __esModule: true,
-    default: React.createContext(mockShowNotification),
-  }));
+  let store: Store;
 
   beforeEach(() => {
-    mockDispatch.mockClear();
-    mockUpdateUser.mockClear();
-    mockSetCustomer.mockClear();
-    mockShowNotification.mockClear();
+    store = mockStore({
+      customer: {
+        email: 'test@example.com',
+        firstName: 'John',
+        lastName: 'Doe',
+        dateOfBirth: '1990-01-01',
+        id: 'id1'
+      },
+    });
+    jest.clearAllMocks();
   });
 
-  test('renders the component', () => {
-    const { getByText } = render(<UserInfo />);
-    expect(getByText('Edit')).toBeInTheDocument();
+  it('renders correctly', () => {
+    render(
+      <Provider store={store}>
+        <UserInfo />
+      </Provider>
+    );
+
+    expect(screen.getByText('E-Mail:')).toBeInTheDocument();
+    expect(screen.getByText('First Name:')).toBeInTheDocument();
+    expect(screen.getByText('Last Name:')).toBeInTheDocument();
+    expect(screen.getByText('BirthDay:')).toBeInTheDocument();
   });
 
-  test('clicking Edit button starts editing', () => {
-    const { getByText } = render(<UserInfo />);
-    fireEvent.click(getByText('Edit'));
-    expect(getByText('Save')).toBeInTheDocument();
-    expect(getByText('Cancel')).toBeInTheDocument();
+  it('store data correctly', async () => {
+    render(
+      <Provider store={store}>
+        <UserInfo />
+      </Provider>
+    );
+
+    const emailInput = screen.queryByPlaceholderText('Email*:');
+    expect(emailInput).toHaveValue('test@example.com');
+    expect(emailInput).toHaveAttribute('readOnly');
+
+    const fnameInput = screen.queryByPlaceholderText('First Name*:');
+    expect(fnameInput).toHaveValue('John');
+
+    const lnameInput = screen.queryByPlaceholderText('Last Name*:');
+    expect(lnameInput).toHaveValue('Doe');
   });
 
-  test('clicking Cancel button cancels editing', () => {
-    const { getByText } = render(<UserInfo />);
-    fireEvent.click(getByText('Edit'));
-    fireEvent.click(getByText('Cancel'));
-    expect(getByText('Edit')).toBeInTheDocument();
-  });
 
-  test('submitting the form updates user info', async () => {
-    const { getByText, getByLabelText } = render(<UserInfo />);
-    fireEvent.click(getByText('Edit'));
+  it('allows user to edit information', async () => {
 
-    const emailInput = getByLabelText('E-Mail:');
-    const firstNameInput = getByLabelText('First Name:');
-    const lastNameInput = getByLabelText('Last Name:');
-    const saveButton = getByText('Save');
+    render(
+      <Provider store={store}>
+        <UserInfo />
+      </Provider>
+    );
 
-    fireEvent.change(emailInput, { target: { value: 'new@example.com' } });
-    fireEvent.change(firstNameInput, { target: { value: 'NewFirst' } });
-    fireEvent.change(lastNameInput, { target: { value: 'NewLast' } });
+    const btnEdit = screen.getByRole('button', { name: 'Edit' });
+    expect(btnEdit).toBeInTheDocument();
 
-    fireEvent.click(saveButton);
+    fireEvent.click(btnEdit);
 
     await waitFor(() => {
-      expect(mockUpdateUser).toHaveBeenCalledTimes(1);
-      expect(mockSetCustomer).toHaveBeenCalledWith(expect.anything());
-      expect(mockShowNotification).toHaveBeenCalledWith('User info updated', 'success');
+      const saveButton = screen.getByRole('button', { name: 'Save' });
+      expect(saveButton).toBeInTheDocument();
+    });
+
+    const btnSave = screen.getByRole('button', { name: 'Save' });
+    expect(btnSave).toBeInTheDocument();
+
+    const emailInput = screen.queryByPlaceholderText('Email*:');
+    expect(emailInput).not.toHaveAttribute('readOnly');
+    if (emailInput)
+      fireEvent.change(emailInput, 'updated@example.com');
+
+    const fnameInput = screen.queryByPlaceholderText('First Name*:');
+    expect(fnameInput).not.toHaveAttribute('readOnly');
+    if (fnameInput)
+      fireEvent.change(fnameInput, 'Updated First');
+
+    const lnameInput = screen.queryByPlaceholderText('Last Name*:');
+    expect(lnameInput).not.toHaveAttribute('readOnly');
+    if (lnameInput)
+      fireEvent.change(lnameInput, 'Updated Last');
+
+    fireEvent.click(btnSave);
+    await waitFor(() => {
+      expect(updateUser).toHaveBeenCalled();
     });
   });
+  
+  it('cancels editing and resets values', async () => {
+    render(
+      <Provider store={store}>
+        <UserInfo />
+      </Provider>
+    );
 
+    const btnEdit = screen.getByRole('button', { name: 'Edit' });
+    fireEvent.click(btnEdit);
+    let cancelButton: HTMLElement | undefined;
+    await waitFor(() => {
+      cancelButton = screen.getByRole('button', { name: 'Cancel' });
+      expect(cancelButton).toBeInTheDocument();
+    });
+
+    const emailInput = screen.queryByPlaceholderText('Email*:');
+    if (emailInput)
+      fireEvent.change(emailInput, 'updated@example.com');
+
+    const fnameInput = screen.queryByPlaceholderText('First Name*:');
+    if (fnameInput)
+      fireEvent.change(fnameInput, 'Updated First');
+
+    const lnameInput = screen.queryByPlaceholderText('Last Name*:');
+    if (lnameInput)
+      fireEvent.change(lnameInput, 'Updated Last');
+
+    if(cancelButton)
+      fireEvent.click(cancelButton);
+
+    await waitFor(() => {
+      const ubtnEdit = screen.getByRole('button', { name: 'Edit' });
+      expect(ubtnEdit).toBeInTheDocument();
+    });
+
+    expect(emailInput).toHaveValue('test@example.com');
+    expect(fnameInput).toHaveValue('John');
+    expect(lnameInput).toHaveValue('Doe');
+
+    expect(emailInput).toHaveAttribute('readOnly');
+    expect(fnameInput).toHaveAttribute('readOnly');
+    expect(lnameInput).toHaveAttribute('readOnly');
+  });
 });
