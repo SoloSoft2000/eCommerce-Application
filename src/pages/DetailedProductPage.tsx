@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DetailedProductCard from '../сomponents/product/DetailedProductCard';
 import returnProductById from '../utils/sdk/getDetailedProduct';
 import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
 import setProductWithId from '../utils/sdk/utils/handleDetailedProductData';
 import BreadcrumbCatalog from '../сomponents/catalog/Breadcrumb';
+import NotificationContext from '../utils/notification/NotificationContext';
 
 function ProductPage(): React.JSX.Element {
   const { productId } = useParams();
   const [prodData, setProdData] = useState<ProductCardProps | undefined>();
   const [productImages, setProductImages] = useState<string[]>([]);
-
+  const showNotification = useContext(NotificationContext);
   useEffect(() => {
     if (productId) {
       const fetchData = async (): Promise<void> => {
@@ -22,7 +23,7 @@ function ProductPage(): React.JSX.Element {
             setProductImages(data.images);
           }
         } catch (err) {
-          throw new Error(`Detailed product page: ${err}`);
+          showNotification(` ${err}`, 'error');
         }
       };
       fetchData();

@@ -66,7 +66,7 @@ function UserAdresses(): React.JSX.Element {
   }, []);
 
   const useAddressAction = useCallback(
-    (typeDefault: AddressActionType, dataId: string): void => {
+    (typeDefault: AddressActionType, dataId: string | undefined): void => {
       setLoading(true);
       updateAddressStatus(user, typeDefault, dataId)
         .then((newUser) => {
@@ -107,17 +107,23 @@ function UserAdresses(): React.JSX.Element {
                 </div>
                 <div className="flex items-center text-xs text-gray-500">
                   <input
-                    type="radio"
+                    type="checkbox"
                     className="ml-2 mr-2 accent-black"
                     checked={address.id === user.defaultBillingAddressId}
-                    onChange={(): void =>
-                      useAddressAction(
-                        'setDefaultBillingAddress',
-                        address.id as string
-                      )
+                    onChange={(e): void =>
+                      {
+                        if(e.target.checked === false) {
+                          useAddressAction('setDefaultBillingAddress', undefined)
+                        } else {
+                          useAddressAction(
+                            'setDefaultBillingAddress',
+                            address.id as string
+                          )
+                        }
+                      }
                     }
                   />
-                  {address.id !== user.defaultBillingAddressId && 'Set as'}{' '}
+                  {address.id !== user.defaultBillingAddressId ? 'Set as ' : 'Remove as '}
                   Default Billing
                 </div>
               </div>
@@ -134,17 +140,21 @@ function UserAdresses(): React.JSX.Element {
                   />
                 </div>
                 <div className="flex justify-end items-center text-xs text-gray-500">
-                  {address.id !== user.defaultShippingAddressId && 'Set as'}{' '}
+                  {address.id !== user.defaultShippingAddressId ? 'Set as ' : 'Remove as '}
                   Default Shipping
                   <input
-                    type="radio"
+                    type="checkbox"
                     className="ml-2 mr-2 accent-black"
                     checked={address.id === user.defaultShippingAddressId}
-                    onChange={(): void =>
-                      useAddressAction(
-                        'setDefaultShippingAddress',
-                        address.id as string
-                      )
+                    onChange={(e): void => {
+                        if(e.target.checked === false) {
+                          useAddressAction('setDefaultShippingAddress', undefined)
+                        } else {
+                        useAddressAction(
+                          'setDefaultShippingAddress',
+                          address.id as string
+                        )}
+                      }
                     }
                   />
                 </div>
