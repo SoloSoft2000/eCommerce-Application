@@ -15,7 +15,7 @@ export type AddressActionType =
 function updateAddressStatus(
   customer: Customer,
   actionType: AddressActionType,
-  addressIdKey: string,
+  addressIdKey: string | undefined,
   isId = true
 ): Promise<Customer> {
   const action: CustomerUpdateAction = isId

@@ -143,7 +143,7 @@ function AddressModal({
         dispatch(setCustomer(newUser));
         showNotification('Addresses updated', 'success');
       })
-      .catch((err) => showNotification(err, 'error'))
+      .catch((err) => showNotification(err.message || err, 'error'))
       .finally(() => {
         setLoading(false);
       });

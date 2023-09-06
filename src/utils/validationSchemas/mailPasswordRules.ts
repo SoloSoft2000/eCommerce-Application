@@ -10,7 +10,7 @@ export const emailRules = yup
   )
   .required('Email is required')
   .email(
-    'Email address must be properly formatted (e.g., user@example.com), only Latin letters'
+    'Email address must be properly formatted (e.g., user@example.com) and Latin letters'
   )
   .matches(/@.+\.+/, {
     message:
