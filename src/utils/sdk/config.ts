@@ -24,6 +24,5 @@ export const scopes = [
   `view_orders:${projectKey}`,
   `view_products:${projectKey}`,
 ];
-
 export const clientId = '4DJ1vUUEBcJzhc-2LUWIkqjl';
 export const clientSecret = 'FOGUBqzBML2N_5_9HR7QRpOBTlBBTloz';
