@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Img from '../assets/images/img-02.png';
 import { RootState } from '../utils/reducers/store';
+import Title from '../сomponents/forms/Title';
+import TabMenu from './profile/TabMenu';
+import UserInfo from './profile/UserInfo';
+import UserAdresses from './profile/UserAdresses';
+import LoginStyles from '../assets/styles/login.module.scss';
+import FormStyles from '../assets/styles/form.module.scss';
+import UserPassword from './profile/UserPassword';
 
 function UserProfilePage(): React.JSX.Element {
   const navigate = useNavigate();
@@ -15,9 +21,17 @@ function UserProfilePage(): React.JSX.Element {
   }, [customer, navigate]);
 
   return (
-    <main className="container mx-auto">
-      <h3 className="text-xl font-bold pt-20 text-center">User Profile</h3>
-      <img className="mx-auto w-1/2 m-8" src={Img} alt="main picture" />
+    <main className={LoginStyles.main}>
+      <div className={LoginStyles.wrapper}>
+        <Title classes={FormStyles.title} value="User Profile" />
+        <TabMenu />
+
+        <Routes>
+          <Route path="" element={<UserInfo />} />
+          <Route path="adresses" element={<UserAdresses />} />
+          <Route path="passwords" element={<UserPassword />} />
+        </Routes>
+      </div>
     </main>
   );
 }

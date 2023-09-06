@@ -1,8 +1,12 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import FormClasses from '../../helpers/enum/form/classes';
+import FormStyles from '../../assets/styles/form.module.scss';
 
-function Password(): React.JSX.Element {
+function Password({
+  fieldName = 'password',
+}: {
+  fieldName?: string;
+}): React.JSX.Element {
   const {
     register,
     formState: { errors },
@@ -10,8 +14,8 @@ function Password(): React.JSX.Element {
 
   const [passwordIsShown, setPasswordIsShown] = useState(false);
   const errorMessage = useMemo(
-    () => errors.password?.message,
-    [errors.password?.message]
+    () => errors[fieldName]?.message,
+    [errors[fieldName]?.message]
   );
 
   const togglePassword = useCallback(() => {
@@ -21,25 +25,27 @@ function Password(): React.JSX.Element {
   return (
     <>
       <input
-        className={FormClasses.GENERAL_FIELD}
-        placeholder="Password*"
+        className={FormStyles.general_field}
+        placeholder={`${
+          fieldName === 'password' || fieldName === 'oldPassword'
+            ? 'Password'
+            : 'Repeat password'
+        }*`}
         type={passwordIsShown ? 'text' : 'password'}
         autoComplete="on"
-        {...register('password')}
+        {...register(fieldName)}
       />
       {errorMessage && (
-        <div className={FormClasses.MISTAKE_TEXT}>
-          {errorMessage.toString()}
-        </div>
+        <div className={FormStyles.mistake_text}>{errorMessage.toString()}</div>
       )}
       <input
         type="checkbox"
-        name="passwordIsShown"
+        name={`${fieldName}IsShown`}
         checked={passwordIsShown}
         onChange={togglePassword}
-        className={FormClasses.CHECKBOX}
+        className={FormStyles.checkbox}
       />
-      <label htmlFor="passwordIsShown">
+      <label htmlFor={`${fieldName}IsShown`}>
         {passwordIsShown ? 'Hide Password' : 'Show Password'}
       </label>
     </>

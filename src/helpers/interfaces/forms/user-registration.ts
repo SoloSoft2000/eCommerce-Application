@@ -6,7 +6,7 @@ interface UserRegistrate {
   password: string;
   firstName: string;
   lastName: string;
-  birthday?: Date | null;
+  dateOfBirth?: Date | null;
   shipCountry: string;
   shipCity: string;
   shipPostcode: string;

@@ -9,5 +9,6 @@ module.exports = {
     '\\.(woff|woff2|eot|ttf)$': 'identity-obj-proxy',
   },
   collectCoverage: true,
-  collectCoverageFrom: ["src/**/*.tsx"],
+  collectCoverageFrom: ['src/**/*.{ts,tsx}'],
+  transformIgnorePatterns: ["node_modules/(?!swiper|ssr-window|dom7)"],
 };

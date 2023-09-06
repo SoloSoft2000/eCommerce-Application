@@ -1,13 +1,15 @@
 import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import FormProps from '../../helpers/interfaces/forms/form-props';
-import FormClasses from '../../helpers/enum/form/classes';
+import FormStyles from '../../assets/styles/form.module.scss';
+import stringToBoolean from '../../utils/stringToBoolean';
 
 function Input({
   type,
   name,
   placeholder,
   width,
+  readonly = String(false),
 }: FormProps): React.JSX.Element {
   const {
     register,
@@ -18,18 +20,18 @@ function Input({
     () => errors[name]?.message,
     [errors[name]?.message]
   );
-
   return (
     <div className={width}>
       <input
-        className={FormClasses.GENERAL_FIELD}
+        className={FormStyles.general_field}
         placeholder={placeholder}
         type={type}
+        readOnly={stringToBoolean(readonly)}
         {...register(name)}
         autoComplete="on"
       />
       {errorMessage && (
-        <p className={FormClasses.MISTAKE_TEXT}>{errorMessage.toString()}</p>
+        <p className={FormStyles.mistake_text}>{errorMessage.toString()}</p>
       )}
     </div>
   );

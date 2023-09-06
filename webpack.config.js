@@ -10,8 +10,9 @@ module.exports = (argv) => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: isDevelopment ? 'bundle.dev.js' : 'bundle.prod.js',
-      assetModuleFilename: 'assets/[name].[ext]',
+      assetModuleFilename: 'assets/[name][ext]',
       clean: true,
+      publicPath: '/',
     },
     devtool: isDevelopment ? 'inline-source-map' : false,
     devServer: {
@@ -30,8 +31,22 @@ module.exports = (argv) => {
           exclude: /node_modules/,
         },
         {
-          test: /\.(scss|css)$/,
-          use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+          test: /\.module\.scss$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+              }
+            },
+            'postcss-loader',
+            'sass-loader'
+          ]
+        },
+        {
+          test: /^((?!\.module).)*\.(scss|css)$/,
+          use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
@@ -47,7 +62,6 @@ module.exports = (argv) => {
       new HtmlWebpackPlugin({
         template: './src/index.html',
         filename: './index.html',
-        favicon: './src/favicon.ico'
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css',

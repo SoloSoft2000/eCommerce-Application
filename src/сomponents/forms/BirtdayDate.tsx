@@ -1,28 +1,28 @@
 import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import FormClasses from '../../helpers/enum/form/classes';
+import FormStyles from '../../assets/styles/form.module.scss';
 
-function BirtdayDate(): React.JSX.Element {
+function BirtdayDate({ readonly }: { readonly: boolean }): React.JSX.Element {
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
   const errorMessage = useMemo(
-    () => errors.birthday?.message,
-    [errors.birthday?.message]
+    () => errors.dateOfBirth?.message,
+    [errors.dateOfBirth?.message]
   );
 
   return (
-    <div className={FormClasses.FULL_FIELD}>
-      <div className={FormClasses.GENERAL_FIELD}>
-        <label htmlFor="Birthday" className={FormClasses.BIRTDAY_LABEL}>
+    <div className={FormStyles.full_field}>
+      <div className={FormStyles.general_field}>
+        <label htmlFor="Birthday" className={FormStyles.birthday_label}>
           Date of birth*
         </label>
-        <input type="date" {...register('birthday')} />
+        <input type="date" readOnly={readonly} {...register('dateOfBirth')} />
       </div>
       {errorMessage && (
-        <p className={FormClasses.MISTAKE_TEXT}>{errorMessage.toString()}</p>
+        <p className={FormStyles.mistake_text}>{errorMessage.toString()}</p>
       )}
     </div>
   );

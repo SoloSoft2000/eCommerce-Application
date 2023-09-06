@@ -4,7 +4,7 @@ import { SlMenu } from 'react-icons/sl';
 import { RxCross1 } from 'react-icons/rx';
 import Img from '../assets/images/logo4.jpg';
 import Navigation from './Navigation';
-import HeaderClasses from '../helpers/enum/components/headerClasses';
+import styles from '../assets/styles/header.module.scss';
 
 function Header(): React.JSX.Element {
   const [isOpen, setOpen] = useState(false);
@@ -33,20 +33,24 @@ function Header(): React.JSX.Element {
     };
 
     document.addEventListener('mousedown', menuHandler);
-  });
+
+    return () => {
+      window.removeEventListener('mousedown', menuHandler);
+    };
+  }, [isOpen]);
 
   return (
-    <header className={HeaderClasses.MAIN}>
-      <div className={HeaderClasses.LOGO}>
+    <header className={styles.main}>
+      <div className={styles.logo}>
         <Link to="/">
           <img className="m-3" src={Img} alt="logo" width="150" />
         </Link>
         <Navigation isOpen={isOpen} />
-        <button className={HeaderClasses.BUTTON} onClick={toggNavMenu}>
+        <button className={styles.button} onClick={toggNavMenu}>
           {isOpen ? (
-            <RxCross1 className={HeaderClasses.MENU_ICON} />
+            <RxCross1 className={styles.menu_icon} />
           ) : (
-            <SlMenu className={HeaderClasses.MENU_ICON} />
+            <SlMenu className={styles.menu_icon} />
           )}
         </button>
       </div>

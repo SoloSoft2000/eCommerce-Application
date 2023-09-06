@@ -1,20 +1,12 @@
-import {
-  createApiBuilderFromCtpClient,
-  Customer,
-} from '@commercetools/platform-sdk';
-import { projectKey } from './config';
-import createClient from './createClient';
+import { Customer } from '@commercetools/platform-sdk';
+import createApiRoot from './createApiRoot';
 
 async function getCustomers(
   username: string,
   password: string
 ): Promise<Customer> {
-  const ctpClient = createClient({ username, password });
-
-  const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
-    projectKey,
-  });
-  const customer = await apiRoot
+  const apiRoot = createApiRoot();
+  const customerExec = await apiRoot
     .me()
     .login()
     .post({
@@ -24,7 +16,10 @@ async function getCustomers(
       },
     });
 
-  return (await customer.execute()).body.customer;
+  const {
+    body: { customer },
+  } = await customerExec.execute();
+  return customer;
 }
 
 export default getCustomers;
