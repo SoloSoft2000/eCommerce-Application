@@ -3,7 +3,7 @@ import getCart from './getCart';
 import createApiRoot from '../createApiRoot';
 import createCart from './createCart';
 
-async function updateQuanity(
+async function updateQuantity(
   actionType: 'addLineItem' | 'removeLineItem',
   productId: string,
   quantity: number
@@ -36,4 +36,4 @@ async function updateQuanity(
   return body;
 }
 
-export default updateQuanity;
+export default updateQuantity;
