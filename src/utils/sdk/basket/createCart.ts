@@ -1,16 +1,27 @@
 import { Cart, CartDraft, Customer } from '@commercetools/platform-sdk';
 import createApiRoot from '../createApiRoot';
 
-async function createCart(customer?: Customer): Promise<Cart> {
+async function createCart(): Promise<Cart> {
   const apiRoot = createApiRoot();
 
-  const cartDraft: CartDraft = {
+  const savedCustomer = localStorage.getItem('CT-Customer-SignIn');
+  let cartDraft: CartDraft = {
     currency: 'USD',
-    customerId: customer?.id,
   };
+
+  if (savedCustomer) {
+    const customer: Customer = JSON.parse(savedCustomer);
+    cartDraft = {
+      ...cartDraft,
+      customerId: customer.id,
+    };
+  }
 
   const cartExec = apiRoot.carts().post({ body: cartDraft });
   const { body } = await cartExec.execute();
+  if (!savedCustomer) {
+    sessionStorage.setItem('CT-Cart-AnonymID', body.id);
+  }
   return body;
 }
 
