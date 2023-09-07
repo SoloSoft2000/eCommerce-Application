@@ -3,6 +3,7 @@ import Highlighter from 'react-highlight-words';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../utils/reducers/store';
 import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
+import ButtonAddToCart from '../ButtonAddToCart';
 
 function ProductCard(props: ProductCardProps): React.JSX.Element {
   const textForHighLight = useSelector(
@@ -62,7 +63,8 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
             />
           </p>
         </div>
-        <p>
+        <div className='flex justify-between'>
+          <p className='w-3/5'>
           {props.discount && (
             <span className="mr-2 line-through text-amber-400">
               $ {props.price}
@@ -71,7 +73,9 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
           <span className="text-amber-600 text-xl">
             $ {props.discount ? props.discount : props.price}
           </span>
-        </p>
+          </p>
+          <ButtonAddToCart id={props.id} btnCatalogClasses='max-md:block h-9 w-2/5 max-md:w-9/12 text-xs mx-auto text-center rounded bg-black p-2 mr-1 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer' />
+        </div>
       </div>
     </div>
   );

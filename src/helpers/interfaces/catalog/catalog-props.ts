@@ -17,6 +17,7 @@ interface ProductListProps {
 
 interface BtnAddToCartProps {
   id?: string;
+  btnCatalogClasses?: string;
 }
 
 export { ProductCardProps, ProductListProps, BtnAddToCartProps };
