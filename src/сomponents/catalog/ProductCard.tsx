@@ -1,4 +1,6 @@
 import React from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import Highlighter from 'react-highlight-words';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../utils/reducers/store';
@@ -17,8 +19,11 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
         </div>
       )}
       <div className="w-full object-bottom w-[18rem] h-[18rem] overflow-hidden rounded">
-        <img
+        <LazyLoadImage
           className="object-cover w-full"
+          width={288}
+          height={288}
+          effect="blur"
           src={props.image}
           alt={props.description}
         />
