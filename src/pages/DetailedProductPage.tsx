@@ -34,6 +34,7 @@ function ProductPage(): React.JSX.Element {
       <BreadcrumbCatalog title={prodData?.title} />
       {prodData !== undefined && (
         <DetailedProductCard
+          id={prodData.id}
           description={prodData.description}
           title={prodData.title}
           image={prodData.image}

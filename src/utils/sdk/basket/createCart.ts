@@ -7,6 +7,7 @@ async function createCart(): Promise<Cart> {
   const savedCustomer = localStorage.getItem('CT-Customer-SignIn');
   let cartDraft: CartDraft = {
     currency: 'USD',
+    taxMode: 'Disabled',
   };
 
   if (savedCustomer) {
