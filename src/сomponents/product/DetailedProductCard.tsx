@@ -60,8 +60,7 @@ function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
             </div>
           )}
         </div>
-        <ButtonAddToCart id={props.id}/>
-
+        <ButtonAddToCart id={props.id} />
       </div>
     </div>
   );
