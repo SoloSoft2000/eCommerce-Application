@@ -5,9 +5,11 @@ import { BtnAddToCartProps } from '../helpers/interfaces/catalog/catalog-props';
 function ButtonAddToCart(props: BtnAddToCartProps): React.JSX.Element {
   const { id, btnCatalogClasses } = props;
 
-  const bthClick = (): void => {
+  const bthClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
     if (id) {
       updateQuantity('addLineItem', id);
+      console.log('button clicked', id);
     }
   };
 
