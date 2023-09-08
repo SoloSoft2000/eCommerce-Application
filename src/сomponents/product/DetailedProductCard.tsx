@@ -2,7 +2,7 @@ import React from 'react';
 import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
 import SwiperComponent from './SwiperSlider';
 import CurrencyFormatter from '../../helpers/functions/currency-formatter';
-import updateQuantity from '../../utils/sdk/basket/updateQuantity';
+import ButtonAddToCart from '../ButtonAddToCart';
 
 function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
   const images: string[] = props.images || [];
@@ -60,14 +60,7 @@ function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
             </div>
           )}
         </div>
-        <button
-          onClick={(): void => {
-            updateQuantity('addLineItem', props.id as string);
-          }}
-          className="max-md:block w-1/2 max-md:w-9/12 max-md:text-xs max-md:mx-auto mb-11 text-center rounded bg-black p-3 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer"
-        >
-          Add to Cart
-        </button>
+        <ButtonAddToCart id={props.id} />
       </div>
     </div>
   );

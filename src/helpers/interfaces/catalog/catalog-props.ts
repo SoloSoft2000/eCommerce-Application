@@ -15,4 +15,9 @@ interface ProductListProps {
   data: ProductCardProps[] | null;
 }
 
-export { ProductCardProps, ProductListProps };
+interface BtnAddToCartProps {
+  id?: string;
+  btnCatalogClasses?: string;
+}
+
+export { ProductCardProps, ProductListProps, BtnAddToCartProps };

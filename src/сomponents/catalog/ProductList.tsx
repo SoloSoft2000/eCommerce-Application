@@ -15,6 +15,7 @@ function ProductList({ data }: ProductListProps): React.JSX.Element {
           (item: ProductCardProps, index: number): React.JSX.Element => (
             <Link to={`${currentPath}/product/${item.id}`} key={index}>
               <ProductCard
+                id={item.id}
                 description={item.description}
                 title={item.title}
                 image={item.image}
