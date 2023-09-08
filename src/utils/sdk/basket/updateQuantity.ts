@@ -5,7 +5,7 @@ import createCart from './createCart';
 
 async function updateQuantity(
   actionType: 'addLineItem' | 'removeLineItem',
-  productId: string,
+  id: string,
   quantity = 1
 ): Promise<Cart> {
   const apiRoot = createApiRoot();
@@ -25,7 +25,8 @@ async function updateQuantity(
         actions: [
           {
             action: actionType,
-            productId,
+            productId: actionType === 'addLineItem' ? id : undefined,
+            lineItemId: actionType === 'removeLineItem' ? id : undefined,
             quantity,
           },
         ],

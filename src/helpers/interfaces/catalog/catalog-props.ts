@@ -9,6 +9,8 @@ interface ProductCardProps {
   images?: string[] | undefined;
   productBrand?: string;
   productStyle?: string;
+  idInCart?: string;
+  setUpdateCart?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface ProductListProps {
@@ -16,8 +18,10 @@ interface ProductListProps {
 }
 
 interface BtnAddToCartProps {
+  setUpdateFlag: React.Dispatch<React.SetStateAction<boolean>>;
   id?: string;
-  btnCatalogClasses?: string;
+  idInCart?: string;
+  btnCatalogClasses?: boolean;
 }
 
 export { ProductCardProps, ProductListProps, BtnAddToCartProps };

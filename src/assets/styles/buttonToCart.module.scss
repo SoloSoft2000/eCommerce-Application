@@ -1,0 +1,15 @@
+.btnFromCatalog {
+  @apply max-md:block h-9 w-2/5 max-md:w-9/12 text-xs mx-auto text-center rounded bg-black p-2 mr-1 text-white uppercase drop-shadow-sm;
+}
+
+.btnFromDetailedProduct {
+  @apply max-md:block w-1/4 max-md:w-9/12 max-md:text-xs max-md:mx-auto mb-11 text-center rounded p-3 text-white uppercase drop-shadow-sm;
+}
+
+.btnNotAllowed {
+  @apply bg-gray-400 text-gray-500 cursor-not-allowed;
+}
+
+.btnAllowed {
+  @apply bg-black text-white hover:bg-slate-600 hover:text-white cursor-pointer;
+}
