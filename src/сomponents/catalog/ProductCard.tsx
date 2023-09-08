@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import Highlighter from 'react-highlight-words';
@@ -8,9 +8,18 @@ import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props
 import ButtonAddToCart from '../ButtonAddToCart';
 
 function ProductCard(props: ProductCardProps): React.JSX.Element {
+  const [updateFlag, setUpdateFlag] = useState(false);
+
   const textForHighLight = useSelector(
     (state: RootState) => state.products.text
   );
+
+  useEffect(() => {
+    if (updateFlag) {
+      if (props.setUpdateCart) props.setUpdateCart(true);
+      setUpdateFlag(false);
+    }
+  }, [updateFlag]);
 
   return (
     <div className="border-[1px] border-zinc-200 w-[18rem] h-[30rem] h-auto bg-white hover:drop-shadow-lg rounded relative cursor-pointer overflow-hidden">
@@ -86,8 +95,10 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
             )}
           </p>
           <ButtonAddToCart
+            setUpdateFlag={setUpdateFlag}
             id={props.id}
-            btnCatalogClasses="max-md:block h-9 w-2/5 max-md:w-9/12 text-xs mx-auto text-center rounded bg-black p-2 mr-1 text-white uppercase drop-shadow-sm"
+            idInCart={props.idInCart}
+            btnCatalogClasses={true}
           />
         </div>
       </div>
