@@ -3,6 +3,7 @@ import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props
 import SwiperComponent from './SwiperSlider';
 import CurrencyFormatter from '../../helpers/functions/currency-formatter';
 import ButtonAddToCart from '../ButtonAddToCart';
+import ButtonRemoveFromCart from '../ButtonRemoveFromCart';
 
 function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
   const images: string[] = props.images || [];
@@ -61,6 +62,7 @@ function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
           )}
         </div>
         <ButtonAddToCart id={props.id} />
+        <ButtonRemoveFromCart id={props.id} />
       </div>
     </div>
   );
