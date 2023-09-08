@@ -1,11 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import updateQuantity from '../utils/sdk/basket/updateQuantity';
+import getCart from '../utils/sdk/basket/getCart';
 import { BtnAddToCartProps } from '../helpers/interfaces/catalog/catalog-props';
+import { Cart, LineItem } from '@commercetools/platform-sdk';
 
 function ButtonAddToCart(props: BtnAddToCartProps): React.JSX.Element {
   const { id, btnCatalogClasses } = props;
 
   const [isDisabled, setIsDisabled] = useState(false);
+
+  useEffect(() => {
+    const checkCart = async (): Promise<void> => {
+      try {
+        const cart: Cart = await getCart(); 
+        const isProductInCart: boolean = cart.lineItems.some((item: LineItem) => item.productId === id);
+        setIsDisabled(isProductInCart);
+      } catch (error) {
+        console.error('Error checking product in cart', error);
+      }
+    };
+
+    if (id) {
+      checkCart();
+    }
+  }, [id]);
 
   const bthClick = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
     event.preventDefault();
@@ -29,11 +47,15 @@ function ButtonAddToCart(props: BtnAddToCartProps): React.JSX.Element {
     ? 'bg-gray-400 text-gray-500 cursor-not-allowed'
     : 'bg-black text-white hover:bg-slate-600 hover:text-white cursor-pointer';
 
-  return (
-    <button onClick={bthClick} className={`${btnStyles} ${buttonClass}`} disabled={isDisabled}>
-      {isDisabled ? 'Added to Cart' : 'Add to Cart'}
+    return (
+      <button
+      onClick={bthClick}
+      className={`${btnStyles} ${isDisabled ? 'bg-gray-400 text-gray-500 cursor-not-allowed' : buttonClass}`}
+      disabled={isDisabled}
+    >
+      {isDisabled ? 'Added To Cart' : 'Add to Cart'}
     </button>
-  );
+    );
 }
 
 export default ButtonAddToCart;
