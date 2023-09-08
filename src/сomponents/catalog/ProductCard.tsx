@@ -76,7 +76,7 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
           </p>
           <ButtonAddToCart
             id={props.id}
-            btnCatalogClasses="max-md:block h-9 w-2/5 max-md:w-9/12 text-xs mx-auto text-center rounded bg-black p-2 mr-1 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer"
+            btnCatalogClasses="max-md:block h-9 w-2/5 max-md:w-9/12 text-xs mx-auto text-center rounded bg-black p-2 mr-1 text-white uppercase drop-shadow-sm"
           />
         </div>
       </div>
