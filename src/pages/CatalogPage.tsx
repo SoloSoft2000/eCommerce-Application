@@ -171,7 +171,7 @@ function CatalogPage(): React.JSX.Element {
             next={(): void => {
               setTimeout(() => {
                 setProductOffset((prev) => prev + 2);
-              }, 1000);
+              }, 300);
             }}
             hasMore={catalog.length < totalProducts}
             loader={
@@ -181,9 +181,11 @@ function CatalogPage(): React.JSX.Element {
               </div>
             }
             endMessage={
-              <p className="flex justify-center p-5">
-                You have seen all products
-              </p>
+              totalProducts > 2 && (
+                <p className="flex justify-center p-5">
+                  You have seen all products
+                </p>
+              )
             }
           >
             <ProductList data={catalog} />
