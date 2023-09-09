@@ -13,9 +13,7 @@ function ButtonRemoveFromCart(props: BtnAddToCartProps): React.JSX.Element {
     if (!idInCart) return;
 
     try {
-      console.log(idInCart);
       const cart: Cart = await getCart();
-      console.log(cart);
       const isProductInCart: boolean = cart.lineItems.some(
         (item: LineItem) => item.productId === id
       );
@@ -26,17 +24,14 @@ function ButtonRemoveFromCart(props: BtnAddToCartProps): React.JSX.Element {
       }
 
       await updateQuantity('removeLineItem', idInCart);
-      console.log(idInCart);
-      console.log('button clicked, removed from cart', idInCart);
       showNotification('Removed from cart', 'success');
       if (resetIdInCart) {
         resetIdInCart();
       }
-
-      // props.setIdInCart(undefined);
       setUpdateFlag(true);
     } catch (error) {
       console.error('Error removing product from cart', error);
+      showNotification('An error occurred', 'error');
     }
   };
 

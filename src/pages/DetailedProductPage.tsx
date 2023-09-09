@@ -43,12 +43,8 @@ function ProductPage(): React.JSX.Element {
   }, [productId, showNotification, updateCart]);
 
   useEffect(() => {
-    console.log('Update flag in DetailedProductCard:', updateFlag);
     if (updateFlag) {
-      console.log('Update flag is true. Re-rendering...');
-
       if (setUpdateCart) setUpdateCart(true);
-      // setIdInCart(undefined);
       setUpdateFlag(false);
     } else if (prodData) {
       getCart()
@@ -59,10 +55,8 @@ function ProductPage(): React.JSX.Element {
           );
           if (lineItem) {
             setIdInCart(lineItem.id);
-            console.log('Found item:', lineItem.id);
             return lineItem.id;
           }
-          console.log('Item is not found in cart');
           return null;
         })
         .catch(() => setUpdateCart(false));

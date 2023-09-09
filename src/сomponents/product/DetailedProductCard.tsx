@@ -59,8 +59,6 @@ function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
             </div>
           )}
         </div>
-        {/* <ButtonAddToCart setUpdateFlag={setUpdateFlag} id={props.id} idInCart={props.idInCart} />
-        <ButtonRemoveFromCart setUpdateFlag={setUpdateFlag} id={props.id} idInCart={props.idInCart} /> */}
       </div>
     </div>
   );
