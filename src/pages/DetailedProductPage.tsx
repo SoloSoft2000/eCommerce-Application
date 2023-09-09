@@ -6,12 +6,17 @@ import { ProductCardProps } from '../helpers/interfaces/catalog/catalog-props';
 import setProductWithId from '../utils/sdk/utils/handleDetailedProductData';
 import BreadcrumbCatalog from '../сomponents/catalog/Breadcrumb';
 import NotificationContext from '../utils/notification/NotificationContext';
+import getCart from '../utils/sdk/basket/getCart';
 
 function ProductPage(): React.JSX.Element {
   const { productId } = useParams();
   const [prodData, setProdData] = useState<ProductCardProps | undefined>();
   const [productImages, setProductImages] = useState<string[]>([]);
+  const [updateCart, setUpdateCart] = useState(false);
+  const [idInCart, setIdInCart] = useState<string | undefined>(undefined); 
+
   const showNotification = useContext(NotificationContext);
+
   useEffect(() => {
     if (productId) {
       const fetchData = async (): Promise<void> => {
@@ -28,7 +33,26 @@ function ProductPage(): React.JSX.Element {
       };
       fetchData();
     }
-  }, []);
+  }, [productId, showNotification]);
+
+  useEffect(() => {
+    if (prodData) {
+      getCart()
+        .then((cart) => {
+          const productIdToFind = prodData.id; 
+          const lineItem = cart.lineItems.find((item) => item.productId === productIdToFind);
+          if (lineItem) {
+            setIdInCart(lineItem.id);
+            console.log("Found item:", lineItem.id);
+            return lineItem.id;
+          } else {
+            console.log("Item is not found in cart");
+          }
+        })
+        .catch(() => setUpdateCart(false));
+    }
+  }, [prodData, updateCart]);
+
   return (
     <main className="container mx-auto">
       <BreadcrumbCatalog title={prodData?.title} />
@@ -44,6 +68,8 @@ function ProductPage(): React.JSX.Element {
           salePercent={prodData.salePercent}
           productBrand={prodData.productBrand}
           productStyle={prodData.productStyle}
+          idInCart={idInCart}
+          setUpdateCart={setUpdateCart}
         />
       )}
     </main>

@@ -10,15 +10,16 @@ function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
   const images: string[] = props.images || [];
 
   useEffect(() => {
-    console.log('updated');
+    if (updateFlag) {
+      if (props.setUpdateCart) props.setUpdateCart(true);
+      setUpdateFlag(false);
+    }
   }, [updateFlag]);
 
-  const price: number =
-    typeof props.price === 'number' ? props.price : parseFloat(props.price);
-  const discount: number =
-    typeof props.discount === 'number'
-      ? props.discount
-      : parseFloat(props.discount || '');
+  const price: number = typeof props.price === 'number' ? props.price : parseFloat(props.price);
+  const discount: number = typeof props.discount === 'number'
+    ? props.discount
+    : parseFloat(props.discount || '');
 
   return (
     <div className="max-md:flex-col max-md:mt-8 flex mt-28 justify-center h-full">
@@ -50,9 +51,7 @@ function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
         </div>
         <div className="flex mb-11 max-md:mb-5">
           <div
-            className={`max-lg:text-sm text-2xl ${
-              props.discount ? 'line-through text-amber-600' : 'text-amber-600'
-            }`}
+            className={`max-lg:text-sm text-2xl ${props.discount ? 'line-through text-amber-600' : 'text-amber-600'}`}
           >
             <CurrencyFormatter value={price} />
           </div>
@@ -66,8 +65,8 @@ function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
             </div>
           )}
         </div>
-        <ButtonAddToCart setUpdateFlag={setUpdateFlag} id={props.id} />
-        <ButtonRemoveFromCart setUpdateFlag={setUpdateFlag} id={props.id} />
+        <ButtonAddToCart setUpdateFlag={setUpdateFlag} id={props.id} idInCart={props.idInCart} />
+        <ButtonRemoveFromCart setUpdateFlag={setUpdateFlag} id={props.id} idInCart={props.idInCart} />
       </div>
     </div>
   );

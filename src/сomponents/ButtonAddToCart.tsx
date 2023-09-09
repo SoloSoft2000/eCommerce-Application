@@ -9,7 +9,6 @@ function ButtonAddToCart(props: BtnAddToCartProps): React.JSX.Element {
 
   const bthClick = (event: React.MouseEvent): void => {
     event.preventDefault();
-    console.log(props.id, props.idInCart);
     updateQuantity('addLineItem', props.id as string)
       .then(() => {
         showNotification('Added to cart', 'success');

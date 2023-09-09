@@ -26,6 +26,7 @@ function ProductList({ data }: ProductListProps): React.JSX.Element {
         (item) => item.productId === productId
       );
       if (lineItem) {
+        // console.log('props.id', productId, 'props.idInCart', lineItem.id);
         return lineItem.id;
       }
       return undefined;
