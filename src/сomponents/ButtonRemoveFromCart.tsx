@@ -41,12 +41,15 @@ function ButtonRemoveFromCart(props: BtnAddToCartProps): React.JSX.Element {
   };
 
   const isDisabled = idInCart === undefined;
+  const btnClasses = `w-1/6 max-md:w-1/3 max-lg:text-xs max-md:mx-auto mb-11 text-center rounded p-3 ml-3 text-white uppercase drop-shadow-sm ${
+    isDisabled ? 'bg-gray-200 text-white cursor-not-allowed' : 'bg-black hover:bg-slate-600 hover:text-white cursor-pointer'
+  }`;
 
   return (
     <button
       onClick={bthRemoveClick}
       disabled={isDisabled}
-      className="w-1/6 max-md:w-1/3 max-lg:text-xs max-md:mx-auto mb-11 text-center rounded p-3 ml-3 text-white uppercase drop-shadow-sm bg-black text-white hover:bg-slate-600 hover:text-white cursor-pointer"
+      className={btnClasses}
     >
       Remove From Cart
     </button>
