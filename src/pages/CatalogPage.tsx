@@ -5,6 +5,7 @@ import React, {
   useState,
   useMemo,
 } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../utils/reducers/store';
@@ -17,6 +18,7 @@ import BreadcrumbCatalog from '../сomponents/catalog/Breadcrumb';
 import MainCatalogPage from './MainCatalogPage';
 import AppliedFilter from '../сomponents/catalog/AppliedFilters';
 import NotificationContext from '../utils/notification/NotificationContext';
+import ProductCardSkeleton from '../сomponents/catalog/ProductCardSkeleton';
 
 const brand = ['ABC-Style', 'Romantics LTD', 'NY-Fashion'];
 const styles = ['Retro', 'Modern', 'Casual', 'Chic'];
@@ -29,6 +31,8 @@ function CatalogPage(): React.JSX.Element {
   const [filterMenu, setFilterMenu] = useState(true);
   const [catalog, setCatalog] = useState<ProductCardProps[]>([]);
   const [categoriesMenu, setCategoriesMenu] = useState(false);
+  const [productOffset, setProductOffset] = useState(4);
+  const [totalProducts, setTotalProducts] = useState(0);
 
   const productArray = useSelector((state: RootState) => state.products);
   const { sortByAbc, sortByPrice } = productArray.sort;
@@ -50,15 +54,18 @@ function CatalogPage(): React.JSX.Element {
           text: productArray.text,
           brand: productArray.brand,
           style: productArray.style,
+          offsetElements: productOffset,
         });
-        const data = setDataElements(products);
+        const { results, total } = products;
+        if (total) setTotalProducts(total);
+        const data = setDataElements(results);
         setCatalog(data);
       } catch (err) {
         showNotification(`Catalog page: ${err}`, 'error');
       }
     };
     fetchData();
-  }, [dispatch, productArray, category]);
+  }, [dispatch, productArray, category, productOffset]);
 
   useEffect(() => {
     const followResizing = (): void => {
@@ -78,6 +85,7 @@ function CatalogPage(): React.JSX.Element {
 
   useEffect(() => {
     setCategoriesMenu(false);
+    setProductOffset(4);
   }, [category]);
 
   const appliedFilterGenerator = useCallback(
@@ -158,7 +166,28 @@ function CatalogPage(): React.JSX.Element {
           {filterMenu && <Filter />}
         </div>
         <div className="grow flex justify-center">
-          <ProductList data={catalog} />
+          <InfiniteScroll
+            dataLength={catalog.length}
+            next={(): void => {
+              setTimeout(() => {
+                setProductOffset((prev) => prev + 2);
+              }, 1000);
+            }}
+            hasMore={catalog.length < totalProducts}
+            loader={
+              <div className="flex w-full sm:max-w-[50rem] justify-around items-center flex-wrap gap-8 md:gap-y-14 mt-10">
+                <ProductCardSkeleton />
+                <ProductCardSkeleton />
+              </div>
+            }
+            endMessage={
+              <p className="flex justify-center p-5">
+                You have seen all products
+              </p>
+            }
+          >
+            <ProductList data={catalog} />
+          </InfiniteScroll>
         </div>
       </div>
     </main>
