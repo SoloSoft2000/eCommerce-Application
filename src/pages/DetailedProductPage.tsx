@@ -15,7 +15,7 @@ function ProductPage(): React.JSX.Element {
   const [prodData, setProdData] = useState<ProductCardProps | undefined>();
   const [productImages, setProductImages] = useState<string[]>([]);
   const [updateCart, setUpdateCart] = useState(false);
-  const [idInCart, setIdInCart] = useState<string | undefined>(undefined); 
+  const [idInCart, setIdInCart] = useState<string | undefined>(undefined);
   const [updateFlag, setUpdateFlag] = useState(false);
 
   function resetIdInCart(): void {
@@ -42,27 +42,28 @@ function ProductPage(): React.JSX.Element {
     }
   }, [productId, showNotification, updateCart]);
 
-   useEffect(() => {
-    console.log("Update flag in DetailedProductCard:", updateFlag);
+  useEffect(() => {
+    console.log('Update flag in DetailedProductCard:', updateFlag);
     if (updateFlag) {
-      console.log("Update flag is true. Re-rendering...");
-    
+      console.log('Update flag is true. Re-rendering...');
+
       if (setUpdateCart) setUpdateCart(true);
       // setIdInCart(undefined);
       setUpdateFlag(false);
     } else if (prodData) {
       getCart()
         .then((cart) => {
-          const productIdToFind = prodData.id; 
-          const lineItem = cart.lineItems.find((item) => item.productId === productIdToFind);
+          const productIdToFind = prodData.id;
+          const lineItem = cart.lineItems.find(
+            (item) => item.productId === productIdToFind
+          );
           if (lineItem) {
             setIdInCart(lineItem.id);
-            console.log("Found item:", lineItem.id);
+            console.log('Found item:', lineItem.id);
             return lineItem.id;
-          } else {
-            console.log("Item is not found in cart");
-            return null;
           }
+          console.log('Item is not found in cart');
+          return null;
         })
         .catch(() => setUpdateCart(false));
     }
@@ -73,24 +74,34 @@ function ProductPage(): React.JSX.Element {
       <BreadcrumbCatalog title={prodData?.title} />
       {prodData !== undefined && (
         <>
-        <DetailedProductCard
-          id={prodData.id}
-          description={prodData.description}
-          title={prodData.title}
-          image={prodData.image}
-          images={productImages}
-          price={prodData.price}
-          discount={prodData.discount}
-          salePercent={prodData.salePercent}
-          productBrand={prodData.productBrand}
-          productStyle={prodData.productStyle}
-          idInCart={idInCart}
-          setUpdateCart={setUpdateCart}
-        />
-        <div className='flex justify-end mr-[24%] max-md:justify-between max-md:mr-0'>
-          <ButtonAddToCart setUpdateFlag={setUpdateFlag} id={prodData.id} idInCart={idInCart} resetIdInCart={resetIdInCart}/>
-          <ButtonRemoveFromCart setUpdateFlag={setUpdateFlag} id={prodData.id} idInCart={idInCart} resetIdInCart={resetIdInCart}/>
-        </div>
+          <DetailedProductCard
+            id={prodData.id}
+            description={prodData.description}
+            title={prodData.title}
+            image={prodData.image}
+            images={productImages}
+            price={prodData.price}
+            discount={prodData.discount}
+            salePercent={prodData.salePercent}
+            productBrand={prodData.productBrand}
+            productStyle={prodData.productStyle}
+            idInCart={idInCart}
+            setUpdateCart={setUpdateCart}
+          />
+          <div className="flex justify-end mr-[24%] max-md:justify-between max-md:mr-0">
+            <ButtonAddToCart
+              setUpdateFlag={setUpdateFlag}
+              id={prodData.id}
+              idInCart={idInCart}
+              resetIdInCart={resetIdInCart}
+            />
+            <ButtonRemoveFromCart
+              setUpdateFlag={setUpdateFlag}
+              id={prodData.id}
+              idInCart={idInCart}
+              resetIdInCart={resetIdInCart}
+            />
+          </div>
         </>
       )}
     </main>

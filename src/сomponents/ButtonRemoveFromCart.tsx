@@ -11,7 +11,7 @@ function ButtonRemoveFromCart(props: BtnAddToCartProps): React.JSX.Element {
 
   const bthRemoveClick = async (): Promise<void> => {
     if (!idInCart) return;
-  
+
     try {
       console.log(idInCart);
       const cart: Cart = await getCart();
@@ -19,20 +19,20 @@ function ButtonRemoveFromCart(props: BtnAddToCartProps): React.JSX.Element {
       const isProductInCart: boolean = cart.lineItems.some(
         (item: LineItem) => item.productId === id
       );
-  
+
       if (!isProductInCart) {
         console.error('Product is not in the cart.');
         return;
       }
-  
+
       await updateQuantity('removeLineItem', idInCart);
       console.log(idInCart);
       console.log('button clicked, removed from cart', idInCart);
       showNotification('Removed from cart', 'success');
       if (resetIdInCart) {
-         resetIdInCart();
+        resetIdInCart();
       }
-     
+
       // props.setIdInCart(undefined);
       setUpdateFlag(true);
     } catch (error) {
