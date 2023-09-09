@@ -5,29 +5,30 @@ import getCart from '../utils/sdk/basket/getCart';
 import { BtnAddToCartProps } from '../helpers/interfaces/catalog/catalog-props';
 
 function ButtonRemoveFromCart(props: BtnAddToCartProps): React.JSX.Element {
-  const { id } = props;
+  const { id, idInCart, setUpdateFlag } = props;
 
   const bthRemoveClick = async (): Promise<void> => {
-    if (id) {
-      try {
-        console.log(id);
-        const cart: Cart = await getCart();
-        console.log(cart);
-        const isProductInCart: boolean = cart.lineItems.some(
-          (item: LineItem) => item.productId === id
-        );
-
-        if (!isProductInCart) {
-          console.error('Product is not in the cart.');
-          return;
-        }
-
-        await updateQuantity('removeLineItem', id);
-        console.log(id);
-        console.log('button clicked, removed from cart', id);
-      } catch (error) {
-        console.error('Error removing product from cart', error);
+    if (!idInCart) return;
+  
+    try {
+      console.log(idInCart);
+      const cart: Cart = await getCart();
+      console.log(cart);
+      const isProductInCart: boolean = cart.lineItems.some(
+        (item: LineItem) => item.productId === id
+      );
+  
+      if (!isProductInCart) {
+        console.error('Product is not in the cart.');
+        return;
       }
+  
+      await updateQuantity('removeLineItem', idInCart);
+      console.log(idInCart);
+      console.log('button clicked, removed from cart', idInCart);
+      setUpdateFlag(true);
+    } catch (error) {
+      console.error('Error removing product from cart', error);
     }
   };
 

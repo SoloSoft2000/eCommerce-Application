@@ -10,7 +10,9 @@ function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
   const images: string[] = props.images || [];
 
   useEffect(() => {
+    console.log("Update flag in DetailedProductCard:", updateFlag);
     if (updateFlag) {
+      console.log("Update flag is true. Re-rendering...");
       if (props.setUpdateCart) props.setUpdateCart(true);
       setUpdateFlag(false);
     }
