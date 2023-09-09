@@ -1,22 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
 import SwiperComponent from './SwiperSlider';
 import CurrencyFormatter from '../../helpers/functions/currency-formatter';
-import ButtonAddToCart from '../ButtonAddToCart';
-import ButtonRemoveFromCart from '../ButtonRemoveFromCart';
 
 function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
-  const [updateFlag, setUpdateFlag] = useState(false);
+ 
   const images: string[] = props.images || [];
-
-  useEffect(() => {
-    console.log("Update flag in DetailedProductCard:", updateFlag);
-    if (updateFlag) {
-      console.log("Update flag is true. Re-rendering...");
-      if (props.setUpdateCart) props.setUpdateCart(true);
-      setUpdateFlag(false);
-    }
-  }, [updateFlag]);
 
   const price: number = typeof props.price === 'number' ? props.price : parseFloat(props.price);
   const discount: number = typeof props.discount === 'number'
@@ -67,8 +56,8 @@ function DetailedProductCard(props: ProductCardProps): React.JSX.Element {
             </div>
           )}
         </div>
-        <ButtonAddToCart setUpdateFlag={setUpdateFlag} id={props.id} idInCart={props.idInCart} />
-        <ButtonRemoveFromCart setUpdateFlag={setUpdateFlag} id={props.id} idInCart={props.idInCart} />
+        {/* <ButtonAddToCart setUpdateFlag={setUpdateFlag} id={props.id} idInCart={props.idInCart} />
+        <ButtonRemoveFromCart setUpdateFlag={setUpdateFlag} id={props.id} idInCart={props.idInCart} /> */}
       </div>
     </div>
   );

@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Cart, LineItem } from '@commercetools/platform-sdk';
 import updateQuantity from '../utils/sdk/basket/updateQuantity';
 import getCart from '../utils/sdk/basket/getCart';
 import { BtnAddToCartProps } from '../helpers/interfaces/catalog/catalog-props';
+import NotificationContext from '../utils/notification/NotificationContext';
 
 function ButtonRemoveFromCart(props: BtnAddToCartProps): React.JSX.Element {
-  const { id, idInCart, setUpdateFlag } = props;
+  const { id, idInCart, setUpdateFlag, resetIdInCart } = props;
+  const showNotification = useContext(NotificationContext);
 
   const bthRemoveClick = async (): Promise<void> => {
     if (!idInCart) return;
@@ -26,16 +28,25 @@ function ButtonRemoveFromCart(props: BtnAddToCartProps): React.JSX.Element {
       await updateQuantity('removeLineItem', idInCart);
       console.log(idInCart);
       console.log('button clicked, removed from cart', idInCart);
+      showNotification('Removed from cart', 'success');
+      if (resetIdInCart) {
+         resetIdInCart();
+      }
+     
+      // props.setIdInCart(undefined);
       setUpdateFlag(true);
     } catch (error) {
       console.error('Error removing product from cart', error);
     }
   };
 
+  const isDisabled = idInCart === undefined;
+
   return (
     <button
       onClick={bthRemoveClick}
-      className="max-md:block w-1/4 max-md:w-9/12 max-md:text-xs max-md:mx-auto max-md:mb-3 text-center rounded p-3 ml-3 text-white uppercase drop-shadow-sm bg-black text-white hover:bg-slate-600 hover:text-white cursor-pointer"
+      disabled={isDisabled}
+      className="w-1/6 max-md:w-1/3 max-lg:text-xs max-md:mx-auto mb-11 text-center rounded p-3 ml-3 text-white uppercase drop-shadow-sm bg-black text-white hover:bg-slate-600 hover:text-white cursor-pointer"
     >
       Remove From Cart
     </button>

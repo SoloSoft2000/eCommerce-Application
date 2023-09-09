@@ -7,6 +7,8 @@ import setProductWithId from '../utils/sdk/utils/handleDetailedProductData';
 import BreadcrumbCatalog from '../сomponents/catalog/Breadcrumb';
 import NotificationContext from '../utils/notification/NotificationContext';
 import getCart from '../utils/sdk/basket/getCart';
+import ButtonAddToCart from '../сomponents/ButtonAddToCart';
+import ButtonRemoveFromCart from '../сomponents/ButtonRemoveFromCart';
 
 function ProductPage(): React.JSX.Element {
   const { productId } = useParams();
@@ -14,6 +16,11 @@ function ProductPage(): React.JSX.Element {
   const [productImages, setProductImages] = useState<string[]>([]);
   const [updateCart, setUpdateCart] = useState(false);
   const [idInCart, setIdInCart] = useState<string | undefined>(undefined); 
+  const [updateFlag, setUpdateFlag] = useState(false);
+
+  function resetIdInCart(): void {
+    setIdInCart(undefined);
+  }
 
   const showNotification = useContext(NotificationContext);
 
@@ -33,10 +40,17 @@ function ProductPage(): React.JSX.Element {
       };
       fetchData();
     }
-  }, [productId, showNotification]);
+  }, [productId, showNotification, updateCart]);
 
-  useEffect(() => {
-    if (prodData) {
+   useEffect(() => {
+    console.log("Update flag in DetailedProductCard:", updateFlag);
+    if (updateFlag) {
+      console.log("Update flag is true. Re-rendering...");
+    
+      if (setUpdateCart) setUpdateCart(true);
+      // setIdInCart(undefined);
+      setUpdateFlag(false);
+    } else if (prodData) {
       getCart()
         .then((cart) => {
           const productIdToFind = prodData.id; 
@@ -47,16 +61,18 @@ function ProductPage(): React.JSX.Element {
             return lineItem.id;
           } else {
             console.log("Item is not found in cart");
+            return null;
           }
         })
         .catch(() => setUpdateCart(false));
     }
-  }, [prodData, updateCart]);
+  }, [updateFlag, prodData]);
 
   return (
     <main className="container mx-auto">
       <BreadcrumbCatalog title={prodData?.title} />
       {prodData !== undefined && (
+        <>
         <DetailedProductCard
           id={prodData.id}
           description={prodData.description}
@@ -71,6 +87,11 @@ function ProductPage(): React.JSX.Element {
           idInCart={idInCart}
           setUpdateCart={setUpdateCart}
         />
+        <div className='flex justify-end mr-[24%] max-md:justify-between max-md:mr-0'>
+          <ButtonAddToCart setUpdateFlag={setUpdateFlag} id={prodData.id} idInCart={idInCart} resetIdInCart={resetIdInCart}/>
+          <ButtonRemoveFromCart setUpdateFlag={setUpdateFlag} id={prodData.id} idInCart={idInCart} resetIdInCart={resetIdInCart}/>
+        </div>
+        </>
       )}
     </main>
   );

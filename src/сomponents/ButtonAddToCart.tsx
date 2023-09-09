@@ -20,8 +20,8 @@ function ButtonAddToCart(props: BtnAddToCartProps): React.JSX.Element {
   };
 
   const btnStyles = props.btnCatalogClasses
-    ? ButtonStyles.btnFromCatalog
-    : ButtonStyles.btnFromDetailedProduct;
+    ? ButtonStyles.btnAddInCatalog
+    : ButtonStyles.btnAddDetailedProduct;
   const buttonClass = props.idInCart
     ? ButtonStyles.btnNotAllowed
     : ButtonStyles.btnAllowed;
