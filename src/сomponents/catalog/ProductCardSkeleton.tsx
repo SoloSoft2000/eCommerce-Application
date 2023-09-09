@@ -19,10 +19,9 @@ function ProductCardSkeleton(): React.JSX.Element {
             <Skeleton count={4} />
           </h4>
         </div>
-        <p>
-          <span className="mr-2 line-through text-amber-400">
-            <Skeleton width={100} />
-          </span>
+        <p className="flex justify-between items-center">
+          <Skeleton width={100} />
+          <Skeleton width={100} height={30} />
         </p>
       </div>
     </div>

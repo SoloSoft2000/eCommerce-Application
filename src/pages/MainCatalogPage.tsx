@@ -57,7 +57,7 @@ function MainCatalogPage({ title }: MainCatalogData): React.JSX.Element {
     };
 
     fetchCategoriesCover();
-  }, []);
+  }, [categoriesCover]);
 
   return (
     <main className="container mx-auto py-10 flex flex-col items-center">

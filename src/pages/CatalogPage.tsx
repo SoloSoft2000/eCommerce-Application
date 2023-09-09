@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  useMemo,
+} from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../utils/reducers/store';
@@ -26,7 +32,11 @@ function CatalogPage(): React.JSX.Element {
 
   const productArray = useSelector((state: RootState) => state.products);
   const { sortByAbc, sortByPrice } = productArray.sort;
-  const [minPrice, maxPrice] = productArray.price;
+
+  const [minPrice, maxPrice] = useMemo(
+    () => [productArray.price[0], productArray.price[1]],
+    [productArray.price]
+  );
 
   const dispatch = useDispatch();
 
@@ -119,7 +129,7 @@ function CatalogPage(): React.JSX.Element {
           {sortByAbc === 'name.en-Us desc' &&
             appliedFilterGenerator('Name: Z-A', 'sortByAbc')}
 
-          {(minPrice || maxPrice > 0) &&
+          {(minPrice > 0 || maxPrice > 0) &&
             appliedFilterGenerator(
               `Price from ${minPrice || 0} to ${maxPrice || '*'}`,
               'sortByPriceRange'
