@@ -1,27 +1,24 @@
-import { Cart, Customer } from '@commercetools/platform-sdk';
-import createApiRoot from '../createApiRoot';
+import { Cart } from '@commercetools/platform-sdk';
+import { createApiSignRoot } from '../createApiRoot';
 
 async function getCart(): Promise<Cart> {
-  const apiRoot = createApiRoot();
+  const apiRoot = createApiSignRoot();
 
-  let cart;
-  const savedCustomer = localStorage.getItem('CT-Customer-SignIn');
-  if (savedCustomer) {
-    const customer: Customer = JSON.parse(savedCustomer);
-    cart = apiRoot.carts().withCustomerId({ customerId: customer.id }).get();
-  }
-
-  const savedAnonymCard = sessionStorage.getItem('CT-Cart-AnonymID');
-  if (savedAnonymCard) {
-    cart = apiRoot.carts().withId({ ID: savedAnonymCard }).get();
-  }
-
-  if (!cart) {
+  try {
+    const customCart = localStorage.getItem('CT-Cart-CustomerID');
+    if (customCart) {
+      const { body } = await apiRoot
+        .carts()
+        .withId({ ID: customCart })
+        .get()
+        .execute();
+      return body;
+    }
+    const { body } = await apiRoot.me().activeCart().get().execute();
+    return body;
+  } catch (error) {
     throw new Error('No cart found');
   }
-
-  const { body } = await cart.execute();
-  return body;
 }
 
 export default getCart;

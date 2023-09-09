@@ -1,6 +1,6 @@
 import { Cart } from '@commercetools/platform-sdk';
 import getCart from './getCart';
-import createApiRoot from '../createApiRoot';
+import { createApiSignRoot } from '../createApiRoot';
 import createCart from './createCart';
 
 async function updateQuantity(
@@ -8,7 +8,7 @@ async function updateQuantity(
   id: string,
   quantity = 1
 ): Promise<Cart> {
-  const apiRoot = createApiRoot();
+  const apiRoot = createApiSignRoot();
   let cart: Cart;
   try {
     cart = await getCart();

@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import {
   ClientBuilder,
-  AuthMiddlewareOptions,
+  AnonymousAuthMiddlewareOptions,
   HttpMiddlewareOptions,
   Client,
 } from '@commercetools/sdk-client-v2';
@@ -15,7 +15,7 @@ const httpMiddlewareOptions: HttpMiddlewareOptions = {
 
 // export const token = new TokenStorage();
 
-const createMiddlewareOptions = (): AuthMiddlewareOptions => ({
+const createMiddlewareOptions = (): AnonymousAuthMiddlewareOptions => ({
   host: `https://auth.${region}.commercetools.com`,
   projectKey,
   credentials: {
@@ -27,6 +27,14 @@ const createMiddlewareOptions = (): AuthMiddlewareOptions => ({
 });
 
 const createClient = (): Client => {
+  const middlewareOptions = createMiddlewareOptions();
+  return new ClientBuilder()
+    .withAnonymousSessionFlow(middlewareOptions)
+    .withHttpMiddleware(httpMiddlewareOptions)
+    .build();
+};
+
+export const createSignClient = (): Client => {
   const middlewareOptions = createMiddlewareOptions();
   return new ClientBuilder()
     .withClientCredentialsFlow(middlewareOptions)
