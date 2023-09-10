@@ -9,20 +9,20 @@ function ButtonAddToCart(props: BtnAddToCartProps): React.JSX.Element {
 
   const bthClick = (event: React.MouseEvent): void => {
     event.preventDefault();
-    console.log(props.id, props.idInCart);
     updateQuantity('addLineItem', props.id as string)
       .then(() => {
         showNotification('Added to cart', 'success');
         props.setUpdateFlag((prev) => !prev);
       })
-      .catch((err) => {
-        showNotification(err, 'error');
+      .catch((error) => {
+        console.error('Error adding product to the cart', error);
+        showNotification('An error occurred', 'error');       
       });
   };
 
   const btnStyles = props.btnCatalogClasses
-    ? ButtonStyles.btnFromCatalog
-    : ButtonStyles.btnFromDetailedProduct;
+    ? ButtonStyles.btnAddInCatalog
+    : ButtonStyles.btnAddDetailedProduct;
   const buttonClass = props.idInCart
     ? ButtonStyles.btnNotAllowed
     : ButtonStyles.btnAllowed;

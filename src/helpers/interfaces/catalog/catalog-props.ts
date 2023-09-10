@@ -22,6 +22,7 @@ interface BtnAddToCartProps {
   id?: string;
   idInCart?: string;
   btnCatalogClasses?: boolean;
+  resetIdInCart?: () => void;
 }
 
 export { ProductCardProps, ProductListProps, BtnAddToCartProps };
