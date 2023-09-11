@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 // import ButtonRemoveFromCart from '../ButtonRemoveFromCart';
 // import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
 import SubmitFormButton from '../forms/SubmitFormBtn';
+import QuantitySpinner from './QuantitySpinner';
 
 function BasketItemCard(): React.JSX.Element {
    
@@ -10,7 +11,7 @@ function BasketItemCard(): React.JSX.Element {
             <div className="h-[130px] w-[130px] border">
                 Product Image 
             </div>
-            <div className="w-1/2 max-md:mt-5 max-md:mx-auto ml-5 border px-2">
+            <div className="w-1/2 max-md:mt-5 max-md:mx-auto ml-5 px-2">
                 <h3 className="max-lg:text-sm font-bold mb-2 max-md:mb-2">
                     Title
                 </h3>
@@ -37,8 +38,8 @@ function BasketItemCard(): React.JSX.Element {
                 Price
            </div>
         </div>
-        <div className='border w-1/4 ml-5'>
-            <div>Spinner</div>
+        <div className='w-1/4 ml-5'>
+            <div><QuantitySpinner min={1} max={10} /></div>
             <div>
                 {/* <ButtonRemoveFromCart setUpdateFlag={setUpdateFlag} id={props.id} btnCartClasses={true}/> */}
                 <div className='ml-[34%]'>
