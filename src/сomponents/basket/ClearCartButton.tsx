@@ -5,7 +5,7 @@ import { ClearCartButtonProps } from '../../helpers/interfaces/basket/clear-bask
     
     return (
       <button
-        className={`w-full block max-md:w-full text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer ${isCartEmpty ? 'bg-gray-400 text-gray-500 cursor-not-allowed' : ''}`}
+        className={`w-full block max-md:w-full text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm  ${isCartEmpty ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'hover:bg-slate-600 cursor-pointer'}`}
         disabled={isCartEmpty}
       >
         Clear Shopping Cart
