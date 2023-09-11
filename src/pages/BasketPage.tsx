@@ -4,6 +4,7 @@ import BasketItemCard from '../сomponents/basket/BasketItemCard';
 import PromoInputForm from '../сomponents/basket/PromoInputForm';
 import { Cart } from '@commercetools/platform-sdk';
 import ToCatalogLink from '../сomponents/basket/ToCatalogLink';
+import ClearCartButton from '../сomponents/basket/ClearCartButton';
 
 function BasketPage(): React.JSX.Element {
   const [cart, setCart] = useState<Cart | null>(null);
@@ -51,7 +52,7 @@ function BasketPage(): React.JSX.Element {
         <div className='border h-[30%] w-1/2 ml-10 max-lg:w-full max-lg:ml-0 max-lg:mt-2 max-lg:m-2'>
           <h4 className="font-bold text-center text-xl mb-8 mt-3">Cart Totals</h4>
           <PromoInputForm />
-          <div className="flex max-md:flex-col justify-center">
+          <div className="flex max-md:flex-col justify-center mb-5">
             <div className='flex w-full ml-[5%] mb-2'>
               <p className="max-lg:text-sm text-xl text-slate-800 font-bold pr-1">
                 Total:
@@ -59,6 +60,9 @@ function BasketPage(): React.JSX.Element {
               <p className="max-lg:text-sm text-xl font-bold px-1 max-md:px-0">
                 100 $
               </p>
+            </div>
+            <div className='w-1/3 mr-[5%]'>
+            <ClearCartButton isCartEmpty={!cart} />
             </div>
           </div>
         </div>
