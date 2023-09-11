@@ -6,6 +6,7 @@ import {
   ProductListProps,
   ProductCardProps,
 } from '../../helpers/interfaces/catalog/catalog-props';
+import ProductCardSkeleton from './ProductCardSkeleton';
 import getCart from '../../utils/sdk/basket/getCart';
 
 function ProductList({ data }: ProductListProps): React.JSX.Element {
@@ -35,7 +36,7 @@ function ProductList({ data }: ProductListProps): React.JSX.Element {
 
   return (
     <div className="flex w-full sm:max-w-[50rem] justify-around items-center flex-wrap gap-8 md:gap-y-14">
-      {data &&
+      {data && data?.length > 0 ? (
         data.map(
           (item: ProductCardProps, index: number): React.JSX.Element => (
             <Link to={`${currentPath}/product/${item.id}`} key={index}>
@@ -55,7 +56,13 @@ function ProductList({ data }: ProductListProps): React.JSX.Element {
               />
             </Link>
           )
-        )}
+        )
+      ) : (
+        <>
+          <ProductCardSkeleton />
+          <ProductCardSkeleton />
+        </>
+      )}
     </div>
   );
 }

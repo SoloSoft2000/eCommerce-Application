@@ -11,6 +11,7 @@ type ProductList = {
   text?: string;
   brand?: string[];
   style?: string[];
+  offsetElements?: number;
 };
 
 async function getProducstByCategory(
@@ -68,13 +69,15 @@ async function getProducts({
   text,
   brand,
   style,
-}: ProductList): Promise<ProductProjection[]> {
+  offsetElements,
+}: ProductList): Promise<{
+  results: ProductProjection[];
+  total: number | undefined;
+}> {
   const filters: string[] = [];
 
   const queryArgs: Record<string, string | number | string[] | boolean> = {
-    limit: 20,
-    fuzzy: true,
-    fuzzyLevel: 0,
+    limit: offsetElements || 4,
   };
 
   if (category && category !== 'All products') {
@@ -109,7 +112,10 @@ async function getProducts({
   });
 
   const response = await productQuery.execute();
-  return response.body.results;
+  return {
+    results: response.body.results,
+    total: response.body.total,
+  };
 }
 
 export default getProducts;
