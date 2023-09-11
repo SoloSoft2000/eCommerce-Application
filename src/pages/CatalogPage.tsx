@@ -31,7 +31,7 @@ function CatalogPage(): React.JSX.Element {
   const [filterMenu, setFilterMenu] = useState(true);
   const [catalog, setCatalog] = useState<ProductCardProps[]>([]);
   const [categoriesMenu, setCategoriesMenu] = useState(false);
-  const [productOffset, setProductOffset] = useState(4);
+  const [productOffset, setProductOffset] = useState(0);
   const [totalProducts, setTotalProducts] = useState(0);
 
   const productArray = useSelector((state: RootState) => state.products);
@@ -59,7 +59,7 @@ function CatalogPage(): React.JSX.Element {
         const { results, total } = products;
         if (total) setTotalProducts(total);
         const data = setDataElements(results);
-        setCatalog(data);
+        setCatalog((prevData) => [...prevData, ...data]);
       } catch (err) {
         showNotification(`Catalog page: ${err}`, 'error');
       }
@@ -85,7 +85,8 @@ function CatalogPage(): React.JSX.Element {
 
   useEffect(() => {
     setCategoriesMenu(false);
-    setProductOffset(4);
+    setProductOffset(0);
+    setCatalog([]);
   }, [category]);
 
   const appliedFilterGenerator = useCallback(
@@ -181,11 +182,9 @@ function CatalogPage(): React.JSX.Element {
               </div>
             }
             endMessage={
-              totalProducts && (
-                <p className="flex justify-center p-5 text-slate-600">
-                  You have seen all products in this category
-                </p>
-              )
+              <p className="flex justify-center p-5 text-slate-600">
+                You have seen all products in this category
+              </p>
             }
           >
             <ProductList data={catalog} />
