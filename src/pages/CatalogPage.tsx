@@ -19,6 +19,7 @@ import MainCatalogPage from './MainCatalogPage';
 import AppliedFilter from '../сomponents/catalog/AppliedFilters';
 import NotificationContext from '../utils/notification/NotificationContext';
 import ProductCardSkeleton from '../сomponents/catalog/ProductCardSkeleton';
+import ScrollToTop from '../сomponents/catalog/ScrollToTop';
 
 const brand = ['ABC-Style', 'Romantics LTD', 'NY-Fashion'];
 const styles = ['Retro', 'Modern', 'Casual', 'Chic'];
@@ -85,9 +86,12 @@ function CatalogPage(): React.JSX.Element {
 
   useEffect(() => {
     setCategoriesMenu(false);
+  }, [category]);
+
+  useEffect(() => {
     setProductOffset(0);
     setCatalog([]);
-  }, [category]);
+  }, [dispatch, category, productArray]);
 
   const appliedFilterGenerator = useCallback(
     (name: string, sortMethod: string) => (
@@ -113,6 +117,7 @@ function CatalogPage(): React.JSX.Element {
   return (
     <main className="container mx-auto pt-2 pb-10">
       <BreadcrumbCatalog />
+      <ScrollToTop />
       <div className="flex flex-wrap sm:flex-nowrap gap-8 justify-center sm:justify-between items-center relative z-10 mb-[2rem]">
         <div className="w-full sm:w-96 relative">
           <button

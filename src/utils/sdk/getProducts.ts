@@ -78,8 +78,9 @@ async function getProducts({
 
   const queryArgs: Record<string, string | number | string[] | boolean> = {
     limit: 2,
-    offset: offsetElements || 0,
   };
+
+  if (offsetElements) queryArgs.offset = offsetElements;
 
   if (category && category !== 'All products') {
     const categoryId = await getProducstByCategory(category);
@@ -113,7 +114,7 @@ async function getProducts({
   });
 
   const response = await productQuery.execute();
-  console.log(response.body.results);
+
   return {
     results: response.body.results,
     total: response.body.total,
