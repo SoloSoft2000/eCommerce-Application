@@ -127,7 +127,8 @@ function CatalogPage(): React.JSX.Element {
             <MainCatalogPage />
           </div>
         )}
-        <div className="grow flex justify-start flex-wrap gap-4">
+        <div className="grow flex justify-start items-center flex-wrap gap-4">
+          <p className="text-slate-600">Total products: {totalProducts} </p>
           {sortByPrice === 'price asc' &&
             appliedFilterGenerator('Price: Low to High', 'sortByPrice')}
           {sortByPrice === 'price desc' &&
@@ -165,13 +166,12 @@ function CatalogPage(): React.JSX.Element {
           </button>
           {filterMenu && <Filter />}
         </div>
+
         <div className="grow flex justify-center">
           <InfiniteScroll
             dataLength={catalog.length}
             next={(): void => {
-              setTimeout(() => {
-                setProductOffset((prev) => prev + 2);
-              }, 300);
+              setProductOffset((prev) => prev + 2);
             }}
             hasMore={catalog.length < totalProducts}
             loader={
@@ -181,9 +181,9 @@ function CatalogPage(): React.JSX.Element {
               </div>
             }
             endMessage={
-              totalProducts > 2 && (
-                <p className="flex justify-center p-5">
-                  You have seen all products
+              totalProducts && (
+                <p className="flex justify-center p-5 text-slate-600">
+                  You have seen all products in this category
                 </p>
               )
             }
