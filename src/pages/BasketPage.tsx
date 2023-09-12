@@ -18,6 +18,7 @@ function BasketPage(): React.JSX.Element {
       try {
         const fetchedCart: Cart = await getCart();
         setCart(fetchedCart);
+        // eslint-disable-next-line no-console
         console.log(fetchedCart);
       } catch (error) {
         showNotification('The basket is empty', 'error');
@@ -26,7 +27,7 @@ function BasketPage(): React.JSX.Element {
       }
     }
     getBasketCart();
-  }, []);
+  }, [setCart]);
 
   let cartContent;
   if (isLoading) {
@@ -91,8 +92,7 @@ function BasketPage(): React.JSX.Element {
               </p>
             </div>
             <div className="w-1/3 mr-[5%]">
-              <button onClick={btnRemove}> remove cart Temp</button>
-              <ClearCartButton isCartEmpty={!cart} />
+              <ClearCartButton isCartEmpty={!cart} onClick={btnRemove}/>
             </div>
           </div>
         </div>
