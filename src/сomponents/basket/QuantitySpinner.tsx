@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { QuantitySpinnerProps } from '../../helpers/interfaces/basket/quantity-spinner-props';
 
 const QuantitySpinner: React.FC<QuantitySpinnerProps> = ({ min, max }) => {
   const [quantity, setQuantity] = useState(min);
 
-  const addItem = () => {
+  const addItem = useCallback(() => {
     if (quantity < max) {
       setQuantity(quantity + 1);
     }
-  };
+  }, [quantity, max]);
 
-  const removeItem = () => {
+  const removeItem = useCallback(() => {
     if (quantity > min) {
       setQuantity(quantity - 1);
     }
-  };
+  }, [quantity, min]);
 
   return (
     <div className='ml-[25%] mb-8 mt-4'>
