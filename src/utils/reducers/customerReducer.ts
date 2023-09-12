@@ -27,7 +27,7 @@ const customerSlice = createSlice({
       localStorage.removeItem('CT-Cart-CustomerID');
       localStorage.removeItem('commercetools_token');
 
-      createApiRoot();
+      createApiRoot('anonymous');
 
       return initialState;
     },

@@ -5,7 +5,7 @@ async function getCustomers(
   username: string,
   password: string
 ): Promise<Customer> {
-  let apiRoot = createApiRoot();
+  const apiRoot = createApiRoot('password', username, password);
 
   const customerExec = apiRoot
     .me()
@@ -22,9 +22,9 @@ async function getCustomers(
     body: { customer, cart },
   } = await customerExec.execute();
 
-  if (customer) {
-    apiRoot = createApiRoot('password', username, password);
-  }
+  // if (customer) {
+  //   apiRoot = createApiRoot('password', username, password);
+  // }
 
   if (cart) {
     localStorage.setItem('CT-Cart-CustomerID', cart.id);

@@ -34,7 +34,9 @@ const createClient = (
   );
 
   if (authType === 'anonymous') {
-    clientBuilder.withAnonymousSessionFlow(authMiddlewareOptions);
+    clientBuilder
+      .withClientCredentialsFlow(authMiddlewareOptions)
+      .withAnonymousSessionFlow(authMiddlewareOptions);
   } else if (authType === 'password') {
     if (!username || !password) {
       throw new Error('Username and password are required for password flow.');
@@ -55,7 +57,10 @@ const createClient = (
       fetch,
     };
 
-    clientBuilder.withPasswordFlow(passwordOptions);
+    clientBuilder
+      .withAnonymousSessionFlow(authMiddlewareOptions)
+      .withClientCredentialsFlow(authMiddlewareOptions)
+      .withPasswordFlow(passwordOptions);
   }
 
   return clientBuilder.build();
