@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AiOutlineUser } from 'react-icons/ai';
@@ -7,14 +7,17 @@ import { RootState } from '../utils/reducers/store';
 import { clearCustomer } from '../utils/reducers/customerReducer';
 import { NavigationProps } from '../helpers/interfaces/layout/layout-props';
 import NavStyles from '../assets/styles/nav.module.scss';
+import NotificationContext from '../utils/notification/NotificationContext';
 
 function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
   const customer = useSelector((state: RootState) => state.customer);
 
   const dispatch = useDispatch();
+  const showNotification = useContext(NotificationContext);
 
   const handleLogout = useCallback(() => {
     dispatch(clearCustomer());
+    showNotification('Good Bye!', 'success');
   }, [dispatch]);
 
   const mainClasses = isOpen

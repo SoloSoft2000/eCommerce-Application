@@ -1,4 +1,4 @@
 export interface QuantitySpinnerProps {
-    min: number;
-    max: number;
-  }
+  min: number;
+  max: number;
+}

@@ -17,10 +17,14 @@ const QuantitySpinner: React.FC<QuantitySpinnerProps> = ({ min, max }) => {
   }, [quantity, min]);
 
   return (
-    <div className='ml-[25%] mb-8 mt-4'>
-      <button className='w-7 border py-1 px-2' onClick={removeItem}>-</button>
-      <span className='py-1 px-2 py-1 mx-1'>{quantity}</span>
-      <button className='w-7 border py-1 px-2' onClick={addItem}>+</button>
+    <div className="ml-[25%] mb-8 mt-4">
+      <button className="w-7 border py-1 px-2" onClick={removeItem}>
+        -
+      </button>
+      <span className="py-1 px-2 py-1 mx-1">{quantity}</span>
+      <button className="w-7 border py-1 px-2" onClick={addItem}>
+        +
+      </button>
     </div>
   );
 };

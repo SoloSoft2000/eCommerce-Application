@@ -4,7 +4,7 @@ import createApiRoot from '../createApiRoot';
 import createCart from './createCart';
 
 async function updateQuantity(
-  actionType: 'addLineItem' | 'removeLineItem',
+  actionType: 'addLineItem' | 'removeLineItem' | 'changeLineItemQuantity',
   id: string,
   quantity = 1
 ): Promise<Cart> {
@@ -26,7 +26,11 @@ async function updateQuantity(
           {
             action: actionType,
             productId: actionType === 'addLineItem' ? id : undefined,
-            lineItemId: actionType === 'removeLineItem' ? id : undefined,
+            lineItemId:
+              actionType === 'removeLineItem' ||
+              actionType === 'changeLineItemQuantity'
+                ? id
+                : undefined,
             quantity,
           },
         ],

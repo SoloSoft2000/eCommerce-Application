@@ -7,6 +7,9 @@ import {
   PasswordAuthMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
 import { region, projectKey, clientId, clientSecret, scopes } from './config';
+import TokenStorage from './TokenStorage';
+
+const tokenStore = new TokenStorage();
 
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: `https://api.${region}.commercetools.com`,
@@ -22,6 +25,7 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
   },
   scopes,
   fetch,
+  tokenCache: tokenStore,
 };
 
 const createClient = (
@@ -34,7 +38,9 @@ const createClient = (
   );
 
   if (authType === 'anonymous') {
-    clientBuilder.withAnonymousSessionFlow(authMiddlewareOptions);
+    clientBuilder
+      .withClientCredentialsFlow(authMiddlewareOptions)
+      .withAnonymousSessionFlow(authMiddlewareOptions);
   } else if (authType === 'password') {
     if (!username || !password) {
       throw new Error('Username and password are required for password flow.');
@@ -55,7 +61,10 @@ const createClient = (
       fetch,
     };
 
-    clientBuilder.withPasswordFlow(passwordOptions);
+    clientBuilder
+      .withAnonymousSessionFlow(authMiddlewareOptions)
+      .withClientCredentialsFlow(authMiddlewareOptions)
+      .withPasswordFlow(passwordOptions);
   }
 
   return clientBuilder.build();
