@@ -1,17 +1,33 @@
 import React from 'react';
 // import ButtonRemoveFromCart from '../ButtonRemoveFromCart';
 // import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
+import { LocalizedString } from '@commercetools/platform-sdk';
 import SubmitFormButton from '../forms/SubmitFormBtn';
 import QuantitySpinner from './QuantitySpinner';
 
-function BasketItemCard(): React.JSX.Element {
+function BasketItemCard({
+  name,
+  imageUrl,
+  price,
+}: {
+  name: LocalizedString;
+  imageUrl: string;
+  price: number;
+}): React.JSX.Element {
+  const displayName = name['en-US'];
+  console.log(displayName);
+
   return (
-    <div className="m-1 max-md:mt-8 border rounded mb-8 flex justify-betweeen">
-      <div className="h-[130px] w-[130px] border">Product Image</div>
+    <div className="m-1 max-md:mt-8 border-b pb-5 flex justify-betweeen">
+      <div className="h-[130px] w-[130px] border">
+        <img src={imageUrl} alt={displayName} />
+      </div>
       <div className="w-1/2 max-md:mt-5 max-md:mx-auto ml-5 px-2">
-        <h3 className="max-lg:text-sm font-bold mb-2 max-md:mb-2">Title</h3>
+        <h3 className="max-lg:text-sm font-bold mb-2 max-md:mb-2 pt-3">
+          {displayName}
+        </h3>
         <div className="flex mb-2 max-md:mb-2 max-md:flex-col">
-          <div className="flex max-md:flex-col justify-center">
+          {/* <div className="flex max-md:flex-col justify-center">
             <span className="max-lg:text-sm text-slate-500 font-normal pr-1">
               Brand:
             </span>
@@ -24,10 +40,10 @@ function BasketItemCard(): React.JSX.Element {
               Style:
             </span>
             <p className="max-lg:text-sm font-bold px-1 max-md:px-0">Style</p>
-          </div>
+          </div> */}
         </div>
         {/* Don't forget about promo discount (use logic from Detailed Product Card) and currency formatter function */}
-        <div className="flex mb-2 max-md:mb-2">Price</div>
+        <div className="flex mb-2 max-md:mb-2">${price.toFixed(2)}</div>
       </div>
       <div className="w-1/4 ml-5">
         <div>

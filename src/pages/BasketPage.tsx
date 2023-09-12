@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Cart } from '@commercetools/platform-sdk';
+import { Cart, LineItem } from '@commercetools/platform-sdk';
 import getCart from '../utils/sdk/basket/getCart';
 import BasketItemCard from '../сomponents/basket/BasketItemCard';
 import PromoInputForm from '../сomponents/basket/PromoInputForm';
@@ -18,8 +18,31 @@ function BasketPage(): React.JSX.Element {
       try {
         const fetchedCart: Cart = await getCart();
         setCart(fetchedCart);
-        // eslint-disable-next-line no-console
-        console.log(fetchedCart);
+        console.log(fetchedCart.lineItems);
+
+        const prices = fetchedCart.lineItems.map((lineItem) => {
+          if (lineItem.price.discounted) {
+            return lineItem.price.discounted.value;
+          }
+          return lineItem.price.value;
+        });
+
+        console.log('prices', prices);
+
+        const lineItemPropertiesArray = fetchedCart.lineItems.map(
+          (lineItem: LineItem) => {
+            const { name } = lineItem;
+            const { url: imageUrl = '' } = lineItem.variant.images?.[0] || {};
+            console.log(name);
+            console.log(imageUrl);
+
+            return {
+              name,
+              imageUrl,
+            };
+          }
+        );
+        console.log(lineItemPropertiesArray);
       } catch (error) {
         showNotification('The basket is empty', 'error');
       } finally {
@@ -35,12 +58,18 @@ function BasketPage(): React.JSX.Element {
   } else if (cart) {
     cartContent = (
       <>
-        <BasketItemCard />
-        <BasketItemCard />
-        <BasketItemCard />
-        <BasketItemCard />
-        <BasketItemCard />
-        <BasketItemCard />
+        {cart.lineItems.map((lineItem) => (
+          <BasketItemCard
+            key={lineItem.id}
+            name={lineItem.name}
+            imageUrl={lineItem.variant.images?.[0]?.url ?? ''}
+            price={
+              lineItem.price.discounted
+                ? lineItem.price.discounted.value.centAmount / 100
+                : lineItem.price.value.centAmount / 100
+            }
+          />
+        ))}
       </>
     );
   } else {
@@ -63,7 +92,7 @@ function BasketPage(): React.JSX.Element {
         .then(() => {
           setCart(null);
           localStorage.removeItem('CT-Cart-CustomerID');
-          showNotification('Delete cart is successed', 'success');
+          showNotification('The Cart is cleared', 'success');
         })
         .catch((err) => {
           showNotification(err, 'error');
