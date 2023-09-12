@@ -17,7 +17,7 @@ function BasketPage(): React.JSX.Element {
       try {
         const fetchedCart: Cart = await getCart();
         setCart(fetchedCart);
-        console.log(cart);
+        console.log(fetchedCart);
       } catch (error) {
         showNotification('The basket is empty', 'error');
       } finally {
