@@ -19,6 +19,7 @@ import MainCatalogPage from './MainCatalogPage';
 import AppliedFilter from '../сomponents/catalog/AppliedFilters';
 import NotificationContext from '../utils/notification/NotificationContext';
 import ProductCardSkeleton from '../сomponents/catalog/ProductCardSkeleton';
+import ScrollToTop from '../сomponents/catalog/ScrollToTop';
 
 const brand = ['ABC-Style', 'Romantics LTD', 'NY-Fashion'];
 const styles = ['Retro', 'Modern', 'Casual', 'Chic'];
@@ -31,7 +32,7 @@ function CatalogPage(): React.JSX.Element {
   const [filterMenu, setFilterMenu] = useState(true);
   const [catalog, setCatalog] = useState<ProductCardProps[]>([]);
   const [categoriesMenu, setCategoriesMenu] = useState(false);
-  const [productOffset, setProductOffset] = useState(4);
+  const [productOffset, setProductOffset] = useState(0);
   const [totalProducts, setTotalProducts] = useState(0);
 
   const productArray = useSelector((state: RootState) => state.products);
@@ -48,6 +49,7 @@ function CatalogPage(): React.JSX.Element {
     const fetchData = async (): Promise<void> => {
       try {
         const products = await getProducts({
+          catalog,
           category,
           sort: Object.values(productArray.sort).filter(Boolean),
           priceRange: productArray.price,
@@ -59,7 +61,11 @@ function CatalogPage(): React.JSX.Element {
         const { results, total } = products;
         if (total) setTotalProducts(total);
         const data = setDataElements(results);
-        setCatalog(data);
+        if (catalog.length >= 2) {
+          setCatalog((prevData) => [...prevData, ...data]);
+        } else {
+          setCatalog(data);
+        }
       } catch (err) {
         showNotification(`Catalog page: ${err}`, 'error');
       }
@@ -85,8 +91,12 @@ function CatalogPage(): React.JSX.Element {
 
   useEffect(() => {
     setCategoriesMenu(false);
-    setProductOffset(4);
   }, [category]);
+
+  useEffect(() => {
+    setProductOffset(0);
+    setCatalog([]);
+  }, [dispatch, category]);
 
   const appliedFilterGenerator = useCallback(
     (name: string, sortMethod: string) => (
@@ -112,6 +122,7 @@ function CatalogPage(): React.JSX.Element {
   return (
     <main className="container mx-auto pt-2 pb-10">
       <BreadcrumbCatalog />
+      <ScrollToTop />
       <div className="flex flex-wrap sm:flex-nowrap gap-8 justify-center sm:justify-between items-center relative z-10 mb-[2rem]">
         <div className="w-full sm:w-96 relative">
           <button
@@ -181,11 +192,9 @@ function CatalogPage(): React.JSX.Element {
               </div>
             }
             endMessage={
-              totalProducts && (
-                <p className="flex justify-center p-5 text-slate-600">
-                  You have seen all products in this category
-                </p>
-              )
+              <p className="flex justify-center p-5 text-slate-600">
+                You have seen all products in this category
+              </p>
             }
           >
             <ProductList data={catalog} />
