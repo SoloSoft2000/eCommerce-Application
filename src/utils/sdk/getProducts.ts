@@ -1,10 +1,15 @@
-import { ProductProjection } from '@commercetools/platform-sdk';
+import {
+  ProductProjection,
+  ProductProjectionPagedSearchResponse,
+} from '@commercetools/platform-sdk';
 import createApiRoot from './createApiRoot';
 import getProducstCategories from './getProductsCategories';
+import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
 
 const apiRoot = createApiRoot();
 
 type ProductList = {
+  catalog?: ProductCardProps[];
   category?: string;
   sort?: string[];
   priceRange: number[];
@@ -62,7 +67,39 @@ function generateFilter(
   }
 }
 
+type Arg = {
+  limit?: number;
+  filter?: string[];
+  sort?: string[];
+  ['text.en-US']?: string;
+  offset?: number;
+};
+
+async function getData(
+  queryArgs: Arg,
+  catalog: ProductCardProps[] | undefined,
+  uniqueIds: ProductProjection[]
+): Promise<ProductProjectionPagedSearchResponse> {
+  const catalogIds = catalog?.map((item) => item.id);
+  const productQuery = apiRoot.productProjections().search().get({
+    queryArgs,
+  });
+  const response = await productQuery.execute();
+
+  response.body.results.forEach((el) => {
+    if (!catalogIds?.includes(el.id)) {
+      uniqueIds.push(el);
+    }
+  });
+
+  if (uniqueIds.length < 2) {
+    return getData(queryArgs, catalog, uniqueIds);
+  }
+  return response.body;
+}
+
 async function getProducts({
+  catalog,
   category,
   sort,
   priceRange,
@@ -76,11 +113,10 @@ async function getProducts({
 }> {
   const filters: string[] = [];
 
-  const queryArgs: Record<string, string | number | string[] | boolean> = {
+  const queryArgs: Arg = {
     limit: 2,
+    offset: offsetElements || 0,
   };
-
-  if (offsetElements) queryArgs.offset = offsetElements;
 
   if (category && category !== 'All products') {
     const categoryId = await getProducstByCategory(category);
@@ -109,15 +145,11 @@ async function getProducts({
 
   queryArgs.filter = filters;
 
-  const productQuery = apiRoot.productProjections().search().get({
-    queryArgs,
-  });
-
-  const response = await productQuery.execute();
-
+  const response = await getData(queryArgs, catalog, []);
+  console.log(response.results.length);
   return {
-    results: response.body.results,
-    total: response.body.total,
+    results: response.results,
+    total: response.total,
   };
 }
 

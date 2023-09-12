@@ -49,6 +49,7 @@ function CatalogPage(): React.JSX.Element {
     const fetchData = async (): Promise<void> => {
       try {
         const products = await getProducts({
+          catalog,
           category,
           sort: Object.values(productArray.sort).filter(Boolean),
           priceRange: productArray.price,
@@ -60,7 +61,11 @@ function CatalogPage(): React.JSX.Element {
         const { results, total } = products;
         if (total) setTotalProducts(total);
         const data = setDataElements(results);
-        setCatalog((prevData) => [...prevData, ...data]);
+        if (catalog.length >= 2) {
+          setCatalog((prevData) => [...prevData, ...data]);
+        } else {
+          setCatalog(data);
+        }
       } catch (err) {
         showNotification(`Catalog page: ${err}`, 'error');
       }
@@ -91,7 +96,7 @@ function CatalogPage(): React.JSX.Element {
   useEffect(() => {
     setProductOffset(0);
     setCatalog([]);
-  }, [dispatch, category, productArray]);
+  }, [dispatch, category]);
 
   const appliedFilterGenerator = useCallback(
     (name: string, sortMethod: string) => (
