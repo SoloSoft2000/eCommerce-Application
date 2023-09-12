@@ -32,7 +32,7 @@ function CatalogPage(): React.JSX.Element {
   const [filterMenu, setFilterMenu] = useState(true);
   const [catalog, setCatalog] = useState<ProductCardProps[]>([]);
   const [categoriesMenu, setCategoriesMenu] = useState(false);
-  const [productOffset, setProductOffset] = useState(0);
+  const [productLimit, setProductLimit] = useState(2);
   const [totalProducts, setTotalProducts] = useState(0);
 
   const productArray = useSelector((state: RootState) => state.products);
@@ -56,22 +56,26 @@ function CatalogPage(): React.JSX.Element {
           text: productArray.text,
           brand: productArray.brand,
           style: productArray.style,
-          offsetElements: productOffset,
+          limitElements: productLimit,
         });
         const { results, total } = products;
         if (total) setTotalProducts(total);
         const data = setDataElements(results);
-        if (catalog.length >= 2) {
-          setCatalog((prevData) => [...prevData, ...data]);
-        } else {
-          setCatalog(data);
-        }
+        setCatalog(data);
       } catch (err) {
         showNotification(`Catalog page: ${err}`, 'error');
       }
     };
     fetchData();
-  }, [dispatch, productArray, category, productOffset]);
+  }, [
+    dispatch,
+    minPrice,
+    maxPrice,
+    category,
+    productLimit,
+    sortByAbc,
+    sortByPrice,
+  ]);
 
   useEffect(() => {
     const followResizing = (): void => {
@@ -94,9 +98,8 @@ function CatalogPage(): React.JSX.Element {
   }, [category]);
 
   useEffect(() => {
-    setProductOffset(0);
-    setCatalog([]);
-  }, [dispatch, category]);
+    setProductLimit(4);
+  }, [category]);
 
   const appliedFilterGenerator = useCallback(
     (name: string, sortMethod: string) => (
@@ -182,7 +185,7 @@ function CatalogPage(): React.JSX.Element {
           <InfiniteScroll
             dataLength={catalog.length}
             next={(): void => {
-              setProductOffset((prev) => prev + 2);
+              setProductLimit((prev) => prev + 2);
             }}
             hasMore={catalog.length < totalProducts}
             loader={

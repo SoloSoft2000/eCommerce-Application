@@ -1,7 +1,4 @@
-import {
-  ProductProjection,
-  ProductProjectionPagedSearchResponse,
-} from '@commercetools/platform-sdk';
+import { ProductProjection } from '@commercetools/platform-sdk';
 import createApiRoot from './createApiRoot';
 import getProducstCategories from './getProductsCategories';
 import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
@@ -16,7 +13,7 @@ type ProductList = {
   text?: string;
   brand?: string[];
   style?: string[];
-  offsetElements?: number;
+  limitElements?: number;
 };
 
 async function getProducstByCategory(
@@ -67,55 +64,22 @@ function generateFilter(
   }
 }
 
-type Arg = {
-  limit?: number;
-  filter?: string[];
-  sort?: string[];
-  ['text.en-US']?: string;
-  offset?: number;
-};
-
-async function getData(
-  queryArgs: Arg,
-  catalog: ProductCardProps[] | undefined,
-  uniqueIds: ProductProjection[]
-): Promise<ProductProjectionPagedSearchResponse> {
-  const catalogIds = catalog?.map((item) => item.id);
-  const productQuery = apiRoot.productProjections().search().get({
-    queryArgs,
-  });
-  const response = await productQuery.execute();
-
-  response.body.results.forEach((el) => {
-    if (!catalogIds?.includes(el.id)) {
-      uniqueIds.push(el);
-    }
-  });
-
-  if (uniqueIds.length < 2) {
-    return getData(queryArgs, catalog, uniqueIds);
-  }
-  return response.body;
-}
-
 async function getProducts({
-  catalog,
   category,
   sort,
   priceRange,
   text,
   brand,
   style,
-  offsetElements,
+  limitElements,
 }: ProductList): Promise<{
   results: ProductProjection[];
   total: number | undefined;
 }> {
   const filters: string[] = [];
 
-  const queryArgs: Arg = {
-    limit: 2,
-    offset: offsetElements || 0,
+  const queryArgs: Record<string, string | number | string[] | boolean> = {
+    limit: limitElements || 2,
   };
 
   if (category && category !== 'All products') {
@@ -138,18 +102,23 @@ async function getProducts({
   if (style && style.length > 0) {
     generateFilter('attribute-style', style, filters);
   }
-
-  if (sort && sort.length > 0) queryArgs.sort = sort;
+  queryArgs.sort = sort && sort.length > 0 ? sort : ['variants.sku asc.min'];
 
   if (text) queryArgs['text.en-US'] = `"${text}"`;
 
   queryArgs.filter = filters;
 
-  const response = await getData(queryArgs, catalog, []);
-  console.log(response.results.length);
+  const productQuery = apiRoot.productProjections().search().get({
+    queryArgs,
+  });
+  const response = await productQuery.execute();
+
+  const un = Array.from(
+    new Set(response.body.results.map((el) => el.id))
+  ).length;
   return {
-    results: response.results,
-    total: response.total,
+    results: response.body.results,
+    total: response.body.total,
   };
 }
 
