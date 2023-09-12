@@ -19,7 +19,7 @@ function ButtonRemoveFromCart(props: BtnAddToCartProps): React.JSX.Element {
       );
 
       if (!isProductInCart) {
-        showNotification('The product is not in the cart', 'error'); 
+        showNotification('The product is not in the cart', 'error');
       }
 
       await updateQuantity('removeLineItem', idInCart);
@@ -29,13 +29,15 @@ function ButtonRemoveFromCart(props: BtnAddToCartProps): React.JSX.Element {
       }
       setUpdateFlag(true);
     } catch (error) {
-      showNotification('Error removing product from cart', 'error');    
+      showNotification('Error removing product from cart', 'error');
     }
   };
 
   const isDisabled = idInCart === undefined;
   const btnClasses = `w-1/6 max-md:w-1/3 max-lg:text-xs max-md:mx-auto mb-11 text-center rounded p-3 ml-3 text-white uppercase drop-shadow-sm ${
-    isDisabled ? 'bg-gray-200 text-white cursor-not-allowed' : 'bg-black hover:bg-slate-600 hover:text-white cursor-pointer'
+    isDisabled
+      ? 'bg-gray-200 text-white cursor-not-allowed'
+      : 'bg-black hover:bg-slate-600 hover:text-white cursor-pointer'
   }`;
 
   return (

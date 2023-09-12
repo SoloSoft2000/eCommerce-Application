@@ -15,7 +15,7 @@ function ButtonAddToCart(props: BtnAddToCartProps): React.JSX.Element {
         props.setUpdateFlag((prev) => !prev);
       })
       .catch(() => {
-        showNotification('Error adding product to the cart', 'error');                      
+        showNotification('Error adding product to the cart', 'error');
       });
   };
 

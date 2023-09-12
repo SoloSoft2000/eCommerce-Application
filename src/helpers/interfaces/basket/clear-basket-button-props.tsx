@@ -1,3 +1,3 @@
 export interface ClearCartButtonProps {
-    isCartEmpty: boolean;
+  isCartEmpty: boolean;
 }
