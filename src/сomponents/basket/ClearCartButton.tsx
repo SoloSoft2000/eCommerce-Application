@@ -3,6 +3,7 @@ import { ClearCartButtonProps } from '../../helpers/interfaces/basket/clear-bask
 
 function ClearCartButton({
   isCartEmpty,
+  onClick
 }: ClearCartButtonProps): React.JSX.Element {
   return (
     <button
@@ -12,6 +13,7 @@ function ClearCartButton({
           : 'hover:bg-slate-600 cursor-pointer'
       }`}
       disabled={isCartEmpty}
+      onClick={onClick}
     >
       Clear Shopping Cart
     </button>
