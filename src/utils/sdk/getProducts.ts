@@ -113,9 +113,6 @@ async function getProducts({
   });
   const response = await productQuery.execute();
 
-  const un = Array.from(
-    new Set(response.body.results.map((el) => el.id))
-  ).length;
   return {
     results: response.body.results,
     total: response.body.total,
