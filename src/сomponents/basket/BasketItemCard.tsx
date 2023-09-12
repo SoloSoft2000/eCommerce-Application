@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 // import ButtonRemoveFromCart from '../ButtonRemoveFromCart';
 // import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
 import SubmitFormButton from '../forms/SubmitFormBtn';
@@ -33,7 +33,7 @@ function BasketItemCard(): React.JSX.Element {
                     </p>
                 </div>
             </div>
-           {/* Don't forget about promo discount (use logic from Detailed Product Card) and currency formatter function*/}
+           {/* Don't forget about promo discount (use logic from Detailed Product Card) and currency formatter function */}
             <div className="flex mb-2 max-md:mb-2">
                 Price
            </div>

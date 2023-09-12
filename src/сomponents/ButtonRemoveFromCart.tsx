@@ -19,8 +19,7 @@ function ButtonRemoveFromCart(props: BtnAddToCartProps): React.JSX.Element {
       );
 
       if (!isProductInCart) {
-        console.error('Product is not in the cart.');
-        return;
+        showNotification('The product is not in the cart', 'error'); 
       }
 
       await updateQuantity('removeLineItem', idInCart);
@@ -30,8 +29,7 @@ function ButtonRemoveFromCart(props: BtnAddToCartProps): React.JSX.Element {
       }
       setUpdateFlag(true);
     } catch (error) {
-      console.error('Error removing product from cart', error);
-      showNotification('An error occurred', 'error');
+      showNotification('Error removing product from cart', 'error');    
     }
   };
 
