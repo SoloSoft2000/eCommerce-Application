@@ -1,24 +1,35 @@
-import { Customer } from '@commercetools/platform-sdk';
+import { Customer /* , MyCustomerSignin */ } from '@commercetools/platform-sdk';
 import createApiRoot from './createApiRoot';
 
 async function getCustomers(
   username: string,
   password: string
 ): Promise<Customer> {
-  const apiRoot = createApiRoot();
-  const customerExec = await apiRoot
+  let apiRoot = createApiRoot();
+
+  const customerExec = apiRoot
     .me()
     .login()
     .post({
       body: {
         email: username,
         password,
+        updateProductData: true,
       },
     });
 
   const {
-    body: { customer },
+    body: { customer, cart },
   } = await customerExec.execute();
+
+  if (customer) {
+    apiRoot = createApiRoot('password', username, password);
+  }
+
+  if (cart) {
+    localStorage.setItem('CT-Cart-CustomerID', cart.id);
+    sessionStorage.removeItem('CT-Cart-AnonymID');
+  }
   return customer;
 }
 
