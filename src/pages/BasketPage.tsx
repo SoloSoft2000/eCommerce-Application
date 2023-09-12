@@ -26,7 +26,7 @@ function BasketPage(): React.JSX.Element {
       }
     }
     getBasketCart();
-  }, [cart]);
+  }, []);
 
   let cartContent;
   if (isLoading) {
