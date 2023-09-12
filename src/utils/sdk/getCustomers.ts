@@ -14,6 +14,7 @@ async function getCustomers(
       body: {
         email: username,
         password,
+        activeCartSignInMode: 'MergeWithExistingCustomerCart',
         updateProductData: true,
       },
     });
@@ -21,10 +22,6 @@ async function getCustomers(
   const {
     body: { customer, cart },
   } = await customerExec.execute();
-
-  // if (customer) {
-  //   apiRoot = createApiRoot('password', username, password);
-  // }
 
   if (cart) {
     localStorage.setItem('CT-Cart-CustomerID', cart.id);

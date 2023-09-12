@@ -7,6 +7,9 @@ import {
   PasswordAuthMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
 import { region, projectKey, clientId, clientSecret, scopes } from './config';
+import TokenStorage from './TokenStorage';
+
+const tokenStore = new TokenStorage();
 
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: `https://api.${region}.commercetools.com`,
@@ -22,6 +25,7 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
   },
   scopes,
   fetch,
+  tokenCache: tokenStore,
 };
 
 const createClient = (
