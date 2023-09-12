@@ -57,7 +57,7 @@ function BasketPage(): React.JSX.Element {
   }
 
   const btnRemove = (): void => {
-    if(cart) 
+    if (cart)
       deleteCart(cart)
         .then(() => {
           setCart(null);
@@ -66,7 +66,7 @@ function BasketPage(): React.JSX.Element {
         })
         .catch((err) => {
           showNotification(err, 'error');
-        })
+        });
   };
 
   return (
