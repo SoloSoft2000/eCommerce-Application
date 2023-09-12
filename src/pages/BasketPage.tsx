@@ -6,6 +6,7 @@ import PromoInputForm from '../сomponents/basket/PromoInputForm';
 import ToCatalogLink from '../сomponents/basket/ToCatalogLink';
 import ClearCartButton from '../сomponents/basket/ClearCartButton';
 import NotificationContext from '../utils/notification/NotificationContext';
+import deleteCart from '../utils/sdk/basket/deleteCart';
 
 function BasketPage(): React.JSX.Element {
   const [cart, setCart] = useState<Cart | null>(null);
@@ -55,6 +56,19 @@ function BasketPage(): React.JSX.Element {
     );
   }
 
+  const btnRemove = (): void => {
+    if(cart) 
+      deleteCart(cart)
+        .then(() => {
+          setCart(null);
+          localStorage.removeItem('CT-Cart-CustomerID');
+          showNotification('Delete cart is successed', 'success');
+        })
+        .catch((err) => {
+          showNotification(err, 'error');
+        })
+  };
+
   return (
     <main className="container mx-auto">
       <h2 className="text-2xl font-bold pt-12 text-center">Shopping Cart</h2>
@@ -77,6 +91,7 @@ function BasketPage(): React.JSX.Element {
               </p>
             </div>
             <div className="w-1/3 mr-[5%]">
+              <button onClick={btnRemove}> remove cart Temp</button>
               <ClearCartButton isCartEmpty={!cart} />
             </div>
           </div>

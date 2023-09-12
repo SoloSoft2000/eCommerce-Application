@@ -11,6 +11,7 @@ function ClearCartButton({
           ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
           : 'hover:bg-slate-600 cursor-pointer'
       }`}
+      
       disabled={isCartEmpty}
     >
       Clear Shopping Cart
