@@ -1,12 +1,11 @@
-import { Customer } from '@commercetools/platform-sdk';
-import { createApiSignRoot } from './createApiRoot';
+import { Customer /* , MyCustomerSignin */ } from '@commercetools/platform-sdk';
+import createApiRoot from './createApiRoot';
 
 async function getCustomers(
   username: string,
   password: string
 ): Promise<Customer> {
-  const apiRoot = createApiSignRoot(true);
-  // let body: MyCustomerSignin;
+  let apiRoot = createApiRoot();
 
   const customerExec = apiRoot
     .me()
@@ -15,7 +14,6 @@ async function getCustomers(
       body: {
         email: username,
         password,
-        activeCartSignInMode: 'MergeWithExistingCustomerCart',
         updateProductData: true,
       },
     });
@@ -23,6 +21,10 @@ async function getCustomers(
   const {
     body: { customer, cart },
   } = await customerExec.execute();
+
+  if (customer) {
+    apiRoot = createApiRoot('password', username, password);
+  }
 
   if (cart) {
     localStorage.setItem('CT-Cart-CustomerID', cart.id);

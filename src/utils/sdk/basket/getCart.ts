@@ -1,8 +1,8 @@
 import { Cart } from '@commercetools/platform-sdk';
-import { createApiSignRoot } from '../createApiRoot';
+import createApiRoot from '../createApiRoot';
 
 async function getCart(): Promise<Cart> {
-  const apiRoot = createApiSignRoot();
+  const apiRoot = createApiRoot();
 
   try {
     const customCart = localStorage.getItem('CT-Cart-CustomerID');

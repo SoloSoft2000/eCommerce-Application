@@ -1,9 +1,9 @@
 import { Cart, MyCartDraft } from '@commercetools/platform-sdk';
 import { ApiRequest } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/requests-utils';
-import { createApiSignRoot } from '../createApiRoot';
+import createApiRoot from '../createApiRoot';
 
 async function createCart(): Promise<Cart> {
-  const apiRoot = createApiSignRoot();
+  const apiRoot = createApiRoot();
 
   const savedCustomer = localStorage.getItem('CT-Customer-SignIn');
   const cartDraft: MyCartDraft = {

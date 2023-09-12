@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { type Customer } from '@commercetools/platform-sdk';
-import { createApiSignRoot } from '../sdk/createApiRoot';
+import createApiRoot from '../sdk/createApiRoot';
 
 const initialState: Customer = {
   id: '',
@@ -27,7 +27,7 @@ const customerSlice = createSlice({
       localStorage.removeItem('CT-Cart-CustomerID');
       localStorage.removeItem('commercetools_token');
 
-      createApiSignRoot(true);
+      createApiRoot();
 
       return initialState;
     },
