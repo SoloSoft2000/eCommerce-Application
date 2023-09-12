@@ -3,7 +3,7 @@ import { ClearCartButtonProps } from '../../helpers/interfaces/basket/clear-bask
 
 function ClearCartButton({
   isCartEmpty,
-  onClick
+  onClick,
 }: ClearCartButtonProps): React.JSX.Element {
   return (
     <button
