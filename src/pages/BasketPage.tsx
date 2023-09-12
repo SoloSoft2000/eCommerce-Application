@@ -92,7 +92,7 @@ function BasketPage(): React.JSX.Element {
               </p>
             </div>
             <div className="w-1/3 mr-[5%]">
-              <ClearCartButton isCartEmpty={!cart} onClick={btnRemove}/>
+              <ClearCartButton isCartEmpty={!cart} onClick={btnRemove} />
             </div>
           </div>
         </div>
