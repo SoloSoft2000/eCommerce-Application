@@ -70,7 +70,7 @@ function BasketPage(): React.JSX.Element {
   let cartContent;
   if (isLoading) {
     cartContent = <p>Loading...</p>;
-  } else if (cart) {
+  } else if (cart && cart.lineItems.length > 0) {
     cartContent = (
       <>
         {cart.lineItems.map((lineItem) => (
