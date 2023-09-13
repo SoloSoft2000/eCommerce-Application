@@ -7,7 +7,7 @@ export const scopes = [
   `manage_my_profile:${projectKey}`,
   `view_categories:${projectKey}`,
   `manage_my_shopping_lists:${projectKey}`,
-  `introspect_oauth_tokens:${projectKey}`,
+  // `introspect_oauth_tokens:${projectKey}`,
   `manage_customers:${projectKey}`,
   `view_quote_requests:${projectKey}`,
   `manage_my_payments:${projectKey}`,

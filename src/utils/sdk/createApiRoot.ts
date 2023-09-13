@@ -10,10 +10,10 @@ const createApiRoot = ((): ((
 ) => ByProjectKeyRequestBuilder) => {
   let cachedCtpClient: ReturnType<typeof createClient> | null = null;
   let cachedApiRoot: ByProjectKeyRequestBuilder | null = null;
-  let currentAuthType: 'anonymous' | 'password' = 'anonymous';
+  let currentAuthType: 'anonymous' | 'password' | undefined;
 
   return (
-    authType: 'anonymous' | 'password' = 'anonymous',
+    authType: 'anonymous' | 'password' = currentAuthType || 'anonymous',
     username?: string,
     password?: string
   ): ByProjectKeyRequestBuilder => {
@@ -34,6 +34,7 @@ const createApiRoot = ((): ((
         projectKey,
       });
     }
+
     return cachedApiRoot;
   };
 })();

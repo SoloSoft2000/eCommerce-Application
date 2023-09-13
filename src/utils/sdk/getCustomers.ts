@@ -5,7 +5,7 @@ async function getCustomers(
   username: string,
   password: string
 ): Promise<Customer> {
-  const apiRoot = createApiRoot('password', username, password);
+  const apiRoot = createApiRoot();
 
   const customerExec = apiRoot
     .me()
@@ -19,15 +19,10 @@ async function getCustomers(
       },
     });
 
-  const {
-    body: { customer, cart },
-  } = await customerExec.execute();
-
-  if (cart) {
-    localStorage.setItem('CT-Cart-CustomerID', cart.id);
-    sessionStorage.removeItem('CT-Cart-AnonymID');
-  }
-  return customer;
+  await customerExec.execute();
+  const ap = createApiRoot('password', username, password);
+  const { body } = await ap.me().get().execute();
+  return body;
 }
 
 export default getCustomers;

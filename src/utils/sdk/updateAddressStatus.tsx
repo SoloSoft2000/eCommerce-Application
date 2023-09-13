@@ -1,6 +1,4 @@
-// import { useSelector } from "react-redux";
 import { Customer, CustomerUpdateAction } from '@commercetools/platform-sdk';
-// import { RootState } from "../reducers/store";
 import updateUser from './updateUser';
 
 export type AddressActionType =

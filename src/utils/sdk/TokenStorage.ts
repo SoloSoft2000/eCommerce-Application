@@ -17,6 +17,7 @@ class TokenStorage implements TokenCache {
       }
       return <TokenStore>this.current;
     }
+    sessionStorage.setItem(this.storageKey, JSON.stringify({}));
     return {} as TokenStore;
   }
 
