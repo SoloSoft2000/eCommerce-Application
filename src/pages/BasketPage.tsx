@@ -7,6 +7,7 @@ import ToCatalogLink from '../сomponents/basket/ToCatalogLink';
 import ClearCartButton from '../сomponents/basket/ClearCartButton';
 import NotificationContext from '../utils/notification/NotificationContext';
 import deleteCart from '../utils/sdk/basket/deleteCart';
+import { getPrice, calculateTotalCart } from '../helpers/functions/calculate-basket-prices';
 
 function BasketPage(): React.JSX.Element {
   const [cart, setCart] = useState<Cart | null>(null);
@@ -43,16 +44,6 @@ function BasketPage(): React.JSX.Element {
     }
     getBasketCart();
   }, [setCart, showNotification]);
-
-  const getPrice = (lineItem: LineItem): number => {
-    if (lineItem.price.discounted) {
-      return lineItem.price.discounted.value.centAmount / 100;
-    }
-    return lineItem.price.value.centAmount / 100;
-  };
-
-  const calculateTotalCart = (lineItems: LineItem[]): number =>
-    lineItems.reduce((acc, lineItem) => acc + getPrice(lineItem), 0);
 
   useEffect(() => {
     if (cart) {
@@ -91,7 +82,7 @@ function BasketPage(): React.JSX.Element {
     );
   }
 
-  const btnRemove = (): void => {
+  const clearCart = (): void => {
     if (cart)
       deleteCart(cart)
         .then(() => {
@@ -126,7 +117,7 @@ function BasketPage(): React.JSX.Element {
               </p>
             </div>
             <div className="w-1/3 mr-[5%]">
-              <ClearCartButton isCartEmpty={!cart} onClick={btnRemove} />
+              <ClearCartButton isCartEmpty={!cart} onClick={clearCart} />
             </div>
           </div>
         </div>
