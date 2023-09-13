@@ -7,18 +7,23 @@ import ToCatalogLink from '../сomponents/basket/ToCatalogLink';
 import ClearCartButton from '../сomponents/basket/ClearCartButton';
 import NotificationContext from '../utils/notification/NotificationContext';
 import deleteCart from '../utils/sdk/basket/deleteCart';
+import {
+  getPrice,
+  calculateTotalCart,
+} from '../helpers/functions/calculate-basket-prices';
+import updateQuantity from '../utils/sdk/basket/updateQuantity';
 
 function BasketPage(): React.JSX.Element {
   const [cart, setCart] = useState<Cart | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const showNotification = useContext(NotificationContext);
+  const [totalPrice, setTotalCart] = useState<number>(0);
 
   useEffect(() => {
     async function getBasketCart(): Promise<void> {
       try {
         const fetchedCart: Cart = await getCart();
         setCart(fetchedCart);
-        console.log(fetchedCart);
       } catch (error) {
         showNotification('The basket is empty', 'error');
       } finally {
@@ -26,20 +31,41 @@ function BasketPage(): React.JSX.Element {
       }
     }
     getBasketCart();
-  }, []);
+  }, [setCart, showNotification]);
+
+  useEffect(() => {
+    if (cart) {
+      const cartTotal = calculateTotalCart(cart.lineItems);
+      setTotalCart(cartTotal);
+    }
+  }, [cart]);
+
+  const removeFromCart = async (itemId: string): Promise<void> => {
+    try {
+      await updateQuantity('removeLineItem', itemId);
+      const updatedCart = await getCart();
+      setCart(updatedCart);
+      showNotification('Removed from cart', 'success');
+    } catch (error) {
+      showNotification('Error removing product from cart', 'error');
+    }
+  };
 
   let cartContent;
   if (isLoading) {
     cartContent = <p>Loading...</p>;
-  } else if (cart) {
+  } else if (cart && cart.lineItems.length > 0) {
     cartContent = (
       <>
-        <BasketItemCard />
-        <BasketItemCard />
-        <BasketItemCard />
-        <BasketItemCard />
-        <BasketItemCard />
-        <BasketItemCard />
+        {cart.lineItems.map((lineItem) => (
+          <BasketItemCard
+            key={lineItem.id}
+            name={lineItem.name}
+            imageUrl={lineItem.variant.images?.[0]?.url ?? ''}
+            price={getPrice(lineItem)}
+            removeFromCart={(): Promise<void> => removeFromCart(lineItem.id)}
+          />
+        ))}
       </>
     );
   } else {
@@ -56,13 +82,13 @@ function BasketPage(): React.JSX.Element {
     );
   }
 
-  const btnRemove = (): void => {
+  const clearCart = (): void => {
     if (cart)
       deleteCart(cart)
         .then(() => {
           setCart(null);
           localStorage.removeItem('CT-Cart-CustomerID');
-          showNotification('Delete cart is successed', 'success');
+          showNotification('The Cart is cleared', 'success');
         })
         .catch((err) => {
           showNotification(err, 'error');
@@ -87,12 +113,11 @@ function BasketPage(): React.JSX.Element {
                 Total:
               </p>
               <p className="max-lg:text-sm text-xl font-bold px-1 max-md:px-0">
-                100 $
+                $ {totalPrice.toFixed(2)}
               </p>
             </div>
             <div className="w-1/3 mr-[5%]">
-              <button onClick={btnRemove}> remove cart Temp</button>
-              <ClearCartButton isCartEmpty={!cart} />
+              <ClearCartButton isCartEmpty={!cart} onClick={clearCart} />
             </div>
           </div>
         </div>
