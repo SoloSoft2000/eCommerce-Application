@@ -1,24 +1,22 @@
 import React from 'react';
-// import ButtonRemoveFromCart from '../ButtonRemoveFromCart';
-// import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
-import { LocalizedString } from '@commercetools/platform-sdk';
-import SubmitFormButton from '../forms/SubmitFormBtn';
 import QuantitySpinner from './QuantitySpinner';
+import { BasketItemProps } from '../../helpers/interfaces/basket/basket-item-props';
 
 function BasketItemCard({
   name,
   imageUrl,
   price,
-}: {
-  name: LocalizedString;
-  imageUrl: string;
-  price: number;
-}): React.JSX.Element {
+  removeFromCart,
+}: BasketItemProps): React.JSX.Element {
   const displayName = name['en-US'];
   console.log(displayName);
 
+  const getRemoveFromCart = (): void => {
+    removeFromCart();
+  };
+
   return (
-    <div className="m-1 max-md:mt-8 border-b pb-5 flex justify-betweeen">
+    <div className="m-1 max-md:mt-8 border-b py-3 flex justify-betweeen">
       <div className="h-[130px] w-[130px] border">
         <img src={imageUrl} alt={displayName} />
       </div>
@@ -50,12 +48,13 @@ function BasketItemCard({
           <QuantitySpinner min={1} max={10} />
         </div>
         <div>
-          {/* <ButtonRemoveFromCart setUpdateFlag={setUpdateFlag} id={props.id} btnCartClasses={true}/> */}
           <div className="ml-[34%]">
-            <SubmitFormButton
-              value="Remove"
-              classes="w-1/2 max-md:w-1/2 text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer;"
-            />
+            <button
+              onClick={getRemoveFromCart}
+              className="w-1/2 max-md:w-1/2 text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer;"
+            >
+              Remove
+            </button>
           </div>
         </div>
       </div>
