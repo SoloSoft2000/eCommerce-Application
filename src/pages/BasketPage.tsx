@@ -7,10 +7,7 @@ import ToCatalogLink from '../сomponents/basket/ToCatalogLink';
 import ClearCartButton from '../сomponents/basket/ClearCartButton';
 import NotificationContext from '../utils/notification/NotificationContext';
 import deleteCart from '../utils/sdk/basket/deleteCart';
-import {
-  getPrice,
-  calculateTotalCart,
-} from '../helpers/functions/calculate-basket-prices';
+import { getPrice } from '../helpers/functions/calculate-basket-prices';
 import updateQuantity from '../utils/sdk/basket/updateQuantity';
 
 function BasketPage(): React.JSX.Element {
@@ -24,6 +21,7 @@ function BasketPage(): React.JSX.Element {
       try {
         const fetchedCart: Cart = await getCart();
         setCart(fetchedCart);
+        setTotalCart(fetchedCart.totalPrice.centAmount / 100);
       } catch (error) {
         showNotification('The basket is empty', 'error');
       } finally {
@@ -33,19 +31,13 @@ function BasketPage(): React.JSX.Element {
     getBasketCart();
   }, [setCart, showNotification]);
 
-  useEffect(() => {
-    if (cart) {
-      const cartTotal = calculateTotalCart(cart.lineItems);
-      setTotalCart(cartTotal);
-    }
-  }, [cart]);
-
   const removeFromCart = async (itemId: string): Promise<void> => {
     try {
       await updateQuantity('removeLineItem', itemId);
       const updatedCart = await getCart();
       setCart(updatedCart);
       showNotification('Removed from cart', 'success');
+      setTotalCart(updatedCart.totalPrice.centAmount / 100);
     } catch (error) {
       showNotification('Error removing product from cart', 'error');
     }
