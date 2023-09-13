@@ -22,7 +22,7 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
   }, [updateFlag]);
 
   return (
-    <div className="border-[1px] border-zinc-200 w-[18rem] h-[30rem] h-auto bg-white hover:drop-shadow-lg rounded relative cursor-pointer overflow-hidden">
+    <div className="border-[1px] border-zinc-200 w-[18rem] h-[32rem] h-auto bg-white hover:drop-shadow-lg rounded relative cursor-pointer overflow-hidden">
       <div className="w-full object-bottom w-[18rem] h-[18rem] overflow-hidden rounded">
         <LazyLoadImage
           className="object-cover w-full"
@@ -38,7 +38,7 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
           -{props.salePercent}%
         </div>
       )}
-      <div className="h-[12rem] px-2 pt-2 pb-4 flex flex-col gap-2 justify-between">
+      <div className="h-[14rem] px-2 pt-2 pb-4 flex flex-col gap-2 justify-between">
         <div>
           <p className="font-bold">
             {props.productBrand && (
@@ -60,7 +60,7 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
               </span>
             )}
           </p>
-          <h4 className="font-bold text-xl mb-2">
+          <h4 className="font-bold text-xl mb-2 h-[3rem]">
             {props.title && (
               <Highlighter
                 highlightClassName="bg-yellow-300"
@@ -70,7 +70,7 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
               />
             )}
           </h4>
-          <p className="overflow-hidden max-h-[3rem]">
+          <p className="overflow-hidden h-[3rem]">
             {props.description && (
               <Highlighter
                 highlightClassName="bg-yellow-200"
@@ -94,13 +94,13 @@ function ProductCard(props: ProductCardProps): React.JSX.Element {
               </span>
             )}
           </p>
-          <ButtonAddToCart
-            setUpdateFlag={setUpdateFlag}
-            id={props.id}
-            idInCart={props.idInCart}
-            btnCatalogClasses={true}
-          />
         </div>
+        <ButtonAddToCart
+          setUpdateFlag={setUpdateFlag}
+          id={props.id}
+          idInCart={props.idInCart}
+          btnCatalogClasses={true}
+        />
       </div>
     </div>
   );
