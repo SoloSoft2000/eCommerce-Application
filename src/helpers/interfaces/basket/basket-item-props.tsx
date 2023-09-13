@@ -4,5 +4,8 @@ export interface BasketItemProps {
   name: LocalizedString;
   imageUrl: string;
   price: number;
+  quantity: number;
   removeFromCart: () => void;
+  lineItemId: string;
+  updateCartTotal: () => void;
 }

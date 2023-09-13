@@ -1,18 +1,36 @@
-import React from 'react';
+import React, { useContext, useCallback } from 'react';
 import QuantitySpinner from './QuantitySpinner';
 import { BasketItemProps } from '../../helpers/interfaces/basket/basket-item-props';
+import updateQuantity from '../../utils/sdk/basket/updateQuantity';
+import NotificationContext from '../../utils/notification/NotificationContext';
 
 function BasketItemCard({
   name,
   imageUrl,
   price,
+  quantity,
   removeFromCart,
+  lineItemId,
+  updateCartTotal,
 }: BasketItemProps): React.JSX.Element {
   const displayName = name['en-US'];
+  const showNotification = useContext(NotificationContext);
 
-  const getRemoveFromCart = (): void => {
+  const getRemoveFromCart = useCallback((): void => {
     removeFromCart();
-  };
+  }, []);
+
+  const getQuantityChange = useCallback(
+    async (newQuantity: number): Promise<void> => {
+      try {
+        await updateQuantity('changeLineItemQuantity', lineItemId, newQuantity);
+        updateCartTotal();
+      } catch (error) {
+        showNotification('Error updating quantity', 'error');
+      }
+    },
+    [lineItemId, updateQuantity, updateCartTotal, showNotification]
+  );
 
   return (
     <div className="m-1 max-md:mt-8 border-b py-3 flex justify-betweeen">
@@ -29,7 +47,12 @@ function BasketItemCard({
       </div>
       <div className="w-1/4 ml-5">
         <div>
-          <QuantitySpinner min={1} max={10} />
+          <QuantitySpinner
+            min={1}
+            max={10}
+            quantity={quantity}
+            whenQuantityChange={getQuantityChange}
+          />
         </div>
         <div>
           <div className="ml-[34%]">
