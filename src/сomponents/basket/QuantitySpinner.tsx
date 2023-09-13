@@ -26,7 +26,7 @@ const QuantitySpinner: React.FC<QuantitySpinnerProps> = ({
   }, [localQuantity, min, whenQuantityChange]);
 
   return (
-    <div className="ml-[25%] mb-8 mt-4">
+    <div className="ml-[30.5%] mb-8 mt-4">
       <button className="w-7 border py-1 px-2" onClick={removeItem}>
         -
       </button>

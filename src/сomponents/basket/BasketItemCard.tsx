@@ -45,7 +45,7 @@ function BasketItemCard({
         {/* Don't forget about promo discount (use logic from Detailed Product Card) and currency formatter function */}
         <div className="flex mb-2 max-md:mb-2">$ {price.toFixed(2)}</div>
       </div>
-      <div className="w-1/4 ml-5">
+      <div className="w-1/4">
         <div>
           <QuantitySpinner
             min={1}
@@ -55,10 +55,10 @@ function BasketItemCard({
           />
         </div>
         <div>
-          <div className="ml-[34%]">
+          <div className="ml-[10%]">
             <button
               onClick={getRemoveFromCart}
-              className="w-1/2 max-md:w-1/2 text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer;"
+              className="w-full text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer;"
             >
               Remove
             </button>
