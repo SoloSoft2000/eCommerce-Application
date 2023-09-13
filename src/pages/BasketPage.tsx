@@ -12,6 +12,7 @@ function BasketPage(): React.JSX.Element {
   const [cart, setCart] = useState<Cart | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const showNotification = useContext(NotificationContext);
+  const [totalPrice, setTotalCart] = useState<number>(0);
 
   useEffect(() => {
     async function getBasketCart(): Promise<void> {
@@ -19,15 +20,6 @@ function BasketPage(): React.JSX.Element {
         const fetchedCart: Cart = await getCart();
         setCart(fetchedCart);
         console.log(fetchedCart.lineItems);
-
-        const prices = fetchedCart.lineItems.map((lineItem) => {
-          if (lineItem.price.discounted) {
-            return lineItem.price.discounted.value;
-          }
-          return lineItem.price.value;
-        });
-
-        console.log('prices', prices);
 
         const lineItemPropertiesArray = fetchedCart.lineItems.map(
           (lineItem: LineItem) => {
@@ -50,7 +42,24 @@ function BasketPage(): React.JSX.Element {
       }
     }
     getBasketCart();
-  }, [setCart]);
+  }, [setCart, showNotification]);
+
+  const getPrice = (lineItem: LineItem): number => {
+    if (lineItem.price.discounted) {
+      return lineItem.price.discounted.value.centAmount / 100;
+    }
+    return lineItem.price.value.centAmount / 100;
+  };
+
+  const calculateTotalCart = (lineItems: LineItem[]): number =>
+    lineItems.reduce((acc, lineItem) => acc + getPrice(lineItem), 0);
+
+  useEffect(() => {
+    if (cart) {
+      const cartTotal = calculateTotalCart(cart.lineItems);
+      setTotalCart(cartTotal);
+    }
+  }, [cart]);
 
   let cartContent;
   if (isLoading) {
@@ -63,11 +72,7 @@ function BasketPage(): React.JSX.Element {
             key={lineItem.id}
             name={lineItem.name}
             imageUrl={lineItem.variant.images?.[0]?.url ?? ''}
-            price={
-              lineItem.price.discounted
-                ? lineItem.price.discounted.value.centAmount / 100
-                : lineItem.price.value.centAmount / 100
-            }
+            price={getPrice(lineItem)}
           />
         ))}
       </>
@@ -117,7 +122,7 @@ function BasketPage(): React.JSX.Element {
                 Total:
               </p>
               <p className="max-lg:text-sm text-xl font-bold px-1 max-md:px-0">
-                100 $
+                $ {totalPrice.toFixed(2)}
               </p>
             </div>
             <div className="w-1/3 mr-[5%]">
