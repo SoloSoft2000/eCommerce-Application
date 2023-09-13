@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Cart, LineItem } from '@commercetools/platform-sdk';
+import { Cart } from '@commercetools/platform-sdk';
 import getCart from '../utils/sdk/basket/getCart';
 import BasketItemCard from '../сomponents/basket/BasketItemCard';
 import PromoInputForm from '../сomponents/basket/PromoInputForm';
@@ -24,22 +24,6 @@ function BasketPage(): React.JSX.Element {
       try {
         const fetchedCart: Cart = await getCart();
         setCart(fetchedCart);
-        console.log(fetchedCart.lineItems);
-
-        const lineItemPropertiesArray = fetchedCart.lineItems.map(
-          (lineItem: LineItem) => {
-            const { name } = lineItem;
-            const { url: imageUrl = '' } = lineItem.variant.images?.[0] || {};
-            console.log(name);
-            console.log(imageUrl);
-
-            return {
-              name,
-              imageUrl,
-            };
-          }
-        );
-        console.log(lineItemPropertiesArray);
       } catch (error) {
         showNotification('The basket is empty', 'error');
       } finally {

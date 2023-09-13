@@ -9,7 +9,6 @@ function BasketItemCard({
   removeFromCart,
 }: BasketItemProps): React.JSX.Element {
   const displayName = name['en-US'];
-  console.log(displayName);
 
   const getRemoveFromCart = (): void => {
     removeFromCart();
@@ -24,22 +23,7 @@ function BasketItemCard({
         <h3 className="max-lg:text-sm font-bold mb-2 max-md:mb-2 pt-3">
           {displayName}
         </h3>
-        <div className="flex mb-2 max-md:mb-2 max-md:flex-col">
-          {/* <div className="flex max-md:flex-col justify-center">
-            <span className="max-lg:text-sm text-slate-500 font-normal pr-1">
-              Brand:
-            </span>
-            <h3 className="max-lg:text-sm font-bold px-1 mr-3 max-md:mr-0 max-md:mb-2 max-md:px-0">
-              Brand
-            </h3>
-          </div>
-          <div className="flex max-md:flex-col justify-center">
-            <span className="max-lg:text-sm text-slate-500 font-normal pr-1">
-              Style:
-            </span>
-            <p className="max-lg:text-sm font-bold px-1 max-md:px-0">Style</p>
-          </div> */}
-        </div>
+        <div className="flex mb-2 max-md:mb-2 max-md:flex-col"></div>
         {/* Don't forget about promo discount (use logic from Detailed Product Card) and currency formatter function */}
         <div className="flex mb-2 max-md:mb-2">$ {price.toFixed(2)}</div>
       </div>
