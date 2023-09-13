@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../utils/reducers/store';
 import Filter from '../сomponents/catalog/Filter';
 import ProductList from '../сomponents/catalog/ProductList';
@@ -34,6 +34,7 @@ function CatalogPage(): React.JSX.Element {
   const [categoriesMenu, setCategoriesMenu] = useState(false);
   const [productLimit, setProductLimit] = useState(2);
   const [totalProducts, setTotalProducts] = useState(0);
+  const [toTheTop, setToTheTop] = useState(false);
 
   const productArray = useSelector((state: RootState) => state.products);
   const { sortByAbc, sortByPrice } = productArray.sort;
@@ -42,8 +43,6 @@ function CatalogPage(): React.JSX.Element {
     () => [productArray.price[0], productArray.price[1]],
     [productArray.price]
   );
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
@@ -59,7 +58,7 @@ function CatalogPage(): React.JSX.Element {
           limitElements: productLimit,
         });
         const { results, total } = products;
-        if (total) setTotalProducts(total);
+        setTotalProducts(total || 0);
         const data = setDataElements(results);
         setCatalog(data);
       } catch (err) {
@@ -67,15 +66,7 @@ function CatalogPage(): React.JSX.Element {
       }
     };
     fetchData();
-  }, [
-    dispatch,
-    minPrice,
-    maxPrice,
-    category,
-    productLimit,
-    sortByAbc,
-    sortByPrice,
-  ]);
+  }, [productArray, category, productLimit]);
 
   useEffect(() => {
     const followResizing = (): void => {
@@ -92,14 +83,6 @@ function CatalogPage(): React.JSX.Element {
   const toggleFilterMenu = useCallback(() => {
     setFilterMenu(!filterMenu);
   }, [filterMenu]);
-
-  useEffect(() => {
-    setCategoriesMenu(false);
-  }, [category]);
-
-  useEffect(() => {
-    setProductLimit(4);
-  }, [category]);
 
   const appliedFilterGenerator = useCallback(
     (name: string, sortMethod: string) => (
@@ -122,10 +105,23 @@ function CatalogPage(): React.JSX.Element {
     [productArray]
   );
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    setToTheTop(false);
+  }, [category, productArray, toTheTop]);
+
+  useEffect(() => {
+    setCategoriesMenu(false);
+    setProductLimit(2);
+  }, [category]);
+
   return (
     <main className="container mx-auto pt-2 pb-10">
       <BreadcrumbCatalog />
-      <ScrollToTop />
+      <ScrollToTop onClick={(): void => setToTheTop(true)} />
       <div className="flex flex-wrap sm:flex-nowrap gap-8 justify-center sm:justify-between items-center relative z-10 mb-[2rem]">
         <div className="w-full sm:w-96 relative">
           <button
@@ -142,7 +138,7 @@ function CatalogPage(): React.JSX.Element {
           </div>
         )}
         <div className="grow flex justify-start items-center flex-wrap gap-4">
-          <p className="text-slate-600">Total products: {totalProducts} </p>
+          <p className="text-slate-600">Total products: {totalProducts}</p>
           {sortByPrice === 'price asc' &&
             appliedFilterGenerator('Price: Low to High', 'sortByPrice')}
           {sortByPrice === 'price desc' &&
@@ -196,7 +192,11 @@ function CatalogPage(): React.JSX.Element {
             }
             endMessage={
               <p className="flex justify-center p-5 text-slate-600">
-                You have seen all products in this category
+                {totalProducts ? (
+                  <span>You have seen all products in this category</span>
+                ) : (
+                  <span>No products found</span>
+                )}
               </p>
             }
           >
