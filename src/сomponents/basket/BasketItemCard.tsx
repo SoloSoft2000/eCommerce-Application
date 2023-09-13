@@ -43,7 +43,7 @@ function BasketItemCard({
           </div> */}
         </div>
         {/* Don't forget about promo discount (use logic from Detailed Product Card) and currency formatter function */}
-        <div className="flex mb-2 max-md:mb-2">${price.toFixed(2)}</div>
+        <div className="flex mb-2 max-md:mb-2">$ {price.toFixed(2)}</div>
       </div>
       <div className="w-1/4 ml-5">
         <div>
