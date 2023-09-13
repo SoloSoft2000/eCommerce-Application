@@ -2,8 +2,6 @@ import {
   ClientResponse,
   Customer,
   CustomerUpdateAction,
-  //   CustomerDraft,
-  //   CustomerSignInResult,
 } from '@commercetools/platform-sdk';
 import createApiRoot from './createApiRoot';
 

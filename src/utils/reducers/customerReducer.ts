@@ -19,16 +19,12 @@ const customerSlice = createSlice({
   reducers: {
     setCustomer: (state, action) => {
       const newState = action.payload;
-      localStorage.setItem('CT-Customer-SignIn', JSON.stringify(newState));
       return newState;
     },
     clearCustomer: () => {
-      localStorage.removeItem('CT-Customer-SignIn');
-      localStorage.removeItem('CT-Cart-CustomerID');
-      localStorage.removeItem('commercetools_token');
-
-      createApiRoot('anonymous');
-
+      sessionStorage.removeItem('commercetools_token');
+      const clearApi = createApiRoot('anonymous');
+      clearApi.discountCodes().get().execute();
       return initialState;
     },
   },

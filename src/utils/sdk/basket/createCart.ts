@@ -5,7 +5,6 @@ import createApiRoot from '../createApiRoot';
 async function createCart(): Promise<Cart> {
   const apiRoot = createApiRoot();
 
-  const savedCustomer = localStorage.getItem('CT-Customer-SignIn');
   const cartDraft: MyCartDraft = {
     currency: 'USD',
   };
@@ -14,12 +13,9 @@ async function createCart(): Promise<Cart> {
     .me()
     .carts()
     .post({ body: cartDraft });
+
   const { body } = await cartExec.execute();
-  if (!savedCustomer) {
-    sessionStorage.setItem('CT-Cart-AnonymID', body.id);
-  } else {
-    localStorage.setItem('CT-Cart-CustomerID', body.id);
-  }
+
   return body;
 }
 

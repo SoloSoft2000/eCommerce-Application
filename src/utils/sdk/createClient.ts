@@ -28,15 +28,15 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
   tokenCache: tokenStore,
 };
 
+const clientBuilder = new ClientBuilder().withHttpMiddleware(
+  httpMiddlewareOptions
+);
+
 const createClient = (
   authType: 'anonymous' | 'password' = 'anonymous',
   username?: string,
   password?: string
 ): Client => {
-  const clientBuilder = new ClientBuilder().withHttpMiddleware(
-    httpMiddlewareOptions
-  );
-
   if (authType === 'anonymous') {
     clientBuilder
       .withClientCredentialsFlow(authMiddlewareOptions)
@@ -59,14 +59,17 @@ const createClient = (
       },
       scopes,
       fetch,
+      tokenCache: tokenStore,
     };
 
+    tokenStore.set({ token: '', expirationTime: 0 });
+
     clientBuilder
+      .withExistingTokenFlow(tokenStore.get().token, { force: true })
       .withAnonymousSessionFlow(authMiddlewareOptions)
       .withClientCredentialsFlow(authMiddlewareOptions)
       .withPasswordFlow(passwordOptions);
   }
-
   return clientBuilder.build();
 };
 
