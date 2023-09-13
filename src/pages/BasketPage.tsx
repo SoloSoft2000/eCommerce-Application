@@ -7,7 +7,11 @@ import ToCatalogLink from '../сomponents/basket/ToCatalogLink';
 import ClearCartButton from '../сomponents/basket/ClearCartButton';
 import NotificationContext from '../utils/notification/NotificationContext';
 import deleteCart from '../utils/sdk/basket/deleteCart';
-import { getPrice, calculateTotalCart } from '../helpers/functions/calculate-basket-prices';
+import {
+  getPrice,
+  calculateTotalCart,
+} from '../helpers/functions/calculate-basket-prices';
+import updateQuantity from '../utils/sdk/basket/updateQuantity';
 
 function BasketPage(): React.JSX.Element {
   const [cart, setCart] = useState<Cart | null>(null);
@@ -52,6 +56,17 @@ function BasketPage(): React.JSX.Element {
     }
   }, [cart]);
 
+  const removeFromCart = async (itemId: string): Promise<void> => {
+    try {
+      await updateQuantity('removeLineItem', itemId);
+      const updatedCart = await getCart();
+      setCart(updatedCart);
+      showNotification('Removed from cart', 'success');
+    } catch (error) {
+      showNotification('Error removing product from cart', 'error');
+    }
+  };
+
   let cartContent;
   if (isLoading) {
     cartContent = <p>Loading...</p>;
@@ -64,6 +79,7 @@ function BasketPage(): React.JSX.Element {
             name={lineItem.name}
             imageUrl={lineItem.variant.images?.[0]?.url ?? ''}
             price={getPrice(lineItem)}
+            removeFromCart={(): Promise<void> => removeFromCart(lineItem.id)}
           />
         ))}
       </>

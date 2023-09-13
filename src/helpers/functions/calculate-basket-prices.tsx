@@ -11,4 +11,4 @@ function calculateTotalCart(lineItems: LineItem[]): number {
   return lineItems.reduce((acc, lineItem) => acc + getPrice(lineItem), 0);
 }
 
-export {getPrice, calculateTotalCart};
+export { getPrice, calculateTotalCart };
