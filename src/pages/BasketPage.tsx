@@ -23,24 +23,14 @@ function BasketPage(): React.JSX.Element {
         setCart(fetchedCart);
         setTotalCart(fetchedCart.totalPrice.centAmount / 100);
       } catch (error) {
-        showNotification('The basket is empty', 'error');
+        // showNotification('The basket is empty', 'error');
       } finally {
         setIsLoading(false);
       }
     }
 
-    async function updateCartInfo(): Promise<void> {
-      try {
-        const updatedCart = await getCart();
-        setCart(updatedCart);
-        setTotalCart(updatedCart.totalPrice.centAmount / 100);
-      } catch (error) {
-        showNotification('Error updating cart information', 'error');
-      }
-    }
     getBasketCart();
-    updateCartInfo();
-  }, [setCart, showNotification]);
+  }, [cart]);
 
   const removeFromCart = useCallback(
     async (itemId: string): Promise<void> => {
@@ -54,7 +44,7 @@ function BasketPage(): React.JSX.Element {
         showNotification('Error removing product from cart', 'error');
       }
     },
-    [updateQuantity, getCart, setCart, showNotification, setTotalCart]
+    []
   );
 
   const updateCartTotal = useCallback(async (): Promise<void> => {
@@ -65,7 +55,7 @@ function BasketPage(): React.JSX.Element {
     } catch (error) {
       showNotification('Error updating cart total', 'error');
     }
-  }, [getCart, setCart, setTotalCart, showNotification]);
+  }, []);
 
   const clearCart = useCallback((): void => {
     if (cart) {
@@ -80,7 +70,7 @@ function BasketPage(): React.JSX.Element {
           showNotification(err, 'error');
         });
     }
-  }, [cart, deleteCart, setCart, showNotification]);
+  }, [cart]);
 
   const handlePromoApplied = useCallback(async (): Promise<void> => {
     try {
