@@ -5,7 +5,9 @@ interface PromoInputFormProps {
   onPromoApplied: () => void;
 }
 
-function PromoInputForm({ onPromoApplied }: PromoInputFormProps): React.JSX.Element {
+function PromoInputForm({
+  onPromoApplied,
+}: PromoInputFormProps): React.JSX.Element {
   const [inputValue, setInputValue] = useState('');
   const applyDiscount = (): void => {
     addDiscount(inputValue)
@@ -31,8 +33,9 @@ function PromoInputForm({ onPromoApplied }: PromoInputFormProps): React.JSX.Elem
       <button
         onClick={applyDiscount}
         disabled={!inputValue}
-        className="w-1/6 max-md:w-2/6 text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer;">
-          Apply promo
+        className="w-1/6 max-md:w-2/6 text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer;"
+      >
+        Apply promo
       </button>
     </div>
   );

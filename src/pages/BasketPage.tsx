@@ -137,7 +137,7 @@ function BasketPage(): React.JSX.Element {
           <h4 className="font-bold text-center text-xl mb-8 mt-3">
             Cart Totals
           </h4>
-          <PromoInputForm onPromoApplied={handlePromoApplied}/>
+          <PromoInputForm onPromoApplied={handlePromoApplied} />
           <div className="flex max-md:flex-col justify-center mb-5">
             <div className="flex w-full ml-[5%] mb-2">
               <p className="max-lg:text-sm text-xl text-slate-800 font-bold pr-1">
