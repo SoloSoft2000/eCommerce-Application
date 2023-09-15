@@ -48,7 +48,6 @@ function CatalogPage(): React.JSX.Element {
     const fetchData = async (): Promise<void> => {
       try {
         const products = await getProducts({
-          catalog,
           category,
           sort: Object.values(productArray.sort).filter(Boolean),
           priceRange: productArray.price,
@@ -58,9 +57,9 @@ function CatalogPage(): React.JSX.Element {
           limitElements: productLimit,
         });
         const { results, total } = products;
-        setTotalProducts(total || 0);
         const data = setDataElements(results);
         setCatalog(data);
+        setTotalProducts(total || 0);
       } catch (err) {
         showNotification(`Catalog page: ${err}`, 'error');
       }
@@ -192,7 +191,7 @@ function CatalogPage(): React.JSX.Element {
             }
             endMessage={
               <p className="flex justify-center p-5 text-slate-600">
-                {totalProducts ? (
+                {catalog.length > 0 ? (
                   <span>You have seen all products in this category</span>
                 ) : (
                   <span>No products found</span>
