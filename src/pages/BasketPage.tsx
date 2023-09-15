@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { Cart } from '@commercetools/platform-sdk';
 import getCart from '../utils/sdk/basket/getCart';
 import BasketItemCard from '../сomponents/basket/BasketItemCard';
@@ -7,10 +7,7 @@ import ToCatalogLink from '../сomponents/basket/ToCatalogLink';
 import ClearCartButton from '../сomponents/basket/ClearCartButton';
 import NotificationContext from '../utils/notification/NotificationContext';
 import deleteCart from '../utils/sdk/basket/deleteCart';
-import {
-  getPrice,
-  calculateTotalCart,
-} from '../helpers/functions/calculate-basket-prices';
+import { getPrice } from '../helpers/functions/calculate-basket-prices';
 import updateQuantity from '../utils/sdk/basket/updateQuantity';
 
 function BasketPage(): React.JSX.Element {
@@ -24,32 +21,66 @@ function BasketPage(): React.JSX.Element {
       try {
         const fetchedCart: Cart = await getCart();
         setCart(fetchedCart);
+        setTotalCart(fetchedCart.totalPrice.centAmount / 100);
       } catch (error) {
         showNotification('The basket is empty', 'error');
       } finally {
         setIsLoading(false);
       }
     }
+
+    async function updateCartInfo(): Promise<void> {
+      try {
+        const updatedCart = await getCart();
+        setCart(updatedCart);
+        setTotalCart(updatedCart.totalPrice.centAmount / 100);
+      } catch (error) {
+        showNotification('Error updating cart information', 'error');
+      }
+    }
     getBasketCart();
+    updateCartInfo();
   }, [setCart, showNotification]);
 
-  useEffect(() => {
-    if (cart) {
-      const cartTotal = calculateTotalCart(cart.lineItems);
-      setTotalCart(cartTotal);
-    }
-  }, [cart]);
+  const removeFromCart = useCallback(
+    async (itemId: string): Promise<void> => {
+      try {
+        await updateQuantity('changeLineItemQuantity', itemId, 0);
+        const updatedCart = await getCart();
+        setCart(updatedCart);
+        showNotification('Removed from cart', 'success');
+        setTotalCart(updatedCart.totalPrice.centAmount / 100);
+      } catch (error) {
+        showNotification('Error removing product from cart', 'error');
+      }
+    },
+    [updateQuantity, getCart, setCart, showNotification, setTotalCart]
+  );
 
-  const removeFromCart = async (itemId: string): Promise<void> => {
+  const updateCartTotal = useCallback(async (): Promise<void> => {
     try {
-      await updateQuantity('removeLineItem', itemId);
       const updatedCart = await getCart();
       setCart(updatedCart);
-      showNotification('Removed from cart', 'success');
+      setTotalCart(updatedCart.totalPrice.centAmount / 100);
     } catch (error) {
-      showNotification('Error removing product from cart', 'error');
+      showNotification('Error updating cart total', 'error');
     }
-  };
+  }, [getCart, setCart, setTotalCart, showNotification]);
+
+  const clearCart = useCallback((): void => {
+    if (cart) {
+      deleteCart(cart)
+        .then(() => {
+          setCart(null);
+          setTotalCart(0);
+          localStorage.removeItem('CT-Cart-CustomerID');
+          showNotification('The cart is cleared', 'success');
+        })
+        .catch((err) => {
+          showNotification(err, 'error');
+        });
+    }
+  }, [cart, deleteCart, setCart, showNotification]);
 
   let cartContent;
   if (isLoading) {
@@ -63,7 +94,10 @@ function BasketPage(): React.JSX.Element {
             name={lineItem.name}
             imageUrl={lineItem.variant.images?.[0]?.url ?? ''}
             price={getPrice(lineItem)}
+            quantity={lineItem.quantity}
             removeFromCart={(): Promise<void> => removeFromCart(lineItem.id)}
+            lineItemId={lineItem.id}
+            updateCartTotal={updateCartTotal}
           />
         ))}
       </>
@@ -81,19 +115,6 @@ function BasketPage(): React.JSX.Element {
       </>
     );
   }
-
-  const clearCart = (): void => {
-    if (cart)
-      deleteCart(cart)
-        .then(() => {
-          setCart(null);
-          localStorage.removeItem('CT-Cart-CustomerID');
-          showNotification('The Cart is cleared', 'success');
-        })
-        .catch((err) => {
-          showNotification(err, 'error');
-        });
-  };
 
   return (
     <main className="container mx-auto">

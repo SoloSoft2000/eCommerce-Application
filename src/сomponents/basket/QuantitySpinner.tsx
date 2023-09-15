@@ -1,23 +1,32 @@
 import React, { useState, useCallback } from 'react';
 import { QuantitySpinnerProps } from '../../helpers/interfaces/basket/quantity-spinner-props';
 
-const QuantitySpinner: React.FC<QuantitySpinnerProps> = ({ min, max }) => {
-  const [quantity, setQuantity] = useState(min);
+const QuantitySpinner: React.FC<QuantitySpinnerProps> = ({
+  min,
+  max,
+  quantity,
+  whenQuantityChange,
+}) => {
+  const [localQuantity, setLocalQuantity] = useState(quantity);
 
-  const addItem = useCallback(() => {
-    if (quantity < max) {
-      setQuantity(quantity + 1);
+  const addItem = useCallback((): void => {
+    if (localQuantity < max) {
+      const newQuantity = localQuantity + 1;
+      setLocalQuantity(newQuantity);
+      whenQuantityChange(newQuantity);
     }
-  }, [quantity, max]);
+  }, [localQuantity, max, whenQuantityChange]);
 
-  const removeItem = useCallback(() => {
-    if (quantity > min) {
-      setQuantity(quantity - 1);
+  const removeItem = useCallback((): void => {
+    if (localQuantity > min) {
+      const newQuantity = localQuantity - 1;
+      setLocalQuantity(newQuantity);
+      whenQuantityChange(newQuantity);
     }
-  }, [quantity, min]);
+  }, [localQuantity, min, whenQuantityChange]);
 
   return (
-    <div className="ml-[25%] mb-8 mt-4">
+    <div className="ml-[30.5%] mb-8 mt-4">
       <button className="w-7 border py-1 px-2" onClick={removeItem}>
         -
       </button>
