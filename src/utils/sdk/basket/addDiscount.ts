@@ -3,11 +3,8 @@ import getCart from './getCart';
 import createApiRoot from '../createApiRoot';
 import createCart from './createCart';
 
-async function updateQuantity(
-  actionType: 'addLineItem' | 'removeLineItem' | 'changeLineItemQuantity',
-  id: string,
-  quantity = 1
-): Promise<Cart> {
+async function addDiscount(discountCode: string): Promise<Cart> {
+  const actionType = 'addDiscountCode';
   const apiRoot = createApiRoot();
   let cart: Cart;
   try {
@@ -26,13 +23,7 @@ async function updateQuantity(
         actions: [
           {
             action: actionType,
-            productId: actionType === 'addLineItem' ? id : undefined,
-            lineItemId:
-              actionType === 'removeLineItem' ||
-              actionType === 'changeLineItemQuantity'
-                ? id
-                : undefined,
-            quantity,
+            code: discountCode.toUpperCase(),
           },
         ],
       },
@@ -42,4 +33,4 @@ async function updateQuantity(
   return body;
 }
 
-export default updateQuantity;
+export default addDiscount;

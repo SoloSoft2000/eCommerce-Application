@@ -82,6 +82,16 @@ function BasketPage(): React.JSX.Element {
     }
   }, [cart, deleteCart, setCart, showNotification]);
 
+  const handlePromoApplied = useCallback(async (): Promise<void> => {
+    try {
+      const updatedCart = await getCart();
+      setCart(updatedCart);
+      setTotalCart(updatedCart.totalPrice.centAmount / 100);
+    } catch (error) {
+      showNotification('Error updating cart after applying promo', 'error');
+    }
+  }, []);
+
   let cartContent;
   if (isLoading) {
     cartContent = <p>Loading...</p>;
@@ -127,7 +137,7 @@ function BasketPage(): React.JSX.Element {
           <h4 className="font-bold text-center text-xl mb-8 mt-3">
             Cart Totals
           </h4>
-          <PromoInputForm />
+          <PromoInputForm onPromoApplied={handlePromoApplied}/>
           <div className="flex max-md:flex-col justify-center mb-5">
             <div className="flex w-full ml-[5%] mb-2">
               <p className="max-lg:text-sm text-xl text-slate-800 font-bold pr-1">
