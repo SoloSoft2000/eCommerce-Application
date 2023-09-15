@@ -6,7 +6,7 @@ import './assets/styles/index.scss';
 import './assets/favicon.ico';
 import App from './App';
 import store from './utils/reducers/store';
-import { clearCustomer, setCustomer } from './utils/reducers/customerReducer';
+import { setCustomer } from './utils/reducers/customerReducer';
 import NotificationProvider from './utils/notification/NotificationProvider';
 import createApiRoot from './utils/sdk/createApiRoot';
 
@@ -22,7 +22,7 @@ apiRoot
   .get()
   .execute()
   .then((res) => store.dispatch(setCustomer(res.body)))
-  .catch(() => store.dispatch(clearCustomer()));
+  .catch(() => {});
 
 createRoot(root).render(
   <Provider store={store}>
