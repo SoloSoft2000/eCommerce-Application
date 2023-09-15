@@ -1,7 +1,11 @@
-import React from 'react';
-import SubmitFormButton from '../forms/SubmitFormBtn';
+import React, { useCallback, useState } from 'react';
 
 function PromoInputForm(): React.JSX.Element {
+  const [inputValue, setInputValue] = useState('');
+  const apply = useCallback(() => {
+    console.log(inputValue);
+  }, [inputValue]);
+
   return (
     <form className="ml-[5%] mb-8">
       <label className="pr-1">
@@ -10,12 +14,16 @@ function PromoInputForm(): React.JSX.Element {
           placeholder="Promocode"
           type="text"
           name="name"
+          value={inputValue}
+          onChange={(e): void => setInputValue(e.target.value)}
         />
       </label>
-      <SubmitFormButton
-        value="Apply Promo"
-        classes="w-1/6 max-md:w-2/6 text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer;"
-      />
+      <button
+        onClick={apply}
+        disabled={!inputValue}
+        className="w-1/6 max-md:w-2/6 text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer;">
+          Apply promo
+      </button>
     </form>
   );
 }
