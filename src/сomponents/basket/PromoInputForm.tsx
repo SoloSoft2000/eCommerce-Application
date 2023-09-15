@@ -14,7 +14,7 @@ function PromoInputForm(): React.JSX.Element {
       </label>
       <SubmitFormButton
         value="Apply Promo"
-        classes="w-1/6 max-md:w-2/6 text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer;"
+        classes="w-1/6 max-xl:w-2/6 max-sm:m-1 text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer"
       />
     </form>
   );

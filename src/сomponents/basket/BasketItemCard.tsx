@@ -34,11 +34,11 @@ function BasketItemCard({
 
   return (
     <div className="m-1 max-md:mt-8 border-b py-3 flex justify-betweeen">
-      <div className="h-[130px] w-[130px] border">
+      <div className="h-[130px] w-[130px] max-sm:w-16 max-sm:h-16">
         <img src={imageUrl} alt={displayName} />
       </div>
-      <div className="w-1/2 max-md:mt-5 max-md:mx-auto ml-5 px-2">
-        <h3 className="max-lg:text-sm font-bold mb-2 max-md:mb-2 pt-3">
+      <div className="w-1/2 max-md:mt-2 max-md:mx-auto ml-5 px-2">
+        <h3 className="max-lg:text-sm font-bold mb-2 max-md:mb-2 pt-3 max-sm:pt-0">
           {displayName}
         </h3>
         <div className="flex mb-2 max-md:mb-2 max-md:flex-col"></div>
@@ -46,7 +46,7 @@ function BasketItemCard({
         <div className="flex mb-2 max-md:mb-2">$ {price.toFixed(2)}</div>
       </div>
       <div className="w-1/4">
-        <div>
+        <div className="pr-2">
           <QuantitySpinner
             min={1}
             max={10}
@@ -58,7 +58,7 @@ function BasketItemCard({
           <div className="ml-[10%]">
             <button
               onClick={getRemoveFromCart}
-              className="w-full text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer;"
+              className="w-full text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer max-lg:mr-3"
             >
               Remove
             </button>
