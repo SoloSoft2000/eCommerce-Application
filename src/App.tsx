@@ -15,11 +15,8 @@ import AboutUsPage from './pages/AboutUsPage';
 import NoPage from './pages/NoPage';
 import Layout from './сomponents/Layout';
 import { clearAllFilters } from './utils/reducers/productsListReducer';
-// import getDiscounts from './utils/sdk/basket/getDiscounts';
 
 function App(): React.JSX.Element {
-
-  
   const dispatch = useDispatch();
   const currentPath = useLocation().pathname;
   useEffect(() => {

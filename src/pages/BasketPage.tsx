@@ -7,7 +7,6 @@ import ToCatalogLink from '../сomponents/basket/ToCatalogLink';
 import ClearCartButton from '../сomponents/basket/ClearCartButton';
 import NotificationContext from '../utils/notification/NotificationContext';
 import deleteCart from '../utils/sdk/basket/deleteCart';
-import { getPrice } from '../helpers/functions/calculate-basket-prices';
 import updateQuantity from '../utils/sdk/basket/updateQuantity';
 
 function BasketPage(): React.JSX.Element {
@@ -23,7 +22,7 @@ function BasketPage(): React.JSX.Element {
         setCart(fetchedCart);
         setTotalCart(fetchedCart.totalPrice.centAmount / 100);
       } catch (error) {
-        // showNotification('The basket is empty', 'error');
+        showNotification('The basket is empty', 'default');
       } finally {
         setIsLoading(false);
       }
@@ -89,14 +88,9 @@ function BasketPage(): React.JSX.Element {
     cartContent = (
       <>
         {cart.lineItems.map((lineItem) => (
-          <BasketItemCard
-            key={lineItem.id}
-            name={lineItem.name}
-            imageUrl={lineItem.variant.images?.[0]?.url ?? ''}
-            price={getPrice(lineItem)}
-            quantity={lineItem.quantity}
-            removeFromCart={(): Promise<void> => removeFromCart(lineItem.id)}
-            lineItemId={lineItem.id}
+          <BasketItemCard key = {lineItem.id}
+            lineItem = {lineItem}
+            removeFromCart={removeFromCart}
             updateCartTotal={updateCartTotal}
           />
         ))}
