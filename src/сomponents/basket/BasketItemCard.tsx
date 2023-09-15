@@ -16,7 +16,11 @@ function BasketItemCard({
   const getQuantityChange = useCallback(
     async (newQuantity: number): Promise<void> => {
       try {
-        await updateQuantity('changeLineItemQuantity', lineItem.id, newQuantity);
+        await updateQuantity(
+          'changeLineItemQuantity',
+          lineItem.id,
+          newQuantity
+        );
         updateCartTotal();
       } catch (error) {
         showNotification('Error updating quantity', 'error');
@@ -36,7 +40,9 @@ function BasketItemCard({
         </h3>
         <div className="flex mb-2 max-md:mb-2 max-md:flex-col"></div>
         {/* Don't forget about promo discount (use logic from Detailed Product Card) and currency formatter function */}
-        <div className="flex mb-2 max-md:mb-2">$ {getPrice(lineItem).toFixed(2)}</div>
+        <div className="flex mb-2 max-md:mb-2">
+          $ {getPrice(lineItem).toFixed(2)}
+        </div>
       </div>
       <div className="w-1/4">
         <div>

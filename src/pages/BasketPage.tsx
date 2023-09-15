@@ -31,20 +31,17 @@ function BasketPage(): React.JSX.Element {
     getBasketCart();
   }, []);
 
-  const removeFromCart = useCallback(
-    async (itemId: string): Promise<void> => {
-      try {
-        await updateQuantity('changeLineItemQuantity', itemId, 0);
-        const updatedCart = await getCart();
-        setCart(updatedCart);
-        showNotification('Removed from cart', 'success');
-        setTotalCart(updatedCart.totalPrice.centAmount / 100);
-      } catch (error) {
-        showNotification('Error removing product from cart', 'error');
-      }
-    },
-    []
-  );
+  const removeFromCart = useCallback(async (itemId: string): Promise<void> => {
+    try {
+      await updateQuantity('changeLineItemQuantity', itemId, 0);
+      const updatedCart = await getCart();
+      setCart(updatedCart);
+      showNotification('Removed from cart', 'success');
+      setTotalCart(updatedCart.totalPrice.centAmount / 100);
+    } catch (error) {
+      showNotification('Error removing product from cart', 'error');
+    }
+  }, []);
 
   const updateCartTotal = useCallback(async (): Promise<void> => {
     try {
@@ -64,7 +61,6 @@ function BasketPage(): React.JSX.Element {
           setTotalCart(0);
           localStorage.removeItem('CT-Cart-CustomerID');
           showNotification('The cart is cleared', 'success');
-          
         })
         .catch((err) => {
           showNotification(err, 'error');
@@ -89,8 +85,9 @@ function BasketPage(): React.JSX.Element {
     cartContent = (
       <>
         {cart.lineItems.map((lineItem) => (
-          <BasketItemCard key = {lineItem.id}
-            lineItem = {lineItem}
+          <BasketItemCard
+            key={lineItem.id}
+            lineItem={lineItem}
             removeFromCart={removeFromCart}
             updateCartTotal={updateCartTotal}
           />

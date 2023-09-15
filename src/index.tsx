@@ -27,7 +27,9 @@ apiRoot
   .catch(() => {});
 
 getCart()
-  .then((dataCart) => store.dispatch(setCartCount(dataCart.totalLineItemQuantity)))
+  .then((dataCart) =>
+    store.dispatch(setCartCount(dataCart.totalLineItemQuantity))
+  )
   .catch(() => store.dispatch(setCartCount(0)));
 
 createRoot(root).render(
