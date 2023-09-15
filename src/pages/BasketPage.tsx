@@ -30,7 +30,7 @@ function BasketPage(): React.JSX.Element {
     }
 
     getBasketCart();
-  }, [cart]);
+  }, []);
 
   const removeFromCart = useCallback(
     async (itemId: string): Promise<void> => {
