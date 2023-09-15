@@ -2,6 +2,8 @@ import { Cart } from '@commercetools/platform-sdk';
 import getCart from './getCart';
 import createApiRoot from '../createApiRoot';
 import createCart from './createCart';
+import store from '../../reducers/store';
+import { setCartCount } from '../../reducers/cartCountReducer';
 
 async function updateQuantity(
   actionType: 'addLineItem' | 'removeLineItem' | 'changeLineItemQuantity',
@@ -39,6 +41,7 @@ async function updateQuantity(
     });
 
   const { body } = await updateExec.execute();
+  store.dispatch(setCartCount(body.totalLineItemQuantity));
   return body;
 }
 

@@ -64,6 +64,7 @@ function BasketPage(): React.JSX.Element {
           setTotalCart(0);
           localStorage.removeItem('CT-Cart-CustomerID');
           showNotification('The cart is cleared', 'success');
+          
         })
         .catch((err) => {
           showNotification(err, 'error');
