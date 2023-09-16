@@ -41,7 +41,11 @@ async function updateQuantity(
     });
 
   const { body } = await updateExec.execute();
-  store.dispatch(setCartCount(body.totalLineItemQuantity));
+  if (body.totalLineItemQuantity) {
+    store.dispatch(setCartCount(body.totalLineItemQuantity));
+  } else {
+    store.dispatch(setCartCount(0));
+  }
   return body;
 }
 
