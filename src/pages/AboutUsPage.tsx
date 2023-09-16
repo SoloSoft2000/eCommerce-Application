@@ -77,8 +77,8 @@ function AboutUsPage(): React.JSX.Element {
             </h3>
             <ul className="list-disc ms-3">
               <li>Task Board development</li>
-              <li> Jest Testing implementation</li>
-              <li> Detailed product page</li>
+              <li>Jest Testing implementation</li>
+              <li>Detailed product page</li>
               <li>Enhanced functionality for the Shopping cart</li>
             </ul>
           </div>
