@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import addDiscount from '../../utils/sdk/basket/addDiscount';
+import NotificationContext from '../../utils/notification/NotificationContext';
 
 interface PromoInputFormProps {
   onPromoApplied: () => void;
@@ -8,14 +9,19 @@ interface PromoInputFormProps {
 function PromoInputForm({
   onPromoApplied,
 }: PromoInputFormProps): React.JSX.Element {
+  const showNotification = useContext(NotificationContext);
   const [inputValue, setInputValue] = useState('');
+
   const applyDiscount = (): void => {
     addDiscount(inputValue)
       .then(() => {
         setInputValue('');
         onPromoApplied();
+        showNotification(`The promocode ${inputValue} applied`, 'success');
       })
-      .catch(console.error);
+      .catch(() => {
+        showNotification(`The promocode ${inputValue} is not found`, 'error');
+      });
   };
 
   return (
@@ -33,7 +39,7 @@ function PromoInputForm({
       <button
         onClick={applyDiscount}
         disabled={!inputValue}
-        className="w-1/6 max-md:w-2/6 text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer;"
+        className="w-1/6 max-xl:w-2/6 max-sm:m-1 text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer"
       >
         Apply promo
       </button>

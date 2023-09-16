@@ -118,7 +118,7 @@ function BasketPage(): React.JSX.Element {
         <div className="border min-h-[70%] w-1/2 max-lg:w-full max-lg:m-2">
           {cartContent}
         </div>
-        <div className="border h-[30%] w-1/2 ml-10 max-lg:w-full max-lg:ml-0 max-lg:mt-2 max-lg:m-2">
+        <div className="border h-[30%] w-1/2 ml-10 max-lg:w-full max-xl:ml-2 max-lg:mt-2 max-lg:mb-3">
           <h4 className="font-bold text-center text-xl mb-8 mt-3">
             Cart Totals
           </h4>
@@ -132,7 +132,7 @@ function BasketPage(): React.JSX.Element {
                 $ {totalPrice.toFixed(2)}
               </p>
             </div>
-            <div className="w-1/3 mr-[5%]">
+            <div className="w-1/3 mr-[5%] max-sm:ml-4">
               <ClearCartButton isCartEmpty={!cart} onClick={clearCart} />
             </div>
           </div>

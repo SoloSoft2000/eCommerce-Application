@@ -36,8 +36,8 @@ function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
         </Link>
         <Link className={NavStyles.link} to="/basket">
           <div className={NavStyles.icons}>
-            <SlBasket className="mr-1" /> Basket{' '}
-            <span className="bg-red-500 text-white py-1 px-3 rounded-full text-xs">
+            <SlBasket size={28} className="mr-1" />
+            <span className="absolute left-4 bottom-3 bg-amber-500 text-white py-1 px-2 rounded-full text-xs">
               {cartCount}
             </span>
           </div>
