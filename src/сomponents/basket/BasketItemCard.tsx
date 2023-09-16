@@ -32,6 +32,10 @@ function BasketItemCard({
     [lineItem.id, updateQuantity, updateCartTotal, showNotification]
   );
 
+  const promoPrice = getDiscountedPrice(lineItem);
+  const totalPromoPrice =
+    promoPrice !== undefined ? (promoPrice * lineItem.quantity).toFixed(2) : '';
+
   return (
     <div className="m-1 max-md:mt-8 border-b py-3 flex justify-betweeen">
       <div className="h-[130px] w-[130px] max-sm:w-16 max-sm:h-16">
@@ -48,7 +52,7 @@ function BasketItemCard({
               getDiscountedPrice(lineItem) !== undefined ? 'line-through' : ''
             }
           >
-            $ {getPrice(lineItem).toFixed(2)}
+            $ {(getPrice(lineItem) * lineItem.quantity).toFixed(2)}
           </span>
         </div>
         <div className="flex mb-2 max-md:mb-2">
@@ -59,7 +63,7 @@ function BasketItemCard({
                 : 'text-red-600'
             }
           >
-            $ {getDiscountedPrice(lineItem)?.toFixed(2)}
+            $ {totalPromoPrice}
           </span>
         </div>
       </div>
