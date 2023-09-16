@@ -19,15 +19,18 @@ function SwiperComponent({ images }: SwiperComponentProps): React.ReactElement {
     null
   );
 
-  const openModal = (index: number): void => {
-    setSelectedImageIndex(index);
-    setModalOpen(true);
-  };
+  const openModal = useCallback(
+    (index: number): void => {
+      setSelectedImageIndex(index);
+      setModalOpen(true);
+    },
+    [setSelectedImageIndex, setModalOpen]
+  );
 
-  const closeModal = (): void => {
+  const closeModal = useCallback((): void => {
     setSelectedImageIndex(null);
     setModalOpen(false);
-  };
+  }, [setSelectedImageIndex, setModalOpen]);
 
   const nextArrowClick = useCallback(() => {
     setNextArrowClicked(true);
