@@ -21,6 +21,7 @@ function BasketPage(): React.JSX.Element {
         const fetchedCart: Cart = await getCart();
         setCart(fetchedCart);
         setTotalCart(fetchedCart.totalPrice.centAmount / 100);
+        console.log(fetchedCart);
       } catch (error) {
         showNotification('The basket is empty', 'default');
       } finally {
