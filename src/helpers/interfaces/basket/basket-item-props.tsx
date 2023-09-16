@@ -1,11 +1,7 @@
-import { LocalizedString } from '@commercetools/platform-sdk';
+import { LineItem } from '@commercetools/platform-sdk';
 
 export interface BasketItemProps {
-  name: LocalizedString;
-  imageUrl: string;
-  price: number;
-  quantity: number;
-  removeFromCart: () => void;
-  lineItemId: string;
+  lineItem: LineItem;
+  removeFromCart: (itemId: string) => void;
   updateCartTotal: () => void;
 }

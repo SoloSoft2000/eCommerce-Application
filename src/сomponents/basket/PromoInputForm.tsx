@@ -1,22 +1,43 @@
-import React from 'react';
-import SubmitFormButton from '../forms/SubmitFormBtn';
+import React, { useState } from 'react';
+import addDiscount from '../../utils/sdk/basket/addDiscount';
 
-function PromoInputForm(): React.JSX.Element {
+interface PromoInputFormProps {
+  onPromoApplied: () => void;
+}
+
+function PromoInputForm({
+  onPromoApplied,
+}: PromoInputFormProps): React.JSX.Element {
+  const [inputValue, setInputValue] = useState('');
+  const applyDiscount = (): void => {
+    addDiscount(inputValue)
+      .then(() => {
+        setInputValue('');
+        onPromoApplied();
+      })
+      .catch(console.error);
+  };
+
   return (
-    <form className="ml-[5%] mb-8">
+    <div className="ml-[5%] mb-8">
       <label className="pr-1">
         <input
           className="border rounded p-1"
           placeholder="Promocode"
           type="text"
           name="name"
+          value={inputValue}
+          onChange={(e): void => setInputValue(e.target.value)}
         />
       </label>
-      <SubmitFormButton
-        value="Apply Promo"
-        classes="w-1/6 max-md:w-2/6 text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer;"
-      />
-    </form>
+      <button
+        onClick={applyDiscount}
+        disabled={!inputValue}
+        className="w-1/6 max-md:w-2/6 text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm hover:bg-slate-600 cursor-pointer;"
+      >
+        Apply promo
+      </button>
+    </div>
   );
 }
 

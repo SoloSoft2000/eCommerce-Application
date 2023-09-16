@@ -6,9 +6,11 @@ import './assets/styles/index.scss';
 import './assets/favicon.ico';
 import App from './App';
 import store from './utils/reducers/store';
-import { clearCustomer, setCustomer } from './utils/reducers/customerReducer';
+import { setCustomer } from './utils/reducers/customerReducer';
 import NotificationProvider from './utils/notification/NotificationProvider';
 import createApiRoot from './utils/sdk/createApiRoot';
+import getCart from './utils/sdk/basket/getCart';
+import { setCartCount } from './utils/reducers/cartCountReducer';
 
 const root = document.getElementById('root');
 
@@ -22,7 +24,13 @@ apiRoot
   .get()
   .execute()
   .then((res) => store.dispatch(setCustomer(res.body)))
-  .catch(() => store.dispatch(clearCustomer()));
+  .catch(() => {});
+
+getCart()
+  .then((dataCart) =>
+    store.dispatch(setCartCount(dataCart.totalLineItemQuantity))
+  )
+  .catch(() => store.dispatch(setCartCount(0)));
 
 createRoot(root).render(
   <Provider store={store}>

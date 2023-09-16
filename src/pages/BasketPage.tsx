@@ -7,7 +7,6 @@ import ToCatalogLink from '../сomponents/basket/ToCatalogLink';
 import ClearCartButton from '../сomponents/basket/ClearCartButton';
 import NotificationContext from '../utils/notification/NotificationContext';
 import deleteCart from '../utils/sdk/basket/deleteCart';
-import { getPrice } from '../helpers/functions/calculate-basket-prices';
 import updateQuantity from '../utils/sdk/basket/updateQuantity';
 
 function BasketPage(): React.JSX.Element {
@@ -23,39 +22,26 @@ function BasketPage(): React.JSX.Element {
         setCart(fetchedCart);
         setTotalCart(fetchedCart.totalPrice.centAmount / 100);
       } catch (error) {
-        showNotification('The basket is empty', 'error');
+        showNotification('The basket is empty', 'default');
       } finally {
         setIsLoading(false);
       }
     }
 
-    async function updateCartInfo(): Promise<void> {
-      try {
-        const updatedCart = await getCart();
-        setCart(updatedCart);
-        setTotalCart(updatedCart.totalPrice.centAmount / 100);
-      } catch (error) {
-        showNotification('Error updating cart information', 'error');
-      }
-    }
     getBasketCart();
-    updateCartInfo();
-  }, [setCart, showNotification]);
+  }, []);
 
-  const removeFromCart = useCallback(
-    async (itemId: string): Promise<void> => {
-      try {
-        await updateQuantity('changeLineItemQuantity', itemId, 0);
-        const updatedCart = await getCart();
-        setCart(updatedCart);
-        showNotification('Removed from cart', 'success');
-        setTotalCart(updatedCart.totalPrice.centAmount / 100);
-      } catch (error) {
-        showNotification('Error removing product from cart', 'error');
-      }
-    },
-    [updateQuantity, getCart, setCart, showNotification, setTotalCart]
-  );
+  const removeFromCart = useCallback(async (itemId: string): Promise<void> => {
+    try {
+      await updateQuantity('changeLineItemQuantity', itemId, 0);
+      const updatedCart = await getCart();
+      setCart(updatedCart);
+      showNotification('Removed from cart', 'success');
+      setTotalCart(updatedCart.totalPrice.centAmount / 100);
+    } catch (error) {
+      showNotification('Error removing product from cart', 'error');
+    }
+  }, []);
 
   const updateCartTotal = useCallback(async (): Promise<void> => {
     try {
@@ -65,7 +51,7 @@ function BasketPage(): React.JSX.Element {
     } catch (error) {
       showNotification('Error updating cart total', 'error');
     }
-  }, [getCart, setCart, setTotalCart, showNotification]);
+  }, []);
 
   const clearCart = useCallback((): void => {
     if (cart) {
@@ -80,7 +66,17 @@ function BasketPage(): React.JSX.Element {
           showNotification(err, 'error');
         });
     }
-  }, [cart, deleteCart, setCart, showNotification]);
+  }, [cart]);
+
+  const handlePromoApplied = useCallback(async (): Promise<void> => {
+    try {
+      const updatedCart = await getCart();
+      setCart(updatedCart);
+      setTotalCart(updatedCart.totalPrice.centAmount / 100);
+    } catch (error) {
+      showNotification('Error updating cart after applying promo', 'error');
+    }
+  }, []);
 
   let cartContent;
   if (isLoading) {
@@ -91,12 +87,8 @@ function BasketPage(): React.JSX.Element {
         {cart.lineItems.map((lineItem) => (
           <BasketItemCard
             key={lineItem.id}
-            name={lineItem.name}
-            imageUrl={lineItem.variant.images?.[0]?.url ?? ''}
-            price={getPrice(lineItem)}
-            quantity={lineItem.quantity}
-            removeFromCart={(): Promise<void> => removeFromCart(lineItem.id)}
-            lineItemId={lineItem.id}
+            lineItem={lineItem}
+            removeFromCart={removeFromCart}
             updateCartTotal={updateCartTotal}
           />
         ))}
@@ -127,7 +119,7 @@ function BasketPage(): React.JSX.Element {
           <h4 className="font-bold text-center text-xl mb-8 mt-3">
             Cart Totals
           </h4>
-          <PromoInputForm />
+          <PromoInputForm onPromoApplied={handlePromoApplied} />
           <div className="flex max-md:flex-col justify-center mb-5">
             <div className="flex w-full ml-[5%] mb-2">
               <p className="max-lg:text-sm text-xl text-slate-800 font-bold pr-1">

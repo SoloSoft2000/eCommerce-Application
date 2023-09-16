@@ -1,5 +1,7 @@
 import { Cart } from '@commercetools/platform-sdk';
 import createApiRoot from '../createApiRoot';
+import store from '../../reducers/store';
+import { setCartCount } from '../../reducers/cartCountReducer';
 
 async function deleteCart(cart: Cart): Promise<boolean> {
   const apiRoot = createApiRoot();
@@ -11,6 +13,7 @@ async function deleteCart(cart: Cart): Promise<boolean> {
     .execute()
     .then(() => {
       result = true;
+      store.dispatch(setCartCount(0));
     })
     .catch(() => {
       result = false;
