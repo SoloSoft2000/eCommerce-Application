@@ -3,7 +3,10 @@ import QuantitySpinner from './QuantitySpinner';
 import { BasketItemProps } from '../../helpers/interfaces/basket/basket-item-props';
 import updateQuantity from '../../utils/sdk/basket/updateQuantity';
 import NotificationContext from '../../utils/notification/NotificationContext';
-import { getPrice } from '../../helpers/functions/calculate-basket-prices';
+import {
+  getDiscountedPrice,
+  getPrice,
+} from '../../helpers/functions/calculate-basket-prices';
 
 function BasketItemCard({
   lineItem,
@@ -39,9 +42,25 @@ function BasketItemCard({
           {displayName}
         </h3>
         <div className="flex mb-2 max-md:mb-2 max-md:flex-col"></div>
-        {/* Don't forget about promo discount (use logic from Detailed Product Card) and currency formatter function */}
         <div className="flex mb-2 max-md:mb-2">
-          $ {getPrice(lineItem).toFixed(2)}
+          <span
+            className={
+              getDiscountedPrice(lineItem) !== undefined ? 'line-through' : ''
+            }
+          >
+            $ {getPrice(lineItem).toFixed(2)}
+          </span>
+        </div>
+        <div className="flex mb-2 max-md:mb-2">
+          <span
+            className={
+              getDiscountedPrice(lineItem) === undefined
+                ? 'hidden'
+                : 'text-red-600'
+            }
+          >
+            $ {getDiscountedPrice(lineItem)?.toFixed(2)}
+          </span>
         </div>
       </div>
       <div className="w-1/4">
