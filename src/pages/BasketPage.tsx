@@ -8,12 +8,14 @@ import ClearCartButton from '../сomponents/basket/ClearCartButton';
 import NotificationContext from '../utils/notification/NotificationContext';
 import deleteCart from '../utils/sdk/basket/deleteCart';
 import updateQuantity from '../utils/sdk/basket/updateQuantity';
+import getDiscountById from '../utils/sdk/basket/getDiscountById';
 
 function BasketPage(): React.JSX.Element {
   const [cart, setCart] = useState<Cart | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const showNotification = useContext(NotificationContext);
   const [totalPrice, setTotalCart] = useState<number>(0);
+  const [discountCodes, setDiscountCodes] = useState<string[]>([]);
 
   useEffect(() => {
     async function getBasketCart(): Promise<void> {
@@ -30,6 +32,26 @@ function BasketPage(): React.JSX.Element {
 
     getBasketCart();
   }, [setCart, setTotalCart, setIsLoading]);
+
+  useEffect(() => {
+    if (cart?.discountCodes) {
+      const promises = cart.discountCodes.map((discount) => 
+          getDiscountById(discount.discountCode.id)
+              .then((data) => data.code)
+      );
+
+      Promise.all(promises)
+        .then(codes => {
+          setDiscountCodes(codes);
+        })
+        .catch(() => {
+          showNotification('Failed to get discount codes:', 'error');
+          setDiscountCodes([]);
+      });
+    } else {
+      setDiscountCodes([]);
+    }
+  }, [cart]);
 
   const removeFromCart = useCallback(
     async (itemId: string): Promise<void> => {
@@ -123,6 +145,13 @@ function BasketPage(): React.JSX.Element {
             Cart Totals
           </h4>
           <PromoInputForm onPromoApplied={handlePromoApplied} />
+          <div>
+          <ul>
+            {discountCodes.map((code, index) => (
+              <li key={index}>{code}</li>
+            ))}
+          </ul>
+          </div>
           <div className="flex max-md:flex-col justify-center mb-5">
             <div className="flex w-full ml-[5%] mb-2">
               <p className="max-lg:text-sm text-xl text-slate-800 font-bold pr-1">
