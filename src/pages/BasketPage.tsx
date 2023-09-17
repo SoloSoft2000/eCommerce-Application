@@ -17,7 +17,9 @@ function BasketPage(): React.JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
   const showNotification = useContext(NotificationContext);
   const [totalPrice, setTotalCart] = useState<number>(0);
-  const [discountCodes, setDiscountCodes] = useState<{ id: string; code: string }[]>([]);
+  const [discountCodes, setDiscountCodes] = useState<
+    { id: string; code: string }[]
+  >([]);
 
   useEffect(() => {
     async function getBasketCart(): Promise<void> {
@@ -38,7 +40,10 @@ function BasketPage(): React.JSX.Element {
   useEffect(() => {
     if (cart?.discountCodes) {
       const promises = cart.discountCodes.map((discount) =>
-        getDiscountById(discount.discountCode.id).then((data) => ({ id: discount.discountCode.id, code: data.code }))
+        getDiscountById(discount.discountCode.id).then((data) => ({
+          id: discount.discountCode.id,
+          code: data.code,
+        }))
       );
 
       Promise.all(promises)
@@ -134,17 +139,20 @@ function BasketPage(): React.JSX.Element {
     );
   }
 
-  const cancelPromo = useCallback((discountId: string) => {
-    cancelDiscount(discountId)
-      .then((data) => {
-        setCart(data);
-        setTotalCart(data.totalPrice.centAmount / 100);
-        showNotification('Promocode canceled', 'success');
-      })
-      .catch(() => {
-        showNotification('Failed in promocode cancel', 'error');
-      })
-  }, [setCart, setTotalCart]);
+  const cancelPromo = useCallback(
+    (discountId: string) => {
+      cancelDiscount(discountId)
+        .then((data) => {
+          setCart(data);
+          setTotalCart(data.totalPrice.centAmount / 100);
+          showNotification('Promocode canceled', 'success');
+        })
+        .catch(() => {
+          showNotification('Failed in promocode cancel', 'error');
+        });
+    },
+    [setCart, setTotalCart]
+  );
 
   return (
     <main className="container mx-auto">
@@ -159,17 +167,21 @@ function BasketPage(): React.JSX.Element {
           </h4>
           <PromoInputForm onPromoApplied={handlePromoApplied} />
           {discountCodes.length > 0 && (
-          <div className="border ml-5 mr-5 mb-5 p-5 shadow-md">
-            <ul className="list-decimal pl-5 space-y-2">
-              {discountCodes.map((code, index) => (
-                <li key={index} className="flex items-center space-x-2">
-                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm">{code.code}</span>
-                  <TiDelete className="cursor-pointer hover:text-red-600" 
-                    onClick={(): void => cancelPromo(code.id)}/>
-                </li>
-              ))}
-            </ul>
-        </div>
+            <div className="border ml-5 mr-5 mb-5 p-5 shadow-md">
+              <ul className="list-decimal pl-5 space-y-2">
+                {discountCodes.map((code, index) => (
+                  <li key={index} className="flex items-center space-x-2">
+                    <span className="bg-gray-100 px-3 py-1 rounded-full text-sm">
+                      {code.code}
+                    </span>
+                    <TiDelete
+                      className="cursor-pointer hover:text-red-600"
+                      onClick={(): void => cancelPromo(code.id)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
           <div className="flex max-md:flex-col justify-center mb-5">
             <div className="flex w-full ml-[5%] mb-2">
