@@ -10,13 +10,14 @@ import NotificationContext from '../utils/notification/NotificationContext';
 import deleteCart from '../utils/sdk/basket/deleteCart';
 import updateQuantity from '../utils/sdk/basket/updateQuantity';
 import getDiscountById from '../utils/sdk/basket/getDiscountById';
+import cancelDiscount from '../utils/sdk/basket/cancelDiscount';
 
 function BasketPage(): React.JSX.Element {
   const [cart, setCart] = useState<Cart | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const showNotification = useContext(NotificationContext);
   const [totalPrice, setTotalCart] = useState<number>(0);
-  const [discountCodes, setDiscountCodes] = useState<string[]>([]);
+  const [discountCodes, setDiscountCodes] = useState<{ id: string; code: string }[]>([]);
 
   useEffect(() => {
     async function getBasketCart(): Promise<void> {
@@ -37,7 +38,7 @@ function BasketPage(): React.JSX.Element {
   useEffect(() => {
     if (cart?.discountCodes) {
       const promises = cart.discountCodes.map((discount) =>
-        getDiscountById(discount.discountCode.id).then((data) => data.code)
+        getDiscountById(discount.discountCode.id).then((data) => ({ id: discount.discountCode.id, code: data.code }))
       );
 
       Promise.all(promises)
@@ -133,6 +134,18 @@ function BasketPage(): React.JSX.Element {
     );
   }
 
+  const cancelPromo = useCallback((discountId: string) => {
+    cancelDiscount(discountId)
+      .then((data) => {
+        setCart(data);
+        setTotalCart(data.totalPrice.centAmount / 100);
+        showNotification('Promocode canceled', 'success');
+      })
+      .catch(() => {
+        showNotification('Failed in promocode cancel', 'error');
+      })
+  }, [setCart, setTotalCart]);
+
   return (
     <main className="container mx-auto">
       <h2 className="text-2xl font-bold pt-12 text-center">Shopping Cart</h2>
@@ -150,8 +163,9 @@ function BasketPage(): React.JSX.Element {
             <ul className="list-decimal pl-5 space-y-2">
               {discountCodes.map((code, index) => (
                 <li key={index} className="flex items-center space-x-2">
-                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm">{code}</span>
-                  <TiDelete className="cursor-pointer hover:text-red-600" />
+                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm">{code.code}</span>
+                  <TiDelete className="cursor-pointer hover:text-red-600" 
+                    onClick={(): void => cancelPromo(code.id)}/>
                 </li>
               ))}
             </ul>
