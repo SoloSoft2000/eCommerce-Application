@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { Cart } from '@commercetools/platform-sdk';
+import { TiDelete } from 'react-icons/ti';
 import getCart from '../utils/sdk/basket/getCart';
 import BasketItemCard from '../сomponents/basket/BasketItemCard';
 import PromoInputForm from '../сomponents/basket/PromoInputForm';
@@ -144,13 +145,18 @@ function BasketPage(): React.JSX.Element {
             Cart Totals
           </h4>
           <PromoInputForm onPromoApplied={handlePromoApplied} />
-          <div>
-            <ul>
+          {discountCodes.length > 0 && (
+          <div className="border ml-5 mr-5 mb-5 p-5 shadow-md">
+            <ul className="list-decimal pl-5 space-y-2">
               {discountCodes.map((code, index) => (
-                <li key={index}>{code}</li>
+                <li key={index} className="flex items-center space-x-2">
+                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm">{code}</span>
+                  <TiDelete className="cursor-pointer hover:text-red-600" />
+                </li>
               ))}
             </ul>
-          </div>
+        </div>
+          )}
           <div className="flex max-md:flex-col justify-center mb-5">
             <div className="flex w-full ml-[5%] mb-2">
               <p className="max-lg:text-sm text-xl text-slate-800 font-bold pr-1">
