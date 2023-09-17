@@ -65,7 +65,7 @@ function CatalogPage(): React.JSX.Element {
       }
     };
     fetchData();
-  }, [productArray, category, productLimit]);
+  }, [productArray, category, productLimit, totalProducts]);
 
   useEffect(() => {
     const followResizing = (): void => {
@@ -191,7 +191,7 @@ function CatalogPage(): React.JSX.Element {
             }
             endMessage={
               <p className="flex justify-center p-5 text-slate-600">
-                {catalog.length > 0 ? (
+                {totalProducts && catalog.length > 0 ? (
                   <span>You have seen all products in this category</span>
                 ) : (
                   <span>No products found</span>
