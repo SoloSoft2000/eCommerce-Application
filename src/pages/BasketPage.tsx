@@ -11,6 +11,7 @@ import deleteCart from '../utils/sdk/basket/deleteCart';
 import updateQuantity from '../utils/sdk/basket/updateQuantity';
 import getDiscountById from '../utils/sdk/basket/getDiscountById';
 import cancelDiscount from '../utils/sdk/basket/cancelDiscount';
+import { getPrice } from '../helpers/functions/calculate-basket-prices';
 
 function BasketPage(): React.JSX.Element {
   const [cart, setCart] = useState<Cart | null>(null);
@@ -159,6 +160,14 @@ function BasketPage(): React.JSX.Element {
     [setCart, setTotalCart]
   );
 
+  const totalCartWithoutPromo = cart?.lineItems.reduce((total, lineItem) => {
+    const itemPrice = getPrice(lineItem);
+    const itemQuantity = lineItem.quantity;
+    const itemTotalPrice =
+      itemPrice !== undefined ? itemPrice * itemQuantity : 0;
+    return total + itemTotalPrice;
+  }, 0);
+
   return (
     <main className="container mx-auto">
       <h2 className="text-2xl max-md:text-xl max-md:pt-6 font-bold pt-12 text-center">
@@ -195,12 +204,33 @@ function BasketPage(): React.JSX.Element {
           )}
           <div className="flex max-md:flex-col justify-center mb-5">
             <div className="flex w-full ml-[5%] mb-2">
-              <p className="max-lg:text-sm text-xl text-slate-800 font-bold pr-1">
-                Total:
-              </p>
-              <p className="max-lg:text-sm text-xl font-bold px-1 max-md:px-0">
-                $ {totalPrice.toFixed(2)}
-              </p>
+              {emptyCart ? (
+                <p className="max-lg:text-sm text-xl text-slate-800 font-bold pr-1">
+                  Total: $ 0.00
+                </p>
+              ) : (
+                <>
+                  <p className="max-lg:text-sm text-xl text-slate-800 font-bold pr-1">
+                    Total:
+                  </p>
+                  {totalPrice.toFixed(2) !==
+                    totalCartWithoutPromo?.toFixed(2) && (
+                    <p className="max-lg:text-sm text-xl font-bold px-1 max-md:px-0 line-through">
+                      $ {totalCartWithoutPromo?.toFixed(2)}
+                    </p>
+                  )}
+                  <p
+                    className={`max-lg:text-sm text-xl font-bold pr-1 ml-2 ${
+                      totalPrice.toFixed(2) !==
+                      totalCartWithoutPromo?.toFixed(2)
+                        ? 'text-red-600'
+                        : ''
+                    }`}
+                  >
+                    $ {totalPrice.toFixed(2)}
+                  </p>
+                </>
+              )}
             </div>
             <div className="w-1/3 mr-[5%] max-sm:ml-4">
               <ClearCartButton
