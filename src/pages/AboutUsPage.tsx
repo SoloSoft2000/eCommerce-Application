@@ -1,15 +1,86 @@
 import React from 'react';
 import { AiFillGithub } from 'react-icons/ai';
+import Logo from '../сomponents/Logo';
 import Olha from '../assets/images/team-photo/olha.jpg';
 import Eugene from '../assets/images/team-photo/eugene.jpg';
 import Yana from '../assets/images/team-photo/yana.jpg';
 
 function AboutUsPage(): React.JSX.Element {
   return (
-    <main className="container mx-auto">
-      <h3 className="text-xl font-bold pt-20 text-center">About Us</h3>
-      <div className="flex flex-wrap justify-around lg:flex-nowrap">
-        <div className="w-full lg:w-[28%] flex flex-col items-center gap-4">
+    <main className="container mx-auto py-10">
+      <div className="w-full flex justify-center items-center gap-4 mb-14 flex-wrap">
+        <h3 className="text-3xl font-bold">Meet Our Team</h3>
+        <Logo />
+      </div>
+      <div className="flex justify-between flex-wrap gap-4 mb-20">
+        <div className="w-full md:w-[48%] text-justify flex flex-col gap-4">
+          <p>
+            Greetings from our dedicated team at{' '}
+            <a
+              className="font-bold hover:text-slate-400"
+              href="https://rs.school/"
+            >
+              RS School
+            </a>
+            ! As aspiring professionals, we recently faced an exciting challenge
+            — our final project at{' '}
+            <a
+              className="font-bold hover:text-slate-400"
+              href="https://rs.school/"
+            >
+              RS School
+            </a>
+            . It was an opportunity to put our knowledge and skills to the test,
+            and collaboration was at the heart of our success.
+          </p>
+          <p>
+            Utilizing platforms like Discord, Telegram, Google Meet, GitHub, and
+            GitHub project board, we seamlessly merged our strengths and
+            expertise to collectively drive the project forward. Daily meetings
+            played a crucial role, serving as a platform for idea exchange,
+            progress updates, and effective task delegation.
+          </p>
+          <p>
+            Within our team, we nurtured a culture of support and unity. If a
+            team member encountered a hurdle, we organized extra meetings or
+            provided assistance through our collaborative chat. This sense of
+            camaraderie ensured that no one felt isolated with their challenges,
+            fostering an environment where everyone could thrive.
+          </p>
+        </div>
+        <div className="mb-10 w-full md:w-[48%] text-justify flex flex-col gap-4">
+          <p>
+            Our ultimate goal extended beyond project completion. We aimed to
+            ensure that each team member not only solved complex problems but
+            comprehended the solutions and could explain them to others. This
+            emphasis on understanding and knowledge sharing propelled our team
+            towards success.
+          </p>
+          <p>
+            The culmination of our collaborative efforts was the successful
+            completion of our final project at{' '}
+            <a
+              className="font-bold hover:text-slate-400"
+              href="https://rs.school/"
+            >
+              RS School
+            </a>
+            . It showcased the power of our teamwork, our ability to adapt, and
+            the foundation of collaboration that we've been cultivating
+            throughout our time here at{' '}
+            <a
+              className="font-bold hover:text-slate-400"
+              href="https://rs.school/"
+            >
+              RS School
+            </a>
+            .
+          </p>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap justify-around gap-y-12">
+        <div className="lg:w-[30%] flex flex-col items-center gap-4 max-w-[500px]">
           <div className="w-60 h-60 rounded-full overflow-hidden">
             <div
               className="w-full h-full bg-cover bg-center"
@@ -35,8 +106,8 @@ function AboutUsPage(): React.JSX.Element {
             <ul className="list-disc ms-3">
               <li>Project configuration</li>
               <li>SDK, and CommerceTools settings.</li>
-              <li>User Profile page and forms validation</li>
-              <li>Shopping cart integration</li>
+              <li>User Profile Page and Forms validation</li>
+              <li>Shopping Cart Integration</li>
             </ul>
           </div>
 
@@ -51,7 +122,7 @@ function AboutUsPage(): React.JSX.Element {
           </p>
         </div>
 
-        <div className="w-full lg:w-[28%] flex flex-col items-center gap-4">
+        <div className="lg:w-[30%] flex flex-col items-center gap-4 max-w-[500px]">
           <div className="w-60 h-60 rounded-full overflow-hidden">
             <div
               className="w-full h-full bg-cover bg-center"
@@ -78,8 +149,8 @@ function AboutUsPage(): React.JSX.Element {
             <ul className="list-disc ms-3">
               <li>Task Board development</li>
               <li>Jest Testing implementation</li>
-              <li>Detailed product page</li>
-              <li>Enhanced functionality for the Shopping cart</li>
+              <li>Detailed Product Page</li>
+              <li>Functionality and design of Basket Page</li>
             </ul>
           </div>
 
@@ -92,7 +163,7 @@ function AboutUsPage(): React.JSX.Element {
           </p>
         </div>
 
-        <div className="w-full lg:w-[28%] flex flex-col items-center gap-4">
+        <div className="lg:w-[30%] flex flex-col items-center gap-4 max-w-[500px]">
           <div className="w-60 h-60 rounded-full overflow-hidden">
             <div
               className="w-full h-full bg-cover bg-center"
@@ -118,8 +189,8 @@ function AboutUsPage(): React.JSX.Element {
             </h3>
             <ul className="list-disc ms-3">
               <li>Registration and Sing-in forms</li>
-              <li>Implemented catalog page</li>
-              <li>Product filtering functionality</li>
+              <li>Catalog Page</li>
+              <li>Product Filtering Functionality</li>
               <li>Infinity scroll for Catalog</li>
             </ul>
           </div>

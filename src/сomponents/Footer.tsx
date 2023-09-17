@@ -1,4 +1,5 @@
 import React from 'react';
+import Logo from './Logo';
 
 function Footer(): React.JSX.Element {
   return (
@@ -25,13 +26,7 @@ function Footer(): React.JSX.Element {
           </a>
         </div>
         <div>
-          <a href="https://rs.school">
-            <img
-              className="w-20"
-              src="https://rs.school/images/rs_school_js.svg"
-              alt="RSSchool logo"
-            />
-          </a>
+          <Logo />
         </div>
       </div>
     </footer>
