@@ -5,6 +5,7 @@ import Img2 from '../assets/images/img-02.png';
 import Img3 from '../assets/images/img-03.png';
 import Img4 from '../assets/images/img-04.png';
 import Promo1 from '../assets/images/promoFirst.jpg';
+import Promo2 from '../assets/images/promoForThreeProducts.png';
 
 function Main(): React.JSX.Element {
   return (
@@ -30,7 +31,7 @@ function Main(): React.JSX.Element {
           <img
             className="flex justify-center items-center mx-auto w-full md:w-[45%]
           rounded-2xl"
-            src={Promo1}
+            src={Promo2}
           ></img>
         </div>
       </section>
