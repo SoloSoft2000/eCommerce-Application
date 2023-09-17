@@ -170,7 +170,7 @@ function BasketPage(): React.JSX.Element {
           <h4 className="font-bold text-center text-xl mb-8 mt-3">
             Cart Totals
           </h4>
-          <PromoInputForm onPromoApplied={handlePromoApplied} />
+          <PromoInputForm onPromoApplied={handlePromoApplied} isCartEmpty={emptyCart} />
           {discountCodes.length > 0 && (
             <div className="border ml-5 mr-5 mb-5 p-5 shadow-md">
               <ul className="list-decimal pl-5 space-y-2">
