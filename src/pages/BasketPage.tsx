@@ -166,7 +166,8 @@ function BasketPage(): React.JSX.Element {
     return cart.lineItems.reduce((total, lineItem) => {
       const itemPrice = getPrice(lineItem);
       const itemQuantity = lineItem.quantity;
-      const itemTotalPrice = itemPrice !== undefined ? itemPrice * itemQuantity : 0;
+      const itemTotalPrice =
+        itemPrice !== undefined ? itemPrice * itemQuantity : 0;
       return total + itemTotalPrice;
     }, 0);
   }, [cart, getPrice]);
