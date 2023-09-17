@@ -116,7 +116,7 @@ function BasketPage(): React.JSX.Element {
 
   let cartContent;
   if (isLoading) {
-    cartContent = <p>Loading...</p>;
+    cartContent = <p className="m-3">Loading...</p>;
   } else if (cart && cart.lineItems.length > 0) {
     cartContent = (
       <>
@@ -150,7 +150,7 @@ function BasketPage(): React.JSX.Element {
         .then((data) => {
           setCart(data);
           setTotalCart(data.totalPrice.centAmount / 100);
-          showNotification('Promocode canceled', 'success');
+          showNotification('Promocode cancelled', 'success');
         })
         .catch(() => {
           showNotification('Failed in promocode cancel', 'error');
@@ -161,8 +161,10 @@ function BasketPage(): React.JSX.Element {
 
   return (
     <main className="container mx-auto">
-      <h2 className="text-2xl font-bold pt-12 text-center">Shopping Cart</h2>
-      <div className="flex mt-8 max-lg:flex-col">
+      <h2 className="text-2xl max-md:text-xl max-md:pt-6 font-bold pt-12 text-center">
+        Shopping Cart
+      </h2>
+      <div className="flex mt-8 max-md:mt-5 max-lg:flex-col">
         <div className="border min-h-[70%] w-1/2 max-lg:w-full max-lg:m-2">
           {cartContent}
         </div>
@@ -170,7 +172,10 @@ function BasketPage(): React.JSX.Element {
           <h4 className="font-bold text-center text-xl mb-8 mt-3">
             Cart Totals
           </h4>
-          <PromoInputForm onPromoApplied={handlePromoApplied} isCartEmpty={emptyCart} />
+          <PromoInputForm
+            onPromoApplied={handlePromoApplied}
+            isCartEmpty={emptyCart}
+          />
           {discountCodes.length > 0 && (
             <div className="border ml-5 mr-5 mb-5 p-5 shadow-md">
               <ul className="list-decimal pl-5 space-y-2">
@@ -198,9 +203,12 @@ function BasketPage(): React.JSX.Element {
               </p>
             </div>
             <div className="w-1/3 mr-[5%] max-sm:ml-4">
-              <ClearCartButton isCartEmpty={emptyCart} onClick={(): void => {
-                if (confirm('Are you sure?')) clearCart() // eslint-disable-line
-              }} />
+              <ClearCartButton
+                isCartEmpty={emptyCart}
+                onClick={(): void => {
+                  if (confirm('Are you sure?')) clearCart(); // eslint-disable-line
+                }}
+              />
             </div>
           </div>
           <div className="ml-[33.3%] max-sm:ml-[15%] mb-5">
