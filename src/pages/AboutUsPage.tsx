@@ -155,7 +155,7 @@ function AboutUsPage(): React.JSX.Element {
           </div>
 
           <p className="text-justify">
-            Olha graduated from an institute with a degree in one of the
+            Olga graduated from an institute with a degree in one of the
             humanities disciplines and worked for nearly 10 years in various IT
             companies, primarily in back-office roles. However, she eventually
             decided to transition into programming, specifically focusing on
