@@ -34,7 +34,7 @@ function BasketItemCard({
 
   const promoPrice = getDiscountedPrice(lineItem);
   const totalPromoPrice =
-    promoPrice !== undefined ? (promoPrice * lineItem.quantity).toFixed(2) : '';
+    promoPrice !== undefined ? (promoPrice ).toFixed(2) : '';
 
   return (
     <div className="m-1 max-md:mt-8 border-b py-3 flex justify-betweeen">
@@ -52,7 +52,7 @@ function BasketItemCard({
               getDiscountedPrice(lineItem) !== undefined ? 'line-through' : ''
             }
           >
-            $ {(getPrice(lineItem) * lineItem.quantity).toFixed(2)}
+            $ {(getPrice(lineItem) ).toFixed(2)}
           </span>
         </div>
         <div className="flex mb-2 max-md:mb-2">

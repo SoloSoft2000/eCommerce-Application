@@ -198,7 +198,9 @@ function BasketPage(): React.JSX.Element {
               </p>
             </div>
             <div className="w-1/3 mr-[5%] max-sm:ml-4">
-              <ClearCartButton isCartEmpty={emptyCart} onClick={clearCart} />
+              <ClearCartButton isCartEmpty={emptyCart} onClick={(): void => {
+                if (confirm('Are you sure?')) clearCart() // eslint-disable-line
+              }} />
             </div>
           </div>
           <div className="ml-[33.3%] max-sm:ml-[15%] mb-5">

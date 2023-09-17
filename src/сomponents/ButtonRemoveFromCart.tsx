@@ -22,7 +22,7 @@ function ButtonRemoveFromCart(props: BtnAddToCartProps): React.JSX.Element {
         showNotification('The product is not in the cart', 'error');
       }
 
-      await updateQuantity('removeLineItem', idInCart);
+      await updateQuantity('changeLineItemQuantity', idInCart, 0);
       showNotification('Removed from cart', 'success');
       if (resetIdInCart) {
         resetIdInCart();
