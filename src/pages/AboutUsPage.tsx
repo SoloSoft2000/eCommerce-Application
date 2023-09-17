@@ -1,7 +1,7 @@
 import React from 'react';
 import { AiFillGithub } from 'react-icons/ai';
 import Logo from '../сomponents/Logo';
-import Olha from '../assets/images/team-photo/olha.jpg';
+import Olga from '../assets/images/team-photo/olga.jpg';
 import Eugene from '../assets/images/team-photo/eugene.jpg';
 import Yana from '../assets/images/team-photo/yana.jpg';
 
@@ -126,12 +126,12 @@ function AboutUsPage(): React.JSX.Element {
           <div className="w-60 h-60 rounded-full overflow-hidden">
             <div
               className="w-full h-full bg-cover bg-center"
-              style={{ backgroundImage: `url(${Olha})` }}
+              style={{ backgroundImage: `url(${Olga})` }}
             ></div>
           </div>
           <div className="flex justify-between w-full items-center">
             <div>
-              <h2 className="font-bold text-2xl">Olga Buksman </h2>
+              <h2 className="font-bold text-2xl">Olga Buksman</h2>
               <p className="text-slate-400 text-base">Front-end developer</p>
             </div>
             <a
