@@ -15,6 +15,8 @@ function BasketPage(): React.JSX.Element {
   const showNotification = useContext(NotificationContext);
   const [totalPrice, setTotalCart] = useState<number>(0);
 
+  const emptyCart: boolean = !cart || cart.lineItems.length === 0;
+
   useEffect(() => {
     async function getBasketCart(): Promise<void> {
       try {
@@ -133,8 +135,20 @@ function BasketPage(): React.JSX.Element {
               </p>
             </div>
             <div className="w-1/3 mr-[5%] max-sm:ml-4">
-              <ClearCartButton isCartEmpty={!cart} onClick={clearCart} />
+              <ClearCartButton isCartEmpty={emptyCart} onClick={clearCart} />
             </div>
+          </div>
+          <div className="ml-[33.3%] max-sm:ml-[15%] mb-5">
+            <button
+              className={`w-1/2 max-sm:w-5/6 text-xs text-center rounded bg-black p-2 text-white uppercase drop-shadow-sm ${
+                emptyCart
+                  ? 'bg-gray-300 text-white cursor-not-allowed'
+                  : 'hover:bg-slate-600 cursor-pointer'
+              }`}
+              disabled={emptyCart}
+            >
+              Proceed To Checkout
+            </button>
           </div>
         </div>
       </div>
