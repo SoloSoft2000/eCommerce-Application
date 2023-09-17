@@ -35,19 +35,18 @@ function BasketPage(): React.JSX.Element {
 
   useEffect(() => {
     if (cart?.discountCodes) {
-      const promises = cart.discountCodes.map((discount) => 
-          getDiscountById(discount.discountCode.id)
-              .then((data) => data.code)
+      const promises = cart.discountCodes.map((discount) =>
+        getDiscountById(discount.discountCode.id).then((data) => data.code)
       );
 
       Promise.all(promises)
-        .then(codes => {
+        .then((codes) => {
           setDiscountCodes(codes);
         })
         .catch(() => {
           showNotification('Failed to get discount codes:', 'error');
           setDiscountCodes([]);
-      });
+        });
     } else {
       setDiscountCodes([]);
     }
@@ -146,11 +145,11 @@ function BasketPage(): React.JSX.Element {
           </h4>
           <PromoInputForm onPromoApplied={handlePromoApplied} />
           <div>
-          <ul>
-            {discountCodes.map((code, index) => (
-              <li key={index}>{code}</li>
-            ))}
-          </ul>
+            <ul>
+              {discountCodes.map((code, index) => (
+                <li key={index}>{code}</li>
+              ))}
+            </ul>
           </div>
           <div className="flex max-md:flex-col justify-center mb-5">
             <div className="flex w-full ml-[5%] mb-2">
