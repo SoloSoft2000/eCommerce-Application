@@ -160,13 +160,16 @@ function BasketPage(): React.JSX.Element {
     [setCart, setTotalCart]
   );
 
-  const totalCartWithoutPromo = cart?.lineItems.reduce((total, lineItem) => {
-    const itemPrice = getPrice(lineItem);
-    const itemQuantity = lineItem.quantity;
-    const itemTotalPrice =
-      itemPrice !== undefined ? itemPrice * itemQuantity : 0;
-    return total + itemTotalPrice;
-  }, 0);
+  const totalCartWithoutPromo = useCallback(() => {
+    if (!cart) return 0;
+
+    return cart.lineItems.reduce((total, lineItem) => {
+      const itemPrice = getPrice(lineItem);
+      const itemQuantity = lineItem.quantity;
+      const itemTotalPrice = itemPrice !== undefined ? itemPrice * itemQuantity : 0;
+      return total + itemTotalPrice;
+    }, 0);
+  }, [cart, getPrice]);
 
   return (
     <main className="container mx-auto">
@@ -214,15 +217,15 @@ function BasketPage(): React.JSX.Element {
                     Total:
                   </p>
                   {totalPrice.toFixed(2) !==
-                    totalCartWithoutPromo?.toFixed(2) && (
+                    totalCartWithoutPromo()?.toFixed(2) && (
                     <p className="max-lg:text-sm text-xl font-bold px-1 max-md:px-0 line-through">
-                      $ {totalCartWithoutPromo?.toFixed(2)}
+                      $ {totalCartWithoutPromo()?.toFixed(2)}
                     </p>
                   )}
                   <p
                     className={`max-lg:text-sm text-xl font-bold pr-1 ml-2 ${
                       totalPrice.toFixed(2) !==
-                      totalCartWithoutPromo?.toFixed(2)
+                      totalCartWithoutPromo()?.toFixed(2)
                         ? 'text-red-600'
                         : ''
                     }`}
