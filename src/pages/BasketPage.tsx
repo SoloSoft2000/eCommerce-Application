@@ -206,7 +206,7 @@ function BasketPage(): React.JSX.Element {
               <ClearCartButton
                 isCartEmpty={emptyCart}
                 onClick={(): void => {
-                  if (confirm('Are you sure?')) clearCart(); // eslint-disable-line
+                  if (confirm('Are you sure?')) clearCart();
                 }}
               />
             </div>

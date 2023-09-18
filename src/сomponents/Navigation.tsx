@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AiOutlineUser } from 'react-icons/ai';
 import { SlBasket } from 'react-icons/sl';
-import { RootState } from '../utils/reducers/store';
+import store, { RootState } from '../utils/reducers/store';
 import { clearCustomer } from '../utils/reducers/customerReducer';
 import { NavigationProps } from '../helpers/interfaces/layout/layout-props';
 import NavStyles from '../assets/styles/nav.module.scss';
 import NotificationContext from '../utils/notification/NotificationContext';
+import { setCartCount } from '../utils/reducers/cartCountReducer';
 
 function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
   const customer = useSelector((state: RootState) => state.customer);
@@ -18,6 +19,7 @@ function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
 
   const handleLogout = useCallback(() => {
     dispatch(clearCustomer());
+    store.dispatch(setCartCount(0));
     showNotification('Good Bye!', 'success');
   }, [dispatch]);
 
