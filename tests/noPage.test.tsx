@@ -3,10 +3,14 @@ import { render } from '@testing-library/react';
 import NoPage from '../src/pages/NoPage';
 
 jest.mock('react-router-dom', () => ({
-    Link: ({ to, children }: { to: string; children: React.ReactNode }) => (
-      <a href={to}>{children}</a>
-    ),
-  }));
+  Link: ({
+    to,
+    children,
+  }: {
+    to: string;
+    children: React.ReactNode;
+  }): JSX.Element => <a href={to}>{children}</a>,
+}));
 
   jest.mock('../assets/images/404-error.png', () => 'mocked-image-path');
 

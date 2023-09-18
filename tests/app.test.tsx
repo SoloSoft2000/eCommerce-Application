@@ -13,8 +13,8 @@ jest.mock('swiper/react', () => ({
 }));
 
 jest.mock('swiper/modules', () => ({
-  Navigation: (props: string) => null,
-  Pagination: (props: string) => null,
+  Navigation: (): null  => null,
+  Pagination: (): null  => null,
 }));
 
 jest.mock('swiper/css', () => 'swiper/css');

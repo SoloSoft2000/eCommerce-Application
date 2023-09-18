@@ -4,14 +4,14 @@ import { MemoryRouter } from 'react-router-dom';
 import ProductPage from '../src/pages/DetailedProductPage';
 
 jest.mock('swiper/react', () => ({
-    Swiper: ({ children }: { children: React.ReactNode }) => children,
-    SwiperSlide: ({ children }: { children: React.ReactNode }) => children,
-  }));
-  
+  Swiper: ({ children }: { children: React.ReactNode }): JSX.Element => children as JSX.Element,
+  SwiperSlide: ({ children }: { children: React.ReactNode }): JSX.Element => children as JSX.Element,
+}));
+
 jest.mock('swiper/modules', () => ({
-    Navigation: (props: string) => null,
-    Pagination: (props: string) => null,
-  }));
+  Navigation: (): null => null,
+  Pagination: (): null => null,
+}));
   
 jest.mock('swiper/css', () => jest.fn());
 jest.mock('swiper/css/navigation', () => jest.fn());
@@ -19,13 +19,13 @@ jest.mock('swiper/css/pagination', () => jest.fn());
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
-    useLocation: () => ({
+    useLocation: (): { pathname: string } => ({
       pathname: '/mocked-path',
     }),
   }));
  
 jest.mock('react-redux', () => ({
-    useDispatch: () => jest.fn(), 
+  useDispatch: (): jest.Mock => jest.fn(),
   }));
 
 describe('ProductPage', () => {
@@ -37,5 +37,3 @@ describe('ProductPage', () => {
       );
     });
   });
-
-  

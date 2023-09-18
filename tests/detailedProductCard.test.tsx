@@ -3,13 +3,13 @@ import { render, screen } from '@testing-library/react';
 import DetailedProductCard from '../src/сomponents/product/DetailedProductCard';
 
 jest.mock('swiper/react', () => ({
-  Swiper: ({ children }: { children: React.ReactNode }) => children,
-  SwiperSlide: ({ children }: { children: React.ReactNode }) => children,
+  Swiper: ({ children }: { children: React.ReactNode }): JSX.Element => children as JSX.Element,
+  SwiperSlide: ({ children }: { children: React.ReactNode }): JSX.Element => children as JSX.Element,
 }));
 
 jest.mock('swiper/modules', () => ({
-  Navigation: (props: string) => null,
-  Pagination: (props: string) => null,
+  Navigation: (): null => null,
+  Pagination: (): null => null,
 }));
 
 jest.mock('swiper/css', () => jest.fn());
