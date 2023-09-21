@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { type Customer } from '@commercetools/platform-sdk';
+import createApiRoot from '../sdk/createApiRoot';
 
 const initialState: Customer = {
   id: '',
@@ -18,12 +19,12 @@ const customerSlice = createSlice({
   reducers: {
     setCustomer: (state, action) => {
       const newState = action.payload;
-      localStorage.setItem('CT-Customer-SignIn', JSON.stringify(newState));
       return newState;
     },
     clearCustomer: () => {
-      localStorage.removeItem('CT-Customer-SignIn');
-      localStorage.removeItem('commercetools_token');
+      sessionStorage.removeItem('commercetools_token');
+      const clearApi = createApiRoot('anonymous');
+      clearApi.discountCodes().get().execute();
       return initialState;
     },
   },

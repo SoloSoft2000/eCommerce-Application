@@ -21,6 +21,7 @@ import { setCustomer } from '../../utils/reducers/customerReducer';
 import { RootState } from '../../utils/reducers/store';
 import RegistrationStyles from '../../assets/styles/login.module.scss';
 import FormStyles from '../../assets/styles/form.module.scss';
+import getCustomers from '../../utils/sdk/getCustomers';
 
 function RegisterPage(): React.JSX.Element {
   const navigate = useNavigate();
@@ -61,6 +62,12 @@ function RegisterPage(): React.JSX.Element {
         setLocalCustomerData(customerData);
         setError(null);
         setSuccsessRegistration(true);
+      })
+      .then(() => {
+        getCustomers(
+          userRegistrationData.email,
+          userRegistrationData.password as string
+        );
       })
       .catch((err) =>
         err.code === 400

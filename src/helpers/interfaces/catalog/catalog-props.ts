@@ -9,10 +9,20 @@ interface ProductCardProps {
   images?: string[] | undefined;
   productBrand?: string;
   productStyle?: string;
+  idInCart?: string;
+  setUpdateCart?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface ProductListProps {
   data: ProductCardProps[] | null;
 }
 
-export { ProductCardProps, ProductListProps };
+interface BtnAddToCartProps {
+  setUpdateFlag: React.Dispatch<React.SetStateAction<boolean>>;
+  id?: string;
+  idInCart?: string;
+  btnCatalogClasses?: boolean;
+  resetIdInCart?: () => void;
+}
+
+export { ProductCardProps, ProductListProps, BtnAddToCartProps };

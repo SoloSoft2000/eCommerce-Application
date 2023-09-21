@@ -7,7 +7,7 @@ export const scopes = [
   `manage_my_profile:${projectKey}`,
   `view_categories:${projectKey}`,
   `manage_my_shopping_lists:${projectKey}`,
-  `introspect_oauth_tokens:${projectKey}`,
+  // `introspect_oauth_tokens:${projectKey}`,
   `manage_customers:${projectKey}`,
   `view_quote_requests:${projectKey}`,
   `manage_my_payments:${projectKey}`,
@@ -22,7 +22,8 @@ export const scopes = [
   `view_discount_codes:${projectKey}`,
   `view_staged_quotes:${projectKey}`,
   `view_orders:${projectKey}`,
+  `manage_orders:${projectKey}`,
   `view_products:${projectKey}`,
 ];
-export const clientId = '4DJ1vUUEBcJzhc-2LUWIkqjl';
-export const clientSecret = 'FOGUBqzBML2N_5_9HR7QRpOBTlBBTloz';
+export const clientId = 'qEWK11mQ6d0t8g6t9AmqqgU1';
+export const clientSecret = 'AAVMrW0y9xFK3YsyHbmD4_HO0PRpWv5A';

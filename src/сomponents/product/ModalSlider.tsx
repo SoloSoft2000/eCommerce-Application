@@ -38,11 +38,14 @@ function ModalSlider({
     }, 200);
   }, []);
 
-  const clickOutsideModal = (event: React.MouseEvent): void => {
-    if (event.target === event.currentTarget) {
-      onClose();
-    }
-  };
+  const clickOutsideModal = useCallback(
+    (event: React.MouseEvent): void => {
+      if (event.target === event.currentTarget) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
   useEffect(() => {
     document.body.classList.add('block-scroll');

@@ -1,20 +1,26 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AiOutlineUser } from 'react-icons/ai';
 import { SlBasket } from 'react-icons/sl';
-import { RootState } from '../utils/reducers/store';
+import store, { RootState } from '../utils/reducers/store';
 import { clearCustomer } from '../utils/reducers/customerReducer';
 import { NavigationProps } from '../helpers/interfaces/layout/layout-props';
 import NavStyles from '../assets/styles/nav.module.scss';
+import NotificationContext from '../utils/notification/NotificationContext';
+import { setCartCount } from '../utils/reducers/cartCountReducer';
 
 function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
   const customer = useSelector((state: RootState) => state.customer);
+  const cartCount = useSelector((state: RootState) => state.cartCount);
 
   const dispatch = useDispatch();
+  const showNotification = useContext(NotificationContext);
 
   const handleLogout = useCallback(() => {
     dispatch(clearCustomer());
+    store.dispatch(setCartCount(0));
+    showNotification('Good Bye!', 'success');
   }, [dispatch]);
 
   const mainClasses = isOpen
@@ -32,7 +38,10 @@ function Navigation({ isOpen }: NavigationProps): React.JSX.Element {
         </Link>
         <Link className={NavStyles.link} to="/basket">
           <div className={NavStyles.icons}>
-            <SlBasket className="mr-1" /> Basket
+            <SlBasket size={28} className="mr-1" />
+            <span className="absolute left-4 bottom-3 bg-amber-500 text-white py-1 px-2 rounded-full text-xs">
+              {cartCount}
+            </span>
           </div>
         </Link>
       </>

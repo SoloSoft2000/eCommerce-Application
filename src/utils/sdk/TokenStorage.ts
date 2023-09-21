@@ -6,23 +6,24 @@ class TokenStorage implements TokenCache {
   private current: TokenStore | {} = {};
 
   get(): TokenStore {
-    const storedToken = localStorage.getItem(this.storageKey);
+    const storedToken = sessionStorage.getItem(this.storageKey);
     if (storedToken) {
       const parsed = JSON.parse(storedToken) as TokenStore;
       if ('expirationTime' in parsed && parsed.expirationTime >= Date.now()) {
         this.current = parsed;
       } else {
-        localStorage.removeItem(this.storageKey);
+        sessionStorage.removeItem(this.storageKey);
         this.current = {};
       }
       return <TokenStore>this.current;
     }
+    sessionStorage.setItem(this.storageKey, JSON.stringify({}));
     return {} as TokenStore;
   }
 
   set(cache: TokenStore): TokenStore {
     this.current = cache;
-    localStorage.setItem(this.storageKey, JSON.stringify(cache));
+    sessionStorage.setItem(this.storageKey, JSON.stringify(cache));
     return <TokenStore>this.current;
   }
 }

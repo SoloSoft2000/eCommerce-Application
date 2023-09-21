@@ -1,16 +1,19 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
 import createApiRoot from './createApiRoot';
 import getProducstCategories from './getProductsCategories';
+import { ProductCardProps } from '../../helpers/interfaces/catalog/catalog-props';
 
 const apiRoot = createApiRoot();
 
 type ProductList = {
+  catalog?: ProductCardProps[];
   category?: string;
   sort?: string[];
   priceRange: number[];
   text?: string;
   brand?: string[];
   style?: string[];
+  limitElements?: number;
 };
 
 async function getProducstByCategory(
@@ -68,13 +71,15 @@ async function getProducts({
   text,
   brand,
   style,
-}: ProductList): Promise<ProductProjection[]> {
+  limitElements,
+}: ProductList): Promise<{
+  results: ProductProjection[];
+  total: number | undefined;
+}> {
   const filters: string[] = [];
 
   const queryArgs: Record<string, string | number | string[] | boolean> = {
-    limit: 20,
-    fuzzy: true,
-    fuzzyLevel: 0,
+    limit: limitElements || 2,
   };
 
   if (category && category !== 'All products') {
@@ -97,8 +102,7 @@ async function getProducts({
   if (style && style.length > 0) {
     generateFilter('attribute-style', style, filters);
   }
-
-  if (sort && sort.length > 0) queryArgs.sort = sort;
+  queryArgs.sort = sort && sort.length > 0 ? sort : ['variants.sku asc.min'];
 
   if (text) queryArgs['text.en-US'] = `"${text}"`;
 
@@ -107,9 +111,12 @@ async function getProducts({
   const productQuery = apiRoot.productProjections().search().get({
     queryArgs,
   });
-
   const response = await productQuery.execute();
-  return response.body.results;
+
+  return {
+    results: response.body.results,
+    total: response.body.total,
+  };
 }
 
 export default getProducts;
