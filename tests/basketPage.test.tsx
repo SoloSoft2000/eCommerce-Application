@@ -8,7 +8,7 @@ jest.mock('../assets/images/img-03.png', () => 'fake-image-path');
 describe('BasketPage component', () => {
   test('renders heading text', () => {
     const { getByText } = render(<BasketPage />);
-    const heading = getByText('Total:');
+    const heading = getByText('Cart Totals');
     expect(heading).toBeInTheDocument();
   });
 
